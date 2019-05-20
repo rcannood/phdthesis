@@ -1,0 +1,226 @@
+\documentclass[11pt,a4paper]{book}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%%% IMPORT PACKAGES %%%
+%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% adjust margins (should be done before importing fancyhdr!)
+\usepackage[margin=2.5cm,a4paper]{geometry} %lmargin=2.5cm,rmargin=4cm,tmargin=3cm,bmargin=3cm
+
+% text packages
+\usepackage[british]{babel}
+\usepackage{setspace}
+
+% scripting packages
+\usepackage{ifthen}
+\usepackage{blindtext}
+\usepackage{todonotes}
+
+% style packages
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{fancyhdr}
+\usepackage[]{microtype} % Sublim­i­nal re­fine­ments to­wards ty­po­graph­i­cal per­fec­tion
+
+% used for defining abbreviations, see nomenclature.tex
+\usepackage{nomencl}
+
+% figure packages
+\usepackage{tikz,pgfplots}
+\usetikzlibrary{calc,shapes,arrows,intersections,shadows}
+\tikzset{>=latex}
+\usepackage{graphicx}
+\usepackage[indention=0.5cm,labelsep=colon,font={sf,small},labelfont={bf,sf}]{caption}
+\usepackage[indention=0.5cm,font={sf,small},labelfont={bf,sf}]{subcaption}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{import}
+\graphicspath{{fig/}}
+\usepackage{xcolor}
+
+% pseudocode packages
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+% symbols packages
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+% table packages
+\usepackage{tabularx}
+\usepackage{tabulary}
+
+% references packages
+\usepackage[sorting=none]{biblatex}
+\bibliography{library}
+
+% link packages
+\usepackage{url}
+\usepackage{doi}
+
+%%%%%%%%%%%%%%%%%%%%%
+%%% DEFINE HEADER %%%
+%%%%%%%%%%%%%%%%%%%%%
+\usepackage{fancyhdr}  
+\pagestyle{fancy} 
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\fancypagestyle{frontmatter}{%    
+	\fancyhf{} 	
+	\fancyfoot[RO,LE]{\textsf{Page \thepage}} 
+	\fancypagestyle{plain}{
+		\renewcommand{\headrulewidth}{0pt}
+		\fancyhead{}
+		\fancyfoot[RO,LE]{\textsf{Page \thepage}}
+	} 
+}
+\fancypagestyle{mainmatter}{%    
+	\fancyhf{} 	
+	\fancyhead[RO,LE]{\nouppercase{\small \textsf{\leftmark}}}
+	\fancyfoot[RO,LE]{\textsf{Page \thepage}} 
+}
+\setlength{\headheight}{15pt}
+
+
+\newcounter{letternum}
+\newcounter{lettersum}
+\setcounter{lettersum}{13}
+\newlength{\thumbtopmargin}
+\setlength{\thumbtopmargin}{1cm}
+\newlength{\thumbbottommargin}
+\setlength{\thumbbottommargin}{3cm}
+\newlength{\thumbheight}
+\pgfmathsetlength{\thumbheight}{%
+	(\paperheight-\thumbtopmargin-\thumbbottommargin)/\value{lettersum}}
+
+\newlength{\thumbwidth}
+\setlength{\thumbwidth}{1.5cm}
+
+\tikzset{
+	thumb/.style={
+		%   draw=black,
+		fill=light-gray,
+		text=black,
+		minimum height=\thumbheight, %\thumbheight,
+		text width=\thumbwidth,
+		outer sep=0pt,%   outer sep=10pt,
+		font=\sffamily\Huge,
+	}
+}
+\newcommand{\oddthumb}[1]{%
+	\begin{tikzpicture}[remember picture, overlay]
+	\node [thumb,text centered,anchor=north east,] at ($%
+	(current page.north east)-%
+	(0,\thumbtopmargin+\value{letternum}*\thumbheight)%
+	$) {#1};
+	\end{tikzpicture}
+}
+\newcommand{\eventhumb}[1]{%
+	\begin{tikzpicture}[remember picture, overlay]
+	\node [thumb,text centered,anchor=north west,] at ($%
+	(current page.north west)-%
+	(0,\thumbtopmargin+\value{letternum}*\thumbheight)%
+	$) {#1};
+	\end{tikzpicture}
+}
+% create a new command to set a new lettergroup
+\newcommand{\lettergroup}[1]{%
+	\fancyhead[LO]{\oddthumb{#1}}%
+	\fancyhead[RE]{\eventhumb{#1}}%
+	\fancypagestyle{chapterstart}{%
+		\renewcommand{\headrulewidth}{0pt}
+		\renewcommand{\footrulewidth}{0pt}
+		\fancyhf{}
+		\chead{\oddthumb{#1}}% chapters start only on odd pages
+		\fancyfoot[RO,LE]{\textsf{Page \thepage}} %\fancyfoot[RO,LE]{\textsf{Page \thepage}}
+	}
+	\thispagestyle{chapterstart}
+	\stepcounter{letternum}%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%
+%%% DEFINE STYLES %%%
+%%%%%%%%%%%%%%%%%%%%%
+
+% use Sonny chapter style
+\usepackage[Sonny]{fncychap} %Sonny
+
+\definecolor{light-gray}{gray}{0.90} %not always visible on a dell screen!!!
+
+% hyperlinks
+% load hyperref after fncychap
+\usepackage{hyperref}
+\hypersetup{%
+	pdftitle = {A title},
+	pdfsubject = {A subject},
+	pdfkeywords = {import keywords},
+	pdfauthor = {Me of course},
+	pdfcreator = {\LaTeX},
+}
+
+% Set style variables
+\setlength{\parindent}{0cm} 
+\renewcommand{\contentsname}{Table of Contents}
+\renewcommand{\listfigurename}{List of Figures}
+\renewcommand{\listtablename}{List of Tables}
+\renewcommand{\appendixname}{}
+
+\begin{document}
+
+%\onehalfspace
+
+% thesis obligatory content: 
+% * an abstract in Dutch
+% * a list of abbreviations
+% * one uniform (compiling) reference list
+% * a resume or Curriculum Vitae of the candidate
+% * an introductory chapter and additional linking texts between chapters (papers) if the dissertation consists of a compilation of papers
+% * acknowledgements of financing institutions
+% * apply for an ISBN number for your thesis. This takes 1-2 days.
+
+
+% geen paginanummering tot we aan de inhoudsopgave komen
+\pagenumbering{alph}
+
+\frontmatter
+\pagestyle{empty}
+
+\include{ch0_frontmatter}
+
+% tabel van afkortingen en symbolen
+
+
+% hoofdstukken
+\mainmatter
+\pagestyle{mainmatter}
+
+\include{ch1_singlecellbiology}
+
+\include{ch2_dynbenchmark}
+
+\include{ch3_scorpius}
+
+\include{ch4_dyno}
+
+\include{ch5_incgraph}
+
+\include{ch6_brood}
+
+\include{ch7_discussion}
+
+% appendices
+
+\appendix
+
+\printbibliography
+
+\backmatter
+
+% eventueel: lijst van figuren en tabellen
+%\listoffigures
+%\listoftables
+
+% lege pagina (!!)
+
+\end{document}
