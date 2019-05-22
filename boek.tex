@@ -9,7 +9,8 @@
 \usepackage[margin=2.5cm,a4paper]{geometry} %lmargin=2.5cm,rmargin=4cm,tmargin=3cm,bmargin=3cm
 
 % text packages
-\usepackage[british]{babel}
+\usepackage{csquotes}
+\usepackage{babel}
 \usepackage{setspace}
 
 % scripting packages
@@ -195,7 +196,7 @@
 \mainmatter
 \pagestyle{mainmatter}
 
-\include{ch1_singlecellbiology}
+\include{ch1_introduction}
 
 \include{ch2_dynbenchmark}
 
@@ -203,24 +204,15 @@
 
 \include{ch4_dyno}
 
-\include{ch5_incgraph}
+\include{ch5_brood}
 
-\include{ch6_brood}
+\include{ch6_incgraph}
 
 \include{ch7_discussion}
 
-% appendices
+\include{chX_backmatter}
 
-\appendix
 
-\printbibliography
 
-\backmatter
-
-% eventueel: lijst van figuren en tabellen
-%\listoffigures
-%\listoftables
-
-% lege pagina (!!)
 
 \end{document}
