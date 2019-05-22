@@ -4,14 +4,17 @@
 %%% IMPORT PACKAGES %%%
 %%%%%%%%%%%%%%%%%%%%%%%
 
+% Use Unicode characters when possible
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 
 % adjust margins (should be done before importing fancyhdr!)
 \usepackage[margin=2.5cm,a4paper]{geometry} %lmargin=2.5cm,rmargin=4cm,tmargin=3cm,bmargin=3cm
 
 % text packages
 \usepackage{csquotes}
-\usepackage{babel}
-\usepackage{setspace}
+\usepackage[english]{babel}
+\usepackage{setspace}	
 
 % scripting packages
 \usepackage{ifthen}
@@ -19,7 +22,6 @@
 \usepackage{todonotes}
 
 % style packages
-\usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{fancyhdr}
 \usepackage[]{microtype} % Sublim­i­nal re­fine­ments to­wards ty­po­graph­i­cal per­fec­tion
@@ -28,7 +30,7 @@
 \usepackage{nomencl}
 
 % figure packages
-\usepackage{tikz,pgfplots}
+\usepackage{tikz}
 \usetikzlibrary{calc,shapes,arrows,intersections,shadows}
 \tikzset{>=latex}
 \usepackage{graphicx}
@@ -37,7 +39,6 @@
 \usepackage{float}
 \usepackage{multirow}
 \usepackage{import}
-\graphicspath{{fig/}}
 \usepackage{xcolor}
 
 % pseudocode packages
@@ -139,6 +140,61 @@
 	\stepcounter{letternum}%
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% DEFINE FIGURE HELPERS %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\hugefigure}{\textwidth}
+\newcommand{\LARGEfigure}{0.8\textwidth} % 1 per col
+\newcommand{\LARgefigure}{0.6\textwidth} % 1 per col
+\newcommand{\Largefigure}{0.5\textwidth} % 1 per col
+\newcommand{\largefigure}{0.37\textwidth} % 2 per col
+\newcommand{\normalfigure}{0.3\textwidth} % 3 per col
+\newcommand{\smallfigure}{0.24\textwidth} % 3 per col
+\newcommand{\Smallfigure}{0.19\textwidth} % 4 per col
+\newcommand{\SMALLfigure}{0.15\textwidth} % 5 per col
+
+
+
+\makeatletter
+\newcommand*{\centerfloat}{%
+	\parindent \z@
+	\leftskip \z@ \@plus 1fil \@minus \textwidth
+	\rightskip\leftskip
+	\parfillskip \z@skip}
+\makeatother
+
+\newcommand{\picfig}[4]{
+\begin{figure}[ht!]
+	\centering \centerfloat
+	\includegraphics[width=#2]{#1}
+	\caption{#4}
+	\label{#3}
+\end{figure}}
+
+%\newcommand{\picsubf}[2]{
+%	\begin{subfigure}[b]{#2}
+%		\fbox{\includegraphics[width=\linewidth]{#1}}
+%\end{subfigure}}
+%
+%\newcommand{\picsubfc}[4]{
+%	\begin{subfigure}[b]{#4}
+%		\fbox{\includegraphics[width=\linewidth]{#1}}
+%		\caption{#2}
+%		\label{#3}
+%\end{subfigure}}
+%
+%\newcommand{\picsub}[2]{
+%	\begin{subfigure}[b]{#2}
+%		\includegraphics[width=\linewidth]{#1}
+%\end{subfigure}}
+%
+%\newcommand{\picsubc}[4]{
+%	\begin{subfigure}[b]{#4}
+%		\includegraphics[width=\linewidth]{#1}
+%		\caption{#2}
+%		\label{#3}
+%\end{subfigure}}
 
 %%%%%%%%%%%%%%%%%%%%%
 %%% DEFINE STYLES %%%
@@ -149,16 +205,9 @@
 
 \definecolor{light-gray}{gray}{0.90} %not always visible on a dell screen!!!
 
-% hyperlinks
+%% hyperlinks
 % load hyperref after fncychap
 \usepackage{hyperref}
-\hypersetup{%
-	pdftitle = {A title},
-	pdfsubject = {A subject},
-	pdfkeywords = {import keywords},
-	pdfauthor = {Me of course},
-	pdfcreator = {\LaTeX},
-}
 
 % Set style variables
 \setlength{\parindent}{0cm} 
@@ -168,8 +217,6 @@
 \renewcommand{\appendixname}{}
 
 \begin{document}
-
-%\onehalfspace
 
 % thesis obligatory content: 
 % * an abstract in Dutch
@@ -181,7 +228,6 @@
 % * apply for an ISBN number for your thesis. This takes 1-2 days.
 
 
-% geen paginanummering tot we aan de inhoudsopgave komen
 \pagenumbering{alph}
 
 \frontmatter
@@ -189,10 +235,7 @@
 
 \include{ch0_frontmatter}
 
-% tabel van afkortingen en symbolen
-
-
-% hoofdstukken
+% chapters
 \mainmatter
 \pagestyle{mainmatter}
 
@@ -211,8 +254,5 @@
 \include{ch7_discussion}
 
 \include{chX_backmatter}
-
-
-
 
 \end{document}
