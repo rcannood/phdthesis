@@ -329,7 +329,7 @@ For baseline performance, we added several ‘off-the-shelf’ TI methods that c
 
 \begin{itemize}
 	
-	\item \textbf{Component 1}: This method returns the first component of a principal component analysis (PCA) dimensionality reduction as a linear trajectory. This method is especially relevant as it has been used in a few studies already \cite{kouno_temporaldynamicstranscriptional_2013,zeng_pseudotemporalorderingsingle_2017}.
+	\item \textbf{Component 1}: This method returns the first component of a principal component analysis (PCA) dimensionality reduction as a linear trajectory. This method is especially relevant as it has been used in a few studies already \cite{Kouno2013-km,zeng_pseudotemporalorderingsingle_2017}.
 	
 	\item \textbf{Angle}: Similar to the previous method, this method computes the angle with respect to the origin in a two-dimensional PCA and uses this angle as a pseudotime for generating a cyclical trajectory.
 	
@@ -365,13 +365,13 @@ For every simulator, we took great care to make the datasets as realistic as pos
 
 \subsubsection{dyngen}
 
-The dyngen (\href{https://github.com/dynverse/dyngen}{https://github.com/dynverse/dyngen}) workflow to generate synthetic data is based on the well established workflow used in the evaluation of network inference methods \cite{schaffter_genenetweaversilicobenchmark_2011,marbach_wisdom_2012} and consists of four main steps: network generation, simulation, gold standard extraction and simulation of the scRNA-seq experiment. At every step, we tried to mirror real regulatory networks, while keeping the model simple and easily extendable. We simulated a total of 110 datasets, with 11 different topologies.
+The dyngen (\href{https://github.com/dynverse/dyngen}{https://github.com/dynverse/dyngen}) workflow to generate synthetic data is based on the well established workflow used in the evaluation of network inference methods \cite{schaffter2011,marbach_wisdom_2012} and consists of four main steps: network generation, simulation, gold standard extraction and simulation of the scRNA-seq experiment. At every step, we tried to mirror real regulatory networks, while keeping the model simple and easily extendable. We simulated a total of 110 datasets, with 11 different topologies.
 
 \hfill\break
 \textit{Network generation}
 \hfill\break
 
-One of the main processes involved in cellular dynamic processes is gene regulation, where regulatory cascades and feedback loops lead to progressive changes in expression and decision making. The exact way a cell chooses a certain path during its differentiation is still an active research field, although certain models have already emerged and been tested in vivo. One driver of bifurcation seems to be mutual antagonism, where genes \cite{xu_regulationbifurcatingcell_2015} strongly repress each other, forcing one of the two to become inactive \cite{graf_forcingcellschange_2009}. Such mutual antagonism can be modelled and simulated \cite{wang_quantifyingwaddingtonlandscape_2011,ferrell_bistabilitybifurcationswaddington_2012}. Although such a two-gene model is simple and elegant, the reality is frequently more complex, with multiple genes (grouped into modules) repressing each other \cite{yosef_dynamicregulatorynetwork_2013}.
+One of the main processes involved in cellular dynamic processes is gene regulation, where regulatory cascades and feedback loops lead to progressive changes in expression and decision making. The exact way a cell chooses a certain path during its differentiation is still an active research field, although certain models have already emerged and been tested in vivo. One driver of bifurcation seems to be mutual antagonism, where genes \cite{Xu2015-kn} strongly repress each other, forcing one of the two to become inactive \cite{graf_forcingcellschange_2009}. Such mutual antagonism can be modelled and simulated \cite{wang_quantifyingwaddingtonlandscape_2011,ferrell_bistabilitybifurcationswaddington_2012}. Although such a two-gene model is simple and elegant, the reality is frequently more complex, with multiple genes (grouped into modules) repressing each other \cite{Yosef2013-mj}.
 
 To simulate certain trajectory topologies, we therefore designed module networks in which the cells follow a particular trajectory topology given certain parameters. Two module networks generated linear trajectories (linear and linear long), one generated a bifurcation, one generated a convergence, one generated a multifurcation (trifurcating), two generated a tree (consecutive bifurcating and binary tree), one generated an acyclic graph (bifurcating and converging), one generated a complex fork (trifurcating), one generated a rooted tree (consecutive bifurcating) and two generated simple graph structures (bifurcating loop and bifurcating cycle). The structure of these module networks is available at \href{https://github.com/dynverse/dyngen/tree/master/inst/ext\_data/modulenetworks}{https://github.com/dynverse/dyngen/tree/master/inst/ext\_data/modulenetworks}.
 
@@ -514,7 +514,7 @@ We used a standard single-cell RNA-seq preprocessing pipeline that applies parts
 
 \subsection{Benchmark metrics}
 
-The importance of using multiple metrics to compare complex models has been stated repeatedly \cite{norel_selfassessmenttrap_2011}. Furthermore, a trajectory is a model with multiple layers of complexity, which calls for several metrics each assessing a different layer. We therefore defined several possible metrics for comparing trajectories, each investigating different layers. These are all discussed in Supplementary Note 1 along with examples and robustness analyses when appropriate.
+The importance of using multiple metrics to compare complex models has been stated repeatedly \cite{Norel2011}. Furthermore, a trajectory is a model with multiple layers of complexity, which calls for several metrics each assessing a different layer. We therefore defined several possible metrics for comparing trajectories, each investigating different layers. These are all discussed in Supplementary Note 1 along with examples and robustness analyses when appropriate.
 
 Next, we created a set of rules to which we think a good trajectory metric should conform, and tested this empirically for each metric by comparing scores before and after perturbing a dataset (Supplementary Note 1). Based on this analysis, we chose four metrics for the evaluation, each assessing a different aspect of the trajectory: (1) the HIM measures the topological similarity; (2) the F1branches compares the branch assignment; (3) the cordist assesses the similarity in pairwise cell–cell distances and thus the cellular positions; and (4) the wcorfeatures looks at whether similar important features (genes) are found in both the reference dataset and the prediction.
 
@@ -954,11 +954,3 @@ $$\textit{Overall} = \textit{mean}_{\textit{geometric}} = \sqrt[4]{\textit{cor}_
 \end{figure}
 
 We do however want to stress that different use cases will require a different overall score to order the methods. Such a context-dependent ranking of all methods is provided through the dynguidelines app (\href{http://guidelines.dynverse.org}{http://guidelines.dynverse.org}).
-
-\clearpage
-
-
-\clearpage
-\section{References}
-\printbibliography[heading=none]
-
