@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper]{book}
+\documentclass[11pt,a4paper,hidelinks]{book}
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %%% IMPORT PACKAGES %%%
@@ -40,6 +40,7 @@
 \usepackage{multirow}
 \usepackage{import}
 \usepackage{xcolor}
+\usepackage{colortbl}
 
 % pseudocode packages
 \usepackage{algorithm}
@@ -52,6 +53,7 @@
 % table packages
 \usepackage{tabularx}
 \usepackage{tabulary}
+\usepackage{booktabs}
 
 % references packages
 \usepackage[sorting=none]{biblatex}
@@ -60,6 +62,11 @@
 % link packages
 \usepackage{url}
 \usepackage{doi}
+
+% add checkmark commands
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
 
 %%%%%%%%%%%%%%%%%%%%%
 %%% DEFINE HEADER %%%
@@ -241,15 +248,25 @@
 
 \include{ch1_introduction}
 
+% GNG
+% landmark mds
+% princurve
+% GillespieSSA
+% dyngen
+
 \include{ch2_dynbenchmark}
 
 \include{ch3_scorpius}
+
+% include gng
 
 \include{ch4_dyno}
 
 \include{ch5_brood}
 
 \include{ch6_incgraph}
+
+
 
 \include{ch7_discussion}
 

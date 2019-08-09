@@ -1,6 +1,6 @@
 \newpage{\thispagestyle{empty}\cleardoublepage}
-\chapter{Optimising regulatory networks} 
-\chaptermark{Optimising regulatory networks.} % short title
+\chapter{incgraph: Optimising regulatory networks} 
+\chaptermark{incgraph: Optimising regulatory networks.} % short title
 \label{chap:incgraph}
 
 \begin{quote}
@@ -68,7 +68,8 @@ The differences in graphlet counts $\Delta_{G, G'}$ are calculated by iterating 
 
 
 %% FIGURE 2
-\picfig{fig/incgraph/figure2.pdf}{\LARGEfigure}{fig_efficient}{{\bf Several strategies are employed in order to reduce time and memory consumption.}(A) Only the depth 3 neighbourhood of each modified edge needs to be explored in order to have visited all modified five-node graphlets. (B) A lookup table can be used to easily look up the graphlet index of a subgraph, by weighing each edge in a 5-node subgraph by a power of~2. (C) The same combination of five nodes is never repeated, as to avoid counting the same graphlet multiple times. (D) The adjacency matrix of the network is compressed in order to reduce memory usage.}
+\picfig{fig/incgraph/figure2.pdf}{\LARGEfigure}{fig_efficient}{{\bf Several strategies are employed in order to reduce time and memory consumption.}
+(A) Only the depth 3 neighbourhood of each modified edge needs to be explored in order to have visited all modified five-node graphlets. (B) A lookup table can be used to easily look up the graphlet index of a subgraph, by weighing each edge in a 5-node subgraph by a power of~2. (C) The same combination of five nodes is never repeated, as to avoid counting the same graphlet multiple times. (D) The adjacency matrix of the network is compressed in order to reduce memory usage.}
 
 
 IncGraph supports counting graphlets and orbits of subgraphs up to five nodes in undirected networks. By modifying the lookup table, the method can be easily extended to directed graphlets or larger-node graphlets, or limited to only a selection of graphlets. This allows for variations of the typical graphlets to be studied in an incremental setting.
