@@ -49,15 +49,12 @@ To make the outputs from different methods directly comparable to each other, we
 
 \begin{figure}
 	\centering\includegraphics[width=\linewidth]{fig/dynbenchmark/figure_2.pdf}
-	Figure caption on next page $\rightarrow$
+	\caption{
+		\textbf{A characterization of the 45 methods evaluated in this study and their overall evaluation results.}
+		\textbf{a}, We characterized the methods according to the wrapper type, their required priors, whether the inferred topology is constrained by the algorithm (fixed) or a parameter (param), and the types of inferable topologies. The methods are grouped vertically based on the most complex trajectory type they can infer. \textbf{b}, The overall results of the evaluation on four criteria: accuracy using a reference trajectory on real and synthetic data, scalability with increasing number of cells and features, stability across dataset subsamples and quality of the implementation. Methods that errored on more than 50$\%$ of the datasets are not included in this figure and are shown instead in Supplementary Fig. 2.
+	}
+	\label{fig:figure_2}
 \end{figure}
-
-\clearpage % insert a page break
-\captionof{figure}{
-	\textbf{A characterization of the 45 methods evaluated in this study and their overall evaluation results.}
-	\textbf{a}, We characterized the methods according to the wrapper type, their required priors, whether the inferred topology is constrained by the algorithm (fixed) or a parameter (param), and the types of inferable topologies. The methods are grouped vertically based on the most complex trajectory type they can infer. \textbf{b}, The overall results of the evaluation on four criteria: accuracy using a reference trajectory on real and synthetic data, scalability with increasing number of cells and features, stability across dataset subsamples and quality of the implementation. Methods that errored on more than 50\% of the datasets are not included in this figure and are shown instead in Supplementary Fig. 2.
-}
-\label{fig:figure_2}
 
 The largest difference between TI methods is whether a method fixes the topology and, if it does not, what kind of topology it can detect. We defined seven possible types of topology, ranging from very basic topologies (linear, cyclical and bifurcating) to the more complex ones (connected and disconnected graphs). Most methods either focus on inferring linear trajectories or limit the search to tree or less complex topologies, with only a selected few attempting to infer cyclic or disconnected topologies (Figure \ref{fig:figure_2}a).
 
@@ -65,14 +62,12 @@ We evaluated each method on four core aspects: (1) accuracy of a prediction, giv
 
 \begin{figure}
 	\centering\includegraphics[width=\linewidth]{fig/dynbenchmark/figure_3.pdf}
-	Figure caption on next page $\rightarrow$
+	\caption{	
+		\textbf{Detailed results of the four main evaluation criteria: accuracy, scalability, stability and usability.}
+		\textbf{a,} The names of the methods, ordered as in Figure \ref{fig:figure_2}. \textbf{b}, Accuracy of trajectory inference methods across metrics, dataset sources and dataset trajectory types. The performance of a method is generally more stable across dataset sources, but very variable depending on the metric and trajectory type. \textbf{c}, Predicted execution times for varying numbers of cells and features (no. of cells $\times$ no. of features). Predictions were made by training a regression model after running each method on bootstrapped datasets with varying numbers of cells and features. k, thousands; m, millions; cor, correlation. \textbf{d}, Stability results by calculating the average pairwise similarity between models inferred across multiple runs of the same method. \textbf{e}, Usability scores of the tool and corresponding manuscript, grouped per category. Off-the-shelf methods were directly implemented in R and thus do not have a usability score. 
+	}
+	\label{fig:figure_3}
 \end{figure}
-\clearpage % insert a page break
-\captionof{figure}{	
-	\textbf{Detailed results of the four main evaluation criteria: accuracy, scalability, stability and usability.}
-	\textbf{a,} The names of the methods, ordered as in Figure \ref{fig:figure_2}. \textbf{b}, Accuracy of trajectory inference methods across metrics, dataset sources and dataset trajectory types. The performance of a method is generally more stable across dataset sources, but very variable depending on the metric and trajectory type. \textbf{c}, Predicted execution times for varying numbers of cells and features (no. of cells $\times$ no. of features). Predictions were made by training a regression model after running each method on bootstrapped datasets with varying numbers of cells and features. k, thousands; m, millions; cor, correlation. \textbf{d}, Stability results by calculating the average pairwise similarity between models inferred across multiple runs of the same method. \textbf{e}, Usability scores of the tool and corresponding manuscript, grouped per category. Off-the-shelf methods were directly implemented in R and thus do not have a usability score. 
-}
-\label{fig:figure_3}
 
 \subsection{Accuracy}
 
@@ -82,25 +77,24 @@ We found that method performance was very variable across datasets, indicating t
 
 \begin{figure}
 	\centering\includegraphics[width=\linewidth]{fig/dynbenchmark/supfigure_3.pdf}
-	Figure caption on next page $\rightarrow$
+	\caption{
+		\textbf{Accuracy of trajectory inference methods.}
+		\textbf{a} Overall score for all methods across 339 datasets, colored by the source of the datasets. Black line indicates the mean. \textbf{b} Similarity between the overall scores of all dataset sources, compared to real datasets with a gold standard, across all methods (n = 46, after filtering out methods that errored too frequently). Shown in the top left is the Pearson correlation. \textbf{c} Bias in the overall score towards trajectory types for all methods across 339 datasets. Black line indicates the mean. \textbf{d} Distributions of the difference in size between predicted and reference topologies. A positive difference means that the topology predicted by the method is more complex than the one in the reference.
+	}
+	\label{fig:supfigure_3}
 \end{figure}
 
-\clearpage % insert a page break
-\captionof{figure}{
-	\textbf{Accuracy of trajectory inference methods.}
-	\textbf{a} Overall score for all methods across 339 datasets, colored by the source of the datasets. Black line indicates the mean. \textbf{b} Similarity between the overall scores of all dataset sources, compared to real datasets with a gold standard, across all methods (n = 46, after filtering out methods that errored too frequently). Shown in the top left is the Pearson correlation. \textbf{c} Bias in the overall score towards trajectory types for all methods across 339 datasets. Black line indicates the mean. \textbf{d} Distributions of the difference in size between predicted and reference topologies. A positive difference means that the topology predicted by the method is more complex than the one in the reference.
-}
-\label{fig:supfigure_3}
+
 
 The performance of a method was strongly dependent on the type of trajectory present in the data (Figure \ref{fig:figure_3}b). Slingshot typically performed better on datasets containing more simple topologies, while PAGA, pCreode and RaceID/StemID had higher scores on datasets with trees or more complex trajectories (Figure \ref{fig:supfigure_3}c). This was reflected in the types of topologies detected by every method, as those predicted by Slingshot tended to contain less branches, whereas those detected by PAGA, pCreode and Monocle DDRTree gravitated towards more complex topologies (Figure \ref{fig:supfigure_3}d). This analysis therefore indicates that detecting the right topology is still a difficult task for most of these methods, because methods tend to be either too optimistic or too pessimistic regarding the complexity of the topology in the data.
 
-The high variability between datasets, together with the diversity in detected topologies between methods, could indicate some complementarity between the different methods. To test this, we calculated the likelihood of obtaining a top model when using only a subset of all methods. A top model in this case was defined as a model with an overall score of at least 95\% as the best model. On all datasets, using one method resulted in getting a top model about 27\% of the time. This increased up to 74\% with the addition of six other methods (Figure \ref{fig:figure_4}a). The result was a relatively diverse set of methods, containing both strictly linear or cyclic methods, and methods with a broad trajectory type range such as PAGA. We found similar indications of complementarity between the top methods on data containing only linear, bifurcation or multifurcating trajectories (Figure \ref{fig:figure_4}b), although in these cases less methods were necessary to obtain at least one top model for a given dataset. Altogether, this shows that there is considerable complementarity between the different methods and that users should try out a diverse set of methods on their data, especially when the topology is unclear a priori. Moreover, it also opens up the possibilities for new ensemble methods that utilize this complementarity.
+The high variability between datasets, together with the diversity in detected topologies between methods, could indicate some complementarity between the different methods. To test this, we calculated the likelihood of obtaining a top model when using only a subset of all methods. A top model in this case was defined as a model with an overall score of at least 95$\%$ as the best model. On all datasets, using one method resulted in getting a top model about 27$\%$ of the time. This increased up to 74$\%$ with the addition of six other methods (Figure \ref{fig:figure_4}a). The result was a relatively diverse set of methods, containing both strictly linear or cyclic methods, and methods with a broad trajectory type range such as PAGA. We found similar indications of complementarity between the top methods on data containing only linear, bifurcation or multifurcating trajectories (Figure \ref{fig:figure_4}b), although in these cases less methods were necessary to obtain at least one top model for a given dataset. Altogether, this shows that there is considerable complementarity between the different methods and that users should try out a diverse set of methods on their data, especially when the topology is unclear a priori. Moreover, it also opens up the possibilities for new ensemble methods that utilize this complementarity.
 
 \begin{figure}
 	\centering\includegraphics[width=\linewidth]{fig/dynbenchmark/figure_4.pdf}
 	\caption{
 		\textbf{Complementarity between different trajectory inference methods.}
-		\textbf{a}, We assessed the likelihood for different combinations of methods to lead to a ‘top model’ (defined as a model with an overall score of at least 95\% of the best model) when applied to all datasets. \textbf{b}, The likelihood for different combinations of methods to lead to a ‘top model’ was assessed separately on different trajectory types. For this figure, we did not include any methods requiring a cell grouping or a time course as prior information.
+		\textbf{a}, We assessed the likelihood for different combinations of methods to lead to a ‘top model’ (defined as a model with an overall score of at least 95$\%$ of the best model) when applied to all datasets. \textbf{b}, The likelihood for different combinations of methods to lead to a ‘top model’ was assessed separately on different trajectory types. For this figure, we did not include any methods requiring a cell grouping or a time course as prior information.
 	}
 	\label{fig:figure_4}
 \end{figure}
@@ -128,7 +122,7 @@ Altogether, the scalability analysis indicated that the dimensions of the data a
 
 \subsection{Stability}
 
-It is not only important that a method is able to infer an accurate model in a reasonable time frame, but also that it produces a similar model when given very similar input data. To test the stability of each method, we executed each method on ten different subsamples of the datasets (95\% of the cells, 95\% of the features), and calculated the average similarity between each pair of models using the same scores used to assess the accuracy of a trajectory (Figure \ref{fig:figure_3}d).
+It is not only important that a method is able to infer an accurate model in a reasonable time frame, but also that it produces a similar model when given very similar input data. To test the stability of each method, we executed each method on ten different subsamples of the datasets (95$\%$ of the cells, 95$\%$ of the features), and calculated the average similarity between each pair of models using the same scores used to assess the accuracy of a trajectory (Figure \ref{fig:figure_3}d).
 
 Given that the trajectories of methods that fix the topology either algorithmically or through a parameter are already very constrained, it is to be expected that such methods tend to generate very stable results. Nonetheless, some fixed topology methods still produced slightly more stable results, such as SCORPIUS and MATCHER for linear methods and MFA for multifurcating methods. Stability was much more diverse among methods with a free topology. Slingshot produced more stable models than PAGA (Tree), which in turn produced more stable results than pCreode and Monocle DDRTree.
 
@@ -145,7 +139,7 @@ We found that most methods fulfilled the basic criteria, such as the availabilit
 	
 	\centering\begingroup\fontsize{7}{9}\selectfont
 	
-	\begin{tabular}{p{2.5cm}p{7.5cm}p{3cm}}
+	\begin{tabular}{p{3.5cm}p{9cm}p{2.5cm}}
 		\toprule
 		Aspect & Items & References \\ \midrule
 		
@@ -261,7 +255,8 @@ Critical to the broad applicability of TI methods is the standardization of the 
 
 Our study indicates that the field of trajectory inference is maturing, primarily for linear and bifurcating trajectories (Figure \ref{fig:figure_6}a,b). However, we also highlight several ongoing challenges, which should be addressed before TI can be a reliable tool for analyzing single-cell omics datasets with complex trajectories. Foremost, new methods should focus on improving the unbiased inference of tree, cyclic graph and disconnected topologies, as we found that methods repeatedly overestimate or underestimate the complexity of the underlying topology, even if the trajectory could easily be identified using a dimensionality reduction method (Figure \ref{fig:figure_6}c,d). Furthermore, higher standards for code assurance and documentation could help in adopting these tools across the single-cell omics field. Finally, new tools should be designed to scale well with the increasing number of cells and features. We found that only a handful of current methods can handle datasets with more than 10,000 cells within a reasonable time frame. To support the development of these new tools, we provide a series of vignettes on how to wrap and evaluate a method on the different measures proposed in this study at \href{https://benchmark.dynverse.org}{https://benchmark.dynverse.org}.
 
-We found that the performance of a method can be very variable between datasets, and therefore included a large set of both real and synthetic data within our evaluation, leading to a robust overall ranking of the different methods. However, ‘good-yet-not-the-best’ methods \cite{norel_selfassessmenttrap_2011} can still provide a very valuable contribution to the field, especially if they make use of novel algorithms, return a more scalable solution or provide a unique insight in specific use cases. This is also supported by our analysis of method complementarity. Some examples for the latter include PhenoPath, which can include additional covariates in its model, ouija, which returns a measure of uncertainty of each cell’s position within the trajectory, and StemID, which can infer the directionality of edges within the trajectory.
+We found that the performance of a method can be very variable between datasets, and therefore included a large set of both real and synthetic data within our evaluation, leading to a robust overall ranking of the different methods. However, ‘good-yet-not-the-best’ methods \cite{Norel2011} can still provide a very valuable contribution to the field, especially if they make use of novel algorithms, return a more scalable solution or provide a unique insight in specific use cases. This is also supported by our analysis of method complementarity. Some examples for the latter include PhenoPath, which can include additional covariates in its model, ouija, which returns a measure of uncertainty of each cell’s position within the trajectory, and StemID, which can infer the directionality of edges within the trajectory.
+
 
 \section{Methods}
 
@@ -270,6 +265,7 @@ We found that the performance of a method can be very variable between datasets,
 We gathered a list of 71 trajectory inference tools (Supplementary Table 1) by searching the literature for ‘trajectory inference’ and ‘pseudotemporal ordering’, and based on two existing lists found online: \href{https://github.com/seandavi/awesome-single-cell}{https://github.com/seandavi/awesome-single-cell} \cite{davis_awesomesinglecelllistsoftware_2018} and \href{https://github.com/agitter/single-cell-pseudotime}{https://github.com/agitter/single-cell-pseudotime} \cite{gitter_singlecellpseudotimeoverviewalgorithms_2018}. We welcome any contributions by creating an issue at https://methods.dynverse.org.
 
 Methods were excluded from the evaluation based on several criteria: (1) not freely available; (2) no code available; (3) superseded by another method; (4) requires data types other than expression; (5) no programming interface; (6) unresolved errors during wrapping; (7) too slow (requires more than 1 h on a 100 $\times$ 100 dataset); (8) does not return an ordering; and (9) requires additional user input during the algorithm (other than prior information). The discussions on why these methods were excluded can be found at \href{https://github.com/dynverse/dynmethods/issues?q=label:unwrappable}{https://github.com/dynverse/dynmethods/issues?q=label:unwrappable}. In the end, we included 45 methods in the evaluation.
+
 
 \subsection{Method wrappers}
 
@@ -280,6 +276,7 @@ We used the Github issues system to contact the authors of each method, and aske
 \subsubsection{Method input}
 
 As input, we provided each method with either the raw count data (after cell and gene filtering) or normalized expression values, based on the description in the method documentation or from the study describing the method. A large portion of the methods requires some form of prior information (for example, a start cell) to be executable. Other methods optionally allow the exploitation of certain prior information. Prior information can be supplied as a starting cell from which the trajectory will originate, a set of important marker genes or even a grouping of cells into cell states. Providing prior information to a TI method can be both a blessing and a curse. In one way, prior information can help the method to find the correct trajectory among many, equally likely, alternatives. On the other hand, incorrect or noisy prior information can bias the trajectory towards current knowledge. Moreover, prior information is not always easily available, and its subjectivity can therefore lead to multiple equally plausible solutions, restricting the applicability of such TI methods to well-studied systems.
+
 
 The prior information was extracted from the reference trajectory as follows:
 
@@ -293,11 +290,15 @@ The prior information was extracted from the reference trajectory as follows:
 	\item \textbf{Continuous time course}: for each cell a time point from which it was sampled. For real data, this was equal to the discrete time course. For synthetic data, we used the internal simulation time of each simulator.
 \end{itemize}
 
+
+
 \subsubsection{Common trajectory model}
 
 Due to the absence of a common format for trajectory models, most methods return a unique set of output formats with few overlaps. We therefore post-processed the output of each method into a common probabilistic trajectory model (Figure \ref{fig:supfigure_1}a). This model consisted of three parts. (1) The milestone network represents the overall network topology, and contains edges between different milestones and the length of the edge between them. (2) The milestone percentages contain, for each cell, its position between milestones and sums for each cell to one. (3) The regions of delayed commitment define connections between three or more milestones. These must be explicitly defined in the trajectory model and per region one milestone must be directly connected to all other milestones of the region.
 
 Depending on the output of a method, we used different strategies to convert the output to our model (Figure \ref{fig:supfigure_1}b). Special conversions are denoted by an asterisk and will be explained in more detail in the second list below.
+
+
 
 \begin{itemize}
 	\item \textbf{Type 1, direct}: CALISTA*, DPT*, ElPiGraph, ElPiGraph cycle, ElPiGraph linear, MERLoT, PAGA, SLICE*, Slingshot, URD* and Wishbone. The wrapped method directly returned a network of milestones, the regions of delayed commitment and for each cell it is given to what extent it belongs to a milestone. In some cases, this indicates that additional transformations were required for the method, not covered by any of the following output formats. Some methods returned a branch network instead of a milestone network and this network was converted by calculating the line graph of the branch network.
@@ -309,17 +310,21 @@ Depending on the output of a method, we used different strategies to convert the
 	\item\textbf{ Type 7, cell graph}: CellRouter, CellTrails, cellTree Gibbs, cellTree maptpx, cellTree VEM, Monocle DDRTree, Monocle ICA, Sincell* and SLICER. The method returned a network of cells and which cell–cell transitions were part of the ‘backbone’ structure. Backbone cells with degree $\neq$ 2 were regarded as milestones and all other cells were placed on transitions between the milestones. If a method did not return a distance between pairs of cells, the cells were uniformly positioned between the two milestones. Otherwise, we first calculated the distance between two milestones as the sum of the distances between the cells and then divided the distance of each pair of cells with the total distance to get the milestone percentages.
 \end{itemize}
 
+
 Special conversions were necessary for certain methods:
+
 
 \begin{itemize}
 	\item \textbf{CALISTA}: We assigned the cells to the branch at which the sum of the cluster probabilities of two connected milestones was the highest. The cluster probabilities of the two selected milestones were then used as milestone percentages. This was then processed as a type 1, direct, method.
 	\item \textbf{DPT}: We projected the cells onto the cluster network, consisting of a central milestone (this cluster contained the cells that were assigned to the ‘unknown’ branch) and three terminal milestones, each corresponding to a tip point. This was then processed as a type 1, direct, method.
-	\item \textbf{Sincell}: To constrain the number of milestones this method creates, we merged two cell clusters iteratively until the percentage of leaf nodes was below a certain cutoff, with the default cutoff set to 25\%. This was then processed as a type 7, cell graph, method.
+	\item \textbf{Sincell}: To constrain the number of milestones this method creates, we merged two cell clusters iteratively until the percentage of leaf nodes was below a certain cutoff, with the default cutoff set to 25$\%$. This was then processed as a type 7, cell graph, method.
 	\item \textbf{SLICE}: As discussed in the vignette of SLICE (\href{https://research.cchmc.org/pbge/slice.html}{https://research.cchmc.org/pbge/slice.html}), we ran principal curves one by one for every edge detected by SLICE. This was then processed as a type 1, direct, method.
 	\item \textbf{MFA}: We used the branch assignment as state probabilities, which together with the global pseudotime were processed as a type 4, end state probabilities, method.
 	\item \textbf{URD}: We extracted the pseudotime of a cell within each branch using the y positions in the tree layout. This was then further processed as a type 1, direct, method.
 	
 \end{itemize}
+
+
 
 More information on how each method was wrapped can be found within the comments of each wrapper script, listed at \href{https://methods.dynverse.org}{https://methods.dynverse.org}.
 
@@ -343,6 +348,7 @@ We classified all possible trajectory topologies into distinct trajectory types,
 
 For simplicity, we merged the bifurcation and convergence trajectory type, and the acyclic graph and connected graph trajectory type in the main figures of the paper.
 
+
 \subsection{Real datasets}
 
 We gathered real datasets by searching for ‘single-cell’ at the Gene Expression Omnibus and selecting those datasets in which the cells are sampled from different stages in a dynamic process (Supplementary Table 2). The scripts to download and process these datasets are available on our repository (\href{https://benchmark.dynverse.org/tree/master/scripts/01-datasets}{https://benchmark.dynverse.org/tree/master/scripts/01-datasets}). Whenever possible, we preferred to start from the raw counts data. These raw counts were all normalized and filtered using a common pipeline, as discussed later. Some original datasets contained more than one trajectory, in which case we split the dataset into its separate connected trajectory, but also generated several combinations of connected trajectories to include some datasets with disconnected trajectories in the evaluation. In the end, we included 110 datasets for this evaluation.
@@ -358,10 +364,10 @@ To generate synthetic datasets, we used four different synthetic data simulators
 	\item \textbf{dyntoy}: random gradients of expression in the reduced space, available at \href{https://github.com/dynverse/dyntoy}{https://github.com/dynverse/dyntoy}
 	\item \textbf{PROSSTT}: expression is sampled from a linear model that depends on pseudotime \cite{papadopoulosPROSSTTProbabilisticSimulation2018}
 	\item \textbf{Splatter}: simulations of non-linear paths between different expression states \cite{zappia_splattersimulationsinglecell_2017}
-	
 \end{itemize}
 
-For every simulator, we took great care to make the datasets as realistic as possible. To do this, we extracted several parameters from all real datasets. We calculated the number of differentially expressed features within a trajectory using a two-way Mann–Whitney U test between every pair of cell groups. These values were corrected for multiple testing using the Benjamini-Hochberg procedure (FDR < 0.05) and we required that a gene was expressed in at least 5\% of cells, and had at least a fold-change of 2. We also calculated several other parameters, such as drop-out rates and library sizes using the Splatter package \cite{zappia_splattersimulationsinglecell_2017}. These parameters were then given to the simulators when applicable, as described for each simulator below. Not every real dataset was selected to serve as a reference for a synthetic dataset. Instead, we chose a set of ten distinct reference real datasets by clustering all the parameters of each real dataset, and used the reference real datasets at the cluster centers from a pam clustering (with $k = 10$, implemented in the R cluster package) to generate synthetic data.
+
+For every simulator, we took great care to make the datasets as realistic as possible. To do this, we extracted several parameters from all real datasets. We calculated the number of differentially expressed features within a trajectory using a two-way Mann–Whitney U test between every pair of cell groups. These values were corrected for multiple testing using the Benjamini-Hochberg procedure (FDR < 0.05) and we required that a gene was expressed in at least 5$\%$ of cells, and had at least a fold-change of 2. We also calculated several other parameters, such as drop-out rates and library sizes using the Splatter package \cite{zappia_splattersimulationsinglecell_2017}. These parameters were then given to the simulators when applicable, as described for each simulator below. Not every real dataset was selected to serve as a reference for a synthetic dataset. Instead, we chose a set of ten distinct reference real datasets by clustering all the parameters of each real dataset, and used the reference real datasets at the cluster centers from a pam clustering (with $k = 10$, implemented in the R cluster package) to generate synthetic data.
 
 \subsubsection{dyngen}
 
@@ -375,13 +381,15 @@ One of the main processes involved in cellular dynamic processes is gene regulat
 
 To simulate certain trajectory topologies, we therefore designed module networks in which the cells follow a particular trajectory topology given certain parameters. Two module networks generated linear trajectories (linear and linear long), one generated a bifurcation, one generated a convergence, one generated a multifurcation (trifurcating), two generated a tree (consecutive bifurcating and binary tree), one generated an acyclic graph (bifurcating and converging), one generated a complex fork (trifurcating), one generated a rooted tree (consecutive bifurcating) and two generated simple graph structures (bifurcating loop and bifurcating cycle). The structure of these module networks is available at \href{https://github.com/dynverse/dyngen/tree/master/inst/ext\_data/modulenetworks}{https://github.com/dynverse/dyngen/tree/master/inst/ext\_data/modulenetworks}.
 
-From these module networks we generated gene regulatory networks in two steps: the main regulatory network was first generated, and extra target genes from real regulatory networks  were added. For each dataset, we used the same number of genes as were differentially expressed in the real datasets. 5\% of the genes were assigned to be part of the main regulatory network, and were randomly distributed among all modules (with at least one gene per module). We sampled edges between these individual genes (according to the module network) using a uniform distribution between 1 and the number of possible targets in each module. To add additional target genes to the network, we assigned every regulator from the network to a real regulator in a real network (from regulatory circuits \cite{marbach_tissuespecificregulatorycircuits_2016}), and extracted for every regulator a local network around it using personalized pagerank (with damping factor set to 0.1), as implemented in the page\_rank function of the \textit{igraph} package. 
+From these module networks we generated gene regulatory networks in two steps: the main regulatory network was first generated, and extra target genes from real regulatory networks  were added. For each dataset, we used the same number of genes as were differentially expressed in the real datasets. 5$\%$ of the genes were assigned to be part of the main regulatory network, and were randomly distributed among all modules (with at least one gene per module). We sampled edges between these individual genes (according to the module network) using a uniform distribution between 1 and the number of possible targets in each module. To add additional target genes to the network, we assigned every regulator from the network to a real regulator in a real network (from regulatory circuits \cite{marbach_tissuespecificregulatorycircuits_2016}), and extracted for every regulator a local network around it using personalized pagerank (with damping factor set to 0.1), as implemented in the page\_rank function of the \textit{igraph} package. 
 
 \hfill\break
 \textit{Simulation of gene regulatory systems using thermodynamic models}
 \hfill\break
 
-To simulate the gene regulatory network, we used a system of differential equations similar to those used in evaluations of gene regulatory network inference methods \cite{marbach_wisdom_2012}. In this model, the changes in gene expression ($x_i$) and protein expression ($y_i$) are modeled using ordinary differential equations \cite{schaffter_genenetweaversilicobenchmark_2011} (ODEs):
+To simulate the gene regulatory network, we used a system of differential equations similar to those used in evaluations of gene regulatory network inference methods \cite{marbach_wisdom_2012}. In this model, the changes in gene expression ($x_i$) and protein expression ($y_i$) are modeled using ordinary differential equations \cite{schaffter2011} (ODEs):
+
+
 
 $$
 \begin{aligned}
@@ -435,7 +443,7 @@ $$
 
 with $\Delta W_t \sim \mathcal{N}(0, h)$. 
 
-Similar to GeneNetWeaver \cite{schaffter_genenetweaversilicobenchmark_2011}, we sample the different parameters from random distributions, defined as follows. $e$ defines whether a transcription factor activates (1) or represses (-1), as defined within the regulatory network network.
+Similar to GeneNetWeaver \cite{schaffter2011}, we sample the different parameters from random distributions, defined as follows. $e$ defines whether a transcription factor activates (1) or represses (-1), as defined within the regulatory network network.
 
 $$
 \begin{aligned}
@@ -510,7 +518,7 @@ We used the splatSimulatePaths function from Splatter to simulate datasets, with
 
 \subsection{Dataset filtering and normalization}
 
-We used a standard single-cell RNA-seq preprocessing pipeline that applies parts of the scran and scater Bioconductor packages \cite{lun_stepbystepworkflowlowlevel_2016}. The advantages of this pipeline are that it works both with and without spike-ins, and it includes a harsh cell filtering that looks at abnormalities in library sizes, mitochondrial gene expression and the number of genes expressed using median absolute deviations (which we set to 3). We required that a gene was expressed in at least 5\% of the cells and that it should have an average expression higher than 0.02. Furthermore, we used the pipeline to select the most highly variable genes, using a false discovery rate of 5\% and a biological component higher than 0.5. As a final filter, we removed both all-zero genes and cells until convergence.
+We used a standard single-cell RNA-seq preprocessing pipeline that applies parts of the scran and scater Bioconductor packages \cite{lun_stepbystepworkflowlowlevel_2016}. The advantages of this pipeline are that it works both with and without spike-ins, and it includes a harsh cell filtering that looks at abnormalities in library sizes, mitochondrial gene expression and the number of genes expressed using median absolute deviations (which we set to 3). We required that a gene was expressed in at least 5$\%$ of the cells and that it should have an average expression higher than 0.02. Furthermore, we used the pipeline to select the most highly variable genes, using a false discovery rate of 5$\%$ and a biological component higher than 0.5. As a final filter, we removed both all-zero genes and cells until convergence.
 
 \subsection{Benchmark metrics}
 
@@ -532,7 +540,7 @@ When the position of a cell is the same in both the reference and the prediction
 
 \subsubsection{The correlation between important features}
 
-The wcorfeatures assesses whether the same differentially expressed features are found using the predicted trajectory as in the known trajectory. To calculate this metric, we used Random Forest regression (implemented in the R ranger package \cite{wright_rangerfastimplementation_2017}), to predict expression values of each gene, based on the geodesic distances of a cell to each milestone. We then extracted feature importance values for each feature and calculated the similarity of the feature importances using a weighted Pearson correlation, weighted by the feature importance in the reference dataset to give more weight to large differences. As hyperparameters we set the number of trees to 10,000 and the number of features on which to split to 1\% of all available features. We illustrate this metric and assess the effect of its hyperparameters in Supplementary Note 1.
+The wcorfeatures assesses whether the same differentially expressed features are found using the predicted trajectory as in the known trajectory. To calculate this metric, we used Random Forest regression (implemented in the R ranger package \cite{wright_rangerfastimplementation_2017}), to predict expression values of each gene, based on the geodesic distances of a cell to each milestone. We then extracted feature importance values for each feature and calculated the similarity of the feature importances using a weighted Pearson correlation, weighted by the feature importance in the reference dataset to give more weight to large differences. As hyperparameters we set the number of trees to 10,000 and the number of features on which to split to 1$\%$ of all available features. We illustrate this metric and assess the effect of its hyperparameters in Supplementary Note 1.
 
 \subsubsection{Score aggregation}
 
@@ -550,7 +558,7 @@ Each execution of a method on a dataset was performed in a separate task as part
 
 \subsection{Complementarity}
 
-To assess the complementarity between different methods, we first calculated for every method and dataset whether the overall score was equal to or higher than 95\% of the best overall score for that particular dataset. We then calculated for every method the weighted percentage of datasets that fulfilled this rule, weighted similarly as in the benchmark aggregation, and chose the best method. We iteratively added new methods until all methods were selected. For this analysis, we did not include any methods that require any strong prior information and only included methods that could detect the trajectory types present in at least one of the datasets.
+To assess the complementarity between different methods, we first calculated for every method and dataset whether the overall score was equal to or higher than 95$\%$ of the best overall score for that particular dataset. We then calculated for every method the weighted percentage of datasets that fulfilled this rule, weighted similarly as in the benchmark aggregation, and chose the best method. We iteratively added new methods until all methods were selected. For this analysis, we did not include any methods that require any strong prior information and only included methods that could detect the trajectory types present in at least one of the datasets.
 
 \subsection{Scalability}
 
@@ -576,7 +584,7 @@ This process was repeated for classifying the time complexity with respect to th
 
 \subsection{Stability}
 
-In the ideal case, a method should produce a similar trajectory, even when the input data is slightly different. However, running the method multiple times on the same input data would not be the ideal approach to assess its stability, given that a lot of tools are artificially deterministic by internally resetting the pseudorandom number generator (for example, using the `set.seed` function in R or the `random.seed` function in numpy). To assess the stability of each method, we therefore selected a number of datasets, which consisted of 25\% of the datasets accounting for 15\% of the total runtime, chosen such that after aggregation the overall scores still has > 0.99 correlation with the original overall ranking. We subsampled each dataset 10 times with 95\% of the original cells and 95\% of the original features. We ran every method on each of the bootstraps, and assessed the stability by calculating the benchmarking scores between each pair of subsequent models (run $i$ is compared to run $i+1$). For the cordist and F1branches, we only used the intersection between the cells of two datasets, while the intersection of the features was used for the wcorfeatures.
+In the ideal case, a method should produce a similar trajectory, even when the input data is slightly different. However, running the method multiple times on the same input data would not be the ideal approach to assess its stability, given that a lot of tools are artificially deterministic by internally resetting the pseudorandom number generator (for example, using the `set.seed` function in R or the `random.seed` function in numpy). To assess the stability of each method, we therefore selected a number of datasets, which consisted of 25$\%$ of the datasets accounting for 15$\%$ of the total runtime, chosen such that after aggregation the overall scores still has > 0.99 correlation with the original overall ranking. We subsampled each dataset 10 times with 95$\%$ of the original cells and 95$\%$ of the original features. We ran every method on each of the bootstraps, and assessed the stability by calculating the benchmarking scores between each pair of subsequent models (run $i$ is compared to run $i+1$). For the cordist and F1branches, we only used the intersection between the cells of two datasets, while the intersection of the features was used for the wcorfeatures.
 
 \subsection{Usability}
 
@@ -730,7 +738,7 @@ To select the number of cell waypoints, we need to find a trade-off between the 
 \begin{figure}
 	\centering\includegraphics[width=\linewidth]{fig/dynbenchmark/snote1fig_5.pdf}
 	\caption{
-		\textbf{Determination of cell waypoints} \textbf{a)} Illustration of the stratified cell sampling using an example dataset (top). Each milestone, edge between two milestones and region of delayed commitment is seen as a collection of cells (middle), and the number of waypoints (100 in this case) are divided over each of these collection of cells (bottom). \textbf{b)} Accuracy versus time to calculate $\textit{cor}_{\textit{dist}}$. Shown are distributions over 100 random waypoint samples. The upper whisker of the boxplot extends from the hinge (75\% percentile) to the largest value, no further than 1.5$\times$ the IQR of the hinge. The lower whisker extends from the hinge (25\% percentile) to the smallest value, at most 1.5$\times$ the IQR of the hinge.
+		\textbf{Determination of cell waypoints} \textbf{a)} Illustration of the stratified cell sampling using an example dataset (top). Each milestone, edge between two milestones and region of delayed commitment is seen as a collection of cells (middle), and the number of waypoints (100 in this case) are divided over each of these collection of cells (bottom). \textbf{b)} Accuracy versus time to calculate $\textit{cor}_{\textit{dist}}$. Shown are distributions over 100 random waypoint samples. The upper whisker of the boxplot extends from the hinge (75$\%$ percentile) to the largest value, no further than 1.5$\times$ the IQR of the hinge. The lower whisker extends from the hinge (25$\%$ percentile) to the smallest value, at most 1.5$\times$ the IQR of the hinge.
 	}
 	\label{fig:snote1fig_5}
 \end{figure}
@@ -778,7 +786,7 @@ To calculate the $\textit{cor}_{\textit{features}}$ we used Random forest regres
 	\label{fig:snote1fig_8}
 \end{figure}
 
-Random forest regression has two main hyperparameters. The number of trees to be fitted (num\_tree parameter) was fixed to 10000 to provide accurate and stable estimates of the feature importance (Figure \ref{fig:snote1fig_9}. The number of features on which can be split (mtry parameter) was set to 1\% of all available features (instead of the default square-root of the number of features), as to make sure that predictive but highly correlated features, omnipresent in transcriptomics data, are not suppressed in the ranking.
+Random forest regression has two main hyperparameters. The number of trees to be fitted (num\_tree parameter) was fixed to 10000 to provide accurate and stable estimates of the feature importance (Figure \ref{fig:snote1fig_9}. The number of features on which can be split (mtry parameter) was set to 1$\%$ of all available features (instead of the default square-root of the number of features), as to make sure that predictive but highly correlated features, omnipresent in transcriptomics data, are not suppressed in the ranking.
 
 \begin{figure}
 	\centering\includegraphics[width=\linewidth]{fig/dynbenchmark/snote1fig_9.pdf}
@@ -789,7 +797,7 @@ Random forest regression has two main hyperparameters. The number of trees to be
 	\label{fig:snote1fig_9}
 \end{figure}
 
-For most datasets, only a limited number of features will be differentially expressed in the trajectory. For example, in the dataset used in Figure \ref{fig:snote1fig_9} only the top 10\%-20\% show a clear pattern of differential expression. The correlation will weight each of these features equally, and will therefore give more weight to the bottom, irrelevant features. To prioritise the top differentially expressed features, we also implemented the $\textit{wcor}_{\textit{features}}$, which will weight the correlation using the feature importance scores in the reference so that the top features have relatively more impact on the score (Figure \ref{fig:snote1fig_10}).
+For most datasets, only a limited number of features will be differentially expressed in the trajectory. For example, in the dataset used in Figure \ref{fig:snote1fig_9} only the top 10$\%$-20$\%$ show a clear pattern of differential expression. The correlation will weight each of these features equally, and will therefore give more weight to the bottom, irrelevant features. To prioritise the top differentially expressed features, we also implemented the $\textit{wcor}_{\textit{features}}$, which will weight the correlation using the feature importance scores in the reference so that the top features have relatively more impact on the score (Figure \ref{fig:snote1fig_10}).
 
 \begin{figure}
 	\centering\includegraphics[width=\linewidth]{fig/dynbenchmark/snote1fig_10.pdf}
