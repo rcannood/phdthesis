@@ -59,6 +59,37 @@
 \usepackage[sorting=none]{biblatex}
 \bibliography{library}
 
+% substitute in references
+\DeclareDatafieldSet{setall}{
+	\member[datatype=literal]
+	\member[datatype=name]
+	\member[field=journal]% journal is special since it is
+	% actually journaltitle
+}
+
+\DeclareSourcemap{
+	\maps[datatype=bibtex]{
+		\map[overwrite, foreach={setall}]{
+			% \`{\i}
+			\step[fieldsource=\regexp{$MAPLOOP},
+			match=\regexp{\x{0131}\x{0300}},
+			replace=\regexp{\x{00EC}}]
+			% \'{\i}
+			\step[fieldsource=\regexp{$MAPLOOP},
+			match=\regexp{\x{0131}\x{0301}},
+			replace=\regexp{\x{00ED}}]
+			% \^{\i}
+			\step[fieldsource=\regexp{$MAPLOOP},
+			match=\regexp{\x{0131}\x{0302}},
+			replace=\regexp{\x{00EE}}]
+			% \"{\i}
+			\step[fieldsource=\regexp{$MAPLOOP},
+			match=\regexp{\x{0131}\x{0308}},
+			replace=\regexp{\x{00EF}}]
+		}
+	}
+}
+
 % link packages
 \usepackage{url}
 \usepackage{doi}
@@ -265,8 +296,6 @@
 \include{ch5_brood}
 
 \include{ch6_incgraph}
-
-
 
 \include{ch7_discussion}
 
