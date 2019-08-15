@@ -18,26 +18,84 @@ Adapted from:\\
 \newpage
 
 \section{The cell}
-The cell is the smallest unit of life, of which all known living organisms are composed. Every cell houses a plethora of biomolecular processes that allow it to adapt to changes in their environment continuously. It can be very challenging to comprehend the cellular response to a signal due to the dynamic nature of these processes. A reductionist approach to understanding a complex biological system is to study the biochemical components which it is comprised of \cite{brigandt_reductionismbiology_2017}.
+The cell is the smallest unit of life, of which all known living organisms are composed. Every cell houses a plethora of biomolecular processes that allow it to adapt to changes in their environment continuously. It can be very challenging to comprehend the cellular response to a signal due to the dynamic nature of these processes. A reductionist approach to understanding a complex biological system is to study the biochemical components which it is comprised of\cite{brigandt_reductionismbiology_2017}.
 
 Reductionist biologists are delighted by recent advances in experimental technologies that permit measuring the abundance of thousands of different biochemical molecules in tens of thousands of individual cells.  Observing the biomolecular insides of cells in this manner will ultimately provide fundamental insights into the processes that govern these cells and help uncover novel approaches for diagnosing and treating disease. Every coin has its flip side, however, and in this case, it is that the amount of data generated from these experiments is not analysable by hand.  
 
-For example, the Human Cell Atlas (HCA) consortium \cite{regev_humancellatlas_2018} has set out to develop a comprehensive reference map of all the different types of cells in the human body. Experts in the field often metaphorically describe the HCA initiative as aiming to develop a 'Google Maps' of the human body. Even in its infancy, the HCA has profiled 3.8 million cells from 248 donors across 42 labs \cite{humancellatlasconsortium_humancellatlas_2018}, and this number is likely to increase well above one hundred million.
+For example, the Human Cell Atlas (HCA) consortium\cite{regev_humancellatlas_2018} has set out to develop a comprehensive reference map of all the different types of cells in the human body. Experts in the field often metaphorically describe the HCA initiative as aiming to develop a 'Google Maps' of the human body. Even in its infancy, the HCA has profiled 3.8 million cells from 248 donors across 42 labs\cite{humancellatlasconsortium_humancellatlas_2018}, and this number is likely to increase well above one hundred million.
 
-The sheer volume of the data generated from such highly-integrative and high-throughput experiments are not the only reason why they are so challenging to interpret. Namely, the data inherently also suffers from batch effects arising from differences between donors and labs, and also contains high levels of noise arising from the experimental profiling techniques used \cite{hon_humancellatlas_2018}. Biologists thus turn to computer scientists\footnote{or computational biologists turn to themselves} to develop new tools to tackle these problems and help biologists extract meaningful biological insights from the data.
+The sheer volume of the data generated from such highly-integrative and high-throughput experiments are not the only reason why they are so challenging to interpret. Namely, the data inherently also suffers from batch effects arising from differences between donors and labs, and also contains high levels of noise arising from the experimental profiling techniques used\cite{hon_humancellatlas_2018}. Biologists thus turn to computer scientists\footnote{or computational biologists turn to themselves} to develop new tools to tackle these problems and help biologists extract meaningful biological insights from the data.
 
-This work makes incremental contributions to the field in order to be able to address the aforementioned problems in a more comprehensive context. This chapter first introduces several fundamental concepts in both cell biology and computer science. Afterwards, the research objectives and main contributions of this work are outlined.
+This work makes incremental contributions to the field in order to be able to address the aforementioned problems in a more comprehensive context. This chapter first introduces several key concepts in both cell biology and computer science, upon which the remainder of this work relies. Afterwards, the research objectives and main contributions of this work are outlined.
+% TODO: explain that only the main concepts are introduced?
+\subsection{The origins of life and the RNA world}
+The discovery of the double helix shape of Deoxyribonucleic Acid (DNA) \cite{watson_molecularstructurenucleic_1953} is often considered the pivot point in our understanding of the origins of life and evolution. A modern high-school student can plausibly be expected to know that DNA serves as a medium for storing the genetic information required to reproduce a whole organism. With other words, the DNA of an organism contains the complete set of instructions required to build all of the biomolecular machinery present in its body. The magnitude of this discovery is reflected in our language and culture alike; with sayings such as "It's in your DNA.", or usage of its shape in countless illustrations or artworks (Figure \ref{fig:fsvm}).
 
+\begin{figure}
+	\centering\includegraphics[width=.5\linewidth]{fig/introduction/fsvm3} % TODO: change image
+	\caption{
+		\textbf{A prominent display of the double helix shape at the VIB FSVM building.} % TODO: expand description
+	}
+	\label{fig:fsvm}
+\end{figure}
 
-\section{Single cell biology}
+Even so, a widely-accepted hypothesis states that life (or cells) did not originate from DNA, but instead was kicked off from its lesser-known cousin, Ribonucleic Acid (RNA). According to the RNA world hypothesis \cite{alberts_rnaworldorigins_2002}, the very first primitive cells used RNA both to store genetic information and perform the chemical reactions required to sustain themselves (Figure \ref{fig:rnaworld}). Only later did cells develop the ability to use DNA and proteins to self-sustain in a process commonly referred to as the Central Dogma.
+% TODO: use this reference? \cite{cornell_prebioticaminoacids_2019}
 
-\subsection{Dynamic processes}
+\begin{figure}
+	\centering\includegraphics[width=.5\linewidth]{fig/introduction/rnaworld} % TODO: change image
+	\caption{
+		\textbf{RNA world.} The postulated rise and fall of the RNA world during the evolution of life, from early self-replicating RNA to complex, RNA-controlled metabolism, to the invention of translation, followed by diversification of all modern branches of life. Image from Horning (2011) \cite{horning_rnaworld_2011}. % TODO: expand the description
+	}
+	\label{fig:rnaworld}
+\end{figure}
+\subsection{The Central Dogma}
+The Central Dogma is a set of processes present which govern the general flow of genetic information in almost all existant living cells. In short, it states that DNA codes for RNA, which in turn codes for proteins. In this work, we assume the main processes involved in the Central Dogma are replication, transcription, splicing and translation (Figure 3). 
 
-\subsection{Gene regulation}
+\textbf{Replication} is the process of duplicating DNA, which allows a cell to divide such that the resulting daughter cells retain complete copies of its genetic information. DNA consists of four different so-called nucleobases named adenine (A), cytosine (C), guanine (G), and thymine (T). Each strand of the double helix structure of DNA is a linear chain of nucleobases. The two strands are held together by hydrogen bonds since adenine can form three hydrogen bonds with thymine and cytosine can form two hydrogen bonds with guanine. Since each nucleobase can only bond with one other nucleobase, one strand is complementary to the other. Thus a strand of DNA can be represented by a sequence of letters, for example, "ACTCGGTTTAGCA". % This could be part of the DNA explanation.
 
-\subsection{Single cell transcriptomics}
+A stretch of DNA that contains a genetic blueprint for a particular molecule is called a gene, and the collection of an organism's genes is called its genome. \textbf{Transcription} is the process of synthesising an RNA molecule from a gene, and the resulting molecule is called a transcript. RNA is similar to DNA but differs in several ways; most notably all thymine nucleobases are replaced with uracil (U), and RNA molecules consist of only one strand. Due to its single-strandedness, RNA is less stable and will break down faster. Single-strandedness also allows some types of RNA (e.g. transfer RNA, ribosomal RNA) to form more complex three-dimensional structures by having certain regions bind to other regions of the strand. This work only considers messenger RNA (mRNA). mRNAs are transcribed from protein-coding genes, meaning that the mRNAs will lead to the production of protein molecules through the process of translation. 
+% TODO: mention that there are about 20'000 protein-coding genes in the human body.
 
+\textbf{RNA splicing} is a process that occurs in almost all organisms (but not all) and results in the removal of specific regions in the RNA molecule. Introns are the regions removed by this process, and exons the regions that remain. The main functionality of splicing is to be able to create multiple variants of the same product, which can affect the enzymatic properties or localisation of the resulting product \cite{kelemen_functionalternativesplicing_2013}.
+
+During \textbf{translation}, a chain of amino acid is synthesised from an mRNA transcript. Every three nucleobases are translated into one of 21 different amino acids. The resulting chain of amino acids is folded up into a protein, the structure of which is determined by the sequence of different amino acids in the chain. In turn, its structure determines the functionality of the protein, which includes catalysing biochemical reactions, providing structure, and transportation of molecules. 
+\subsection{Cell types and differentiation}
+The functionality provided by a cell is defined (mostly) by the proteins of which it consists. One common approach to trying to understand the functionality of a cell is to observe which molecules are present in the cell and to associate those molecules with functionality. 
+
+\textit{Homo sapiens} like to categorise everything they encounter and so too have they conceptualised groups of cells called "cell types" according to their functionality. The concept of cell types eases reasoning about all aspects of biology, for instance, which cell types turn into (differentiate) or communicate with which other cell types, or how a cell type responds to a specific stimulation. Cells can be highly specialised toward performing a particular function (e.g. memory B cells accelerate immune response by remembering previously encountered pathogens), while other cells maintain a strong ability to differentiate into other cell types. 
+
+% TODO: do not only discuss differentiation, but instead any kind of developmental process; and mention 'developmental trajectory'.
+Cell differentiation is not an instant process; it is a continuous process in which a cell gradually produces the biochemical machinery required in order to fulfil a particular task. In this regard, it makes sense not only to reason about cell types but also about the transition states between cell types and the dynamic processes involved therein.
+% TODO: are dynamic processes defined? a dynamic process is just a biochemical reaction
+\subsection{Cell dynamics and gene regulation}
+If cells are dynamic entities and can gradually produce the molecules needed to acquire new functionality, what is the process by which this happens? The mechanism by which this happens is called gene regulation. Some proteins (or other molecules such as micro RNAs) are capable of determining the rate at which a gene is transcribed (transcription rate). Such proteins are called transcription factors (TFs), and the genes it regulates are called its targets. Typically, one TF will regulate the transcription rate of many targets. % TODO: download database and calculate some statistics.
+
+Production of a specific molecule might require multiple cascades of gene regulation. The collection of all gene regulatory interactions between transcription factors and targets is called a gene regulatory network (GRN). Studying the active parts of a cell's gene regulatory network can thus reveal which dynamic processes are taking place. 
+
+% TODO: explain regulation mechanisms such as transcription factor binding sites?
+\subsection{Profiling single cells}
+Understanding a biological process and proving hypotheses surrounding its workings require being able to profile (i.e. observe) the biomolecular components involved therein. The abundance of a particular molecule in a closed environment is called its expression levels. Technologies which permit profiling expression levels will typically be limited to only one facet of biomolecular machinery (e.g. DNA, RNA, or proteins), and can also be limited in the number of different molecules it can profile.
+
+Until recently, there were two main approaches to profiling biological systems: the "omics" approach, or the single-cell approach.
+
+"omics"\footnote{The etymology of "omics" is actually quite interesting \cite{yadav_wholenesssuffixomics_2007}. } is a collective term for profiling in a high-throughput manner. Genomics, transcriptomics, and proteomics respectively pertain to studying an organism's DNA (including all of its genes), RNA transcripts, and proteins. Traditional omics technologies have a strong trade-off, which is that they only profile an ensemble of cells and only return average expression levels. Notable examples of omics technologies are next-generation sequencing, which can be used to determine the DNA sequence of an organism, and RNA sequencing, which profiles the sequences of RNA transcripts. By mapping the sequences of RNA transcripts to genes in the organisms DNA, a gene expression profile can be obtained.
+
+Single-cell technologies, on the other hand, measure the expression levels of a set of molecules on a per-cell basis. The downside to traditional single-cell technologies (e.g. flow cytometry, mass cytometry, FISH, and PCR) is that they are limited in the number of different molecules which can be profiled simultaneously.
+
+Transformative technological advances have enabled the profiling of single cells in a high-throughput approach, thus creating room for single-cell omics (Figure \ref{fig:profiling_convergence}). The first such technologies allowed to profile the whole transcriptome of thousands of single cells. Current developments in the field allow for much greater cell counts, to also measure proteomic expression levels, or even employ imaging techniques to also capture the spatial information of each molecule within a cell.
+
+\begin{figure}
+	\centering\includegraphics[width=.5\linewidth]{fig/introduction/profiling_convergence} % TODO: change image
+	\caption{
+		\textbf{Convergence of "Omics" Biology and Single-Cell Biology.} Technology that allows researchers to obtain genome-wide information from single cells is ex-tending the boundaries of a field that has thus far been limited to the analyses of a select gene in eukaryotes. Image from Junker and van Oudenaarden (2014) \cite{junker_everycellspecial_2014}. % TODO: rewrite the description
+	}
+	\label{fig:profiling_convergence}
+\end{figure}
+
+The rapidly advancing field of single-cell omics harbours exceptional opportunities to discover new aspects of biology and redefine existing knowledge. Some of these opportunities lie in efforts like the Human Cell Atlas. The HCA consortium has set out to redefine all human cell types in terms of their gene expression and location, and the developmental trajectories connecting the different cell types. As part of this endeavour, the consortium will likely profile the whole transcriptomes tens or even hundreds of millions of cells. 
 \section{Machine learning}
+The sheer size of the datasets generated by single-cell omics technologies disallows for manual analysis of the individual profiles, which is something that biologists have relied upon for decades. Instead, biologists have to rely on computer scientists to develop new software to be able to extract meaningful information from that data. Computer scientists should proceed with caution in developing new software, however, as the results produced should not only be convincing and easy to interpret, but the software should be robust and generate sufficiently accurate models of the underlying system.
 
 \subsection{Dimensionality reduction}
 
