@@ -1,16 +1,18 @@
-\documentclass[11pt,a4paper,hidelinks]{book}
+\documentclass[11pt,hidelinks]{book}
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %%% IMPORT PACKAGES %%%
 %%%%%%%%%%%%%%%%%%%%%%%
 
 % Use Unicode characters when possible
-\usepackage[default,scale=0.95]{opensans}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
+%\usepackage{xltxtra}
+
+%\usepackage[default,scale=0.95]{opensans}
+%\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
 
 % adjust margins (should be done before importing fancyhdr!)
-\usepackage[margin=2.5cm,a4paper]{geometry} %lmargin=2.5cm,rmargin=4cm,tmargin=3cm,bmargin=3cm
+\usepackage[paperheight=24cm,paperwidth=16cm,margin=2.5cm,a4paper]{geometry} %lmargin=2.5cm,rmargin=4cm,tmargin=3cm,bmargin=3cm
 
 % text packages
 \usepackage{csquotes}
@@ -25,7 +27,7 @@
 % style packages
 \usepackage{lmodern}
 \usepackage{fancyhdr}
-\usepackage[]{microtype} % Sublim­i­nal re­fine­ments to­wards ty­po­graph­i­cal per­fec­tion
+%\usepackage[]{microtype} % Sublim­i­nal re­fine­ments to­wards ty­po­graph­i­cal per­fec­tion
 
 % used for defining abbreviations, see nomenclature.tex
 \usepackage{nomencl}
@@ -68,37 +70,37 @@
 % references packages
 \usepackage[sorting=none]{biblatex}
 \bibliography{library}
-
-% substitute in references
-\DeclareDatafieldSet{setall}{
-	\member[datatype=literal]
-	\member[datatype=name]
-	\member[field=journal]% journal is special since it is
-	% actually journaltitle
-}
-
-\DeclareSourcemap{
-	\maps[datatype=bibtex]{
-		\map[overwrite, foreach={setall}]{
-			% \`{\i}
-			\step[fieldsource=\regexp{$MAPLOOP},
-			match=\regexp{\x{0131}\x{0300}},
-			replace=\regexp{\x{00EC}}]
-			% \'{\i}
-			\step[fieldsource=\regexp{$MAPLOOP},
-			match=\regexp{\x{0131}\x{0301}},
-			replace=\regexp{\x{00ED}}]
-			% \^{\i}
-			\step[fieldsource=\regexp{$MAPLOOP},
-			match=\regexp{\x{0131}\x{0302}},
-			replace=\regexp{\x{00EE}}]
-			% \"{\i}
-			\step[fieldsource=\regexp{$MAPLOOP},
-			match=\regexp{\x{0131}\x{0308}},
-			replace=\regexp{\x{00EF}}]
-		}
-	}
-}
+%
+%% substitute in references
+%\DeclareDatafieldSet{setall}{
+%	\member[datatype=literal]
+%	\member[datatype=name]
+%	\member[field=journal]% journal is special since it is
+%	% actually journaltitle
+%}
+%
+%\DeclareSourcemap{
+%	\maps[datatype=bibtex]{
+%		\map[overwrite, foreach={setall}]{
+%			% \`{\i}
+%			\step[fieldsource=\regexp{$MAPLOOP},
+%			match=\regexp{\x{0131}\x{0300}},
+%			replace=\regexp{\x{00EC}}]
+%			% \'{\i}
+%			\step[fieldsource=\regexp{$MAPLOOP},
+%			match=\regexp{\x{0131}\x{0301}},
+%			replace=\regexp{\x{00ED}}]
+%			% \^{\i}
+%			\step[fieldsource=\regexp{$MAPLOOP},
+%			match=\regexp{\x{0131}\x{0302}},
+%			replace=\regexp{\x{00EE}}]
+%			% \"{\i}
+%			\step[fieldsource=\regexp{$MAPLOOP},
+%			match=\regexp{\x{0131}\x{0308}},
+%			replace=\regexp{\x{00EF}}]
+%		}
+%	}
+%}
 
 % link packages
 \usepackage{url}
@@ -108,6 +110,14 @@
 \usepackage{pifont}
 \newcommand{\cmark}{\ding{51}}
 \newcommand{\xmark}{\ding{55}}
+
+% fix named refs for starred sections
+\makeatletter
+\def\ttl@useclass#1#2{%
+	\@ifstar
+	{\ttl@labeltrue\@dblarg{#1{#2}}}% {\ttl@labelfalse#1{#2}[]}%
+	{\ttl@labeltrue\@dblarg{#1{#2}}}}
+\makeatother
 
 %%%%%%%%%%%%%%%%%%%%%
 %%% DEFINE HEADER %%%
@@ -202,8 +212,6 @@
 \newcommand{\Smallfigure}{0.19\textwidth} % 4 per col
 \newcommand{\SMALLfigure}{0.15\textwidth} % 5 per col
 
-
-
 \makeatletter
 \newcommand*{\centerfloat}{%
 	\parindent \z@
@@ -263,6 +271,16 @@
 \renewcommand{\listfigurename}{List of Figures}
 \renewcommand{\listtablename}{List of Tables}
 \renewcommand{\appendixname}{}
+\renewcommand{\baselinestretch}{1.25}
+
+\usepackage{fontspec}
+
+\setmainfont [Path = fonts/,
+UprightFont = *-300,
+ItalicFont = *-300-Italic,
+BoldFont = *-700,
+BoldItalicFont = *-700-Italic
+]{MuseoSans}
 
 \begin{document}
 
