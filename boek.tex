@@ -4,13 +4,6 @@
 %%% IMPORT PACKAGES %%%
 %%%%%%%%%%%%%%%%%%%%%%%
 
-% Use Unicode characters when possible
-%\usepackage{xltxtra}
-
-%\usepackage[default,scale=0.95]{opensans}
-%\usepackage[utf8]{inputenc}
-%\usepackage[T1]{fontenc}
-
 % adjust margins (should be done before importing fancyhdr!)
 \usepackage[paperheight=24cm,paperwidth=16cm,margin=2.5cm,a4paper]{geometry} %lmargin=2.5cm,rmargin=4cm,tmargin=3cm,bmargin=3cm
 
@@ -20,14 +13,12 @@
 \usepackage{setspace}	
 
 % scripting packages
-\usepackage{ifthen}
 \usepackage{blindtext}
-\usepackage{todonotes}
 
 % style packages
 \usepackage{lmodern}
 \usepackage{fancyhdr}
-%\usepackage[]{microtype} % Sublim­i­nal re­fine­ments to­wards ty­po­graph­i­cal per­fec­tion
+\usepackage{microtype} % Sublim­i­nal re­fine­ments to­wards ty­po­graph­i­cal per­fec­tion
 
 % used for defining abbreviations, see nomenclature.tex
 \usepackage{nomencl}
@@ -70,37 +61,6 @@
 % references packages
 \usepackage[sorting=none]{biblatex}
 \bibliography{library}
-%
-%% substitute in references
-%\DeclareDatafieldSet{setall}{
-%	\member[datatype=literal]
-%	\member[datatype=name]
-%	\member[field=journal]% journal is special since it is
-%	% actually journaltitle
-%}
-%
-%\DeclareSourcemap{
-%	\maps[datatype=bibtex]{
-%		\map[overwrite, foreach={setall}]{
-%			% \`{\i}
-%			\step[fieldsource=\regexp{$MAPLOOP},
-%			match=\regexp{\x{0131}\x{0300}},
-%			replace=\regexp{\x{00EC}}]
-%			% \'{\i}
-%			\step[fieldsource=\regexp{$MAPLOOP},
-%			match=\regexp{\x{0131}\x{0301}},
-%			replace=\regexp{\x{00ED}}]
-%			% \^{\i}
-%			\step[fieldsource=\regexp{$MAPLOOP},
-%			match=\regexp{\x{0131}\x{0302}},
-%			replace=\regexp{\x{00EE}}]
-%			% \"{\i}
-%			\step[fieldsource=\regexp{$MAPLOOP},
-%			match=\regexp{\x{0131}\x{0308}},
-%			replace=\regexp{\x{00EF}}]
-%		}
-%	}
-%}
 
 % link packages
 \usepackage{url}
@@ -156,6 +116,7 @@
 \newlength{\thumbwidth}
 \setlength{\thumbwidth}{1.5cm}
 
+\definecolor{light-gray}{gray}{0.90}
 \tikzset{
 	thumb/.style={
 		%   draw=black,
@@ -259,7 +220,14 @@
 % use Sonny chapter style
 \usepackage[Sonny]{fncychap} %Sonny
 
-\definecolor{light-gray}{gray}{0.90} %not always visible on a dell screen!!!
+% set font after chapter sonny style
+\usepackage{fontspec}
+\setmainfont [Path = fonts/,
+UprightFont = *-300,
+ItalicFont = *-300-Italic,
+BoldFont = *-700,
+BoldItalicFont = *-700-Italic
+]{MuseoSans}
 
 %% hyperlinks
 % load hyperref after fncychap
@@ -273,15 +241,6 @@
 \renewcommand{\appendixname}{}
 \renewcommand{\baselinestretch}{1.25}
 
-\usepackage{fontspec}
-
-\setmainfont [Path = fonts/,
-UprightFont = *-300,
-ItalicFont = *-300-Italic,
-BoldFont = *-700,
-BoldItalicFont = *-700-Italic
-]{MuseoSans}
-
 \begin{document}
 
 % thesis obligatory content: 
@@ -292,8 +251,7 @@ BoldItalicFont = *-700-Italic
 % * an introductory chapter and additional linking texts between chapters (papers) if the dissertation consists of a compilation of papers
 % * acknowledgements of financing institutions
 % * apply for an ISBN number for your thesis. This takes 1-2 days.
-
-
+	
 \pagenumbering{alph}
 
 \frontmatter
@@ -312,7 +270,9 @@ BoldItalicFont = *-700-Italic
 % GillespieSSA
 % dyngen
 
-\include{ch2_dynbenchmark}
+\include{ch2a_dyngen}
+
+\include{ch2b_dynbenchmark}
 
 \include{ch3_scorpius}
 
