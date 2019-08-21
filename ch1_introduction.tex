@@ -15,7 +15,7 @@
 Partially adapted from:\\
 \textbf{Cannoodt, R.}$^*$, Saelens, W.$^*$, and Saeys, Y. Computational methods for trajectory inference from single-cell transcriptomics. \textit{European Journal of Immunology} 46, 11 (2016), 2496--2506. \doi{10.1002/eji.201646347}.\\
 Saelens, W.$^*$, \textbf{Cannoodt, R.}$^*$, Todorov, H., and Saeys, Y. A comparison of single-cell trajectory inference methods. \textit{Nature Biotechnology} 37, 5 (2019), 547--554. \doi{10.1038/s41587-019-0071-9}.\\
-%Todorov, H., \textbf{Cannoodt, R.}, Saelens, W., and Saeys, Y. Network Inference from Single-Cell Transcriptomic Data. \textit{Gene Regulatory Networks} (2019), 235--249. \doi{10.1007/978-1-4939-8882-2_10}. \\
+Todorov, H., \textbf{Cannoodt, R.}, Saelens, W., and Saeys, Y. Network Inference from Single-Cell Transcriptomic Data. \textit{Gene Regulatory Networks} (2019), 235--249. \doi{10.1007/978-1-4939-8882-2_10}. \\
 {\footnotesize $^*$ Equal contribution}
 
 \newpage
@@ -113,16 +113,16 @@ Transformative technological advances in microvolume sequencing allowed Tang et 
 The rapidly advancing field of single-cell omics harbours exceptional opportunities to discover new aspects of biology and redefine existing knowledge. Some of these opportunities lie in efforts like the Human Cell Atlas. The HCA consortium has set out to redefine all human cell types in terms of their gene expression and location, and the developmental trajectories connecting the different cell types. As part of this endeavour, the consortium will likely profile the whole transcriptomes tens or even hundreds of millions of cells. 
 
 \section{Computational tools}
-The rapidly advancing field of single-cell omics harbours exceptional opportunities to discover new aspects of biology and redefine existing knowledge.
+The rapidly advancing field of single-cell omics harbours exceptional opportunities to discover new aspects of biology and redefine existing knowledge. 
 
 Some of these opportunities lie in efforts such as the Human Cell Atlas. The HCA consortium has set out to redefine all human cell types in terms of their gene expression and location, and the developmental trajectories which connect the different cell types. As part of this endeavour, the consortium will perform single-cell omics on tens or even hundreds of millions of cells.
 
-Single-cell omics permits new types of analyse but also come with hitherto unseen data characteristics, the combination of which poses exciting new challenges for the computational community to tackle  (Figure \ref{fig:comp_tools}A)\cite{stegle_computationalanalyticalchallenges_2015,yuan_challengesemergingdirections_2017,chen_singlecellrnaseqtechnologies_2019}. These challenges include:
+Single-cell omics permits new types of analyse but also come with hitherto unseen data characteristics, the combination of which poses exciting new challenges for the computational community to tackle (Figure \ref{fig:comp_tools}A)\cite{stegle_computationalanalyticalchallenges_2015,yuan_challengesemergingdirections_2017,chen_singlecellrnaseqtechnologies_2019}. These challenges include:
 \begin{itemize}
+	\item normalisation: separating biological noise from technical noise,
 	\item dimensionality reduction: providing a visual and informative overview of a given dataset, 
 	\item trajectory inference: identifying and characterising transitions between different cellular states, and
-	\item gene regulatory network inference: inferring regulatory interactions between transcription factors across individual cells,
-	\item normalisation: separating biological noise from technical noise.
+	\item gene regulatory network inference: inferring regulatory interactions between transcription factors across individual cells.
 \end{itemize}
 
 \begin{figure}
@@ -136,63 +136,57 @@ Single-cell omics permits new types of analyse but also come with hitherto unsee
 	\label{fig:comp_tools}
 \end{figure}
 
-The computational community has been very excited about trying to tackle these problems, having released more than 450 software tools for processing single-cell omics data in one form of another (Figure \ref{fig:comp_tools}B) \cite{zappia_exploringsinglecellrnaseq_2018}. Many of these methods attempt to tackle the abovementioned challenges (Figure \ref{fig:comp_tools}C), which will be discussed in the following sections.
 % TODO: provide better connection to the subsections below
 
+\subsection{Normalisation}
+% TODO: need to write still
+
 \subsection{Dimensionality reduction}
-The dimensionality of single-cell omics datasets is typically much too high for most modelling algorithms to tackle directly. Dimensionality reduction (DR) methods transform high-dimensional data into a meaningful representation with fewer dimensions. DR methods construct this representation by reducing the gene space, the cell space, or both while attempting to maintain the main characteristics of the original data.
-% Could use a figure here.
-Ideally, the reduced representation should have a dimensionality that corresponds to the intrinsic dimensionality of the biological system.
+Single-cell omics datasets typically have too many dimensions (features) in order to be easily interpretable by humans and even by most computational tools. 
+Dimensionality reduction (DR) methods transform high-dimensional data into a meaningful representation with fewer dimensions. It is important to note that its usage depends on the target audience: for humans -- to visualise data in a 2-D plane to aid with interpretation by humans, or for computers -- to construct a denser representation of the data such that it mostly contains the same information but with fewer dimensions.
 
 There are many ways of classifying DR methods \cite{engel_surveydimensionreduction_2012}, but this work will use the following main categories: feature projection-based and manifold learning. 
 Projection-based DR methods aim to perform a linear transformation of the data while preserving the pairwise distances between samples as much as possible. Examples of commonly used projection-based DR methods in single-cell omics are PCA and MDS. 
 Manifold learning methods are methods which reconstruct a higher-order structure in the original space (e.g. a graph or a grid), visualising the structure in a lower-dimensional space, and mapping the original samples to the lower-dimensional space. Manifold learning can be an iterative optimisation process using a predefined criterion. Examples of manifold learning techniques are t-SNE, Diffusion Maps and UMAP. 
+% section is not very interestingly written
 
-% For more information, we refer the reader to other reviews for a thorough discussion of the advantages and disadvantages of different dimensionality reduction methods [37, 38].
 \subsection{Trajectory inference}
-Single-cell omics data provide new opportunities for studying cellular dynamic processes, such as the cell cycle, cell differentiation and cell activation \cite{tanay_scalingsinglecellgenomics_2017,etzrodt_quantitativesinglecellapproaches_2014}. Such dynamic processes can be modelled computationally using trajectory inference (TI) methods which order cells along a trajectory based on similarities in their expression patterns \cite{trapnell_definingcelltypes_2015,cannoodt_computationalmethodstrajectory_2016,moon_manifoldlearningbasedmethods_2018}. The resulting trajectories are most often linear, bifurcating or tree-shaped, but more recent methods also identify more complex trajectory topologies, such as cyclic \cite{liu_reconstructingcellcycle_2017} or disconnected graphs \cite{wolf_graphabstractionreconciles_2017}. 
+Single-cell omics data provide new opportunities for studying cellular dynamic processes, such as the cell cycle, cell differentiation and cell activation \cite{tanay_scalingsinglecellgenomics_2017,etzrodt_quantitativesinglecellapproaches_2014}. 
+Trajectory inference (TI) is a new category of computational tools used to offer an unbiased and transcriptome-wide understanding of a dynamic process \cite{tanay_scalingsinglecellgenomics_2017,cannoodt_computationalmethodstrajectory_2016}. 
 
-The initial dataset can be either a single snapshot of a mixture of cells in different stages or a set of samples collected at different time points (Figure \ref{fig:trajectory_inference}A). 
-TI methods offer an unbiased and transcriptome-wide understanding of a dynamic process \cite{tanay_scalingsinglecellgenomics_2017}, thereby allowing the objective identification of new (primed) subsets of cells \cite{schlitzer_identificationcdc1cdc2committed_2015}, delineation of a differentiation tree \cite{velten_humanhaematopoieticstem_2017,see_mappinghumandc_2017} and inference of regulatory interactions responsible for one or more bifurcations \cite{aibar_scenicsinglecellregulatory_2017} (Figure \ref{fig:trajectory_inference}B). Current applications of TI focus on specific subsets of cells, but ongoing efforts to construct transcriptomic catalogs of whole organisms \cite{regev_humancellatlas_2017,han_mappingmousecell_2018,schaum_singlecelltranscriptomics20_2018} underline the urgency for accurate, scalable \cite{aibar_scenicsinglecellregulatory_2017,angerer_singlecellsmake_2017} and user-friendly TI methods.
+The dataset can be a single snapshot of a mixture of cells in different stages, or a set of samples collected at different time points (Figure \ref{fig:trajectory_inference}A). Typically, TI methods first analyse similarities between cells, optionally infer the topology of the underlying process, and finally order cells along that trajectory (Figure \ref{fig:trajectory_inference}B). The second step can be optional, as some methods assume a specific topology beforehand.
+TI methods allow the identification of new subsets of cells, delineation of a differentiation tree, and characterisation of the main driver genes along a state transition (Figure \ref{fig:trajectory_inference}C). Current applications of TI focus on specific subsets of cells, but ongoing efforts to construct transcriptomic catalogs of whole organisms \cite{regev_humancellatlas_2017,han_mappingmousecell_2018,schaum_singlecelltranscriptomics20_2018} underline the urgency for accurate, scalable \cite{aibar_scenicsinglecellregulatory_2017,angerer_singlecellsmake_2017} and user-friendly TI methods.
 
 \begin{figure}
 	\centering\includegraphics[width=\Largefigure]{fig/introduction/trajectory_inference_slim} % TODO: Update figure to match text!!!!
 	\caption{
-		Applications of single-cell trajectory inference methods. (A) Single-cell omics data appropriate for TI can be both obtained from an unsynchronised population of single cells (snapshot data) but also from synchronised cell populations. (B) UPDATE!
+		Applications of single-cell trajectory inference methods. (A) Single-cell omics data appropriate for TI can be both obtained from an unsynchronised population of single cells (snapshot data) but also from synchronised cell populations. (B) UPDATE! (C) UPDATE!
 	}
 	\label{fig:trajectory_inference}
 \end{figure}
 
-A plethora of TI methods have been developed over the past few years, and still, more are created every month (Supplementary Table 1). Indeed, in several repositories listing single-cell tools, such as omictools.org \cite{henry_omictoolsinformativedirectory_2014}, the "awesome-single-cell" list \cite{davis_awesomesinglecell_2018} and scRNA-tools.org \cite{zappia_exploringsinglecellrnaseq_2017}, TI methods are one of the largest categories. Each method has its own unique set of characteristics in terms of the underlying algorithm, required prior information and produced outputs. Two of the most distinctive differences between TI methods are whether they fix the topology of the trajectory and what type(s) of graph topologies they can detect. Early TI methods typically fixed the topology algorithmically (for example, linear \cite{bendall_singlecelltrajectorydetection_2014,schlitzer_identificationcdc1cdc2committed_2015,shin_singlecellrnaseqwaterfall_2015,campbell_bayesiangaussianprocess_2015} or bifurcating trajectories \cite{haghverdi_diffusionpseudotimerobustly_2016,setty_wishboneidentifiesbifurcating_2016}) or through parameters provided by the user \cite{trapnell_dynamicsregulatorscell_2014,matsumoto_scoupprobabilisticmodel_2016}. Therefore, these methods mainly focus on correctly ordering the cells along transitions in a fixed topology. More recent methods also infer the topology \cite{qiu_reversedgraphembedding_2017,street_slingshotcelllineage_2018,wolf_graphabstractionreconciles_2017}, which increases the difficulty of the problem at hand, but allows the unbiased identification of both the ordering inside a branch and the topology connecting these branches.
-
-% TI methods often use a DR method
 
 \subsection{Gene regulatory network inference}
+Gene regulatory network inference, or network inference (NI) for short, is a type of computational analysis where thousands of transcriptomic profiles are analysed together in order to infer the regulatory interactions between transcription factors and genes. This topic already received much attention with the advent of bulk omics (before single-cell omics). These efforts culminated in several DREAM competitions assessing the performance of 29 different NI methods \cite{marbach_revealingstrengthsweaknesses_2010, marbach_wisdomcrowdsrobust_2012}. 
 
-Traditionally, regulatory interactions are inferred from bulk transcriptional profiles, generated by pooling together the RNA transcripts of a supposedly homogeneous population of several thousands of cells, and quantifying the transcript abundance through a microarray or RNA sequencing.
-Incorrect assumptions on the homogeneity of the pooled cells may lead to the masking of relevant expression patterns in rare cell populations, as expression values are averaged over the whole population (Figure \ref{fig:bulk_vs_singlecell}). 
-In addition, NI methods rely on a diverse set of time-series and perturbation experiments in order to reliably identify causal regulatory interactions. However, such experiments are expensive and time-consuming, and an inaccurate choice of time points might result in crucial intermediate stages being missed.
-
-One of the main advantages of single-cell transcriptomics is the ability to quantify the exact cellular state of thousands of cells per experiment. The intercellular heterogeneity caused by naturally occurring biological stochasticity \cite{Padovan-Merhar2013} can be exploited to infer regulatory interactions between transcription factors (TFs) and their target genes (see Figure \ref{fig:bulk_vs_singlecell}).
-In this sense, heterogeneity in the cell population will ease the inference of networks, rather than mask condition-specific expression patterns and regulatory interactions.
+After the last DREAM competition, it seemed that interest in NI methodology had declined. After all, NI on bulk omics profiles suffered from several crucial issues. As mentioned previously, bulk profiles are generated by pooling together the RNA transcripts of a supposedly homogeneous population of thousands of cells. Since the expression values are averaged over the whole population, incorrect assumptions on the homogeneity of the pooled cells may lead to the masking of relevant expression patterns in rare cell populations (Figure \ref{fig:bulk_vs_singlecell}). Besides, NI methods rely on a diverse set of time-series and perturbation experiments in order to reliably identify causal regulatory interactions. Such experiments are expensive and time-consuming, and an inaccurate selection of time points might result in crucial intermediate stages being missed.
 
 \begin{figure}
 	\centering
 	\includegraphics[width=\Largefigure]{fig/introduction/ni_bulk_vs_sc}
-	\caption{Bulk expression data return the average expressions of genes among large numbers of cells. In order to infer regulatory networks from this type of data, multiple bulk profiles (resulting from time series or perturbation experiments) are typically used. On the other hand, sequencing the transcriptome at the single cell level uncovers the high variability among cells, providing the necessary information to directly infer gene regulatory networks.}
+	\caption{Bulk expression data return the average expressions of genes among large numbers of cells. In order to infer regulatory networks from this type of data, multiple bulk profiles (resulting from time series or perturbation experiments) are required. On the other hand, sequencing the transcriptome at the single-cell level uncovers the high variability among cells, providing the necessary information to infer gene regulatory networks directly.} % TODO: update label
 	\label{fig:bulk_vs_singlecell}
 \end{figure}
 
-
-While single-cell transcriptomics offers many advantages over traditional bulk profiling methods,
-several computational challenges pertaining to the preprocessing of the data have a big impact on 
-single-cell NI \cite{Stegle2015ComputationalChallenges}.  In this chapter, we will therefore firstly focus on zero inflation, confounding factors and scalability problems (Section \ref{challenges}).
-We will then discuss several recent developments in single-cell transcriptomics analysis that present a high interest to further improve NI methods. In the second part, we will focus on novel unsupervised learning methods that have been proposed for inferring the different cellular states within a heterogeneous cell population. These methods can help to increase the accuracy of NI by deriving differential, dynamic or profile-specific regulatory networks (Section \ref{structure-learning}).
-Lastly, single-cell transcriptomics has opened up a gateway to performing high-throughput multi-omics and/or perturbation experiments, which could again revolutionise how gene regulatory networks are being inferred at a high-throughput scale (Section \ref{perturbed}).
-
-
+The advent of single-cell omics has made scientists wonder whether now is the time to revisit network inference \cite{stegle_computationalanalyticalchallenges_2015}. 
+One of the main advantages of single-cell omics is the ability to quantify the exact cellular state of thousands of cells per experiment. The heterogeneity between cells caused by naturally occurring biological randomness \cite{padovan-merhar_usingvariabilitygene_2013} can be exploited to infer regulatory interactions between TFs and their target genes at much lower costs (see Figure \ref{fig:bulk_vs_singlecell}).
+In this setting, heterogeneity in the cell population eases network inference, rather than mask condition-specific expression patterns in regulatory interactions.
 
 \section{Research objectives}
+WIP
+
+The computational community has been very excited about trying to tackle these problems. By now, more than 450 software tools for processing single-cell omics data in one form of another have been released (Figure \ref{fig:comp_tools}B) \cite{zappia_exploringsinglecellrnaseq_2018}. Many of these methods attempt to tackle the abovementioned challenges (Figure \ref{fig:comp_tools}C). 
+
 Computer scientists should proceed with caution in developing new software, however, as the results produced should not only be convincing and easy to interpret, but the software should be robust and generate sufficiently accurate models of the underlying system.
 
 Bit too excited -- false positives, poor accuracy, scalability issues, poor software quality. 
