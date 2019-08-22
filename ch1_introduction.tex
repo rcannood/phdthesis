@@ -183,12 +183,126 @@ One of the main advantages of single-cell omics is the ability to quantify the e
 In this setting, heterogeneity in the cell population eases network inference, rather than mask condition-specific expression patterns in regulatory interactions.
 
 \section{Research objectives}
-WIP
 
-The computational community has been very excited about trying to tackle these problems. By now, more than 450 software tools for processing single-cell omics data in one form of another have been released (Figure \ref{fig:comp_tools}B) \cite{zappia_exploringsinglecellrnaseq_2018}. Many of these methods attempt to tackle the abovementioned challenges (Figure \ref{fig:comp_tools}C). 
+Recent technological advancements in profiling single cells are having significant repercussions in many fields of biology. The new types of analyses made possible warrant the development of computational tools which can solve the problem at hand and deal with the new data characteristics, ultimately in order to create useful and accurate hypotheses for biologists.
 
-Computer scientists should proceed with caution in developing new software, however, as the results produced should not only be convincing and easy to interpret, but the software should be robust and generate sufficiently accurate models of the underlying system.
+In response, scientists all over the globe have been working hard to tackle these computational challenges, resulting in more than 470 software tools for processing single-cell omics data in one form or another \cite{zappia_exploringsinglecellrnaseq_2018}. More than half of these tools were published in peer-reviewed journals. 
 
-Bit too excited -- false positives, poor accuracy, scalability issues, poor software quality. 
+The high number of tools available presents the user choice, but also uncertainty and indecision about which tool to use for the task at hand. Choosing the method with most citations might result in a weaker result than picking a method at random, and making an informed decision requires spending an enormous amount of time in comparing the results of numerous methods, on various platforms, on multiple different datasets. 
+
+The field of single-cell omics needs quantitative ways to measure the performance of different categories of tools. Clear quantitative metrics allow performing comprehensive studies to assess the advantages and disadvantages of existing tools. In addition, they could also serve as a minimum performance criterion before the publication of a new tool.
+
+In the computational jungle of single-cell omics, experts act as beacons of hope by sharing guidelines based on comprehensive benchmarking studies. Their disseminations (in the form of manuscripts \cite{lafzi_tutorialguidelinesexperimental_2018,luecken_currentbestpractices_2019}, courses \cite{kiselev_analysissinglecell_2019,martens_analysissinglecell_2019}, and slides shown during keynote caffeine refuelling sessions \cite{hemberg_coffeebreakanalysis_2019}) are crucial in leading new users, and ultimately the whole field, to better practices for performing single-cell omics analyses.
+
+% todo: provide better segway to the next section
 
 \section{Outline} % include contributions?
+This work aims to tackle multiple computational problems in extracting biological hypotheses from single-cell omics data.
+We introduce a framework for evaluating multiple types of single-cell omics tools, more specifically dimensionality reduction, trajectory inference, and gene regulatory network inference (Chapter \ref{chap:dyngen}). Next, we perform a comprehensive evaluation of 45 TI methods and construct guidelines based on our observations (Chapter \ref{chap:dynbenchmark}). As part of the evaluation, we developed a framework to infer, visualise, and interpret trajectories, which we made available as a separate tool called dyno (Chapter \ref{chap:dyno}).
+We also introduce two new computational tools of our own. SCORPIUS is a TI method specialised in inferring linear trajectories (Chapter \ref{chap:scorpius}). bred is a true single-cell NI method which can infer gene regulatory networks for individual cells (Chapter \ref{chap:bred}).
+
+\textbf{Chapter \ref{chap:dyngen}} -- why dyngen, what is it, what can it be used for.
+%framework for evaluating methods with synthetic data generator. if available, real data with gold standards would be most desirable.
+
+\textbf{Chapter \ref{chap:dynbenchmark}} -- why dynbenchmark, what is it, what can it be used for.
+
+\textbf{Chapter \ref{chap:dyno}} -- why dyno, what is it, what can it be used for.
+
+\textbf{Chapter \ref{chap:scorpius}} -- why scorpius, what is it, what can it be used for.
+
+\textbf{Chapter \ref{chap:bred}} -- why bred, what is it, what can it be used for.
+
+
+
+%Before embarking on this perilous adventure, I attempt to write a "Hippocratic oath for bioinformaticians", to guide me through this dissertation and not stray from the metaphorical path of righteousness.
+%
+%\subsection{Hippocratic oath for bioinformaticians}
+%We proceed with caution in developing new tools. Its results should not only be convincing and easy to interpret, but also accurate, robust, and reproducible. We value creating open-source software that works reliably but fails gracefully when it does not. We acknowledge that writing automated tests is dull but necessary for maintaining long-term software projects. % TODO: improve
+
+\section{List of contributions}
+
+\subsection{First-author publications}
+
+\begin{itemize}
+	\item \textbf{Cannoodt R} *, Saelens W *, Saeys Y. Computational methods for trajectory inference from single-cell transcriptomics. European journal of immunology. 2016 Nov;46(11):2496-506.
+	\item \textbf{Cannoodt R}, Saelens W, Sichien D, Tavernier S, Janssens S, Guilliams M, Lambrecht B, De Preter K, Saeys Y. SCORPIUS improves trajectory inference and identifies novel modules in dendritic cell development. bioRxiv. 2016 Oct:079509.
+	\item \textbf{Cannoodt R}, Ruyssinck J, Ramon J, De Preter K, Saeys Y. IncGraph: Incremental graphlet counting for topology optimisation. PloS one. 2018 Apr 26;13(4):e0195997.
+  \item Saelens W *, \textbf{Cannoodt R} *, Todorov H, Saeys Y. A comparison of single-cell trajectory inference methods. Nature biotechnology. 2019 May;37(5):547.
+  \item dyno, submitted?
+  \item dyngen, submitted?
+  \item scorpius, submitted?
+  \item bred, submitted?
+ \end{itemize}
+
+*: Equal contribution.
+
+\subsection{Co-author publications}
+\begin{itemize}
+	\item Decock A, Ongenaert M, \textbf{Cannoodt R}, Verniers K, De Wilde B, Laureys G, Van Roy N, Berbegall AP, Bienertova-Vasku J, Bown N, Clément N. Methyl-CpG-binding domain sequencing reveals a prognostic methylation signature in neuroblastoma. Oncotarget. 2016 Jan 12;7(2):1960.
+	\item Van Cauwenbergh C, Van Schil K, \textbf{Cannoodt R}, Bauwens M, Van Laethem T, De Jaegere S, Steyaert W, Sante T, Menten B, Leroy BP, Coppieters F. arrEYE: a customized platform for high-resolution copy number analysis of coding and noncoding regions of known and candidate retinal dystrophy genes and retinal noncoding RNAs. Genetics in Medicine. 2017 Apr;19(4):457.
+	\item Claeys S, Denecker G, \textbf{Cannoodt R}, Kumps C, Durinck K, Speleman F, De Preter K. Early and late effects of pharmacological ALK inhibition on the neuroblastoma transcriptome. Oncotarget. 2017 Dec 5;8(63):106820.
+	\item Depuydt P, Boeva V, Hocking TD, \textbf{Cannoodt R}, Ambros IM, Ambros PF, Asgharzadeh S, Attiyeh EF, Combaret V, Defferrari R, Fischer M. Genomic amplifications and distal 6q loss: novel markers for poor survival in high-risk neuroblastoma patients. JNCI: Journal of the National Cancer Institute. 2018 Mar 5;110(10):1084-93.
+	\item Scott CL, T'Jonck W, \ldots, \textbf{Cannoodt R}, Saelens W \ldots, Guilliams M. The transcription factor ZEB2 is required to maintain the tissue-specific identities of macrophages. Immunity. 2018 Aug 21;49(2):312-25.
+	\item Saelens W, \textbf{Cannoodt R}, Saeys Y. A comprehensive evaluation of module detection methods for gene expression data. Nature communications. 2018 Mar 15;9(1):1090.
+	\item Todorov H, \textbf{Cannoodt R}, Saelens W, Saeys Y. Network Inference from Single-Cell Transcriptomic Data. InGene Regulatory Networks 2019 (pp. 235-249). Humana Press, New York, NY..
+	\item Van den Berge K, De Bezieux HR, Street K, Saelens W, \textbf{Cannoodt R}, Saeys Y, Dudoit S, Clement L. Trajectory-based differential expression analysis for single-cell sequencing data. BioRxiv. 2019 Jan 1:623397.
+	\item Weber LM, Saelens W, \textbf{Cannoodt R}, Soneson C, Hapfelmeier A, Gardner PP, Boulesteix AL, Saeys Y, Robinson MD. Essential guidelines for computational method benchmarking. Genome biology. 2019 Dec;20(1):125.
+\end{itemize}
+
+\subsection{Open-source software}
+At the moment, only a subset of the dynverse packages are present on CRAN: dynutils, babelwhale, dynparam and dyndimred. We are currently in the process of submitting the next packages in our dependency graph on CRAN as well: dynwrap and dynplot. In this work package, we will submit all other dynverse packages as well to CRAN, so that the dynverse toolkit becomes broadly distributed. This includes making sure the package code complies with CRAN policy, adding extensive documentation and examples, and updating the codebase based on the comments from the CRAN maintainers.
+
+Furthermore, the work packages also includes maintaining and extending existing software packages on CRAN or Bioconductor on which our packages depend. We already have extensive experience with contributing to our dependencies. This includes speeding up parts of the dependency (princurve, proxyC), fixing bugs (monocle, splatter, slingshot, rlang, devtools), becoming a maintainer of orphaned packages (princurve, GillespieSSA), extending the documentation (devtools) and adding new functionality (ParamHelpers). We will keep doing this within this work package, with a focus on dependencies that help with plotting (ggplot2, ggraph, patchwork) and trajectory inference (monocle, slingshot, PAGA).
+
+\paragraph{Author of the following packages:}
+\ \\
+{
+	\small
+	\begin{tabular}{llp{10cm}}
+		babelwhale    & CRAN   & Interacting with Docker and Singularity containers                        \\
+		dyndimred     & CRAN   & Applying dimensionality reduction methods                                 \\
+		dyneval       & Github & Evaluating trajectory inference methods                                   \\
+		dynfeature    & Github & Calculating feature importance scores from trajectories                   \\
+		dyngen        & Github & Simulating single-cell data using gene regulatory networks                \\
+		dynguidelines & Github & User guidelines for trajectory inference                                  \\
+		dynmethods    & Github & A collection of wrappers for trajectory inference methods                 \\
+		dyno          & Github & A pipeline for inferring, visualising and interpreting trajectories       \\
+		dynparam      & Github & Creating meta-information for parameters                                  \\
+		dynplot       & Github & A simple visualisation library for trajectories                           \\
+		dynplot2      & Github & A fully customisable visualisation library for trajectories               \\
+		dyntoy        & Github & Generating simple toy data of cellular differentiation                    \\
+		dynutils      & CRAN   & Common functionality for the dynverse packages                            \\
+		dynwrap       & Github & A common format for trajectories                                          \\
+		GillespieSSA  & CRAN   & Gillespie's Stochastic Simulation Algorithm (SSA)                         \\
+		GillespieSSA2 & CRAN   & Gillespie's Stochastic Simulation Algorithm for Impatient People          \\
+		gng           & Github & An Rcpp implementation of the Growing Neural Gas algorithm                \\
+		incgraph      & CRAN   & Incremental graphlet counting for network optimisation                    \\
+		princurve     & CRAN   & Fits a principal curve in arbitrary dimension                             \\
+		proxyC        & CRAN   & Computes proximity in large sparse matrices                               \\
+		qsub          & CRAN   & Running commands remotely on gridengine clusters                          \\
+		SCORPIUS      & CRAN   & Inferring developmental chronologies from single-cell RNA sequencing data
+	\end{tabular}
+}
+
+\paragraph{Contributor:}
+\ \\
+{
+	\small
+	\begin{tabular}{llp{10cm}}
+		ClusterSignificance & Bioconductor & Assess if class clusters in dimensionality reduced data representations have a separation different from permuted data                                           \\
+		devtools            & CRAN         & Tools to make developing R packages easier                                                                                                                       \\
+		merlot              & Github       & A method for reconstructing lineage-tree topologies from scRNA-seq data                                                                                          \\
+		mlr                 & CRAN         & Machine Learning in R                                                                                                                                            \\
+		monocle             & Bioconductor & Clustering, differential expression, and trajectory analysis for single-cell RNA-Seq                                                                             \\
+		ParamHelpers        & CRAN         & Helpers for Parameters in Black-Box Optimization, Tuning and Machine Learning                                                                                    \\
+		pseudogp            & Github       & Probabilistic pseudotime for single-cell RNA-seq                                                                                                                 \\
+		remotes             & CRAN         & R package installation from remote repositories, including GitHub                                                                                                \\
+		rlang               & CRAN         & Functions for base types and core R and tidyverse features                                                                                                       \\
+		SCope               & Github       & Visualization of large-scale and high dimensional single cell data                                                                                               \\
+		slingshot           & Bioconductor & Tools for ordering single-cell sequencing                                                                                                                        \\
+		splatter            & Bioconductor & Simple simulation of single-cell RNA sequencing data                                                                                                             \\
+		URD                 & Github       & URD reconstructs transcriptional trajectories underlying specification or differentiation processes in the form of a branching tree from single-cell RNAseq data \\
+		wishbone            & Github       & identify bifurcating developmental trajectories from single-cell data
+	\end{tabular}
+%\endgroup{}
+}
