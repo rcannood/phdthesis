@@ -256,6 +256,10 @@ Packages that were created as part of this work are hosted on Github under the u
 
 We also helped maintain or extend other packages on Github, CRAN or Bioconductor on which our software depends. This includes help speed up parts of the dependency (slingshot), adding new functionality (devtools, ParamHelpers), fixing bugs (proxyC, rlang, monocle, splatter, slingshot), becoming a maintainer of orphaned packages (princurve, GillespieSSA), and extending the documentation (devtools, mlr, remotes). Several of these package receive millions of downloads per year (devtools, remotes, rlang).
 
+\newcommand{\cranpkg}[1]{\href{https://cran.r-project.org/package=#1}{#1}}
+\newcommand{\biocpkg}[1]{\href{https://bioconductor.org/packages/#1}{#1}}
+\newcommand{\biocpkgl}[2]{\href{https://bioconductor.org/packages/#1}{#2}}
+\newcommand{\githubpkg}[2]{\href{https://github.com/#1/#2}{#2}}
 
 \begin{table}[ht!]
 	\caption{\textbf{Contibutions to open-source software.} Following abbreviations denote the role within the package: aut Author, ctb Contributor. Yearly download statistics are based on the number of downloads between 2018-07-01 and 2019-06-30. CRAN download statistics are retrieved from the Rstudio CRAN mirror only; other CRAN mirrors do not track download statistics. For Github repositories, no download statistics could be retrieved (N/A). } \label{tab:packages}
@@ -263,43 +267,43 @@ We also helped maintain or extend other packages on Github, CRAN or Bioconductor
 	\centering\fontsize{9}{11}\selectfont
 	\begin{tabularx}{\linewidth}{|p{2cm}lllX|}
 		\hline
-		Name & Role & Repo & Downloads p.a. & Description \\ \hline\hline
-		babelwhale & aut & CRAN & N/A & Interacting with Docker and Singularity containers \\
-		dynbenchmark & aut & Github & N/A & Pipeline for benchmarking trajectory inference methods \\
-		dyndimred & aut & CRAN & 560 & Applying dimensionality reduction methods \\
-		dyneval & aut & Github & N/A & Evaluating trajectory inference methods \\
-		dynfeature & aut & Github & N/A & Calculating feature importance scores from trajectories \\
-		dyngen & aut & Github & N/A & Simulating single-cell data using gene regulatory networks \\
-		dynguidelines & aut & Github & N/A & User guidelines for trajectory inference \\
-		dynmethods & aut & Github & N/A & A collection of wrappers for trajectory inference methods \\
-		dyno & aut & Github & N/A & A pipeline for inferring, visualising and interpreting trajectories \\
-		dynparam & aut & CRAN & 790 & Creating meta-information for parameters \\
-		dynplot & aut & Github & N/A & A simple visualisation library for trajectories \\
-		dynplot2 & aut & Github & N/A & A fully customisable visualisation library for trajectories \\
-		dyntoy & aut & Github & N/A & Generating simple toy data of cellular differentiation \\
-		dynutils & aut & CRAN & 7143 & Common functionality for the dynverse packages \\
-		dynwrap & aut & Github & N/A & A common format for trajectories \\
-		GillespieSSA & aut & CRAN & 5260 & Gillespie's Stochastic Simulation Algorithm (SSA) \\
-		GillespieSSA2 & aut & CRAN & N/A & Gillespie's Stochastic Simulation Algorithm for Impatient People \\
-		gng & aut & Github & N/A & An Rcpp implementation of the Growing Neural Gas algorithm \\
-		incgraph & aut & CRAN & 2863 & Incremental graphlet counting for network optimisation \\
-		princurve & aut & CRAN & 27'589 & Fits a principal curve in arbitrary dimension \\
-		proxyC & aut & CRAN & 3861 & Computes proximity in large sparse matrices \\
-		qsub & aut & CRAN & 3273 & Running commands remotely on gridengine clusters \\
-		SCORPIUS & aut & CRAN & 3448 & Inferring developmental chronologies from single-cell RNA sequencing data \\ \hline\hline
-		Clus\-ter\-Sig\-nif\-i\-cance & ctb & Bioc & 1553 & Assess if class clusters in dimensionality reduced data representations have a separation different from permuted data \\
-		devtools & ctb & CRAN & 4'711'985 & Tools to make developing R packages easier \\
-		merlot & ctb & Github & N/A & A method for reconstructing lineage-tree topologies from scRNA-seq data \\
-		mlr & ctb & CRAN & 145'913 & Machine Learning in R \\
-		monocle & ctb & Bioc & 38'555 & Clustering, differential expression, and trajectory analysis for single-cell RNA-Seq \\
-		ParamHelpers & ctb & CRAN & 125'471 & Helpers for Parameters in Black-Box Optimization, Tuning and Machine Learning \\
-		pseudogp & ctb & Github & N/A & Probabilistic pseudotime for single-cell RNA-seq \\
-		remotes & ctb & CRAN & 2'019'623 & R package installation from remote repositories, including GitHub \\
-		rlang & ctb & CRAN & 9'838'123 & Functions for base types and core R and tidyverse features \\
-		SCope & ctb & Github & N/A & Visualization of large-scale and high dimensional single cell data \\
-		slingshot & ctb & Bioc & 3772 & Tools for ordering single-cell sequencing \\
-		splatter & ctb & Bioc & 5360 & Simple simulation of single-cell RNA sequencing data \\
-		URD & ctb & Github & N/A & URD reconstructs transcriptional trajectories underlying specification or differentiation processes in the form of a branching tree from single-cell RNAseq data \\
-		wishbone & ctb & Github & N/A & Identify bifurcating developmental trajectories from single-cell data \\\hline
+		Name & Role & Host & Downloads p.a. & Description \\ \hline\hline
+		\cranpkg{babelwhale} & aut & CRAN & N/A & Interacting with Docker and Singularity containers \\
+		\githubpkg{dynverse}{dynbenchmark} & aut & Github & N/A & Pipeline for benchmarking trajectory inference methods \\
+		\cranpkg{dyndimred} & aut & CRAN & 560 & Applying dimensionality reduction methods \\
+		\githubpkg{dynverse}{dyneval} & aut & Github & N/A & Evaluating trajectory inference methods \\
+		\githubpkg{dynverse}{dynfeature} & aut & Github & N/A & Calculating feature importance scores from trajectories \\
+		\githubpkg{dynverse}{dyngen} & aut & Github & N/A & Simulating single-cell data using gene regulatory networks \\
+		\githubpkg{dynverse}{dynguidelines} & aut & Github & N/A & User guidelines for trajectory inference \\
+		\githubpkg{dynverse}{dynmethods} & aut & Github & N/A & A collection of wrappers for trajectory inference methods \\
+		\githubpkg{dynverse}{dyno} & aut & Github & N/A & A pipeline for inferring, visualising and interpreting trajectories \\
+		\cranpkg{dynparam} & aut & CRAN & 790 & Creating meta-information for parameters \\
+		\githubpkg{dynverse}{dynplot} & aut & Github & N/A & A simple visualisation library for trajectories \\
+		\githubpkg{dynverse}{dynplot2} & aut & Github & N/A & A fully customisable visualisation library for trajectories \\
+		\githubpkg{dynverse}{dyntoy} & aut & Github & N/A & Generating simple toy data of cellular differentiation \\
+		\cranpkg{dynutils} & aut & CRAN & 7143 & Common functionality for the dynverse packages \\
+		\githubpkg{dynverse}{dynwrap} & aut & Github & N/A & A common format for trajectories \\
+		\cranpkg{GillespieSSA} & aut & CRAN & 5260 & Gillespie's Stochastic Simulation Algorithm (SSA) \\
+		\cranpkg{GillespieSSA2} & aut & CRAN & N/A & Gillespie's Stochastic Simulation Algorithm for Impatient People \\
+		\githubpkg{dynverse}{gng} & aut & Github & N/A & An Rcpp implementation of the Growing Neural Gas algorithm \\
+		\cranpkg{incgraph} & aut & CRAN & 2863 & Incremental graphlet counting for network optimisation \\
+		\cranpkg{princurve} & aut & CRAN & 27'589 & Fits a principal curve in arbitrary dimension \\
+		\cranpkg{proxyC} & aut & CRAN & 3861 & Computes proximity in large sparse matrices \\
+		\cranpkg{qsub} & aut & CRAN & 3273 & Running commands remotely on gridengine clusters \\
+		\cranpkg{SCORPIUS} & aut & CRAN & 3448 & Inferring developmental chronologies from single-cell RNA sequencing data \\ \hline\hline
+		\biocpkgl{ClusterSignificance}{Clus\-ter\-Sig\-nif\-i\-cance} & ctb & Bioc & 1553 & Assess if class clusters in dimensionality reduced data representations have a separation different from permuted data \\
+		\cranpkg{devtools} & ctb & CRAN & 4'711'985 & Tools to make developing R packages easier \\
+		\githubpkg{soedinglab}{merlot} & ctb & Github & N/A & A method for reconstructing lineage-tree topologies from scRNA-seq data \\
+		\cranpkg{mlr} & ctb & CRAN & 145'913 & Machine Learning in R \\
+		\biocpkg{monocle} & ctb & Bioc & 38'555 & Clustering, differential expression, and trajectory analysis for single-cell RNA-Seq \\
+		\cranpkg{ParamHelpers} & ctb & CRAN & 125'471 & Helpers for Parameters in Black-Box Optimization, Tuning and Machine Learning \\
+		\githubpkg{kieranrcampbell}{pseudogp} & ctb & Github & N/A & Probabilistic pseudotime for single-cell RNA-seq \\
+		\cranpkg{remotes} & ctb & CRAN & 2'019'623 & R package installation from remote repositories, including GitHub \\
+		\cranpkg{rlang} & ctb & CRAN & 9'838'123 & Functions for base types and core R and tidyverse features \\
+		\githubpkg{aertslab}{SCope} & ctb & Github & N/A & Visualization of large-scale and high dimensional single cell data \\
+		\biocpkg{slingshot} & ctb & Bioc & 3772 & Tools for ordering single-cell sequencing \\
+		\biocpkg{splatter} & ctb & Bioc & 5360 & Simple simulation of single-cell RNA sequencing data \\
+		\githubpkg{farrelja}{URD} & ctb & Github & N/A & URD reconstructs transcriptional trajectories underlying specification or differentiation processes in the form of a branching tree from single-cell RNAseq data \\
+		\githubpkg{ManuSetty}{wishbone} & ctb & Github & N/A & Identify bifurcating developmental trajectories from single-cell data \\\hline
 	\end{tabularx}
 \end{table}
