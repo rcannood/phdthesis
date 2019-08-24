@@ -1,6 +1,6 @@
 \newpage{\thispagestyle{empty}\cleardoublepage}
 \chapter{Introduction} 
-\chaptermark{Introduction.} % short title
+\chaptermark{Introduction} % short title
 \label{chap:introduction}
 \lettergroup{\thechapter}
 
@@ -53,6 +53,7 @@ Even so, a widely-accepted hypothesis states that life (or cells) did not origin
 	}
 	\label{fig:rnaworld}
 \end{figure}
+
 \subsection{The Central Dogma}
 The Central Dogma is a set of processes present which govern the general flow of genetic information in almost all existant living cells. In short, it states that DNA codes for RNA, which in turn codes for proteins. In this work, we assume the main processes involved in the Central Dogma are replication, transcription, splicing and translation (Figure 3). 
 
@@ -64,6 +65,7 @@ A stretch of DNA that contains a genetic blueprint for a particular molecule is 
 \textbf{RNA splicing} is a process that occurs in almost all organisms (but not all) and results in the removal of specific regions in the RNA molecule. Introns are the regions removed by this process, and exons the regions that remain. The main functionality of splicing is to be able to create multiple variants of the same product, which can affect the enzymatic properties or localisation of the resulting product \cite{kelemen_functionalternativesplicing_2013}.
 
 During \textbf{translation}, a chain of amino acid is synthesised from an mRNA transcript. Every three nucleobases are translated into one of 21 different amino acids. The resulting chain of amino acids is folded up into a protein, the structure of which is determined by the sequence of different amino acids in the chain. In turn, its structure determines the functionality of the protein, which includes catalysing biochemical reactions, providing structure, and transportation of molecules. 
+
 \subsection{Cell types}
 The functionality provided by a cell is defined (mostly) by the proteins of which it consists. One common approach to trying to understand the functionality of a cell is to observe which molecules are present in the cell and to associate those molecules with functionality. 
 
@@ -197,9 +199,13 @@ In the computational jungle of single-cell omics, experts act as beacons of hope
 % todo: provide better segway to the next section
 
 \section{Outline} % include contributions?
-This work aims to tackle multiple computational problems in extracting biological hypotheses from single-cell omics data.
+% mention focus on datasets which contain developing cells.
+
+This work aims to tackle multiple computational problems in extracting biological hypotheses from single-cell omics data. (TODO: rephrase that we focus on datasets that contain developing cells, and that the tools we develop make this assumption.)
 We introduce a framework for evaluating multiple types of single-cell omics tools, more specifically dimensionality reduction, trajectory inference, and gene regulatory network inference (Chapter \ref{chap:dyngen}). Next, we perform a comprehensive evaluation of 45 TI methods and construct guidelines based on our observations (Chapter \ref{chap:dynbenchmark}). As part of the evaluation, we developed a framework to infer, visualise, and interpret trajectories, which we made available as a separate tool called dyno (Chapter \ref{chap:dyno}).
 We also introduce two new computational tools of our own. SCORPIUS is a TI method specialised in inferring linear trajectories (Chapter \ref{chap:scorpius}). bred is a true single-cell NI method which can infer gene regulatory networks for individual cells (Chapter \ref{chap:bred}).
+
+
 
 \textbf{Chapter \ref{chap:dyngen}} -- why dyngen, what is it, what can it be used for.
 %framework for evaluating methods with synthetic data generator. if available, real data with gold standards would be most desirable.

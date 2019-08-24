@@ -19,8 +19,9 @@ model <-
     backbone = backbone,
     verbose = TRUE,
     download_cache_dir = "~/.cache/dyngen",
-    num_cores = 8
-
+    num_cores = 8,
+    distance_metric = "euclidean",
+    simulation_params = simulation_default(ssa_algorithm = GillespieSSA2::ssa_exact(), num_simulations = 8, census_interval = .01)
   ) %>%
   generate_tf_network() %>%
   generate_feature_network() %>%
@@ -44,6 +45,11 @@ model2 <- model %>%
   generate_cells() %>%
   generate_experiment()
 
+# recalculate dimred
+space <- prcomp(model2$simulations$counts %>% as.matrix, rank. = 2)$x
+colnames(space) <- c("comp_1", "comp_2")
+model2$simulations$dimred <- space
+
 g <- plot_gold_simulations(model2) + scale_colour_brewer(palette = "Dark2")
 ggsave("dyngen/gold_simulations.pdf", g, width = 8, height = 6)
 
@@ -52,7 +58,7 @@ ggsave("dyngen/gold_mrna.pdf", g, width = 8, height = 6)
 g <- plot_gold_expression(model2, label_changing = FALSE) # premrna, mrna, and protein
 ggsave("dyngen/gold_expression.pdf", g, width = 8, height = 6)
 
-g <- plot_simulations(model2)
+g <- plot_simulations(model2) + theme_classic() + theme(axis.ticks = element_blank(), axis.line = element_blank(), axis.text = element_blank(), axis.title = element_blank()) + labs(colour = "Simulation\ntime")
 ggsave("dyngen/simulations.pdf", g, width = 8, height = 6)
 
 g <- plot_gold_mappings(model2, do_facet = FALSE) + scale_colour_brewer(palette = "Dark2")
@@ -122,3 +128,4 @@ g <- ggplot(as.data.frame(dimred)) + geom_point(aes(comp_1, comp_2)) + coord_equ
   theme(axis.text = element_blank(), axis.ticks = element_blank()) +
   labs(x = "Comp 1", y = "Comp 2")
 ggsave("dyngen/dimred.pdf", g, width = 8, height = 6)
+
