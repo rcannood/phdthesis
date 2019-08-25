@@ -32,21 +32,46 @@ in anticipation of new experimental technologies.
 A few generators of scRNA-seq profiles have already been developed (e.g. splatter \cite{zappia_splattersimulationsinglecell_2017} and PROSSTT \cite{papadopoulos_prossttprobabilisticsimulation_2018}). These can be 
 used to evaluate the performance of computational tools, and to explore their strengths and weaknesses. A limitation of directly simulating a scRNA-seq profile (instead of a single cell) is that extending the simulation to other aspects of the cell -- such as tracking the full history of molecular states -- becomes difficult.
 
-
-\section{Results}
-
-dyngen is a simulator for single cells that develop over time. Each cell contains an underlying gene regulatory network (GRN) that specifies which chemical reactions can occur at any given point in time, depending on the availability of required molecules (Figure \ref{fig:dyngen}A).
-It was initially developed as part of a comprehensive benchmark of TI methods \cite{saelens_comparisonsinglecelltrajectory_2019} but has since been extended to be applicable in a much broader context. 
-One main improvement is being able to profile multiple aspects of a single cell at any given time point: its molecule abundance levels, which reactions took place, and which parts of the gene regulatory network were active. The underlying GRN allows dyngen to be used in a variety of experimental scenarios in order to evaluate many different types of computational tools (Figure \ref{fig:dyngen}B).
+We introduce dyngen, a multi-modality simulator of single cells (Figure \ref{fig:dyngen}).
+dyngen was initially developed as part of a comprehensive benchmark of TI methods \cite{saelens_comparisonsinglecelltrajectory_2019} but has since been extended to be applicable in a much broader context.
+We demonstrate its flexibility by simulating numerous different types of biological experiments, and using these simulations to develop new benchmarking techniques for computational tools.
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\LARGEfigure]{fig/dyngen/showcase_3.png} 
-	\caption{Showcase of dyngen functionality. \textbf{TODO: change to pdf.}} % TODO: update label
+	\includegraphics[width=\linewidth]{fig/dyngen/showcase_3.png} 
+	\caption{Showcase of dyngen functionality. \textbf{TODO: change to pdf.} Remove B?} % TODO: update label
 	\label{fig:dyngen}
 \end{figure}
 
-\subsection{Example simulation}
+\section{Results}
+dyngen is a simulator for single cells that develop over time. Throughout this section, a simple simulation of a cell undergoing a cyclic process is used to illustrate key strengths of dyngen (Figure \ref{fig:simplecyclic}). This example only comprises of a single cell containing 5 genes, but dyngen can easily scale up to thousands of simulations containing thousands of genes.
+
+In dyngen, a cell consists of a set of molecules, the abundance of which are affected by a set of reactions: transcription, splicing, translation, and degradation (Figure \ref{fig:simplecyclic}A). These reactions are determined from a predefined set of gene regulatory interactions (Figure \ref{fig:simplecyclic}B), henceforth referred to as a gene regulatory network (GRN). The likelihood of a reaction occurring at any given point in time is defined by the GRN and by the abundance of molecules involved each reaction.
+
+One of dyngen's main advantages is that through careful engineering of the GRN, different cellular developmental processes can be obtained. Different GRNs can result in branching, converging, cyclic, or even disconnected developmental topologies. Multiple simulations with slightly different GRNs can emulate rewiring events in disease or perturbation experiments. % could use figure; one with GRNs of different topologies, another with rewiring events
+Multiple simulations with different initial molecule abundance levels can be used to replicate batch effects. 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{fig/dyngen/simplecyclic_edited} 
+	\caption{Showcase of dyngen functionality.}
+	\label{fig:simplecyclic}
+\end{figure}
+
+Another advantage is that dyngen returns many modalities throughout the whole simulation: molecular abundance (Figure \ref{fig:simplecyclic}C), cellular state (\ref{fig:simplecyclic}D), number of reaction firings (\ref{fig:simplecyclic}E), reaction likelihoods (not shown), and regulation activations (\ref{fig:simplecyclic}F). These modalities can serve as input data and ground truth for benchmarking many types of computational approaches, including clustering, batch effect correction, dimensionality reduction, trajectory inference, trajectory alignment, and gene regulatory network inference. 
+
+The final main advantage is that by making alterations to the generation pipeline, multiple types of experiments can be simulated. The default settings assumes an asynchronous dynamic process and thus cells are sampled uniformly. A time-series experiment of a synchonised dynamic process can be simulated by sampling cells from various intervals of the simulation. 
+% TODO: you can even profile the same cell at regular intervals, which is a technology that does not exist yet at a single cell omics scale. This could be used to evaluate, for example, RNA velocity approaches.
+
+%\subsection{Example simulation}
+%
+%
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=\linewidth]{fig/dyngen/simplecyclic_edited} 
+%	\caption{Simple cyclic} % TODO: update label
+%	\label{fig:simplecyclic}
+%\end{figure}
 
 \subsection{Applications}
 
@@ -59,11 +84,35 @@ One main improvement is being able to profile multiple aspects of a single cell 
 
 
 \section{Discussion}
+% cell cycle, mitosis
+% cell-cell interaction
+% spatial + cell movement
+% transcriptional bursting
+% add mechanism for triggering reactions only when they are needed?
 
 \section{Methods}
 
+\subsection{Simulating a snapshot experiment with dyngen}
+\subsubsection{Define the module network and the state network}
+\subsubsection{Generate the transcription factor network}
+\subsubsection{Generate targets and housekeeping genes}
+\subsubsection{Convert gene regulatory network to a set of SSA reactions}
+\subsubsection{Determine the gold standard}
+\subsubsection{Running SSA simulations and mapping it to the gold standard}
+\subsubsection{Simulate snapshot experiment}
+\subsection{Predefined backbones}
 
-
+\subsection{Other types of experiments}
+\subsubsection{Time series experiment}
+\subsubsection{Perturbation experiment}
+\subsubsection{Batch effects}
+\subsection{Evaluating computational tools}
+\subsubsection{Clustering}
+\subsubsection{Dimensionality reduction}
+\subsubsection{Batch effect correction}
+\subsubsection{Trajectory inference}
+\subsubsection{Trajectory alignment}
+\subsubsection{Network inference}
 
 
 

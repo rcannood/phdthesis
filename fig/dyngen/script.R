@@ -50,6 +50,8 @@ space <- prcomp(model2$simulations$counts %>% as.matrix, rank. = 2)$x
 colnames(space) <- c("comp_1", "comp_2")
 model2$simulations$dimred <- space
 
+write_rds(model2, "dyngen/model.rds", compress = "gzip")
+
 g <- plot_gold_simulations(model2) + scale_colour_brewer(palette = "Dark2")
 ggsave("dyngen/gold_simulations.pdf", g, width = 8, height = 6)
 
@@ -73,7 +75,7 @@ dataset <- wrap_dataset(model2)
 library(dynplot)
 g <- plot_dimred(dataset)
 ggsave("dyngen/traj_dimred.pdf", g, width = 8, height = 6)
-plot_graph(dataset)
+g <- plot_graph(dataset)
 ggsave("dyngen/traj_graph.pdf", g, width = 8, height = 6)
 g <- plot_heatmap(dataset, features_oi = 40)
 ggsave("dyngen/traj_heatmap.pdf", g, width = 8, height = 6)
