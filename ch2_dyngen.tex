@@ -29,8 +29,8 @@ While this falls outside the reach of current experimental technologies, \textit
 of single cells would allow developing the next wave of computational techniques
 in anticipation of new experimental technologies.
 
-A few generators of scRNA-seq profiles have already been developed (e.g. splatter \cite{zappia_splattersimulationsinglecell_2017} and PROSSTT \cite{papadopoulos_prossttprobabilisticsimulation_2018}). These can be 
-used to evaluate the performance of computational tools, and to explore their strengths and weaknesses. A limitation of directly simulating a scRNA-seq profile (instead of a single cell) is that extending the simulation to other aspects of the cell -- such as tracking the full history of molecular states -- becomes difficult.
+A few generators of scRNA-seq profiles have already been developed (e.g. splatter \cite{zappia_splattersimulationsinglecell_2017} and PROSSTT \cite{papadopoulos_prossttprobabilisticsimulation_2018}). % BoolODE and dyntoy are also examples.
+These can be used to evaluate the performance of computational tools, and to explore their strengths and weaknesses. A limitation of directly simulating a scRNA-seq profile (instead of a single cell) is that extending the simulation to other aspects of the cell -- such as tracking the full history of molecular states -- becomes difficult.
 
 We introduce dyngen, a multi-modality simulator of single cells (Figure \ref{fig:dyngen}).
 dyngen was initially developed as part of a comprehensive benchmark of TI methods \cite{saelens_comparisonsinglecelltrajectory_2019} but has since been extended to be applicable in a much broader context.
@@ -46,49 +46,36 @@ We demonstrate its flexibility by simulating numerous different types of biologi
 \section{Results}
 dyngen is a simulator for single cells that develop over time. Throughout this section, a simple simulation of a cell undergoing a cyclic process is used to illustrate key strengths of dyngen (Figure \ref{fig:simplecyclic}). This example only comprises of a single cell containing 5 genes, but dyngen can easily scale up to thousands of simulations containing thousands of genes.
 
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{fig/dyngen/simplecyclic_edited} 
+	\caption{Showcase of dyngen functionality. A time resolution of 0.1 was used, but this can be increased or decreased without effect on performance of the execution of the simulation. \textbf{TODO: perhaps it's better to replace Figure \ref{fig:simplecyclic} with one subfigure for each of the paragraphs in this text.}}
+	\label{fig:simplecyclic}
+\end{figure}
+
 In dyngen, a cell consists of a set of molecules, the abundance of which are affected by a set of reactions: transcription, splicing, translation, and degradation (Figure \ref{fig:simplecyclic}A). These reactions are determined from a predefined set of gene regulatory interactions (Figure \ref{fig:simplecyclic}B), henceforth referred to as a gene regulatory network (GRN). The likelihood of a reaction occurring at any given point in time is defined by the GRN and by the abundance of molecules involved each reaction.
 
 One of dyngen's main advantages is that through careful engineering of the GRN, different cellular developmental processes can be obtained. Different GRNs can result in branching, converging, cyclic, or even disconnected developmental topologies. Multiple simulations with slightly different GRNs can emulate rewiring events in disease or perturbation experiments. % could use figure; one with GRNs of different topologies, another with rewiring events
 Multiple simulations with different initial molecule abundance levels can be used to replicate batch effects. 
 
-\begin{figure}
-	\centering
-	\includegraphics[width=\linewidth]{fig/dyngen/simplecyclic_edited} 
-	\caption{Showcase of dyngen functionality.}
-	\label{fig:simplecyclic}
-\end{figure}
+Another advantage is that dyngen returns many modalities throughout the whole simulation: molecular abundance, cellular state, number of reaction firings, reaction likelihoods, and regulation activations (Figure \ref{fig:simplecyclic}C--F). These modalities can serve both as input data and ground truth for benchmarking many types of computational approaches. For example, a network inference method could use mRNA abundance and cellular states as inputs, and its output could be benchmarked against the gold standard GRN.
 
-Another advantage is that dyngen returns many modalities throughout the whole simulation: molecular abundance (Figure \ref{fig:simplecyclic}C), cellular state (\ref{fig:simplecyclic}D), number of reaction firings (\ref{fig:simplecyclic}E), reaction likelihoods (not shown), and regulation activations (\ref{fig:simplecyclic}F). These modalities can serve as input data and ground truth for benchmarking many types of computational approaches, including clustering, batch effect correction, dimensionality reduction, trajectory inference, trajectory alignment, and gene regulatory network inference. 
+The final main advantage is that by making alterations to the simulation pipeline, multiple types of experiments (sampling technique or profiling technique) can be simulated. By default, dyngen supports snapshot experiments (uniformly sampling from an asynchronous dynamic process) and time-series experiments (sampling cells from different intervals in the simulation). 
+It is possible to implement other experimental protocols (which perhaps do not exist in real life), such as sampling the same cell at regular intervals. 
 
-The final main advantage is that by making alterations to the generation pipeline, multiple types of experiments can be simulated. The default settings assumes an asynchronous dynamic process and thus cells are sampled uniformly. A time-series experiment of a synchonised dynamic process can be simulated by sampling cells from various intervals of the simulation. 
-% TODO: you can even profile the same cell at regular intervals, which is a technology that does not exist yet at a single cell omics scale. This could be used to evaluate, for example, RNA velocity approaches.
-
-%\subsection{Example simulation}
-%
-%
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=\linewidth]{fig/dyngen/simplecyclic_edited} 
-%	\caption{Simple cyclic} % TODO: update label
-%	\label{fig:simplecyclic}
-%\end{figure}
-
-\subsection{Applications}
-
-\subsection{Supported backbones}
-
-\subsection{Backbone lego}
-
-\subsection{Additional experimental effects}
-% time series, batch effects, perturbation experiments
 
 
 \section{Discussion}
-% cell cycle, mitosis
-% cell-cell interaction
-% spatial + cell movement
-% transcriptional bursting
-% add mechanism for triggering reactions only when they are needed?
+As is, dyngen's single cell simulations can be used to evaluate common single-cell omics computational methods such as clustering, batch correction, trajectory inference and network inference.
+However, the combined effect of these advantages results in a framework that is flexible enough to adapt to a broad range of applications; several examples are given.
+
+Adding batch effects to snapshot simulations of linear (or even branching) trajectories allows to evaluate trajectory alignment methods -- which attempt to map two or more trajectories onto each other. Adding perturbations to the GRN allows to evaluate the performance of differential network inference methods -- which predict differential regulatory interactions between two or more groups of profiles.  Sampling a cell at a certain time point and once more at a later time point allows to evaluate the performance of RNA velocity approaches -- which predict the future state of a cell by looking at differences in pre-mRNA and mRNA abundance levels.
+
+dyngen ultimately also allows anticipating technological developments in single-cell multi-omics. In this way, it is possible to design and evaluate the performance and robustness of new types of computational analyses before experimental data becomes available.
+Similarly, it could also be used to compare which experimental technique will likely produce the most accurate result. For example, is it possible to infer directionality of regulatory interactions from snapshot experiments only, or are time series or knock down experiments a necessity in order to infer high quality regulatory networks?
+
+Currently, dyngen focuses on simulating cells as standalone entities.
+Future developments include extending the framework to simulate multiple cells in a virtual environment. Allowing cells to receive and react to environmental and intercellular stimuli would enable simulating essential cellular processes such as cell division and migration. 
 
 \section{Methods}
 
@@ -100,19 +87,21 @@ The final main advantage is that by making alterations to the generation pipelin
 \subsubsection{Determine the gold standard}
 \subsubsection{Running SSA simulations and mapping it to the gold standard}
 \subsubsection{Simulate snapshot experiment}
-\subsection{Predefined backbones}
 
-\subsection{Other types of experiments}
+\subsection{Adaptations}
+\subsubsection{Predefined backbones}
+\subsubsection{Backbone lego}
 \subsubsection{Time series experiment}
 \subsubsection{Perturbation experiment}
 \subsubsection{Batch effects}
-\subsection{Evaluating computational tools}
-\subsubsection{Clustering}
-\subsubsection{Dimensionality reduction}
-\subsubsection{Batch effect correction}
-\subsubsection{Trajectory inference}
+
+\subsection{Example use cases}
 \subsubsection{Trajectory alignment}
-\subsubsection{Network inference}
+From discussion: Adding batch effects to snapshot simulations of linear (or even branching) trajectories allows to evaluate trajectory alignment methods -- which attempt to map two or more trajectories onto each other. 
+\subsubsection{Differential network inference}
+From discussion: Adding perturbations to the GRN allows to evaluate the performance of differential network inference methods -- which predict differential regulatory interactions between two or more groups of profiles.
+\subsubsection{RNA velocity}
+From discussion: Sampling a cell at a certain time point and once more at a later time point allows to evaluate the performance of RNA velocity approaches -- which predict the future state of a cell by looking at differences in pre-mRNA and mRNA abundance levels.
 
 
 

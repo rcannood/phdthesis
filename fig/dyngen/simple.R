@@ -53,7 +53,8 @@ model <-
       ssa_algorithm = GillespieSSA2::ssa_exact(),
       num_simulations = 1,
       census_interval = census_interval,
-      store_reactions = TRUE
+      store_reaction_firings = TRUE,
+      store_reaction_propensities = TRUE
     )
   )
 
@@ -89,7 +90,7 @@ expr_df <- data.frame(time = time, model$simulations$counts %>% as.matrix()) %>%
     molecule = factor(mol_map[gsub("_.*", "", var)], levels = mol_map)
   ) %>%
   filter(time > 0)
-firings_df <- data.frame(time = time, model$simulations$reactions %>% as.matrix()) %>%
+firings_df <- data.frame(time = time, model$simulations$reaction_firings %>% as.matrix()) %>%
   gather(var, value, -time) %>%
   mutate(
     gene = paste0("Gene ", gsub(".*_", "", var)),
@@ -108,6 +109,13 @@ reg_df <- data.frame(time = time, model$simulations$regulation %>% as.matrix()) 
 state_df <- model$simulations$meta %>%
   mutate(cell_id = paste0("cell_", row_number())) %>%
   filter(sim_time > 0)
+prop_df <- data.frame(time = time, model$simulations$reaction_propensities %>% as.matrix()) %>%
+  gather(var, value, -time) %>%
+  mutate(
+    gene = paste0("Gene ", gsub(".*_", "", var)),
+    reaction = factor(reac_map[sub("_[^_]*$", "", var)], levels = reac_map)
+  ) %>%
+  filter(time > 0)
 
 dummy <-
   dynwrap::wrap_data(
@@ -122,6 +130,9 @@ state_df <- state_df %>%
   full_join(crossing(sim_time = state_df$sim_time, milestone_id = dummy$milestone_ids), by = c("milestone_id", "sim_time")) %>%
   mutate(percentage = ifelse(is.na(percentage), 0, percentage))
 
+#######
+# ABUNDANCE LEVELS
+#######
 max_expr <- max(expr_df$value)
 max_expr <- ceiling(max_expr / 10) * 10
 g1 <- ggplot(expr_df, aes(time, value)) +
@@ -137,42 +148,13 @@ g1 <- ggplot(expr_df, aes(time, value)) +
     legend.margin = margin()
   ) +
   scale_x_continuous(breaks = c(0, 5, 10)) +
-  scale_y_continuous(breaks = c(0, .5, 1) * max_expr, limits = c(0, max_expr))
-  geom_text(aes(label = gene), tibble(time = mean(expr_df$time), value = max_expr, gene = paste0("Gene ", LETTERS[1:5])), size = 3, hjust = 0, vjust = 1)
+  scale_y_continuous(breaks = c(0, .5, 1) * max_expr, limits = c(0, max_expr)) +
+  geom_text(aes(label = gene), tibble(time = mean(expr_df$time), value = max_expr, gene = paste0("Gene ", LETTERS[1:5])), size = 3, hjust = 0.5, vjust = 1)
 
-max_fir <- firings_df %>% group_by(time, gene) %>% summarise(sum = sum(value)) %>% ungroup() %>% pull(sum) %>% max
-max_fir <- ceiling(max_fir / 10) * 10
-g2 <- ggplot(firings_df, aes(time, value)) +
-  geom_bar(aes(fill = reaction), stat = "identity", width = census_interval * .8) +
-  facet_wrap(~gene, ncol = 1) +
-  theme_classic() +
-  scale_fill_brewer(palette = "Set2") +
-  labs(x = "Simulation time", y = "Number of reactions", fill = "Reaction type") +
-  theme(
-    text = element_text(family = "Helvetica"),
-    strip.background = element_blank(),
-    strip.text = element_blank(),
-    legend.margin = margin()
-  ) +
-  scale_x_continuous(breaks = c(0, 5, 10)) +
-  scale_y_continuous(breaks = c(0, .5, 1) * max_fir, limits = c(0, max_fir))
-  geom_text(aes(label = gene), tibble(time = mean(firings_df$time), value = max_fir, gene = paste0("Gene ", LETTERS[1:5])), size = 3, hjust = 0, vjust = 1)
-
-max_reg <- max(reg_df$value)
-max_reg <- ceiling(max_reg / 10) * 10
-g3 <- ggplot(reg_df) +
-  geom_line(aes(time, value, colour = name), size = 1) +
-  theme_classic() +
-  scale_colour_manual(values = RColorBrewer::brewer.pal(6, "Set3")[-2]) +
-  labs(x = "Simulation time", y = "Regulation", colour = "Interaction") +
-  theme(
-    text = element_text(family = "Helvetica"),
-    legend.margin = margin()
-  ) +
-  scale_x_continuous(breaks = c(0, 5, 10)) +
-  scale_y_continuous(breaks = c(0, .5, 1) * max_reg, limits = c(0, max_reg))
-
-g4 <- ggplot(state_df) +
+#######
+# ABUNDANCE LEVELS
+#######
+g2 <- ggplot(state_df) +
   geom_line(aes(sim_time, percentage, colour = milestone_id), size = 1.5) +
   theme_classic() +
   scale_colour_brewer(palette = "Accent") +
@@ -185,16 +167,87 @@ g4 <- ggplot(state_df) +
   scale_y_continuous(breaks = c(0, .5, 1))
 
 
+#######
+# REACTION FIRINGS
+#######
+firings_df_A <- firings_df %>% filter(gene == "Gene A")
+max_fir <- firings_df_A$value %>% max
+max_fir <- ceiling(max_fir / 10) * 10
+label_fir_df <- firings_df_A %>% group_by(reaction) %>% summarise(time = mean(time), value = max_fir) %>% mutate(reaction_text = paste0("Gene A ", reaction))
+
+g3 <-
+  ggplot(firings_df_A, aes(time, value)) +
+  facet_wrap(~reaction, ncol = 1) +
+  geom_area(aes(fill = forcats::fct_rev(reaction)), position = "stack") +
+  theme_classic() +
+  scale_fill_brewer(palette = "Set2") +
+  labs(x = "Simulation time", y = "Number of reactions", fill = "Reaction type") +
+  theme(
+    text = element_text(family = "Helvetica"),
+    strip.background = element_blank(),
+    strip.text = element_blank(),
+    legend.margin = margin()
+  ) +
+  scale_x_continuous(breaks = c(0, 5, 10)) +
+  scale_y_continuous(breaks = c(0, .5, 1) * max_fir, limits = c(0, max_fir)) +
+  geom_text(aes(label = reaction_text), label_fir_df, size = 3, hjust = 0.5, vjust = 1)
+
+
+
+#######
+# REACTION PROPENSITIES
+#######
+prop_df_A <- prop_df %>% filter(gene == "Gene A")
+max_prop <- prop_df_A$value %>% max
+max_prop <- ceiling(max_prop / 10) * 10
+label_prop_df <- prop_df_A %>% group_by(reaction) %>% summarise(time = mean(time), value = max_prop) %>% mutate(reaction_text = paste0("Gene A ", reaction))
+
+g4 <-
+  ggplot(prop_df_A, aes(time, value)) +
+  facet_wrap(~reaction, ncol = 1) +
+  geom_area(aes(fill = forcats::fct_rev(reaction)), position = "stack") +
+  theme_classic() +
+  scale_fill_brewer(palette = "Set2") +
+  labs(x = "Simulation time", y = "Propensity", fill = "Reaction type") +
+  theme(
+    text = element_text(family = "Helvetica"),
+    strip.background = element_blank(),
+    strip.text = element_blank(),
+    legend.margin = margin()
+  ) +
+  scale_x_continuous(breaks = c(0, 5, 10)) +
+  scale_y_continuous(breaks = c(0, .5, 1) * max_prop, limits = c(0, max_prop)) +
+  geom_text(aes(label = reaction_text), label_prop_df, size = 3, hjust = 0.5, vjust = 1)
+
+
+#######
+# REGULATION
+#######
+max_reg <- max(reg_df$value)
+max_reg <- ceiling(max_reg / 10) * 10
+g5 <- ggplot(reg_df) +
+  geom_line(aes(time, value, colour = name), size = 1) +
+  theme_classic() +
+  scale_colour_manual(values = RColorBrewer::brewer.pal(6, "Set3")[-2]) +
+  labs(x = "Simulation time", y = "Regulation", colour = "Interaction") +
+  theme(
+    text = element_text(family = "Helvetica"),
+    legend.margin = margin()
+  ) +
+  scale_x_continuous(breaks = c(0, 5, 10)) +
+  scale_y_continuous(breaks = c(0, .5, 1) * max_reg, limits = c(0, max_reg))
+
+
 g <- patchwork::wrap_plots(
   g1,
-  g4,
   g2,
   g3,
+  # g4,
+  g5,
   heights = c(3, 1, 3, 1),
   ncol = 1
 )
 
 ggsave("dyngen/simplecyclic.pdf", g, width = 8, height = 8, device = cairo_pdf)
-
 
 
