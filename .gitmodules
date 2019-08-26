@@ -1,0 +1,3 @@
+[submodule "ch2_dyngen"]
+	path = ch2_dyngen
+	url = git@github.com:rcannood/dyngen_analysis.git

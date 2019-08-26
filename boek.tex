@@ -1,4 +1,4 @@
-\documentclass[11pt,hidelinks]{book}
+\documentclass[10pt]{book}
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %%% IMPORT PACKAGES %%%
@@ -119,6 +119,7 @@
 \setlength{\thumbwidth}{1.5cm}
 
 \definecolor{light-gray}{gray}{0.90}
+\definecolor{med-gray}{gray}{0.60}
 \tikzset{
 	thumb/.style={
 		%   draw=black,
@@ -191,30 +192,6 @@
 	\label{#3}
 \end{figure}}
 
-%\newcommand{\picsubf}[2]{
-%	\begin{subfigure}[b]{#2}
-%		\fbox{\includegraphics[width=\linewidth]{#1}}
-%\end{subfigure}}
-%
-%\newcommand{\picsubfc}[4]{
-%	\begin{subfigure}[b]{#4}
-%		\fbox{\includegraphics[width=\linewidth]{#1}}
-%		\caption{#2}
-%		\label{#3}
-%\end{subfigure}}
-%
-%\newcommand{\picsub}[2]{
-%	\begin{subfigure}[b]{#2}
-%		\includegraphics[width=\linewidth]{#1}
-%\end{subfigure}}
-%
-%\newcommand{\picsubc}[4]{
-%	\begin{subfigure}[b]{#4}
-%		\includegraphics[width=\linewidth]{#1}
-%		\caption{#2}
-%		\label{#3}
-%\end{subfigure}}
-
 %%%%%%%%%%%%%%%%%%%%%
 %%% DEFINE STYLES %%%
 %%%%%%%%%%%%%%%%%%%%%
@@ -234,6 +211,13 @@ BoldItalicFont = *-700-Italic
 %% hyperlinks
 % load hyperref after fncychap
 \usepackage{hyperref}
+
+\hypersetup{
+	colorlinks = true,
+%	linkcolor = {blue},
+  urlcolor = {blue},
+	citecolor = {med-gray}
+}
 
 % Set style variables
 %\setlength{\parindent}{0cm} 
@@ -265,21 +249,99 @@ BoldItalicFont = *-700-Italic
 \mainmatter
 \pagestyle{mainmatter}
 
-%\include{ch1_introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%     CH1: INTRODUCTION     %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\thispagestyle{empty}\cleardoublepage}
+\chapter{Introduction} 
+\chaptermark{Introduction} % short title
+\label{chap:introduction}
+\graphicspath{{./ch1_introduction/}}
+\lettergroup{\thechapter}
+\begin{quote}
+	\textbf{Abstract:} 
+	%Recent developments in single-cell transcriptomics have opened new opportunities for studying dynamic processes in immunology in a high-throughput and unbiased manner. Starting from a mixture of cells in different stages of a developmental process, unsupervised trajectory inference algorithms aim to automatically reconstruct the underlying developmental path that cells are following. In this review, we break down the strategies used by this novel class of methods, and organize their components into a common framework, highlighting several practical advantages and disadvantages of the individual methods. We also give an overview of new insights these methods have already provided regarding the wiring and gene regulation of cell differentiation. As the trajectory inference field is still in its infancy, we propose several future developments which will ultimately lead to a global and data-driven way of studying immune cell differentiation.
+\end{quote}
+\vfill
+Partially adapted from:\\
+\textbf{Cannoodt, R.}$^*$, Saelens, W.$^*$, and Saeys, Y. Computational methods for trajectory inference from single-cell transcriptomics. \textit{European Journal of Immunology} 46, 11 (2016), 2496--2506. \doi{10.1002/eji.201646347}.\\
+Saelens, W.$^*$, \textbf{Cannoodt, R.}$^*$, Todorov, H., and Saeys, Y. A comparison of single-cell trajectory inference methods. \textit{Nature Biotechnology} 37, 5 (2019), 547--554. \doi{10.1038/s41587-019-0071-9}.\\
+Todorov, H., \textbf{Cannoodt, R.}, Saelens, W., and Saeys, Y. Network Inference from Single-Cell Transcriptomic Data. \textit{Gene Regulatory Networks} (2019), 235--249. \doi{10.1007/978-1-4939-8882-2_10}. \\
+{\footnotesize $^*$ Equal contribution}
+\newpage
+\include{ch1_introduction/content}
 
-\include{ch2_dyngen}
-%
-%\include{ch4_dynbenchmark}
-%
-%\include{ch6_dyno}
-%
-%\include{ch5_scorpius}
-%
-%\include{ch7_brood}
-%
-%\include{ch8_incgraph}
-%
-%\include{ch9_discussion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%        CH2: DYNGEN        %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\thispagestyle{empty}\cleardoublepage}
+\chapter{dyngen: simulating single cells} 
+\chaptermark{dyngen: simulating single cells}
+\label{chap:dyngen}
+\graphicspath{{./ch2_dyngen/}}
+\include{ch2_dyngen/content}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%     CH3: DYNBENCHMARK     %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\thispagestyle{empty}\cleardoublepage}
+\chapter{dynbenchmark: A comparison of single-cell trajectory inference methods} 
+\chaptermark{dynbenchmark: A comparison of single-cell trajectory inference methods.} % short title
+\label{chap:dynbenchmark}
+\graphicspath{{./ch3_dynbenchmark/}}
+\begin{quote}
+	\textbf{Abstract:} Trajectory inference approaches analyze genome-wide omics data from thousands of single cells and computationally infer the order of these cells along developmental trajectories. Although more than 70 trajectory inference tools have already been developed, it is challenging to compare their performance because the input they require and output models they produce vary substantially. Here, we benchmark 45 of these methods on 110 real and 229 synthetic datasets for cellular ordering, topology, scalability and usability. Our results highlight the complementarity of existing tools, and that the choice of method should depend mostly on the dataset dimensions and trajectory topology. Based on these results, we develop a set of guidelines to help users select the best method for their dataset. Our freely available data and evaluation pipeline (\href{https://benchmark.dynverse.org}{benchmark.dynverse.org}) will aid in the development of improved tools designed to analyze increasingly large and complex single-cell datasets.
+\end{quote}
+\vfill
+Adapted from:\\
+Saelens, W.$^*$, \textbf{Cannoodt, R.}$^*$, Todorov, H., and Saeys, Y. A comparison of single-cell trajectory inference methods. \textit{Nature Biotechnology} 37, 5 (2019), 547--554. \doi{10.1038/s41587-019-0071-9}.\\
+{\footnotesize $^*$ Equal contribution}
+\newpage
+\include{ch3_dynbenchmark/content}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%         CH4: DYNO         %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{ch4_dyno}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%       CH5: SCORPIUS       %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{ch5_scorpius}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%         CH6: BRED         %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{ch6_brood}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%       CH7: INCGRAPH       %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\thispagestyle{empty}\cleardoublepage}
+\chapter{incgraph: Optimising regulatory networks} 
+\chaptermark{incgraph: Optimising regulatory networks.} % short title
+\label{chap:incgraph}
+\graphicspath{{./ch7_incgraph/}}
+\begin{quote}
+	\textbf{Abstract:} Graphlets are small network patterns that can be counted in order to characterise the structure of a network (topology).
+	As part of a topology optimisation process, one could use graphlet counts to iteratively modify a network and keep track of the graphlet counts, in order to achieve certain topological properties.
+	Up until now, however, graphlets were not suited as a metric for performing topology optimisation; when millions of minor changes are made to the network structure it becomes computationally intractable to recalculate all the graphlet counts for each of the edge modifications. \\ IncGraph is a method for calculating the differences in graphlet counts with respect to the network in its previous state, which is much more efficient than calculating the graphlet occurrences from scratch at every edge modification made.
+	In comparison to static counting approaches, our findings show IncGraph reduces the execution time by several orders of magnitude.
+	The usefulness of this approach was demonstrated by developing a graphlet-based metric to optimise gene regulatory networks.
+	IncGraph is able to quickly quantify the topological impact of small changes to a network, which opens novel research opportunities to study changes in topologies in evolving or online networks, or develop graphlet-based criteria for topology optimisation. \\
+	IncGraph is freely available as an open-source R package on CRAN (incgraph). The development version is also available on GitHub (\href{http://www.github.com/rcannood/incgraph}{rcannood/incgraph}).
+\end{quote}
+\vfill
+Adapted from:\\
+\textbf{Cannoodt, R.}, Ruyssinck, J., Ramon, J., De Preter, K., and Saeys, Y. IncGraph: Incremental graphlet counting for topology optimisation. \textit{PLOS ONE} 13, 4 (2018), e0195997. \doi{10.1371/journal.pone.0195997}.
+\newpage
+\include{ch7_incgraph/content}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%      CH8: DISCUSSION      %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{ch8_discussion}
+
 
 \include{chX_backmatter}
 
