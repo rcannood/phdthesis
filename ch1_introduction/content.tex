@@ -13,7 +13,7 @@ This work makes incremental contributions to the field in order to be able to ad
 \subsection{The origins of life and the RNA world}
 The discovery of the double helix shape of Deoxyribonucleic Acid (DNA) \cite{watson_molecularstructurenucleic_1953} is often considered the pivot point in our understanding of the origins of life and evolution. A modern high-school student can plausibly be expected to know that DNA serves as a medium for storing the genetic information required to reproduce a whole organism. With other words, the DNA of an organism contains the complete set of instructions required to build all of the biomolecular machinery present in its body. The magnitude of this discovery is reflected in our language and culture alike; with sayings such as "It's in your DNA.", or usage of its shape in countless illustrations or artworks (Figure \ref{fig:fsvm}).
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=.5\linewidth]{fig/fsvm3} % TODO: change image
 	\caption{
 		\textbf{A prominent display of the double helix shape at the VIB FSVM building.} % TODO: expand description
@@ -24,7 +24,7 @@ The discovery of the double helix shape of Deoxyribonucleic Acid (DNA) \cite{wat
 Even so, a widely-accepted hypothesis states that life (or cells) did not originate from DNA, but instead was kicked off from its lesser-known cousin, Ribonucleic Acid (RNA). According to the RNA world hypothesis \cite{alberts_rnaworldorigins_2002}, the very first primitive cells used RNA both to store genetic information and perform the chemical reactions required to sustain themselves (Figure \ref{fig:rnaworld}). Only later did cells develop the ability to use DNA and proteins to self-sustain in a process commonly referred to as the Central Dogma.
 % TODO: use this reference? \cite{cornell_prebioticaminoacids_2019}
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=.5\linewidth]{fig/rnaworld} % TODO: change image
 	\caption{
 		\textbf{RNA world.} The postulated rise and fall of the RNA world during the evolution of life, from early self-replicating RNA to complex, RNA-controlled metabolism, to the invention of translation, followed by diversification of all modern branches of life. Image from Horning (2011) \cite{horning_rnaworld_2011}. % TODO: expand the description
@@ -75,7 +75,7 @@ On the other side of the spectrum are the so-called "omics" technologies. "Omics
 
 Transformative technological advances in microvolume sequencing allowed Tang et al. to analyse the transcriptome at single-cell resolution \cite{tang_mrnaseqwholetranscriptomeanalysis_2009}, thereby bringing single-cell biology and omics together to create single-cell omics (Figure \ref{fig:profiling_convergence}A). During the decade that followed, the number of single-cell omics technologies has skyrocketed, allowing to profile tens of thousands of cells (Figure \ref{fig:profiling_convergence}B) and measuring other levels of information such as proteomic expression levels (Figure \ref{fig:profiling_convergence}C).
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering
 	A. \includegraphics[width=.45\linewidth]{fig/profiling_convergence} 
 	% also figure with cell numbers
@@ -105,7 +105,7 @@ Single-cell omics permits new types of analyse but also come with hitherto unsee
 	\item gene regulatory network inference: inferring regulatory interactions between transcription factors across individual cells.
 \end{itemize}
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=.5\linewidth]{fig/singlecell_tools}
 	\centering\includegraphics[width=.3\linewidth]{fig/scrnatools}
 	% TODO: change image
@@ -137,7 +137,7 @@ Trajectory inference (TI) is a new category of computational tools used to offer
 The dataset can be a single snapshot of a mixture of cells in different stages, or a set of samples collected at different time points (Figure \ref{fig:trajectory_inference}A). Typically, TI methods first analyse similarities between cells, optionally infer the topology of the underlying process, and finally order cells along that trajectory (Figure \ref{fig:trajectory_inference}B). The second step can be optional, as some methods assume a specific topology beforehand.
 TI methods allow the identification of new subsets of cells, delineation of a differentiation tree, and characterisation of the main driver genes along a state transition (Figure \ref{fig:trajectory_inference}C). Current applications of TI focus on specific subsets of cells, but ongoing efforts to construct transcriptomic catalogs of whole organisms \cite{regev_humancellatlas_2017,han_mappingmousecell_2018,schaum_singlecelltranscriptomics20_2018} underline the urgency for accurate, scalable \cite{aibar_scenicsinglecellregulatory_2017,angerer_singlecellsmake_2017} and user-friendly TI methods.
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=\Largefigure]{fig/trajectory_inference_slim} % TODO: Update figure to match text!!!!
 	\caption{
 		Applications of single-cell trajectory inference methods. (A) Single-cell omics data appropriate for TI can be both obtained from an unsynchronised population of single cells (snapshot data) but also from synchronised cell populations. (B) UPDATE! (C) UPDATE!
@@ -151,7 +151,7 @@ Gene regulatory network inference, or network inference (NI) for short, is a typ
 
 After the last DREAM competition, it seemed that interest in NI methodology had declined. After all, NI on bulk omics profiles suffered from several crucial issues. As mentioned previously, bulk profiles are generated by pooling together the RNA transcripts of a supposedly homogeneous population of thousands of cells. Since the expression values are averaged over the whole population, incorrect assumptions on the homogeneity of the pooled cells may lead to the masking of relevant expression patterns in rare cell populations (Figure \ref{fig:bulk_vs_singlecell}). Besides, NI methods rely on a diverse set of time-series and perturbation experiments in order to reliably identify causal regulatory interactions. Such experiments are expensive and time-consuming, and an inaccurate selection of time points might result in crucial intermediate stages being missed.
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering
 	\includegraphics[width=\Largefigure]{fig/ni_bulk_vs_sc}
 	\caption{Bulk expression data return the average expressions of genes among large numbers of cells. In order to infer regulatory networks from this type of data, multiple bulk profiles (resulting from time series or perturbation experiments) are required. On the other hand, sequencing the transcriptome at the single-cell level uncovers the high variability among cells, providing the necessary information to infer gene regulatory networks directly.} % TODO: update label

@@ -7,7 +7,7 @@ Given the diversity in TI methods, it is important to quantitatively assess thei
 
 In this study, we evaluated the accuracy, scalability, stability and usability of 45 TI methods (Figure \ref{fig:figure_1}a). We found substantial complementarity between current methods, with different sets of methods performing most optimally depending on the characteristics of the data. For method users, we created an interactive set of guidelines (available at \href{http://guidelines.dynverse.org}{guidelines.dynverse.org}), which gives context-specific recommendations for method usage. Our evaluation also highlights some challenges for current methods, and our evaluation strategy can be useful to spearhead the development of new tools that accurately infer trajectories on ever more complex use cases.
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=\linewidth]{fig/figure_1.pdf}
 	\caption{
 		\textbf{Overview of several key aspects of the evaluation.}
@@ -21,7 +21,7 @@ In this study, we evaluated the accuracy, scalability, stability and usability o
 \subsection{Trajectory inference methods}
 To make the outputs from different methods directly comparable to each other, we developed a common probabilistic model for representing trajectories from all possible sources (Figure \ref{fig:figure_1}b). In this model, the overall topology is represented by a network of ‘milestones’, and the cells are placed within the space formed by each set of connected milestones. Although almost every method returned a unique set of outputs, we were able to classify these outputs into seven distinct groups (Figure \ref{fig:supfigure_1}) and we wrote a common output converter for each of these groups (Figure \ref{fig:figure_2}a). When strictly required, we also provided prior information to the method. These different priors can range from weak priors that are relatively easy to acquire, such as a start cell, to strong priors, such as a known grouping of cells, that are much harder to know a priori, and which can potentially introduce a large bias into the analysis (Figure \ref{fig:figure_2}a).
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=\linewidth]{fig/supfigure_1.pdf}
 	\caption{
 		\textbf{A common interface for TI methods.}
@@ -30,7 +30,7 @@ To make the outputs from different methods directly comparable to each other, we
 	\label{fig:supfigure_1}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=\linewidth]{fig/figure_2.pdf}
 	\caption{
 		\textbf{A characterization of the 45 methods evaluated in this study and their overall evaluation results.}
@@ -43,7 +43,7 @@ The largest difference between TI methods is whether a method fixes the topology
 
 We evaluated each method on four core aspects: (1) accuracy of a prediction, given a gold or silver standard on 110 real and 229 synthetic datasets; (2) scalability with respect to the number of cells and features (for example, genes); (3) stability of the predictions after subsampling the datasets; and (4) the usability of the tool in terms of software, documentation and the manuscript. Overall, we found a large diversity across the four evaluation criteria, with only a few methods, such as PAGA, Slingshot and SCORPIUS, performing well across the board (Figure \ref{fig:figure_2}b). We will discuss each evaluation criterion in more detail (Figure \ref{fig:figure_3} and Supplementary Fig. 2), after which we conclude with guidelines for method users and future perspectives for method developers.
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=\linewidth]{fig/figure_3.pdf}
 	\caption{	
 		\textbf{Detailed results of the four main evaluation criteria: accuracy, scalability, stability and usability.}
@@ -58,7 +58,7 @@ We defined several metrics to compare a prediction to a reference trajectory (Su
 
 We found that method performance was very variable across datasets, indicating that there is no ‘one-size-fits-all’ method that works well on every dataset (Figure \ref{fig:supfigure_3}a). Even methods that can detect most of the trajectory types, such as PAGA, RaceID/StemID and SLICER were not the best methods across all trajectory types (Figure \ref{fig:figure_3}b). The overall score between the different dataset sources was moderately to highly correlated (Spearman rank correlation between 0.5–0.9) with the scores on real datasets containing a gold standard (Figure \ref{fig:supfigure_3}b), confirming both the accuracy of the gold standard trajectories and the relevance of the synthetic data. On the other hand, the different metrics frequently disagreed with each other, with Monocle and PAGA Tree scoring better on the topology scores, whereas other methods, such as Slingshot, were better at ordering the cells and placing them into the correct branches (Figure \ref{fig:figure_3}b).
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=\linewidth]{fig/supfigure_3.pdf}
 	\caption{
 		\textbf{Accuracy of trajectory inference methods.}
@@ -73,7 +73,7 @@ The performance of a method was strongly dependent on the type of trajectory pre
 
 The high variability between datasets, together with the diversity in detected topologies between methods, could indicate some complementarity between the different methods. To test this, we calculated the likelihood of obtaining a top model when using only a subset of all methods. A top model in this case was defined as a model with an overall score of at least 95$\%$ as the best model. On all datasets, using one method resulted in getting a top model about 27$\%$ of the time. This increased up to 74$\%$ with the addition of six other methods (Figure \ref{fig:figure_4}a). The result was a relatively diverse set of methods, containing both strictly linear or cyclic methods, and methods with a broad trajectory type range such as PAGA. We found similar indications of complementarity between the top methods on data containing only linear, bifurcation or multifurcating trajectories (Figure \ref{fig:figure_4}b), although in these cases less methods were necessary to obtain at least one top model for a given dataset. Altogether, this shows that there is considerable complementarity between the different methods and that users should try out a diverse set of methods on their data, especially when the topology is unclear a priori. Moreover, it also opens up the possibilities for new ensemble methods that utilize this complementarity.
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=\linewidth]{fig/figure_4.pdf}
 	\caption{
 		\textbf{Complementarity between different trajectory inference methods.}
@@ -86,7 +86,7 @@ The high variability between datasets, together with the diversity in detected t
 
 While early TI methods were developed at a time where profiling more than a thousand cells was exceptional, methods now have to cope with hundreds of thousands of cells, and perhaps soon with more than ten million \cite{svensson_exponentialscalingsinglecell_2018}. Moreover, the recent application of TI methods on multi-omics single-cell data also showcases the increasing demands on the number of features \cite{cao_jointprofilingchromatin_2018}. To assess the scalability, we ran each method on up- and downscaled versions of five distinct real datasets. We modeled the running time and memory usage using a Shape Constrained Additive Model \cite{pya_shapeconstrainedadditive_2015} (Figure \ref{fig:supfigure_4}a). As a control, we compared the predicted time (and memory) with the actual time (respectively memory) on all benchmarking datasets, and found that these were highly correlated overall (Spearman rank correlation >0.9, Supplementary Fig. 5), and moderately to highly correlated (Spearman rank correlation of 0.5–0.9) for almost every method, depending to what extent the execution of a method succeeded during the scalability experiments (Figure \ref{fig:figure_3}c and Supplementary Fig. 2a).
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=0.9\linewidth]{fig/supfigure_4.pdf}
 	\caption{
 		\textbf{Scalability of trajectory inference methods.}
@@ -214,7 +214,7 @@ In this study, we presented a large-scale evaluation of the performance of 45 TI
 
 Based on the results of our benchmark, we propose a set of practical guidelines for method users (Figure \ref{fig:figure_5} and guidelines.dynverse.org). We postulate that, as a method’s performance is heavily dependent on the trajectory type being studied, the choice of method should currently be primarily driven by the anticipated trajectory topology in the data. For most use cases, the user will know very little about the expected trajectory, except perhaps whether the data is expected to contain multiple disconnected trajectories, cycles or a complex tree structure. In each of these use cases, our evaluation suggests a different set of optimal methods, as shown in Figure \ref{fig:figure_5}. Several other factors will also impact the choice of methods, such as the dimensions of the dataset and the prior information that is available. These factors and several others can all be dynamically explored in our interactive app (guidelines.dynverse.org). This app can also be used to query the results of this evaluation, such as filtering the datasets or changing the importance of the evaluation metrics for the final ranking.
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=\linewidth]{fig/figure_5.pdf}
 	\caption{
 		\textbf{Practical guidelines for method users.}
@@ -227,7 +227,7 @@ When inferring a trajectory on a dataset of interest, it is important to take tw
 
 Critical to the broad applicability of TI methods is the standardization of the input and output interfaces of TI methods, so that users can effortlessly execute TI methods on their dataset of interest, compare different predicted trajectories and apply downstream analyses, such as finding genes important for the trajectory, network inference \cite{aibar_scenicsinglecellregulatory_2017} or finding modules of genes \cite{saelens_comprehensiveevaluationmodule_2018}. Our framework is an initial attempt at tackling this problem, and we illustrate its usefulness here by comparing the predicted trajectories of several top-performing methods on datasets containing a linear, tree, cyclic and disconnected graph topology (Figure \ref{fig:figure_6}). Using our framework, this figure can be recreated using only a couple of lines of R code (https://methods.dynverse.org). In the future, this framework could be extended to allow additional input data, such as spatial and RNA velocity information \cite{manno_rnavelocitysingle_2018}, and easier downstream analyses. In addition, further discussion within the field is required to arrive at a consensus concerning a common interface for trajectory models, which can include additional features such as uncertainty and gene importance.
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=\linewidth]{fig/figure_6.pdf}
 	\caption{
 		\textbf{Demonstration of how a common framework for TI methods facilitates broad applicability using some example datasets.}
@@ -589,7 +589,7 @@ Further information on research design is available in the Nature Research Repor
 
 A trajectory, as defined in our evaluation, is a model with multiple abstractions. The top abstraction is the topology which contains information about the paths each cell can take from their starting point. Deeper abstractions involve the mapping of each cell to a particular branch within this network, and the position (or ordering) of each cells within these branches. Internally, the topology is represented by the milestone network and regions of delayed commitment, the branch assignment and cellular positions are represented by the milestone percentages (Figure \ref{fig:snote1fig_1}).
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=\linewidth]{fig/snote1fig_1.pdf}
 	\caption{
 		\textbf{An example trajectory that will be used throughout this section.}
@@ -650,7 +650,7 @@ The \textit{HIM} metric (Hamming-Ipsen-Mikhailov distance) \cite{jurman_himgloca
 
 We compared the three scores on several common topologies (Figure \ref{fig:snote1fig_2}a). While conceptually very different, the \textit{edgeflip} and \textit{HIM} still produce similar scores (Figure \ref{fig:snote1fig_2}b). The \textit{HIM} tends to punish the detection of cycles, while the \textit{edgeflip} is more harsh for differences in the number of bifurcations (Figure \ref{fig:snote1fig_2}b). The main difference however is that the \textit{HIM} takes into account edge lengths when comparing two trajectories, as illustrated in (Figure \ref{fig:snote1fig_2}c). Short "extra" edges in the topology are less punished by the \textit{HIM} than by the \textit{edgeflip}.
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=\linewidth]{fig/snote1fig_2.pdf}
 	\caption{
 		\textbf{Showcase of three metrics to evaluate topologies: \textit{isomorphic}, \textit{edgeflip} and \textit{HIM}}
@@ -683,7 +683,7 @@ The $\textit{F1}$ score between the $\textit{Recovery}$ and $\textit{Relevance}$
 \textit{F1} &= \frac{2}{\frac{1}{\textit{Recovery}} + \frac{1}{\textit{Relevance}}}
 \end{align*}
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=\linewidth]{fig/snote1fig_3.pdf}
 	\caption{
 		\textbf{Mapping cells to their closest milestone or branch for the calculation of the {$\textit{F1}_{\textit{milestones}}$} and {$\textit{F1}_{\textit{branches}}$} .}
@@ -696,7 +696,7 @@ The $\textit{F1}$ score between the $\textit{Recovery}$ and $\textit{Relevance}$
 
 When the position of a cell is the same in both the reference and the prediction, its \textit{relative} distances to all other cells in the trajectory should also be the same. This observation is the basis for the $\textit{cor}_{\textit{dist}}$ metric.
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=\linewidth]{fig/snote1fig_4.pdf}
 	\caption{
 		\textbf{The calculation of geodesic distances on a small example trajectory.}
@@ -718,7 +718,7 @@ Calculating the pairwise distances between cells scales quadratically with the n
 
 To select the number of cell waypoints, we need to find a trade-off between the accuracy versus the time to calculate $\textit{cor}_{\textit{dist}}$. To select an optimal number of cell waypoints, we used the synthetic dataset with the most complex topology, and determined the $\textit{cor}_{\textit{dist}}$ at different levels of both cell shuffling and number of cell waypoints (Figure \ref{fig:snote1fig_5}a). We found that using cell waypoints does not induce a systematic bias in the $\textit{cor}_{\textit{dist}}$, and that its variability was relatively minimal when compared to the variability between different levels of cell shuffling when using 100 or more cell waypoints.
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=\linewidth]{fig/snote1fig_5.pdf}
 	\caption{
 		\textbf{Determination of cell waypoints} \textbf{a)} Illustration of the stratified cell sampling using an example dataset (top). Each milestone, edge between two milestones and region of delayed commitment is seen as a collection of cells (middle), and the number of waypoints (100 in this case) are divided over each of these collection of cells (bottom). \textbf{b)} Accuracy versus time to calculate $\textit{cor}_{\textit{dist}}$. Shown are distributions over 100 random waypoint samples. The upper whisker of the boxplot extends from the hinge (75$\%$ percentile) to the largest value, no further than 1.5$\times$ the IQR of the hinge. The lower whisker extends from the hinge (25$\%$ percentile) to the smallest value, at most 1.5$\times$ the IQR of the hinge.
@@ -728,7 +728,7 @@ To select the number of cell waypoints, we need to find a trade-off between the 
 
 Although the $\textit{cor}_{\textit{dist}}$'s main characteristic is that it looks at the positions of the cells, other features of the trajectory are also (partly) captured. To illustrate this, we used the geodesic distances themselves as input for dimensionality reduction (Figure \ref{fig:snote1fig_6}) with varying topologies. This reduced space captures the original trajectory structure quite well, including the overall topology and branch lengths.
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=\linewidth]{fig/snote1fig_6.pdf}
 	\caption{
 		\textbf{Determination of cell waypoints.} 
@@ -743,7 +743,7 @@ An alternative approach to detect whether the positions of cells are similar bet
 
 Specifically, we implemented two metrics which predict the milestone percentages from the reference by using the predicted milestone percentages as features (Figure \ref{fig:snote1fig_7}). We did this with two regression methods, linear regression ($\textit{lm}$, using the R lm function) and Random Forest ($\textit{rf}$, implemented in the \textit{ranger} package  \cite{wright_rangerfastimplementation_2017}). In both cases, the accuracy of the prediction was measured using the Mean Squared error ($\mathit{MSE}$), in the case of Random forest we used the out-of-bag mean-squared error. Next, we calculated $\mathit{MSE}_{worst}$ equal to the $\mathit{MSE}$ when predicting all milestone percentages as the average. We used this to calculate the normalised mean squared error as $\mathit{NMSE} = 1 - \frac{\mathit{MSE}}{\mathit{MSE}_{worst}}$. We created a regression model for every milestone in the gold standard, and averaged the $\mathit{NMSE}$ values to finally obtain the $\textit{NMSE}_{\textit{rf}}$ and $\textit{NMSE}_{\textit{lm}}$ scores.
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=\linewidth]{fig/snote1fig_7.pdf}
 	\caption{
 		\textbf{The calculation of $\textit{NMSE}_{\textit{lm}}$ distances on a small example trajectory.} 
@@ -760,7 +760,7 @@ Perhaps the main advantage of studying cellular dynamic processes using single-c
 
 To calculate the $\textit{cor}_{\textit{features}}$ we used Random forest regression to rank all the features according to their importance in predicting the positions of cells in the trajectory. More specifically, we first calculated the geodesic distances for each cell to all milestones in the trajectory. Next, we trained a Random Forest regression model (implemented in the R \textit{ranger} package \cite{wright_rangerfastimplementation_2017}, \href{https://github.com/imbs-hl/ranger}{https://github.com/imbs-hl/ranger}) to predict these distances for each milestone, based on the expression of genes within each cell. We then extracted feature importances using the Mean Decrease in Impurity (importance = 'impurity' parameter of the ranger function), as illustrated in Figure \ref{fig:snote1fig_8}. The overall importance of a feature (gene) was then equal to the mean importance over all milestones. Finally, we compared the two rankings by calculating the Pearson correlation, with values between -1 and 0 clipped to 0.
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=\linewidth]{fig/snote1fig_8.pdf}
 	\caption{
 		\textbf{An illustration of ranking features based on their importance in a trajectory.} 
@@ -771,7 +771,7 @@ To calculate the $\textit{cor}_{\textit{features}}$ we used Random forest regres
 
 Random forest regression has two main hyperparameters. The number of trees to be fitted (num\_tree parameter) was fixed to 10000 to provide accurate and stable estimates of the feature importance (Figure \ref{fig:snote1fig_9}. The number of features on which can be split (mtry parameter) was set to 1$\%$ of all available features (instead of the default square-root of the number of features), as to make sure that predictive but highly correlated features, omnipresent in transcriptomics data, are not suppressed in the ranking.
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=\linewidth]{fig/snote1fig_9.pdf}
 	\caption{
 		\textbf{Effect of the number of trees parameter on the accuracy and variability of the $\textit{cor}_{\textit{features}}$.} 
@@ -782,7 +782,7 @@ Random forest regression has two main hyperparameters. The number of trees to be
 
 For most datasets, only a limited number of features will be differentially expressed in the trajectory. For example, in the dataset used in Figure \ref{fig:snote1fig_9} only the top 10$\%$-20$\%$ show a clear pattern of differential expression. The correlation will weight each of these features equally, and will therefore give more weight to the bottom, irrelevant features. To prioritise the top differentially expressed features, we also implemented the $\textit{wcor}_{\textit{features}}$, which will weight the correlation using the feature importance scores in the reference so that the top features have relatively more impact on the score (Figure \ref{fig:snote1fig_10}).
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=\linewidth]{fig/snote1fig_10.pdf}
 	\caption{
 		\textbf{Effect of weighting the features based on their feature importance in the reference.} 
@@ -880,7 +880,7 @@ The difficulty of a dataset can easily have an impact on how much weight the dat
 
 To avoid this bias, we normalise the scores of each dataset by first scaling and centering to $\mu = 0$ and $\sigma = 1$, and then moving the score values back to $[0, 1]$ by applying the unit normal density distribution function. This results in scores which are comparable across different datasets (Figure \ref{fig:snote1fig_11}). In contrast to other possible normalisation techniques, this will still retain some information on the relative difference between the scores, which would have been lost when using the ranks for normalisation. An example of this normalisation, which will also be used in the subsequent aggregation steps, can be seen in Figure \ref{fig:snote1fig_12}.
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=\linewidth]{fig/snote1fig_11.pdf}
 	\caption{
 		\textbf{An illustration of how the difficulty of a dataset can influence the overall ranking.} 
@@ -889,7 +889,7 @@ To avoid this bias, we normalise the scores of each dataset by first scaling and
 	\label{fig:snote1fig_11}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=0.8\linewidth]{fig/snote1fig_12.pdf}
 	\caption{
 		\textbf{An example of the normalisation procedure.} 
@@ -900,7 +900,7 @@ To avoid this bias, we normalise the scores of each dataset by first scaling and
 
 After normalisation, we aggregate step by step the scores from different datasets. We first aggregate the datasets with the same dataset source and trajectory type using an arithmetic mean of their scores (Figure \ref{fig:snote1fig_13}a). Next, the scores are averaged over different dataset sources, using a arithmetic mean which was weighted based on how much the synthetic and silver scores correlated with the real gold scores (Figure \ref{fig:snote1fig_13}b). Finally, the scores are aggregated over the different trajectory types again using a arithmetic mean (Figure \ref{fig:snote1fig_13}c).
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=0.8\linewidth]{fig/snote1fig_13.pdf}
 	\caption{
 		\textbf{An example of the aggregation procedure.} 
@@ -935,7 +935,7 @@ The final overall score (Figure \ref{fig:snote1fig_14}) for a method was thus de
 
 $$\textit{Overall} = \textit{mean}_{\textit{geometric}} = \sqrt[4]{\textit{cor}_{\textit{dist}} \times \textit{F1}_{\textit{branches}} \times \textit{HIM} \times \textit{wcor}_{\textit{features}}}$$
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering\includegraphics[width=0.8\linewidth]{fig/snote1fig_14.pdf}
 	\caption{
 		\textbf{An example of the averaging procedure.} 
