@@ -4,59 +4,33 @@ Trajectory inference (TI) methods attempt to reconstruct such dynamic processes 
 
 A recent benchmarking study of 45 TI methods found a high variability in accuracy across the different methods \cite{saelens_comparisonsinglecelltrajectory_2019}. Rather, the performance of a method on a dataset strongly depended on the type of trajectory present in the data. For instance, PAGA \cite{wolf_pagagraphabstraction_2019} performs well able to recover complex trajectories containing cycles or disconnected regions, whereas Slingshot \cite{street_slingshotcelllineage_2018} obtains high accuracy scores for trajectories containing one or several bifurcations. As part of the benchmark not only each method's accuracy was evaluated, but also other factors that affect how well a user is able to useful models for the task at hand, namely the methods scalability, stability, and usability.
 
-Along with PAGA and Slingshot, SCORPIUS is one of the few TI methods to obtain high scores in all four of these categories. SCORPIUS is toolbox specialised in inferring, visualising and interpreting linear trajectories. Out of 69 linear datasets used in the benchmark, SCORPIUS was the only TI method capable of inferring a high-quality trajectory on more than half of those datasets. In this work, we demonstrate the workings of SCORPIUS and demonstrate how each algorithmic component of the method served to make it accurate, scalable and robust.
+Along with PAGA and Slingshot, SCORPIUS is one of the few TI methods to obtain high scores in all four of these categories. SCORPIUS is toolbox specialised in inferring, visualising and interpreting linear trajectories. Out of 69 linear datasets used in the benchmark, SCORPIUS was the only TI method capable of inferring a high-quality trajectory on more than half of those datasets. In this work, we show how to apply SCORPIUS, explain its workings, and demonstrate how each algorithmic component of the method contributed to its accuracy, scalability, and robustness.
 
-
-
-%
-%SCORPIUS 
-% SCORPIUS specialises in inferring high-quality linear pseudotemporal orderings of the given cells.
-%% high complementarity
-%% focus on accuracy, scalability, reproducability and usability
-%
-%A main characteristic of TI methods is which types of topologies they are able to infer. 
-%The majority of TI methods have a fixed topology type (e.g. linear, bifurcating or multifurcating) and thus impose a strong bias on the resulting trajectory \cite{saelens_comparisonsinglecelltrajectory_2019}. More advanced approaches infer the topology from the dataset itself and thus provide a more unbiased view. A recent benchmarking study of 45 TI methods found a high variability in accuracy across the methods, irrespective of whether the topology was fixed. 
-%
-%
-%We found that method performance was very variable across datasets, indicating that there is no ‘one-size-fits-all’ method that works well on every dataset (Supplementary Fig. 3a). Even methods that can detect most of the trajectory types, such as PAGA, RaceID/StemID and SLICER were not the best methods across all trajectory types (Fig. 3b). 
-%
-%The performance of a method was strongly dependent on the type of trajectory present in the data (Fig. 3b). Slingshot typically performed better on datasets containing more simple topologies, while PAGA, pCreode and RaceID/StemID had higher scores on datasets with trees or more complex trajectories (Supplementary Fig. 3c). This was reflected in the types of topologies detected by every method, as those predicted by Slingshot tended to contain less branches, whereas those detected by PAGA, pCreode and Monocle DDRTree gravitated towards more complex topologies (Supplementary Fig. 3d). This analysis therefore indicates that detecting the right topology is still a difficult task for most of these methods, because methods tend to be either too optimistic or too pessimistic regarding the complexity of the topology in the data.
-%
-%The high variability between datasets, together with the diversity in detected topologies between methods, could indicate some complementarity between the different methods. To test this, we calculated the likelihood of obtaining a top model when using only a subset of all methods. A top model in this case was defined as a model with an overall score of at least 95% as the best model. On all datasets, using one method resulted in getting a top model about 27% of the time. This increased up to 74% with the addition of six other methods (Fig. 4a). The result was a relatively diverse set of methods, containing both strictly linear or cyclic methods, and methods with a broad trajectory type range such as PAGA. We found similar indications of complementarity between the top methods on data containing only linear, bifurcation or multifurcating trajectories (Fig. 4b), although in these cases less methods were necessary to obtain at least one top model for a given dataset. Altogether, this shows that there is considerable complementarity between the different methods and that users should try out a diverse set of methods on their data, especially when the topology is unclear a priori. Moreover, it also opens up the possibilities for new ensemble methods that utilize this complementarity.
-%
-%
-%Unbiased or biased
-%Topology or not
-%
-%
-%Typically, TI methods first analyse similarities between cells, optionally infer the topology of the underlying process, and finally order cells along that trajectory (Figure \ref{fig:trajectory_inference}B). The second step can be optional, as some methods assume a specific topology beforehand.
-%TI methods allow the identification of new subsets of cells, delineation of a differentiation tree, and characterisation of the main driver genes along a state transition (Figure \ref{fig:trajectory_inference}C). Current applications of TI focus on specific subsets of cells, but ongoing efforts to construct transcriptomic catalogs of whole organisms \cite{regev_humancellatlas_2017,han_mappingmousecell_2018,schaum_singlecelltranscriptomics20_2018} underline the urgency for accurate, scalable \cite{aibar_scenicsinglecellregulatory_2017,angerer_singlecellsmake_2017} and user-friendly TI methods.re necessary to obtain at least one top model for a given dataset. Altogether, this shows that there is considerable complementarity between the different methods, and that users should try out a diverse set of methods on their data, especially when the topology is unclear a priori. Moreover, it also opens up the possibilities for new ensemble methods which utilize this complementarity.
-
-%
-%The main difference between trajectory inference methods is whether the method fixes the topology, and if it does not, what kind of topologies it can detect. We defined nine possible types of topologies, ranging from very basic topologies (linear, cyclical and bifurcating) to the more complex ones (connected and disconnected graphs). Most methods either focus on
-%inferring linear trajectories, or limit the search to tree or less complex topologies, with only a selected few attempting to infer cyclic or disconnected topologies (Figure 2a).
-%
-%Unbiased or biased
-%Topology or not
-%
-%
-%Typically, TI methods first analyse similarities between cells, optionally infer the topology of the underlying process, and finally order cells along that trajectory (Figure \ref{fig:trajectory_inference}B). The second step can be optional, as some methods assume a specific topology beforehand.
-%TI methods allow the identification of new subsets of cells, delineation of a differentiation tree, and characterisation of the main driver genes along a state transition (Figure \ref{fig:trajectory_inference}C). Current applications of TI focus on specific subsets of cells, but ongoing efforts to construct transcriptomic catalogs of whole organisms \cite{regev_humancellatlas_2017,han_mappingmousecell_2018,schaum_singlecelltranscriptomics20_2018} underline the urgency for accurate, scalable \cite{aibar_scenicsinglecellregulatory_2017,angerer_singlecellsmake_2017} and user-friendly TI methods.
-
-
-
-% single cell transcriptomics,
-% allows to computationally reconstruct cellular processes, which can be linear or branching or more complex -- e.g. differentiation
-% capturing a birds eye view of a certain process is often crucial
-% a high resolution view of a particular linear transition equally important
-% to ensure no confounding effects distract from what you're trying to study
-
-% relate to time series? 
-
-% what about... supervised?
 
 \section{Results}
+
+\subsection{Demonstration on dataset 1}
+
+\subsection{Demonstration on dataset 2}
+
+\subsection{Components}
+% Sparse spearman correlation
+% LMDS
+% Approximated principal curves + initialisation
+
 
 \section{Discussion}
 
 \section{Methods}
+
+\subsection{Correlation distance}
+
+\subsection{LMDS}
+
+\subsection{Trajectory initialisation}
+
+\subsection{Approximated principal curves}
+
+\subsection{Feature selection}
+
+\subsection{Heatmap}
