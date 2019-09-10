@@ -1,17 +1,23 @@
 \section{The cell}
-The cell is the smallest unit of life, of which all known living organisms are composed. Every cell houses a plethora of biomolecular processes that allow it to adapt to changes in their environment continuously. It can be very challenging to comprehend the cellular response to a signal due to the dynamic nature of these processes. A reductionist approach to understanding a complex biological system is to study the biochemical components which it is comprised of \cite{brigandt_reductionismbiology_2017}.
+The cell is the smallest unit of life, of which all known living organisms are composed. Every cell houses a plethora of biomolecular processes that allow it to adapt to changes in its environment continuously. It can be very challenging to comprehend the cellular response to a signal due to the dynamic nature of these processes. A reductionist approach to understanding a complex biological system is to study the biochemical components which it is comprised of \cite{brigandt_reductionismbiology_2017}.
 
-Reductionist biologists are delighted by recent advances in experimental technologies that permit measuring the abundance of thousands of different biochemical molecules in tens of thousands of individual cells.  Observing the biomolecular insides of cells in this manner will ultimately provide fundamental insights into the processes that govern these cells and help uncover novel approaches for diagnosing and treating disease. Every coin has its flip side, however, and in this case, it is that the amount of data generated from these experiments is not analysable by hand.  
+Recent advances in experimental technologies are playing a crucial role in reductionist biology, allowing to measure the abundance of thousands of different biochemical molecules in tens of thousands of individual cells. Observing the biomolecular insides of cells in this manner can ultimately provide fundamental insights into the processes that govern these cells and help uncover novel approaches for diagnosing and treating disease. Every coin has its flip side, however, and in this case, it is that the amount of data generated from these experiments is not analysable by hand.  
 
 For example, the Human Cell Atlas (HCA) consortium \cite{regev_humancellatlas_2018} has set out to develop a comprehensive reference map of all the different types of cells in the human body. Experts in the field often metaphorically describe the HCA initiative as aiming to develop a 'Google Maps' of the human body. Even in its infancy, the HCA has profiled 3.8 million cells from 248 donors across 42 labs \cite{humancellatlasconsortium_humancellatlas_2018}, and this number is likely to increase well above one hundred million.
 
-The sheer volume of the data generated from such highly-integrative and high-throughput experiments are not the only reason why they are so challenging to interpret. Namely, the data inherently also suffers from batch effects arising from differences between donors and labs, and also contains high levels of noise arising from the experimental profiling techniques used \cite{hon_humancellatlas_2018}. Biologists thus turn to computer scientists\footnote{or computational biologists turn to themselves} to develop new tools to tackle these problems and help biologists extract meaningful biological insights from the data.
+%%%% HT: I feel like you're only going to focus on preprocessing, when reading this section. Maybe add a second paragraph mentioning that separating technical and biological noise from actual biological processes in the data is not the only challenge, and that there is also a necessity of new computational tools to start generating more complex models, integrating the information from single cell high sequencing experiments in a much more refined way?
+%%% RC: In general, these two paragraphs are not telling the reader a lot about where this thesis is going
+
+The sheer volume of the data generated from such highly-integrative and high-throughput experiments are not the only reason why they are so challenging to interpret. 
+Namely, the data contains high levels of noise arising from inherent biomolecular stochasticity in the cells and from the experimental profiling techniques uses, as well as batch effects arising from differences between donors and labs \cite{hon_humancellatlas_2018}. Biologists thus turn to computer scientists\footnote{or computational biologists turn to themselves} to develop new tools to tackle these problems and help biologists extract meaningful biological insights from the data.
 
 This work makes incremental contributions to the field in order to be able to address the aforementioned problems in a more comprehensive context. This chapter first introduces several key concepts in both cell biology and computer science, upon which the remainder of this work relies. Afterwards, the research objectives and main contributions of this work are outlined.
 % TODO: explain that only the main concepts are introduced?
 
 \subsection{The origins of life and the RNA world}
-The discovery of the double helix shape of Deoxyribonucleic Acid (DNA) \cite{watson_molecularstructurenucleic_1953} is often considered the pivot point in our understanding of the origins of life and evolution. A modern high-school student can plausibly be expected to know that DNA serves as a medium for storing the genetic information required to reproduce a whole organism. With other words, the DNA of an organism contains the complete set of instructions required to build all of the biomolecular machinery present in its body. The magnitude of this discovery is reflected in our language and culture alike; with sayings such as "It's in your DNA.", or usage of its shape in countless illustrations or artworks (Figure \ref{fig:fsvm}).
+The discovery of the double helix shape of Deoxyribonucleic Acid (DNA) \cite{watson_molecularstructurenucleic_1953} is often considered the pivot point in our understanding of the origins of life and evolution. By now, it is well known that DNA serves as a medium for storing the genetic information required to reproduce a whole organism. With other words, the DNA of an organism contains the complete set of instructions required to build all of the biomolecular machinery present in its body.
+The magnitude of this discovery is reflected in our language and culture alike; with sayings such as "It's in your DNA.", or usage of its shape in countless illustrations or artworks (Figure \ref{fig:fsvm}).
+%% HT: I'm not sure if the magnitude of the DNA discovery is best reflected in sayings and double helix monuments it sounds a bit light to me, compared to the fact that you can identify geneticel targets of a disease and Crispr cas it for instance, but that's a personal opinion, feel free to ignore it :)
 
 \begin{figure}[htb!]
 	\centering\includegraphics[width=.5\linewidth]{fig/fsvm3} % TODO: change image
@@ -33,28 +39,39 @@ Even so, a widely-accepted hypothesis states that life (or cells) did not origin
 \end{figure}
 
 \subsection{The Central Dogma}
-The Central Dogma is a set of processes present which govern the general flow of genetic information in almost all existant living cells. In short, it states that DNA codes for RNA, which in turn codes for proteins. In this work, we assume the main processes involved in the Central Dogma are replication, transcription, splicing and translation (Figure 3). 
+The Central Dogma is a set of processes present which govern the general flow of genetic information in almost all existent living cells. In short, it states that DNA codes for RNA, which in turn codes for proteins.
+In this work, we assume the main processes involved in the Central Dogma are replication, transcription, splicing and translation (Figure 3). 
 
-\textbf{Replication} is the process of duplicating DNA, which allows a cell to divide such that the resulting daughter cells retain complete copies of its genetic information. DNA consists of four different so-called nucleobases named adenine (A), cytosine (C), guanine (G), and thymine (T). Each strand of the double helix structure of DNA is a linear chain of nucleobases. The two strands are held together by hydrogen bonds since adenine can form three hydrogen bonds with thymine and cytosine can form two hydrogen bonds with guanine. Since each nucleobase can only bond with one other nucleobase, one strand is complementary to the other. Thus a strand of DNA can be represented by a sequence of letters, for example, "ACTCGGTTTAGCA". % This could be part of the DNA explanation.
+%% TODO: add figure
 
-A stretch of DNA that contains a genetic blueprint for a particular molecule is called a gene, and the collection of an organism's genes is called its genome. \textbf{Transcription} is the process of synthesising an RNA molecule from a gene, and the resulting molecule is called a transcript. RNA is similar to DNA but differs in several ways; most notably all thymine nucleobases are replaced with uracil (U), and RNA molecules consist of only one strand. Due to its single-strandedness, RNA is less stable and will break down faster. Single-strandedness also allows some types of RNA (e.g. transfer RNA, ribosomal RNA) to form more complex three-dimensional structures by having certain regions bind to other regions of the strand. This work only considers messenger RNA (mRNA). mRNAs are transcribed from protein-coding genes, meaning that the mRNAs will lead to the production of protein molecules through the process of translation. 
+\textbf{Replication} is the process of duplicating DNA, which allows a cell to divide such that the resulting daughter cells retain complete copies of its genetic information. DNA consists of four different so-called nucleobases named adenine (A), cytosine (C), guanine (G), and thymine (T). Each strand of the double helix structure of DNA is a linear chain of nucleobases. The two strands are held together by hydrogen bonds since adenine can form three hydrogen bonds with thymine and cytosine can form two hydrogen bonds with guanine. Each nucleobase can only bond with one other nucleobase, making the strands complementary to one another. 
+Since one strand can be deduced from its complementary strand, DNA can be represented by a sequence of letters, for example, "ACTCGGTTTAGCA". 
+
+A stretch of DNA that contains a genetic blueprint for a particular molecule is called a gene, and the collection of an organism's genes is called its genome. \textbf{Transcription} is the process of synthesising an RNA molecule from a gene, and the resulting molecule is called a transcript. RNA is similar to DNA but differs in several ways; most notably all thymine nucleobases are replaced with uracil (U), and RNA molecules consist of only one strand.
+% HT: , which is able to exit the nucleus compartment.
+% RC: I haven't introduced the concept of a nucleus yet
+Due to its single-strandedness, RNA is less stable and will break down faster. Single-strandedness also allows some types of RNA (e.g. transfer RNA, ribosomal RNA) to form more complex three-dimensional structures by having certain regions bind to other regions of the strand. This work only considers messenger RNA (mRNA), which are transcribed from protein-coding genes, meaning that the mRNAs can result in the production of particular proteins. A protein-coding gene consists of alternating sections called introns and exons. Exonic regions contain code for what a protein should be made up of, whereas the intronic regions can contain information on how to assemble the pieces.
 % TODO: mention that there are about 20'000 protein-coding genes in the human body.
 
-\textbf{RNA splicing} is a process that occurs in almost all organisms (but not all) and results in the removal of specific regions in the RNA molecule. Introns are the regions removed by this process, and exons the regions that remain. The main functionality of splicing is to be able to create multiple variants of the same product, which can affect the enzymatic properties or localisation of the resulting product \cite{kelemen_functionalternativesplicing_2013}.
+\textbf{RNA splicing} is a process that occurs in almost all organisms and results in the removal of intronic regions in the mRNA molecules, resulting in a mature mRNA. 
+Splicing allows to create multiple variants of the same product, which can affect the enzymatic properties or localisation of the resulting product \cite{kelemen_functionalternativesplicing_2013}.
 
-During \textbf{translation}, a chain of amino acid is synthesised from an mRNA transcript. Every three nucleobases are translated into one of 21 different amino acids. The resulting chain of amino acids is folded up into a protein, the structure of which is determined by the sequence of different amino acids in the chain. In turn, its structure determines the functionality of the protein, which includes catalysing biochemical reactions, providing structure, and transportation of molecules. 
+During \textbf{translation}, a chain of amino acids is synthesised from a mature mRNA transcript. 
+% HT: in ribosomes. These units can be seen as small factories in which amino acids are assembled following the pattern contained in an mRNA molecule.
+% RC: I can avoid talking about ribosomes
+Every three nucleobases are translated into one of 21 different amino acids. The resulting chain of amino acids is folded up into a protein, the structure of which is determined by the sequence of different amino acids in the chain. In turn, its structure determines the functionality of the protein, which includes catalysing biochemical reactions, providing structure, and transportation of molecules. 
 
 \subsection{Cell types}
 The functionality provided by a cell is defined (mostly) by the proteins of which it consists. One common approach to trying to understand the functionality of a cell is to observe which molecules are present in the cell and to associate those molecules with functionality. 
 
-\textit{Homo sapiens} like to categorise everything they encounter and so too have they conceptualised groups of cells called "cell types" according to their functionality. The concept of cell types eases reasoning about all aspects of biology, for instance, which cell types turn into (differentiate) or communicate with which other cell types, or how a cell type responds to a specific stimulation. Cells can be highly specialised toward performing a particular function (e.g. memory B cells accelerate immune response by remembering previously encountered pathogens), while other cells maintain a strong ability to differentiate into other cell types. 
+\textit{Homo sapiens} like to categorise everything they encounter and so too have they conceptualised groups of cells called "cell types" according to their functionality. The concept of cell types eases reasoning about all aspects of biology, for instance, which cell types turn into (differentiate) or communicate with which other cell types, or how a cell type responds to a specific stimulation. Cells can be highly specialised toward performing a particular function (e.g. memory B cells accelerate immune response by remembering previously encountered pathogens), or they can maintain a strong ability to differentiate into other cell types. 
 
 % TODO: do not only discuss differentiation, but instead any kind of developmental process; and mention 'developmental trajectory'.
 Cell differentiation is not an instant process; it is a continuous process in which a cell gradually produces the biochemical machinery required in order to fulfil a particular task. In this regard, it makes sense not only to reason about cell types but also about the transition states between cell types and the dynamic processes involved therein.
 % TODO: are dynamic processes defined? a dynamic process is just a biochemical reaction
 
 \subsection{Cell dynamics and gene regulation}
-If cells are dynamic entities and can gradually produce the molecules needed to acquire new functionality, what is the process by which this happens? The mechanism by which this happens is called gene regulation. Some proteins (or other molecules such as micro RNAs) are capable of determining the rate at which a gene is transcribed (transcription rate). Such proteins are called transcription factors (TFs), and the genes it regulates are called its targets. Typically, one TF will regulate the transcription rate of many targets. % TODO: download database and calculate some statistics.
+If cells are dynamic entities and can gradually produce the molecules needed to acquire new functionality, what is the process by which this happens? The mechanism by which this happens is called gene regulation. Some proteins (or other molecules such as micro RNAs) are capable of determining the rate at which a gene is transcribed (transcription rate). Such proteins are called transcription factors (TFs), and the genes they regulate are called their targets. Typically, one TF will regulate the transcription rate of many targets. % TODO: download database and calculate some statistics.
 
 Production of a specific molecule might require multiple cascades of gene regulation. The collection of all gene regulatory interactions between transcription factors and targets is called a gene regulatory network (GRN). Studying the active parts of a cell's gene regulatory network can thus reveal which dynamic processes are taking place. 
 
@@ -62,13 +79,17 @@ Production of a specific molecule might require multiple cascades of gene regula
 \subsection{Profiling single cells}
 In order to understand a biological process, it is often quite helpful to be able to profile (i.e. observe) the biomolecular components involved therein. The single-cell "omics" technologies which we have at our fingertips today originated from the convergence of two different fields, \emph{"single-cell"} and \emph{"omics"}.
 
-The earliest approaches for measuring the abundance of particular molecules in \emph{single cells} used the preferred instrument of every stereotypical biologist: the microscope. Since it was developed by Coons et al. in 1941, immunohistochemistry (IHC) has been instrumental in visualising antigen-antibody proteins \cite{coons_immunologicalpropertiesantibody_1941}. In many multicellular organisms, antibodies and antigens serve as crucial communication tools as part of the organism's immune system. A cell can present a particular type of antigen on its cell surface, which allows a particular type of antibody to bind to it.
+The earliest approaches for measuring the abundance of particular molecules in \emph{single cells} used the preferred instrument of every stereotypical biologist: the microscope.
+% HT: I wouldn't write that if it was my thesis, but then again, maybe it's only my personal choice
+Since it was developed by Coons et al. in 1941, immunohistochemistry (IHC) has been instrumental in visualising antigen-antibody proteins \cite{coons_immunologicalpropertiesantibody_1941}. In many multicellular organisms, antibodies and antigens serve as crucial communication tools as part of the organism's immune system. A cell can present a particular type of antigen on its cell surface, which allows a particular type of antibody to bind to it.
 
 IHC (and many other biotechnologies) visualises antigen-antibody reactions by attaching particular molecules to the antibody, such as an enzyme that catalyses a colour-producing reaction, or a fluorescent chemical compound that can re-emit light upon light excitation. Using different colours (wavelengths) allows measuring expression levels of different antibodies simultaneously. Characterising cells in a quantifiable way is labour intensive; however, since it involves acquiring an image of many cells and drawing a contour around each cell (called cell segmentation). While modern implementations of IHC improve the throughput drastically by using robots to automate the image acquisition and computer software to automate cell segmentation, the procedure is still labour intensive as the robots and computer software still needs to be kept in check.
 
 Flow cytometry \cite{fulwyler_electronicseparationbiological_1965} is a technique which circumvents imaging and segmentation issues by having a steady stream of cells run through a laser and measuring the amount of light scattered from those cells. Flow cytometry technology enables to measure protein expression levels for millions of cells and tens of different antibodies. 
 
 Since IHC and flow cytometry, many new technologies have been developed which allow quantifying expression levels of molecules in single cells (e.g. mass cytometry, single-cell qPCR, FISH). All of these single-cell (non-omics) technologies are limited by the number of different molecules they could measure, however; and thus required handpicking the molecules of interest before performing an experiment, making the experiment biased towards the preconceptions of the experimenter.
+
+% HT: Is the section above needed? I felt like this 1.1.5 section was quite hard to read compared to the light previous sections.
 
 On the other side of the spectrum are the so-called "omics" technologies. "Omics"\footnote{The etymology of "omics" is quite interesting \cite{yadav_wholenesssuffixomics_2007}.} is a collective term for profiling all molecules of a particular type in a high-throughput manner. There are many types of "omics", but the most commonly used are the following. In genomics, all of an organism's genes are studied -- its whole genome. Transcriptomics and proteomics study the organisms RNA transcripts and proteins, respectively. A notable downside of traditional omics technologies is that in order to capture enough material an ensemble of cells needs to be profiled, and thus only the average expression levels are returned; thereby granting the technology the name "bulk" omics. If a subset of these cells contains unique patterns in expression levels, this pattern will be masked in the bulk population and is thus undetectable. Specific examples of omics technologies are next-generation sequencing, which can be used to determine the DNA sequence of an organism, and RNA sequencing, which profiles the sequences of RNA transcripts. By mapping the sequences of RNA transcripts to genes in the organisms DNA, a gene expression profile can be obtained.
 % Demonstrate the masking effect of bulk analyses.
@@ -249,7 +270,7 @@ We also helped maintain or extend other packages on Github, CRAN or Bioconductor
 %library(dlstats)
 %library(tidyverse)
 %
-%cran <- c("babelwhale", "dyndimred", "dynparam", "dynutils", "GillespieSSA", "GillespieSSA2", "incgraph", "princurve", "proxyC", "qsub", "SCORPIUS", "devtools", "mlr", "ParamHelpers", "remotes", "rlang")
+%cran <- c("babelwhale", "diffusionMap", "dyndimred", "dynparam", "dynutils", "GillespieSSA", "GillespieSSA2", "incgraph", "princurve", "proxyC", "qsub", "SCORPIUS", "devtools", "mlr", "ParamHelpers", "remotes", "rlang")
 %bioc <- c("ClusterSignificance", "monocle", "slingshot", "splatter")
 %
 %dl_cran <- dlstats::cran_stats(cran)
@@ -258,53 +279,56 @@ We also helped maintain or extend other packages on Github, CRAN or Bioconductor
 %dls <- bind_rows(dl_cran, dl_bioc %>% select(start, end, package, downloads = Nb_of_downloads)) %>% 
 %mutate(role = ifelse(package %in% c("devtools", "mlr", "ParamHelpers", "remotes", "rlang", bioc), "Contributor", "Author"))
 %
-%summ <- dls %>% filter("2019-08-01" <= start) %>% group_by(package) %>% summarise(downloads = sum(downloads) / 23 * 365)
-%
-%summ <- dls %>% filter("2018-07-01" <= start, end <= "2019-07-30") %>% group_by(package) %>% summarise(downloads = sum(downloads))
+%min_date <- "2019-08-01"
+%num_days <- as.integer(Sys.Date() - as.Date(min_date))
+%summ <- dls %>% filter("2019-08-01" <= start) %>% group_by(package) %>% summarise(downloads = sum(downloads) / num_days * 365) %>% as.data.frame
+
 
 
 \begin{table}[ht!]
-	\caption{\textbf{Contibutions to open-source software.} Following abbreviations denote the role within the package: aut Author, ctb Contributor. Yearly download statistics are based on the number of downloads between 2019-08-01 and 2019-08-23. CRAN download statistics are retrieved from the Rstudio CRAN mirror only; other CRAN mirrors do not track download statistics. For Github repositories, no download statistics could be retrieved. } \label{tab:packages}
+	\caption{\textbf{Contibutions to open-source software.} Following abbreviations denote the role within the package: aut Author, ctb Contributor. Yearly download statistics are based on the number of downloads between 2019-08-01 and 2019-09-10. CRAN download statistics are retrieved from the Rstudio CRAN mirror only; other CRAN mirrors do not track download statistics. For Github repositories, no download statistics could be retrieved. } \label{tab:packages}
 	
 	\centering\fontsize{9}{11}\selectfont
 	\begin{tabularx}{\linewidth}{|p{2cm}llp{1.5cm}X|}
 		\hline
 		Name & Role & Host & Downloads per year & Description \\ \hline\hline
-		\cranpkg{babelwhale} & aut & CRAN & 3491 & Interacting with Docker and Singularity containers \\
+		\cranpkg{babelwhale} & aut & CRAN & 3996 & Interacting with Docker and Singularity containers \\
+		\cranpkg{diffusionMap} & aut & CRAN & 21361 & Implements diffusion map method of data parameterization, including creation and visualization of diffusion map \\
 		\githubpkg{dynverse}{dynbenchmark} & aut & Github & \notavailable & Pipeline for benchmarking trajectory inference methods \\
-		\cranpkg{dyndimred} & aut & CRAN & 571 & Applying dimensionality reduction methods \\
+		\cranpkg{dyndimred} & aut & CRAN & 5511 & Applying dimensionality reduction methods \\
 		\githubpkg{dynverse}{dyneval} & aut & Github & \notavailable & Evaluating trajectory inference methods \\
 		\githubpkg{dynverse}{dynfeature} & aut & Github & \notavailable & Calculating feature importance scores from trajectories \\
 		\githubpkg{dynverse}{dyngen} & aut & Github & \notavailable & Simulating single-cell data using gene regulatory networks \\
 		\githubpkg{dynverse}{dynguidelines} & aut & Github & \notavailable & User guidelines for trajectory inference \\
 		\githubpkg{dynverse}{dynmethods} & aut & Github & \notavailable & A collection of wrappers for trajectory inference methods \\
 		\githubpkg{dynverse}{dyno} & aut & Github & \notavailable & A pipeline for inferring, visualising and interpreting trajectories \\
-		\cranpkg{dynparam} & aut & CRAN & 2539 & Creating meta-information for parameters \\
+		\cranpkg{dynparam} & aut & CRAN & 3084 & Creating meta-information for parameters \\
 		\githubpkg{dynverse}{dynplot} & aut & Github & \notavailable & A simple visualisation library for trajectories \\
 		\githubpkg{dynverse}{dynplot2} & aut & Github & \notavailable & A fully customisable visualisation library for trajectories \\
 		\githubpkg{dynverse}{dyntoy} & aut & Github & \notavailable & Generating simple toy data of cellular differentiation \\
-		\cranpkg{dynutils} & aut & CRAN & 4570 & Common functionality for the dynverse packages \\
+		\cranpkg{dynutils} & aut & CRAN & 5657 & Common functionality for the dynverse packages \\
 		\githubpkg{dynverse}{dynwrap} & aut & Github & \notavailable & A common format for trajectories \\
-		\cranpkg{GillespieSSA} & aut & CRAN & 7855 & Gillespie's Stochastic Simulation Algorithm (SSA) \\
-		\cranpkg{GillespieSSA2} & aut & CRAN & 2253 & Gillespie's Stochastic Simulation Algorithm for Impatient People \\
+		\cranpkg{GillespieSSA} & aut & CRAN & 7546 & Gillespie's Stochastic Simulation Algorithm (SSA) \\
+		\cranpkg{GillespieSSA2} & aut & CRAN & 6506 & Gillespie's Stochastic Simulation Algorithm for Impatient People \\
 		\githubpkg{dynverse}{gng} & aut & Github & \notavailable & An Rcpp implementation of the Growing Neural Gas algorithm \\
-		\cranpkg{incgraph} & aut & CRAN & 2809 & Incremental graphlet counting for network optimisation \\
-		\cranpkg{princurve} & aut & CRAN & 24'439 & Fits a principal curve in arbitrary dimension \\
-		\cranpkg{proxyC} & aut & CRAN & 112'753 & Computes proximity in large sparse matrices \\
-		\cranpkg{qsub} & aut & CRAN & 2698 & Running commands remotely on gridengine clusters \\
-		\cranpkg{SCORPIUS} & aut & CRAN & 4824 & Inferring developmental chronologies from single-cell RNA sequencing data \\ \hline\hline
-		\biocpkgl{ClusterSignificance}{Clus\-ter\-Sig\-nif\-i\-cance} & ctb & Bioc & 571 & Assess if class clusters in dimensionality reduced data representations have a separation different from permuted data \\
-		\cranpkg{devtools} & ctb & CRAN & 3'254'816 & Tools to make developing R packages easier \\
+		\cranpkg{incgraph} & aut & CRAN & 3175 & Incremental graphlet counting for network optimisation \\
+		\githubpkg{rcannood}{lmds} & aut & Github & \notavailable & Landmark Multi-Dimensional Scaling \\
+		\cranpkg{princurve} & aut & CRAN & 26'991 & Fits a principal curve in arbitrary dimension \\
+		\cranpkg{proxyC} & aut & CRAN & 117'484 & Computes proximity in large sparse matrices \\
+		\cranpkg{qsub} & aut & CRAN & 3193 & Running commands remotely on gridengine clusters \\
+		\cranpkg{SCORPIUS} & aut & CRAN & 4772 & Inferring developmental chronologies from single-cell RNA sequencing data \\ \hline\hline
+		\biocpkgl{ClusterSignificance}{Clus\-ter\-Sig\-nif\-i\-cance} & ctb & Bioc & 803 & Assess if class clusters in dimensionality reduced data representations have a separation different from permuted data \\
+		\cranpkg{devtools} & ctb & CRAN & 3'775'350 & Tools to make developing R packages easier \\
 		\githubpkg{soedinglab}{merlot} & ctb & Github & \notavailable & A method for reconstructing lineage-tree topologies from scRNA-seq data \\
-		\cranpkg{mlr} & ctb & CRAN & 141'192 & Machine Learning in R \\
-		\biocpkg{monocle} & ctb & Bioc & 29'121 & Clustering, differential expression, and trajectory analysis for single-cell RNA-Seq \\
-		\cranpkg{ParamHelpers} & ctb & CRAN & 101'137 & Helpers for Parameters in Black-Box Optimization, Tuning and Machine Learning \\
+		\cranpkg{mlr} & ctb & CRAN & 142'605 & Machine Learning in R \\
+		\biocpkg{monocle} & ctb & Bioc & 35'240 & Clustering, differential expression, and trajectory analysis for single-cell RNA-Seq \\
+		\cranpkg{ParamHelpers} & ctb & CRAN & 109'408 & Helpers for Parameters in Black-Box Optimization, Tuning and Machine Learning \\
 		\githubpkg{kieranrcampbell}{pseudogp} & ctb & Github & \notavailable & Probabilistic pseudotime for single-cell RNA-seq \\
-		\cranpkg{remotes} & ctb & CRAN & 3'476'435 & R package installation from remote repositories, including GitHub \\
-		\cranpkg{rlang} & ctb & CRAN & 10'314'725 & Functions for base types and core R and tidyverse features \\
+		\cranpkg{remotes} & ctb & CRAN & 3'704'594 & R package installation from remote repositories, including GitHub \\
+		\cranpkg{rlang} & ctb & CRAN & 11'470'763 & Functions for base types and core R and tidyverse features \\
 		\githubpkg{aertslab}{SCope} & ctb & Github & \notavailable & Visualization of large-scale and high dimensional single cell data \\
-		\biocpkg{slingshot} & ctb & Bioc & 9538 & Tools for ordering single-cell sequencing \\
-		\biocpkg{splatter} & ctb & Bioc & 2999 & Simple simulation of single-cell RNA sequencing data \\
+		\biocpkg{slingshot} & ctb & Bioc & 11'643 & Tools for ordering single-cell sequencing \\
+		\biocpkg{splatter} & ctb & Bioc & 3741 & Simple simulation of single-cell RNA sequencing data \\
 		\githubpkg{farrelja}{URD} & ctb & Github & \notavailable & URD reconstructs transcriptional trajectories underlying specification or differentiation processes in the form of a branching tree from single-cell RNAseq data \\
 		\githubpkg{ManuSetty}{wishbone} & ctb & Github & \notavailable & Identify bifurcating developmental trajectories from single-cell data \\\hline
 	\end{tabularx}
