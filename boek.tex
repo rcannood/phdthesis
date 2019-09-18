@@ -211,6 +211,7 @@ BoldItalicFont = *-700-Italic
 %% hyperlinks
 % load hyperref after fncychap
 \usepackage{hyperref}
+\usepackage[open,openlevel=1]{bookmark}
 
 \hypersetup{
 	colorlinks = true,
@@ -226,6 +227,14 @@ BoldItalicFont = *-700-Italic
 \renewcommand{\listtablename}{List of Tables}
 \renewcommand{\appendixname}{}
 \renewcommand{\baselinestretch}{1.25}
+
+
+% si units and chemical stuff
+\usepackage{siunitx}
+\usepackage[version=3]{mhchem}
+
+% command for adding comments
+\newcommand{\comment}[1]{\noindent\fbox{\parbox{\textwidth}{\color{red}#1}}}
 
 \begin{document}
 
