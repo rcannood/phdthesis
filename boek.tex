@@ -73,6 +73,9 @@
 \newcommand{\cmark}{\ding{51}}
 \newcommand{\xmark}{\ding{55}}
 
+% boxes around sections
+\usepackage{tcolorbox}
+
 % fix named refs for starred sections
 \makeatletter
 \def\ttl@useclass#1#2{%
@@ -234,7 +237,7 @@ BoldItalicFont = *-700-Italic
 \usepackage[version=3]{mhchem}
 
 % command for adding comments
-\newcommand{\comment}[1]{\noindent\fbox{\parbox{\textwidth}{\color{red}#1}}}
+\newcommand{\mycomment}[1]{\noindent\fbox{\parbox{\textwidth}{\color{red}#1}}}
 
 \begin{document}
 
@@ -339,7 +342,7 @@ Adapted from:\\
 \end{quote}
 \vfill
 Adapted from:\\
-\textbf{Cannoodt, R.}, \ldots, De Preter, K., and Saeys, Y. SCORPIUS improves trajectory inference and identifies novel modules in dendritic cell development. \textit{Journal} vol, issue (2019), page--page. \doi{10.1101/079509v2}.
+\textbf{Cannoodt, R.}, Saelens, W., Sichien, D., Tavernier, S., Janssens, S. Guilliams, M., Lambrecht, B., De Preter, K., and Saeys, Y. SCORPIUS improves trajectory inference and identifies novel modules in dendritic cell development. \textit{Journal} vol, issue (2019), page--page. \doi{10.1101/079509v2}.
 \newpage
 \graphicspath{{./ch5_scorpius/}}
 \include{ch5_scorpius/content}
@@ -383,12 +386,33 @@ Adapted from:\\
 \newpage
 \include{ch7_incgraph/content}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%       CH8: Guidelines       %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\thispagestyle{empty}\cleardoublepage}
+\chapter{Essential guidelines for computational method benchmarking} 
+\chaptermark{Essential guidelines for computational method benchmarking.} % short title
+\label{chap:guidelines}
+\graphicspath{{./ch8_guidelines/}}
+\begin{quote}
+	\textbf{Abstract:} In computational biology and other sciences, researchers are frequently faced with a choice between several computational methods for performing data analyses. Benchmarking studies aim to rigorously compare the performance of different methods using well-characterized benchmark datasets, to determine the strengths of each method or to provide recommendations regarding suitable choices of methods for an analysis. However, benchmarking studies must be carefully designed and implemented to provide accurate, unbiased, and informative results. Here, we summarize key practical guidelines and recommendations for performing high-quality benchmarking analyses, based on our experiences in computational biology.
+\end{quote}
+\vfill
+Adapted from:\\
+Weber, L. M., Saelens W., \textbf{Cannoodt, R.}, Soneson, C., Hapfelmeier, A., Gardner, P. P.,
+Boulesteix, A., Saeys, Y., and Robinson, M. D.. 
+Essential guidelines for computational method benchmarking. \textit{Genome Biology} 20, 125 (2019). \doi{10.1186/s13059-019-1738-8}.
+\newpage
+\include{ch8_guidelines/content}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      CH8: DISCUSSION      %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage{\thispagestyle{empty}\cleardoublepage}
-\chapter{General discussion} 
-\chaptermark{General discussion.} % short title
+\chapter{Discussion and Future Perspectives} 
+\chaptermark{Discussion and Future Perspectives.} % short title
 \label{chap:discussion}
 \include{ch8_discussion/content}
 

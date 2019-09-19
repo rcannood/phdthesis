@@ -1,3 +1,5 @@
+% INTRODUCTION CONTENT
+
 \section{The cell}
 The cell is the smallest unit of life, of which all known living organisms are composed. Every cell houses a plethora of biomolecular processes that allow it to adapt to changes in its environment continuously. It can be very challenging to comprehend the cellular response to a signal due to the dynamic nature of these processes. A reductionist approach to understanding a complex biological system is to study the biochemical components which it is comprised of \cite{brigandt_reductionismbiology_2017}.
 
@@ -5,7 +7,7 @@ Recent advances in experimental technologies are playing a crucial role in reduc
 
 For example, the Human Cell Atlas (HCA) consortium \cite{regev_humancellatlas_2018} has set out to develop a comprehensive reference map of all the different types of cells in the human body. Experts in the field often metaphorically describe the HCA initiative as aiming to develop a 'Google Maps' of the human body. Even in its infancy, the HCA has profiled 3.8 million cells from 248 donors across 42 labs \cite{humancellatlasconsortium_humancellatlas_2018}, and this number is likely to increase well above one hundred million.
 
-\comment{
+\mycomment{
 HT: I feel like you're only going to focus on preprocessing, when reading this section. Maybe add a second paragraph mentioning that separating technical and biological noise from actual biological processes in the data is not the only challenge, and that there is also a necessity of new computational tools to start generating more complex models, integrating the information from single cell high sequencing experiments in a much more refined way? \\
 RC: Literally but succinctly state what the exact contributions of the thesis are, this is still very vague.
 }
@@ -19,7 +21,7 @@ This work makes incremental contributions to the field in order to be able to ad
 The discovery of the double helix shape of Deoxyribonucleic Acid (DNA) \cite{watson_molecularstructurenucleic_1953} is often considered the pivot point in our understanding of the origins of life and evolution. By now, it is well known that DNA serves as a medium for storing the genetic information required to reproduce a whole organism. With other words, the DNA of an organism contains the complete set of instructions required to build all of the biomolecular machinery present in its body.
 The magnitude of this discovery is reflected in our language and culture alike; with sayings such as "It's in your DNA.", or usage of its shape in countless illustrations or artworks (Figure \ref{fig:fsvm}).
 
-\comment{
+\mycomment{
 RC: Use crispr-cas to assert the impact of the discovery of DNA, not the FSVM spiral 
 }
 
@@ -33,7 +35,7 @@ RC: Use crispr-cas to assert the impact of the discovery of DNA, not the FSVM sp
 
 Even so, a widely-accepted hypothesis states that life (or cells) did not originate from DNA, but instead was kicked off from its lesser-known cousin, Ribonucleic Acid (RNA). According to the RNA world hypothesis \cite{alberts_rnaworldorigins_2002}, the very first primitive cells used RNA both to store genetic information and perform the chemical reactions required to sustain themselves (Figure \ref{fig:rnaworld}). Only later did cells develop the ability to use DNA and proteins to self-sustain in a process commonly referred to as the Central Dogma.
 
-\comment{use this reference? \cite{cornell_prebioticaminoacids_2019}}
+\mycomment{use this reference? \cite{cornell_prebioticaminoacids_2019}}
 
 \begin{figure}[htb!]
 	\centering\includegraphics[width=.5\linewidth]{fig/rnaworld} % TODO: change image
@@ -44,7 +46,7 @@ Even so, a widely-accepted hypothesis states that life (or cells) did not origin
 \end{figure}
 
 \subsection{The Central Dogma}
-\comment{HT: feels like an enumeration, should make it more into a story}
+\mycomment{HT: feels like an enumeration, should make it more into a story}
 
 The Central Dogma is a set of processes present which govern the general flow of genetic information in almost all existent living cells. In short, it states that DNA codes for RNA, which in turn codes for proteins.
 In this work, we assume the main processes involved in the Central Dogma are replication, transcription, splicing and translation (Figure \ref{fig:centraldogma}). 
@@ -80,27 +82,27 @@ The functionality provided by a cell is defined (mostly) by the proteins of whic
 
 \textit{Homo sapiens} like to categorise everything they encounter and so too have they conceptualised groups of cells called "cell types" according to their functionality. The concept of cell types eases reasoning about all aspects of biology, for instance, which cell types turn into (differentiate) or communicate with which other cell types, or how a cell type responds to a specific stimulation. Cells can be highly specialised toward performing a particular function (e.g. memory B cells accelerate immune response by remembering previously encountered pathogens), or they can maintain a strong ability to differentiate into other cell types. 
 
-\comment{do not only discuss differentiation, but instead any kind of developmental process; and mention 'developmental trajectory'.}
+\mycomment{do not only discuss differentiation, but instead any kind of developmental process; and mention 'developmental trajectory'.}
 Cell differentiation is not an instant process; it is a continuous process in which a cell gradually produces the biochemical machinery required in order to fulfil a particular task. In this regard, it makes sense not only to reason about cell types but also about the transition states between cell types and the dynamic processes involved therein.
 
-\comment{are dynamic processes defined? a dynamic process is just a biochemical reaction}
+\mycomment{are dynamic processes defined? a dynamic process is just a biochemical reaction}
 
 \subsection{Cell dynamics and gene regulation}
 If cells are dynamic entities and can gradually produce the molecules needed to acquire new functionality, what is the process by which this happens? The mechanism by which this happens is called gene regulation. Some proteins (or other molecules such as micro RNAs) are capable of determining the rate at which a gene is transcribed (transcription rate). Such proteins are called transcription factors (TFs), and the genes they regulate are called their targets. Typically, one TF will regulate the transcription rate of many targets.
 
-\comment{TODO: download database and calculate some statistics?}
+\mycomment{TODO: download database and calculate some statistics?}
 
 Production of a specific molecule might require multiple cascades of gene regulation. The collection of all gene regulatory interactions between transcription factors and targets is called a gene regulatory network (GRN). Studying the active parts of a cell's gene regulatory network can thus reveal which dynamic processes are taking place. 
 
-\comment{TODO: explain regulation mechanisms such as transcription factor binding sites?}
+\mycomment{TODO: explain regulation mechanisms such as transcription factor binding sites?}
 \subsection{Profiling single cells}
-\comment{This sections goes greatly into detail about IHC and cytometry. Can the merging of the 'single-cell' and 'omics' be explained without going so much into detail?}
+\mycomment{This sections goes greatly into detail about IHC and cytometry. Can the merging of the 'single-cell' and 'omics' be explained without going so much into detail?}
 In order to understand a biological process, it is often quite helpful to be able to profile (i.e. observe) the biomolecular components involved therein. The single-cell "omics" technologies which we have at our fingertips today originated from the convergence of two different fields, \emph{"single-cell"} and \emph{"omics"}.
 
 The earliest approaches for measuring the abundance of particular molecules in \emph{single cells} used the preferred instrument of every stereotypical biologist: the microscope.
 Since it was developed by Coons et al. in 1941, immunohistochemistry (IHC) has been instrumental in visualising antigen-antibody proteins \cite{coons_immunologicalpropertiesantibody_1941}. In many multicellular organisms, antibodies and antigens serve as crucial communication tools as part of the organism's immune system. A cell can present a particular type of antigen on its cell surface, which allows a particular type of antibody to bind to it.
 
-\comment{Rephrase the microscope sentence}
+\mycomment{Rephrase the microscope sentence}
 
 IHC (and many other biotechnologies) visualises antigen-antibody reactions by attaching particular molecules to the antibody, such as an enzyme that catalyses a colour-producing reaction, or a fluorescent chemical compound that can re-emit light upon light excitation. Using different colours (wavelengths) allows measuring expression levels of different antibodies simultaneously. Characterising cells in a quantifiable way is labour intensive; however, since it involves acquiring an image of many cells and drawing a contour around each cell (called cell segmentation). While modern implementations of IHC improve the throughput drastically by using robots to automate the image acquisition and computer software to automate cell segmentation, the procedure is still labour intensive as the robots and computer software still needs to be kept in check.
 
@@ -109,7 +111,7 @@ Flow cytometry \cite{fulwyler_electronicseparationbiological_1965} is a techniqu
 Since IHC and flow cytometry, many new technologies have been developed which allow quantifying expression levels of molecules in single cells (e.g. mass cytometry, single-cell qPCR, FISH). All of these single-cell (non-omics) technologies are limited by the number of different molecules they could measure, however; and thus required handpicking the molecules of interest before performing an experiment, making the experiment biased towards the preconceptions of the experimenter.
 
 On the other side of the spectrum are the so-called "omics" technologies. "Omics"\footnote{The etymology of "omics" is quite interesting \cite{yadav_wholenesssuffixomics_2007}.} is a collective term for profiling all molecules of a particular type in a high-throughput manner. There are many types of "omics", but the most commonly used are the following. In genomics, all of an organism's genes are studied -- its whole genome. Transcriptomics and proteomics study the organisms RNA transcripts and proteins, respectively. A notable downside of traditional omics technologies is that in order to capture enough material an ensemble of cells needs to be profiled, and thus only the average expression levels are returned; thereby granting the technology the name "bulk" omics. If a subset of these cells contains unique patterns in expression levels, this pattern will be masked in the bulk population and is thus undetectable. Specific examples of omics technologies are next-generation sequencing, which can be used to determine the DNA sequence of an organism, and RNA sequencing, which profiles the sequences of RNA transcripts. By mapping the sequences of RNA transcripts to genes in the organisms DNA, a gene expression profile can be obtained.
-\comment{Demonstrate the masking effect of bulk analyses.}
+\mycomment{Demonstrate the masking effect of bulk analyses.}
 
 Transformative technological advances in microvolume sequencing allowed Tang et al. to analyse the transcriptome at single-cell resolution \cite{tang_mrnaseqwholetranscriptomeanalysis_2009}, thereby bringing single-cell biology and omics together to create single-cell omics (Figure \ref{fig:profiling_convergence}A). During the decade that followed, the number of single-cell omics technologies has skyrocketed, allowing to profile tens of thousands of cells (Figure \ref{fig:profiling_convergence}B) and measuring other levels of information such as proteomic expression levels (Figure \ref{fig:profiling_convergence}C).
 
@@ -154,10 +156,10 @@ Single-cell omics permits new types of analyse but also come with hitherto unsee
 	\label{fig:comp_tools}
 \end{figure}
 
-\comment{Make a better connection to the subsections below}
+\mycomment{Make a better connection to the subsections below}
 
 \subsection{Normalisation}
-\comment{TODO}
+\mycomment{TODO}
 
 \subsection{Dimensionality reduction}
 Single-cell omics datasets typically have too many dimensions (features) in order to be easily interpretable by humans and even by most computational tools. 
@@ -167,11 +169,16 @@ There are many ways of classifying DR methods \cite{engel_surveydimensionreducti
 Projection-based DR methods aim to perform a linear transformation of the data while preserving the pairwise distances between samples as much as possible. Examples of commonly used projection-based DR methods in single-cell omics are PCA and MDS. 
 Manifold learning methods are methods which reconstruct a higher-order structure in the original space (e.g. a graph or a grid), visualising the structure in a lower-dimensional space, and mapping the original samples to the lower-dimensional space. Manifold learning can be an iterative optimisation process using a predefined criterion. Examples of manifold learning techniques are t-SNE, Diffusion Maps and UMAP. 
 
-\comment{This section is not very interestingly written}
+\mycomment{This section is not very interestingly written}
 
 \subsection{Trajectory inference}
 Single-cell omics data provide new opportunities for studying cellular dynamic processes, such as the cell cycle, cell differentiation and cell activation \cite{tanay_scalingsinglecellgenomics_2017,etzrodt_quantitativesinglecellapproaches_2014}. 
 Trajectory inference (TI) is a new category of computational tools used to offer an unbiased and transcriptome-wide understanding of a dynamic process \cite{tanay_scalingsinglecellgenomics_2017,cannoodt_computationalmethodstrajectory_2016}. 
+
+%Technological advancements in single-cell omics allow studying a dynamic process in a high-throughput manner. 
+%This raises concerns regarding biological fundamentals, such as how to define cell types or transitions between them \cite{etzrodt_quantitativesinglecellapproaches_2014,tanay_scalingsinglecellgenomics_2017}. 
+%Trajectory inference (TI) methods aim to give insight into a dynamic process by inferring a trajectory from omics profiles of cells in which the dynamic process takes place \cite{cannoodt_computationalmethodstrajectory_2016}. 
+%TI has two objectives: to reconstruct the topology of the dynamic process (e.g. is it linear, cyclical, bifurcating), and to determine the position of each cell along the topology. Some TI methods assumes that the user knows the topology beforehand and only focuses on ordering the cells along a predefined topology.
 
 The dataset can be a single snapshot of a mixture of cells in different stages, or a set of samples collected at different time points (Figure \ref{fig:trajectory_inference}A). Typically, TI methods first analyse similarities between cells, optionally infer the topology of the underlying process, and finally order cells along that trajectory (Figure \ref{fig:trajectory_inference}B). The second step can be optional, as some methods assume a specific topology beforehand.
 TI methods allow the identification of new subsets of cells, delineation of a differentiation tree, and characterisation of the main driver genes along a state transition (Figure \ref{fig:trajectory_inference}C). Current applications of TI focus on specific subsets of cells, but ongoing efforts to construct transcriptomic catalogs of whole organisms \cite{regev_humancellatlas_2017,han_mappingmousecell_2018,schaum_singlecelltranscriptomics20_2018} underline the urgency for accurate, scalable \cite{aibar_scenicsinglecellregulatory_2017,angerer_singlecellsmake_2017} and user-friendly TI methods.
@@ -184,7 +191,7 @@ TI methods allow the identification of new subsets of cells, delineation of a di
 	\label{fig:trajectory_inference}
 \end{figure}
 
-\comment{Could still expand this section with pieces from the EJI paper, though it needs to be adapted strongly.}
+\mycomment{Could still expand this section with pieces from the EJI paper, though it needs to be adapted strongly.}
 
 \subsection{Gene regulatory network inference}
 Gene regulatory network inference, or network inference (NI) for short, is a type of computational analysis where thousands of transcriptomic profiles are analysed together in order to infer the regulatory interactions between transcription factors and genes. This topic already received much attention with the advent of bulk omics (before single-cell omics). These efforts culminated in several DREAM competitions assessing the performance of 29 different NI methods \cite{marbach_revealingstrengthsweaknesses_2010, marbach_wisdomcrowdsrobust_2012}. 
@@ -218,7 +225,7 @@ In the computational jungle of single-cell omics, experts act as beacons of hope
 
 \section{Outline} % include contributions?
 
-\comment{Get a better focus for the overall contributions of the thesis. For example, focus on datasets that contain developing cells, and that the tools we develop make this assumption.}
+\mycomment{Get a better focus for the overall contributions of the thesis. For example, focus on datasets that contain developing cells, and that the tools we develop make this assumption.}
 
 This work aims to tackle multiple computational problems in extracting biological hypotheses from single-cell omics data. 
 We introduce a framework for evaluating multiple types of single-cell omics tools, more specifically dimensionality reduction, trajectory inference, and gene regulatory network inference (Chapter \ref{chap:dyngen}). Next, we perform a comprehensive evaluation of 45 TI methods and construct guidelines based on our observations (Chapter \ref{chap:dynbenchmark}). As part of the evaluation, we developed a framework to infer, visualise, and interpret trajectories, which we made available as a separate tool called dyno (Chapter \ref{chap:dyno}).
@@ -237,12 +244,6 @@ We also introduce two new computational tools of our own. SCORPIUS is a TI metho
 
 \textbf{Chapter \ref{chap:bred}} -- why bred, what is it, what can it be used for.
 
-
-
-%Before embarking on this perilous adventure, I attempt to write a "Hippocratic oath for bioinformaticians", to guide me through this dissertation and not stray from the metaphorical path of righteousness.
-%
-%\subsection{Hippocratic oath for bioinformaticians}
-%We proceed with caution in developing new tools. Its results should not only be convincing and easy to interpret, but also accurate, robust, and reproducible. We value creating open-source software that works reliably but fails gracefully when it does not. We acknowledge that writing automated tests is dull but necessary for maintaining long-term software projects. % TODO: improve
 
 \section{List of contributions}
 
@@ -274,7 +275,7 @@ We also introduce two new computational tools of our own. SCORPIUS is a TI metho
 	\item Weber LM, Saelens W, \textbf{Cannoodt R}, Soneson C, Hapfelmeier A, Gardner PP, Boulesteix AL, Saeys Y, Robinson MD. Essential guidelines for computational method benchmarking. Genome biology. 2019 Dec;20(1):125.
 \end{itemize}
 
-\comment{
+\mycomment{
 	Submitted:\\
 	RNA atlas,\\
 	TRADE-seq: Trajectory-based differential expression analysis,\\
@@ -351,6 +352,7 @@ We also helped maintain or extend other packages on Github, CRAN or Bioconductor
 		\biocpkg{monocle} & ctb & Bioc & 35'240 & Clustering, differential expression, and trajectory analysis for single-cell RNA-Seq \\
 		\cranpkg{ParamHelpers} & ctb & CRAN & 109'408 & Helpers for Parameters in Black-Box Optimization, Tuning and Machine Learning \\
 		\githubpkg{kieranrcampbell}{pseudogp} & ctb & Github & \notavailable & Probabilistic pseudotime for single-cell RNA-seq \\
+		\cranpkg{Rdimtools} & ctb & CRAN & 7367 & Dimension Reduction and Estimation Methods \\
 		\cranpkg{remotes} & ctb & CRAN & 3'704'594 & R package installation from remote repositories, including GitHub \\
 		\cranpkg{rlang} & ctb & CRAN & 11'470'763 & Functions for base types and core R and tidyverse features \\
 		\githubpkg{aertslab}{SCope} & ctb & Github & \notavailable & Visualization of large-scale and high dimensional single cell data \\
