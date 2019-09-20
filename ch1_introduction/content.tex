@@ -209,40 +209,26 @@ The advent of single-cell omics has made scientists wonder whether now is the ti
 One of the main advantages of single-cell omics is the ability to quantify the exact cellular state of thousands of cells per experiment. The heterogeneity between cells caused by naturally occurring biological randomness \cite{padovan-merhar_usingvariabilitygene_2013} can be exploited to infer regulatory interactions between TFs and their target genes at much lower costs (see Figure \ref{fig:bulk_vs_singlecell}).
 In this setting, heterogeneity in the cell population eases network inference, rather than mask condition-specific expression patterns in regulatory interactions.
 
-\section{Research objectives}
+\section{Research context and objectives}
+Recent technological advancements in profiling single cells are having significant repercussions in many fields of biology. Profiling thousands of individual cells in a genome-wide manner provides opportunities to study cell heterogeneity and dynamics, for example inferring mechanisms for cellular development or intercellular communication. 
+Hundreds of new software tools were developed \cite{zappia_exploringsinglecellrnaseq_2018} to perform these new types of analyses, or to fit existing analytical tools to deal with new data characteristics (e.g. differential expression, dimensionality reduction, normalisation). 
 
-Recent technological advancements in profiling single cells are having significant repercussions in many fields of biology. The new types of analyses made possible warrant the development of computational tools which can solve the problem at hand and deal with the new data characteristics, ultimately in order to create useful and accurate hypotheses for biologists.
+One major shortcoming during the advent of single cell omics was that majority of the newly developed computational tools were not quantitatively and comparatively evaluated. Rather, they relied on anecdotal evidence to demonstrate its usefulness. This issue is not the result of the tool developer's malevolence, but instead of the lack of data required to perform such comprehensive benchmarks.
 
-In response, scientists all over the globe have been working hard to tackle these computational challenges, resulting in more than 470 software tools for processing single-cell omics data in one form or another \cite{zappia_exploringsinglecellrnaseq_2018}. More than half of these tools were published in peer-reviewed journals. 
+Uncontrolled development of software tools without comprehensive benchmarking poses serious problems. 
+For one, it slows down scientific progress. Every end-user needs to make a large commitment researching the domain in order to make an informed decision of which tool to use, or risk a higher incidence of false positive discoveries (either way, valuable resources are being wasted). It also negatively impacts the credibility of the field and discourages new users. 
 
-The high number of tools available presents the user choice, but also uncertainty and indecision about which tool to use for the task at hand. Choosing the method with most citations might result in a weaker result than picking a method at random, and making an informed decision requires spending an enormous amount of time in comparing the results of numerous methods, on various platforms, on multiple different datasets. 
+In this work, we aim to speed up scientific progress in single-cell omics by providing end-users with guidelines on how to use which state-of-the-art tools, and by providing developers with the necessary tools to assert a mimimum performance criterion when introducing new methods.
 
-The field of single-cell omics needs quantitative ways to measure the performance of different categories of tools. Clear quantitative metrics allow performing comprehensive studies to assess the advantages and disadvantages of existing tools. In addition, they could also serve as a minimum performance criterion before the publication of a new tool.
+We develop benchmarking strategies for assessing the performance of novel computational tools constrained by low availability of real data (Chapter~\ref{chap:dyngen}). \textit{In silico} simulations of individual cells are used to help kick-start emerging domains much more safely and allow anticipation of future technological developments by already developing computational tools.
 
-In the computational jungle of single-cell omics, experts act as beacons of hope by sharing guidelines based on comprehensive benchmarking studies. Their disseminations (in the form of manuscripts \cite{lafzi_tutorialguidelinesexperimental_2018,luecken_currentbestpractices_2019}, courses \cite{kiselev_analysissinglecell_2019,martens_analysissinglecell_2019}, and slides shown during keynote caffeine refuelling sessions \cite{hemberg_coffeebreakanalysis_2019}) are crucial in leading new users, and ultimately the whole field, to better practices for performing single-cell omics analyses.
+We apply this strategy to perform a comparison of TI methods (Chapter~\ref{chap:dynbenchmark}). Trajectory inference is one of the largest categories of all the novel single-cell omics tools, yet a comprehensive and quantitative study of the advantages and disadvantages of the numerous tools was hitherto lacking. 
 
-% todo: provide better segway to the next section
+We introduce a novel TI method specialised in inferring linear trajectories (Chapter~\ref{chap:scorpius}).
+Despite linear TI being the most simple but commonly used form of trajectory inference, the benchmark demonstrated that most TI methods are not capable of producing accurate models of linear datasets.
 
-\section{Outline} % include contributions?
-
-\mycomment{Get a better focus for the overall contributions of the thesis. For example, focus on datasets that contain developing cells, and that the tools we develop make this assumption.}
-
-This work aims to tackle multiple computational problems in extracting biological hypotheses from single-cell omics data. 
-We introduce a framework for evaluating multiple types of single-cell omics tools, more specifically dimensionality reduction, trajectory inference, and gene regulatory network inference (Chapter \ref{chap:dyngen}). Next, we perform a comprehensive evaluation of 45 TI methods and construct guidelines based on our observations (Chapter \ref{chap:dynbenchmark}). As part of the evaluation, we developed a framework to infer, visualise, and interpret trajectories, which we made available as a separate tool called dyno (Chapter \ref{chap:dyno}).
-We also introduce two new computational tools of our own. SCORPIUS is a TI method specialised in inferring linear trajectories (Chapter \ref{chap:scorpius}). bred is a true single-cell NI method which can infer gene regulatory networks for individual cells (Chapter \ref{chap:bred}).
-
-
-
-\textbf{Chapter \ref{chap:dyngen}} -- why dyngen, what is it, what can it be used for.
-%framework for evaluating methods with synthetic data generator. if available, real data with gold standards would be most desirable.
-
-\textbf{Chapter \ref{chap:dynbenchmark}} -- why dynbenchmark, what is it, what can it be used for.
-
-\textbf{Chapter \ref{chap:dyno}} -- why dyno, what is it, what can it be used for.
-
-\textbf{Chapter \ref{chap:scorpius}} -- why scorpius, what is it, what can it be used for.
-
-\textbf{Chapter \ref{chap:bred}} -- why bred, what is it, what can it be used for.
+We conclude by inventing a new type of approach aimed at inferring the GRN of individual cells (Chapter~\ref{chap:bred}).
+Due a lack of real data which can be used as a gold standard dataset, we use \textit{in silico} single-cell data to quantitatively evaluate the performance.
 
 
 \section{List of contributions}
@@ -314,7 +300,7 @@ We also helped maintain or extend other packages on Github, CRAN or Bioconductor
 
 
 \begin{table}[ht!]
-	\caption{\textbf{Contibutions to open-source software.} Following abbreviations denote the role within the package: aut Author, ctb Contributor. Yearly download statistics are based on the number of downloads between 2019-08-01 and 2019-09-10. CRAN download statistics are retrieved from the Rstudio CRAN mirror only; other CRAN mirrors do not track download statistics. For Github repositories, no download statistics could be retrieved. } \label{tab:packages}
+	\caption{\textbf{Contibutions to open-source software.} Following abbreviations denote the relation with respect to the package: \textit{aut} Author, \textit{ctb} Contributor. Yearly download statistics are based on the number of downloads between 2019-08-01 and 2019-09-10. CRAN download statistics are retrieved from the Rstudio CRAN mirror only; other CRAN mirrors do not track download statistics. For Github repositories, no download statistics could be retrieved. } \label{tab:packages}
 	
 	\centering\fontsize{9}{11}\selectfont
 	\begin{tabularx}{\linewidth}{|p{2cm}llp{1.5cm}X|}
@@ -345,7 +331,8 @@ We also helped maintain or extend other packages on Github, CRAN or Bioconductor
 		\cranpkg{proxyC} & aut & CRAN & 117'484 & Computes proximity in large sparse matrices \\
 		\cranpkg{qsub} & aut & CRAN & 3193 & Running commands remotely on gridengine clusters \\
 		\cranpkg{SCORPIUS} & aut & CRAN & 4772 & Inferring developmental chronologies from single-cell RNA sequencing data \\ \hline\hline
-		\biocpkgl{ClusterSignificance}{Clus\-ter\-Sig\-nif\-i\-cance} & ctb & Bioc & 803 & Assess if class clusters in dimensionality reduced data representations have a separation different from permuted data \\
+		
+		\biocpkgl{ClusterSignificance}{Clus\-ter\-Sig\-nif\-i\-cance} &  & Bioc & 803 & Assess if class clusters in dimensionality reduced data representations have a separation different from permuted data \\
 		\cranpkg{devtools} & ctb & CRAN & 3'775'350 & Tools to make developing R packages easier \\
 		\githubpkg{soedinglab}{merlot} & ctb & Github & \notavailable & A method for reconstructing lineage-tree topologies from scRNA-seq data \\
 		\cranpkg{mlr} & ctb & CRAN & 142'605 & Machine Learning in R \\
