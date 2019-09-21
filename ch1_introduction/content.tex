@@ -26,11 +26,11 @@ RC: Use crispr-cas to assert the impact of the discovery of DNA, not the FSVM sp
 }
 
 \begin{figure}[htb!]
-	\centering\includegraphics[width=.5\linewidth]{fig/fsvm3} % TODO: change image
-	\caption{
-		\textbf{A prominent display of the double helix shape at the VIB FSVM building.}
-	}
-	\label{fig:fsvm}
+  \centering\includegraphics[width=.5\linewidth]{fig/fsvm3} % TODO: change image
+  \caption{
+    \textbf{A prominent display of the double helix shape at the VIB FSVM building.}
+  }
+  \label{fig:fsvm}
 \end{figure}
 
 Even so, a widely-accepted hypothesis states that life (or cells) did not originate from DNA, but instead was kicked off from its lesser-known cousin, Ribonucleic Acid (RNA). According to the RNA world hypothesis \cite{alberts_rnaworldorigins_2002}, the very first primitive cells used RNA both to store genetic information and perform the chemical reactions required to sustain themselves (Figure \ref{fig:rnaworld}). Only later did cells develop the ability to use DNA and proteins to self-sustain in a process commonly referred to as the Central Dogma.
@@ -38,11 +38,11 @@ Even so, a widely-accepted hypothesis states that life (or cells) did not origin
 \mycomment{use this reference? \cite{cornell_prebioticaminoacids_2019}}
 
 \begin{figure}[htb!]
-	\centering\includegraphics[width=.5\linewidth]{fig/rnaworld} % TODO: change image
-	\caption{
-		\textbf{RNA world.} The postulated rise and fall of the RNA world during the evolution of life, from early self-replicating RNA to complex, RNA-controlled metabolism, to the invention of translation, followed by diversification of all modern branches of life. Image from Horning (2011) \cite{horning_rnaworld_2011}. % TODO: expand the description
-	}
-	\label{fig:rnaworld}
+  \centering\includegraphics[width=.5\linewidth]{fig/rnaworld} % TODO: change image
+  \caption{
+    \textbf{RNA world.} The postulated rise and fall of the RNA world during the evolution of life, from early self-replicating RNA to complex, RNA-controlled metabolism, to the invention of translation, followed by diversification of all modern branches of life. Image from Horning (2011) \cite{horning_rnaworld_2011}. % TODO: expand the description
+  }
+  \label{fig:rnaworld}
 \end{figure}
 
 \subsection{The Central Dogma}
@@ -53,11 +53,11 @@ In this work, we assume the main processes involved in the Central Dogma are rep
 
 
 \begin{figure}[htb!]
-	\centering\includegraphics[width=.5\linewidth]{fig/central_dogma} % TODO: change image
-	\caption{
-		\textbf{Central Dogma.} % TODO: expand the description
-	}
-	\label{fig:centraldogma}
+  \centering\includegraphics[width=.5\linewidth]{fig/central_dogma} % TODO: change image
+  \caption{
+    \textbf{Central Dogma.} % TODO: expand the description
+  }
+  \label{fig:centraldogma}
 \end{figure}
 
 \textbf{Replication} is the process of duplicating DNA, which allows a cell to divide such that the resulting daughter cells retain complete copies of its genetic information. DNA consists of four different so-called nucleobases named adenine (A), cytosine (C), guanine (G), and thymine (T). Each strand of the double helix structure of DNA is a linear chain of nucleobases. The two strands are held together by hydrogen bonds since adenine can form three hydrogen bonds with thymine and cytosine can form two hydrogen bonds with guanine. Each nucleobase can only bond with one other nucleobase, making the strands complementary to one another. 
@@ -116,18 +116,18 @@ On the other side of the spectrum are the so-called "omics" technologies. "Omics
 Transformative technological advances in microvolume sequencing allowed Tang et al. to analyse the transcriptome at single-cell resolution \cite{tang_mrnaseqwholetranscriptomeanalysis_2009}, thereby bringing single-cell biology and omics together to create single-cell omics (Figure \ref{fig:profiling_convergence}A). During the decade that followed, the number of single-cell omics technologies has skyrocketed, allowing to profile tens of thousands of cells (Figure \ref{fig:profiling_convergence}B) and measuring other levels of information such as proteomic expression levels (Figure \ref{fig:profiling_convergence}C).
 
 \begin{figure}[htb!]
-	\centering
-	A. \includegraphics[width=.45\linewidth]{fig/profiling_convergence} 
-	% also figure with cell numbers
-	C. \includegraphics[width=.45\linewidth]{fig/multimodal} 
-	% TODO: change image
-	\caption{
-		A. \textbf{Convergence of "Omics" Biology and Single-Cell Biology.} Technology that allows researchers to obtain genome-wide information from single cells is extending the boundaries of a field that has thus far been limited to the analyses of a select gene in eukaryotes. Image from Junker and van Oudenaarden (2014) \cite{junker_everycellspecial_2014}. 
-		B. 
-		C. scmultiomics \cite{moudgil_multimodalscrnaseq_2019}. 
-		% TODO: rewrite the description
-	}
-	\label{fig:profiling_convergence}
+  \centering
+  A. \includegraphics[width=.45\linewidth]{fig/profiling_convergence} 
+  % also figure with cell numbers
+  C. \includegraphics[width=.45\linewidth]{fig/multimodal} 
+  % TODO: change image
+  \caption{
+    A. \textbf{Convergence of "Omics" Biology and Single-Cell Biology.} Technology that allows researchers to obtain genome-wide information from single cells is extending the boundaries of a field that has thus far been limited to the analyses of a select gene in eukaryotes. Image from Junker and van Oudenaarden (2014) \cite{junker_everycellspecial_2014}. 
+    B. 
+    C. scmultiomics \cite{moudgil_multimodalscrnaseq_2019}. 
+    % TODO: rewrite the description
+  }
+  \label{fig:profiling_convergence}
 \end{figure}
 
 The rapidly advancing field of single-cell omics harbours exceptional opportunities to discover new aspects of biology and redefine existing knowledge. Some of these opportunities lie in efforts like the Human Cell Atlas. The HCA consortium has set out to redefine all human cell types in terms of their gene expression and location, and the developmental trajectories connecting the different cell types. As part of this endeavour, the consortium will likely profile the whole transcriptomes tens or even hundreds of millions of cells. 
@@ -139,21 +139,21 @@ Some of these opportunities lie in efforts such as the Human Cell Atlas. The HCA
 
 Single-cell omics permits new types of analyse but also come with hitherto unseen data characteristics, the combination of which poses exciting new challenges for the computational community to tackle (Figure \ref{fig:comp_tools}A)\cite{stegle_computationalanalyticalchallenges_2015,yuan_challengesemergingdirections_2017,chen_singlecellrnaseqtechnologies_2019}. These challenges include:
 \begin{itemize}
-	\item normalisation: separating biological noise from technical noise,
-	\item dimensionality reduction: providing a visual and informative overview of a given dataset, 
-	\item trajectory inference: identifying and characterising transitions between different cellular states, and
-	\item gene regulatory network inference: inferring regulatory interactions between transcription factors across individual cells.
+  \item normalisation: separating biological noise from technical noise,
+  \item dimensionality reduction: providing a visual and informative overview of a given dataset, 
+  \item trajectory inference: identifying and characterising transitions between different cellular states, and
+  \item gene regulatory network inference: inferring regulatory interactions between transcription factors across individual cells.
 \end{itemize}
 
 \begin{figure}[htb!]
-	\centering\includegraphics[width=.5\linewidth]{fig/singlecell_tools}
-	\centering\includegraphics[width=.3\linewidth]{fig/scrnatools}
-	% TODO: change image
-	\caption{\textbf{A. Single-cell omics allows for many new types of computational approaches.} Figure adapted from Wagner et al. (2016) \cite{wagner_revealingvectorscellular_2016}.
-		B. Zappia et al. (2018) \cite{zappia_exploringsinglecellrnaseq_2018}
-		% TODO: rewrite the description
-	}
-	\label{fig:comp_tools}
+  \centering\includegraphics[width=.5\linewidth]{fig/singlecell_tools}
+  \centering\includegraphics[width=.3\linewidth]{fig/scrnatools}
+  % TODO: change image
+  \caption{\textbf{A. Single-cell omics allows for many new types of computational approaches.} Figure adapted from Wagner et al. (2016) \cite{wagner_revealingvectorscellular_2016}.
+    B. Zappia et al. (2018) \cite{zappia_exploringsinglecellrnaseq_2018}
+    % TODO: rewrite the description
+  }
+  \label{fig:comp_tools}
 \end{figure}
 
 \mycomment{Make a better connection to the subsections below}
@@ -184,11 +184,11 @@ The dataset can be a single snapshot of a mixture of cells in different stages, 
 TI methods allow the identification of new subsets of cells, delineation of a differentiation tree, and characterisation of the main driver genes along a state transition (Figure \ref{fig:trajectory_inference}C). Current applications of TI focus on specific subsets of cells, but ongoing efforts to construct transcriptomic catalogs of whole organisms \cite{regev_humancellatlas_2017,han_mappingmousecell_2018,schaum_singlecelltranscriptomics20_2018} underline the urgency for accurate, scalable \cite{aibar_scenicsinglecellregulatory_2017,angerer_singlecellsmake_2017} and user-friendly TI methods.
 
 \begin{figure}[htb!]
-	\centering\includegraphics[width=\Largefigure]{fig/trajectory_inference_slim} % TODO: Update figure to match text!!!!
-	\caption{
-		Applications of single-cell trajectory inference methods. (A) Single-cell omics data appropriate for TI can be both obtained from an unsynchronised population of single cells (snapshot data) but also from synchronised cell populations. (B) UPDATE! (C) UPDATE!
-	}
-	\label{fig:trajectory_inference}
+  \centering\includegraphics[width=\Largefigure]{fig/trajectory_inference_slim} % TODO: Update figure to match text!!!!
+  \caption{
+    Applications of single-cell trajectory inference methods. (A) Single-cell omics data appropriate for TI can be both obtained from an unsynchronised population of single cells (snapshot data) but also from synchronised cell populations. (B) UPDATE! (C) UPDATE!
+  }
+  \label{fig:trajectory_inference}
 \end{figure}
 
 \mycomment{Could still expand this section with pieces from the EJI paper, though it needs to be adapted strongly.}
@@ -199,10 +199,10 @@ Gene regulatory network inference, or network inference (NI) for short, is a typ
 After the last DREAM competition, it seemed that interest in NI methodology had declined. After all, NI on bulk omics profiles suffered from several crucial issues. As mentioned previously, bulk profiles are generated by pooling together the RNA transcripts of a supposedly homogeneous population of thousands of cells. Since the expression values are averaged over the whole population, incorrect assumptions on the homogeneity of the pooled cells may lead to the masking of relevant expression patterns in rare cell populations (Figure \ref{fig:bulk_vs_singlecell}). Besides, NI methods rely on a diverse set of time-series and perturbation experiments in order to reliably identify causal regulatory interactions. Such experiments are expensive and time-consuming, and an inaccurate selection of time points might result in crucial intermediate stages being missed.
 
 \begin{figure}[htb!]
-	\centering
-	\includegraphics[width=\Largefigure]{fig/ni_bulk_vs_sc}
-	\caption{Bulk expression data return the average expressions of genes among large numbers of cells. In order to infer regulatory networks from this type of data, multiple bulk profiles (resulting from time series or perturbation experiments) are required. On the other hand, sequencing the transcriptome at the single-cell level uncovers the high variability among cells, providing the necessary information to infer gene regulatory networks directly.} % TODO: update label
-	\label{fig:bulk_vs_singlecell}
+  \centering
+  \includegraphics[width=\Largefigure]{fig/ni_bulk_vs_sc}
+  \caption{Bulk expression data return the average expressions of genes among large numbers of cells. In order to infer regulatory networks from this type of data, multiple bulk profiles (resulting from time series or perturbation experiments) are required. On the other hand, sequencing the transcriptome at the single-cell level uncovers the high variability among cells, providing the necessary information to infer gene regulatory networks directly.} % TODO: update label
+  \label{fig:bulk_vs_singlecell}
 \end{figure}
 
 The advent of single-cell omics has made scientists wonder whether now is the time to revisit network inference \cite{stegle_computationalanalyticalchallenges_2015}. 
@@ -216,7 +216,7 @@ Hundreds of new software tools were developed \cite{zappia_exploringsinglecellrn
 One major shortcoming during the advent of single cell omics was that majority of the newly developed computational tools were not quantitatively and comparatively evaluated. Rather, they relied on anecdotal evidence to demonstrate its usefulness. This issue is not the result of the tool developer's malevolence, but instead of the lack of data required to perform such comprehensive benchmarks.
 
 Uncontrolled development of software tools without comprehensive benchmarking poses serious problems. 
-For one, it slows down scientific progress. Every end-user needs to make a large commitment researching the domain in order to make an informed decision of which tool to use, or risk a higher incidence of false positive discoveries (either way, valuable resources are being wasted). It also negatively impacts the credibility of the field and discourages new users. 
+For one, it slows down scientific progress. Every end-user needs to make a large commitment researching the domain in order to make an informed decision of which tool to use, or risk a higher incidence of false positive discoveries (either way, valuable resources are being wasted). In addition, it also negatively impacts the credibility of the field, thus discouraging potential users or researchers from entering.
 
 In this work, we aim to speed up scientific progress in single-cell omics by providing end-users with guidelines on how to use which state-of-the-art tools, and by providing developers with the necessary tools to assert a mimimum performance criterion when introducing new methods.
 
@@ -236,37 +236,32 @@ Due a lack of real data which can be used as a gold standard dataset, we use \te
 \subsection{First-author publications}
 
 \begin{itemize}
-	\item \textbf{Cannoodt R} *, Saelens W *, Saeys Y. Computational methods for trajectory inference from single-cell transcriptomics. European journal of immunology. 2016 Nov;46(11):2496-506.
-	\item \textbf{Cannoodt R}, Saelens W, Sichien D, Tavernier S, Janssens S, Guilliams M, Lambrecht B, De Preter K, Saeys Y. SCORPIUS improves trajectory inference and identifies novel modules in dendritic cell development. bioRxiv. 2016 Oct:079509.
-	\item \textbf{Cannoodt R}, Ruyssinck J, Ramon J, De Preter K, Saeys Y. IncGraph: Incremental graphlet counting for topology optimisation. PloS one. 2018 Apr 26;13(4):e0195997.
+  \item \textbf{Cannoodt R} *, Saelens W *, Saeys Y. Computational methods for trajectory inference from single-cell transcriptomics. European journal of immunology. 2016 Nov;46(11):2496-506.
+  \item \textbf{Cannoodt R}, Ruyssinck J, Ramon J, De Preter K, Saeys Y. IncGraph: Incremental graphlet counting for topology optimisation. PloS one. 2018 Apr 26;13(4):e0195997.
   \item Saelens W *, \textbf{Cannoodt R} *, Todorov H, Saeys Y. A comparison of single-cell trajectory inference methods. Nature biotechnology. 2019 May;37(5):547.
-  \item dyngen, submitted?
-  \item dyno, submitted?
-  \item scorpius, submitted?
-  \item bred, submitted?
+  \item \textbf{Cannoodt R} *, Saelens W *, Saeys Y. dyngen: Simulating developing single cells. In preparation.
+  \item \textbf{Cannoodt R}, Saelens W, Sichien D, Tavernier S, Janssens S, Guilliams M, Lambrecht B, De Preter K, Saeys Y. SCORPIUS: Fast, accurate, and robust single-cell pseudotime. In preparation.
+  \item \textbf{Cannoodt R} *, Saelens W *, Saeys Y. dyno: A toolkit for inferring, visualising, and interpreting trajectories. In preparation.
+  \item \textbf{Cannoodt R}, Saelens W, Saeys Y. bred: Inferring single cell regulatory networks. In preparation.
  \end{itemize}
 
 *: Equal contribution.
 
 \subsection{Co-author publications}
 \begin{itemize}
-	\item Decock A, Ongenaert M, \textbf{Cannoodt R}, Verniers K, De Wilde B, Laureys G, Van Roy N, Berbegall AP, Bienertova-Vasku J, Bown N, Clément N. Methyl-CpG-binding domain sequencing reveals a prognostic methylation signature in neuroblastoma. Oncotarget. 2016 Jan 12;7(2):1960.
-	\item Van Cauwenbergh C, Van Schil K, \textbf{Cannoodt R}, Bauwens M, Van Laethem T, De Jaegere S, Steyaert W, Sante T, Menten B, Leroy BP, Coppieters F. arrEYE: a customized platform for high-resolution copy number analysis of coding and noncoding regions of known and candidate retinal dystrophy genes and retinal noncoding RNAs. Genetics in Medicine. 2017 Apr;19(4):457.
-	\item Claeys S, Denecker G, \textbf{Cannoodt R}, Kumps C, Durinck K, Speleman F, De Preter K. Early and late effects of pharmacological ALK inhibition on the neuroblastoma transcriptome. Oncotarget. 2017 Dec 5;8(63):106820.
-	\item Depuydt P, Boeva V, Hocking TD, \textbf{Cannoodt R}, Ambros IM, Ambros PF, Asgharzadeh S, Attiyeh EF, Combaret V, Defferrari R, Fischer M. Genomic amplifications and distal 6q loss: novel markers for poor survival in high-risk neuroblastoma patients. JNCI: Journal of the National Cancer Institute. 2018 Mar 5;110(10):1084-93.
-	\item Scott CL, T'Jonck W, \ldots, \textbf{Cannoodt R}, Saelens W \ldots, Guilliams M. The transcription factor ZEB2 is required to maintain the tissue-specific identities of macrophages. Immunity. 2018 Aug 21;49(2):312-25.
-	\item Saelens W, \textbf{Cannoodt R}, Saeys Y. A comprehensive evaluation of module detection methods for gene expression data. Nature communications. 2018 Mar 15;9(1):1090.
-	\item Todorov H, \textbf{Cannoodt R}, Saelens W, Saeys Y. Network Inference from Single-Cell Transcriptomic Data. In Gene Regulatory Networks 2019 (pp. 235-249). Humana Press, New York, NY..
-	\item Van den Berge K, De Bezieux HR, Street K, Saelens W, \textbf{Cannoodt R}, Saeys Y, Dudoit S, Clement L. Trajectory-based differential expression analysis for single-cell sequencing data. BioRxiv. 2019 Jan 1:623397.
-	\item Weber LM, Saelens W, \textbf{Cannoodt R}, Soneson C, Hapfelmeier A, Gardner PP, Boulesteix AL, Saeys Y, Robinson MD. Essential guidelines for computational method benchmarking. Genome biology. 2019 Dec;20(1):125.
+  \item Decock A, Ongenaert M, \textbf{Cannoodt R}, Verniers K, De Wilde B, Laureys G, Van Roy N, Berbegall AP, Bienertova-Vasku J, Bown N, Clément N. Methyl-CpG-binding domain sequencing reveals a prognostic methylation signature in neuroblastoma. Oncotarget. 2016 Jan 12;7(2):1960.
+  \item Van Cauwenbergh C, Van Schil K, \textbf{Cannoodt R}, Bauwens M, Van Laethem T, De Jaegere S, Steyaert W, Sante T, Menten B, Leroy BP, Coppieters F. arrEYE: a customized platform for high-resolution copy number analysis of coding and noncoding regions of known and candidate retinal dystrophy genes and retinal noncoding RNAs. Genetics in Medicine. 2017 Apr;19(4):457.
+  \item Claeys S, Denecker G, \textbf{Cannoodt R}, Kumps C, Durinck K, Speleman F, De Preter K. Early and late effects of pharmacological ALK inhibition on the neuroblastoma transcriptome. Oncotarget. 2017 Dec 5;8(63):106820.
+  \item Depuydt P, Boeva V, Hocking TD, \textbf{Cannoodt R}, Ambros IM, Ambros PF, Asgharzadeh S, Attiyeh EF, Combaret V, Defferrari R, Fischer M. Genomic amplifications and distal 6q loss: novel markers for poor survival in high-risk neuroblastoma patients. JNCI: Journal of the National Cancer Institute. 2018 Mar 5;110(10):1084-93.
+  \item Scott CL, T'Jonck W, \ldots, \textbf{Cannoodt R}, Saelens W \ldots, Guilliams M. The transcription factor ZEB2 is required to maintain the tissue-specific identities of macrophages. Immunity. 2018 Aug 21;49(2):312-25.
+  \item Saelens W, \textbf{Cannoodt R}, Saeys Y. A comprehensive evaluation of module detection methods for gene expression data. Nature communications. 2018 Mar 15;9(1):1090.
+  \item Todorov H, \textbf{Cannoodt R}, Saelens W, Saeys Y. Network Inference from Single-Cell Transcriptomic Data. In Gene Regulatory Networks 2019 (pp. 235-249). Humana Press, New York, NY..
+  \item Van den Berge K, De Bezieux HR, Street K, Saelens W, \textbf{Cannoodt R}, Saeys Y, Dudoit S, Clement L. Trajectory-based differential expression analysis for single-cell sequencing data. BioRxiv. 2019 Jan 1:623397.
+  \item Weber LM, Saelens W, \textbf{Cannoodt R}, Soneson C, Hapfelmeier A, Gardner PP, Boulesteix AL, Saeys Y, Robinson MD. Essential guidelines for computational method benchmarking. Genome biology. 2019 Dec;20(1):125.
+  \item Lorenzi L, \ldots, \textbf{Cannoodt R}, \ldots, Mestdagh P. The RNA-Atlas, a single nucleotide resolution map of the human transcriptome. In preparation.
+  \item Van den Berge K, Roux de Bézieux H, Street K, Saelens W, \textbf{Cannoodt R}, Saeys Y, Dudoit S. Trajectory-based differential expression analysis. Submitted to Nature Communications.
+  \item Van de Sande Bram, \ldots, \textbf{Cannoodt R}, \ldots, Saeys Y, Aerts S. A scalable SCENIC workflow for single-cell gene regulatory network analysis. Submitted to Nature Protocols.
 \end{itemize}
-
-\mycomment{
-	Submitted:\\
-	RNA atlas,\\
-	TRADE-seq: Trajectory-based differential expression analysis,\\
-	SCENIC protocol
-}
 
 \subsection{Open-source software}
 As part of this work, many open-source software packages were created and many others were contributed to (Table \ref{tab:packages}). 
@@ -300,52 +295,52 @@ We also helped maintain or extend other packages on Github, CRAN or Bioconductor
 
 
 \begin{table}[ht!]
-	\caption{\textbf{Contibutions to open-source software.} Following abbreviations denote the relation with respect to the package: \textit{aut} Author, \textit{ctb} Contributor. Yearly download statistics are based on the number of downloads between 2019-08-01 and 2019-09-10. CRAN download statistics are retrieved from the Rstudio CRAN mirror only; other CRAN mirrors do not track download statistics. For Github repositories, no download statistics could be retrieved. } \label{tab:packages}
-	
-	\centering\fontsize{9}{11}\selectfont
-	\begin{tabularx}{\linewidth}{|p{2cm}llp{1.5cm}X|}
-		\hline
-		Name & Role & Host & Downloads per year & Description \\ \hline\hline
-		\cranpkg{babelwhale} & aut & CRAN & 3996 & Interacting with Docker and Singularity containers \\
-		\cranpkg{diffusionMap} & aut & CRAN & 21'361 & Implements diffusion map method of data parameterization, including creation and visualization of diffusion map \\
-		\githubpkg{dynverse}{dynbenchmark} & aut & Github & \notavailable & Pipeline for benchmarking trajectory inference methods \\
-		\cranpkg{dyndimred} & aut & CRAN & 5511 & Applying dimensionality reduction methods \\
-		\githubpkg{dynverse}{dyneval} & aut & Github & \notavailable & Evaluating trajectory inference methods \\
-		\githubpkg{dynverse}{dynfeature} & aut & Github & \notavailable & Calculating feature importance scores from trajectories \\
-		\githubpkg{dynverse}{dyngen} & aut & Github & \notavailable & Simulating single-cell data using gene regulatory networks \\
-		\githubpkg{dynverse}{dynguidelines} & aut & Github & \notavailable & User guidelines for trajectory inference \\
-		\githubpkg{dynverse}{dynmethods} & aut & Github & \notavailable & A collection of wrappers for trajectory inference methods \\
-		\githubpkg{dynverse}{dyno} & aut & Github & \notavailable & A pipeline for inferring, visualising and interpreting trajectories \\
-		\cranpkg{dynparam} & aut & CRAN & 3084 & Creating meta-information for parameters \\
-		\githubpkg{dynverse}{dynplot} & aut & Github & \notavailable & A simple visualisation library for trajectories \\
-		\githubpkg{dynverse}{dynplot2} & aut & Github & \notavailable & A fully customisable visualisation library for trajectories \\
-		\githubpkg{dynverse}{dyntoy} & aut & Github & \notavailable & Generating simple toy data of cellular differentiation \\
-		\cranpkg{dynutils} & aut & CRAN & 5657 & Common functionality for the dynverse packages \\
-		\githubpkg{dynverse}{dynwrap} & aut & Github & \notavailable & A common format for trajectories \\
-		\cranpkg{GillespieSSA} & aut & CRAN & 7546 & Gillespie's Stochastic Simulation Algorithm (SSA) \\
-		\cranpkg{GillespieSSA2} & aut & CRAN & 6506 & Gillespie's Stochastic Simulation Algorithm for Impatient People \\
-		\githubpkg{dynverse}{gng} & aut & Github & \notavailable & An Rcpp implementation of the Growing Neural Gas algorithm \\
-		\cranpkg{incgraph} & aut & CRAN & 3175 & Incremental graphlet counting for network optimisation \\
-		\githubpkg{rcannood}{lmds} & aut & Github & \notavailable & Landmark Multi-Dimensional Scaling \\
-		\cranpkg{princurve} & aut & CRAN & 26'991 & Fits a principal curve in arbitrary dimension \\
-		\cranpkg{proxyC} & aut & CRAN & 117'484 & Computes proximity in large sparse matrices \\
-		\cranpkg{qsub} & aut & CRAN & 3193 & Running commands remotely on gridengine clusters \\
-		\cranpkg{SCORPIUS} & aut & CRAN & 4772 & Inferring developmental chronologies from single-cell RNA sequencing data \\ \hline\hline
-		
-		\biocpkgl{ClusterSignificance}{Clus\-ter\-Sig\-nif\-i\-cance} &  & Bioc & 803 & Assess if class clusters in dimensionality reduced data representations have a separation different from permuted data \\
-		\cranpkg{devtools} & ctb & CRAN & 3'775'350 & Tools to make developing R packages easier \\
-		\githubpkg{soedinglab}{merlot} & ctb & Github & \notavailable & A method for reconstructing lineage-tree topologies from scRNA-seq data \\
-		\cranpkg{mlr} & ctb & CRAN & 142'605 & Machine Learning in R \\
-		\biocpkg{monocle} & ctb & Bioc & 35'240 & Clustering, differential expression, and trajectory analysis for single-cell RNA-Seq \\
-		\cranpkg{ParamHelpers} & ctb & CRAN & 109'408 & Helpers for Parameters in Black-Box Optimization, Tuning and Machine Learning \\
-		\githubpkg{kieranrcampbell}{pseudogp} & ctb & Github & \notavailable & Probabilistic pseudotime for single-cell RNA-seq \\
-		\cranpkg{Rdimtools} & ctb & CRAN & 7367 & Dimension Reduction and Estimation Methods \\
-		\cranpkg{remotes} & ctb & CRAN & 3'704'594 & R package installation from remote repositories, including GitHub \\
-		\cranpkg{rlang} & ctb & CRAN & 11'470'763 & Functions for base types and core R and tidyverse features \\
-		\githubpkg{aertslab}{SCope} & ctb & Github & \notavailable & Visualization of large-scale and high dimensional single cell data \\
-		\biocpkg{slingshot} & ctb & Bioc & 11'643 & Tools for ordering single-cell sequencing \\
-		\biocpkg{splatter} & ctb & Bioc & 3741 & Simple simulation of single-cell RNA sequencing data \\
-		\githubpkg{farrelja}{URD} & ctb & Github & \notavailable & URD reconstructs transcriptional trajectories underlying specification or differentiation processes in the form of a branching tree from single-cell RNAseq data \\
-		\githubpkg{ManuSetty}{wishbone} & ctb & Github & \notavailable & Identify bifurcating developmental trajectories from single-cell data \\\hline
-	\end{tabularx}
+  \caption{\textbf{Contibutions to open-source software.} Following abbreviations denote the relation with respect to the package: \textit{aut} Author, \textit{ctb} Contributor. Yearly download statistics are based on the number of downloads between 2019-08-01 and 2019-09-10. CRAN download statistics are retrieved from the Rstudio CRAN mirror only; other CRAN mirrors do not track download statistics. For Github repositories, no download statistics could be retrieved. } \label{tab:packages}
+  
+  \centering\fontsize{9}{11}\selectfont
+  \begin{tabularx}{\linewidth}{|p{2cm}llp{1.5cm}X|}
+    \hline
+    Name & Role & Host & Downloads per year & Description \\ \hline\hline
+    \cranpkg{babelwhale} & aut & CRAN & 3996 & Interacting with Docker and Singularity containers \\
+    \cranpkg{diffusionMap} & aut & CRAN & 21'361 & Implements diffusion map method of data parameterization, including creation and visualization of diffusion map \\
+    \githubpkg{dynverse}{dynbenchmark} & aut & Github & \notavailable & Pipeline for benchmarking trajectory inference methods \\
+    \cranpkg{dyndimred} & aut & CRAN & 5511 & Applying dimensionality reduction methods \\
+    \githubpkg{dynverse}{dyneval} & aut & Github & \notavailable & Evaluating trajectory inference methods \\
+    \githubpkg{dynverse}{dynfeature} & aut & Github & \notavailable & Calculating feature importance scores from trajectories \\
+    \githubpkg{dynverse}{dyngen} & aut & Github & \notavailable & Simulating single-cell data using gene regulatory networks \\
+    \githubpkg{dynverse}{dynguidelines} & aut & Github & \notavailable & User guidelines for trajectory inference \\
+    \githubpkg{dynverse}{dynmethods} & aut & Github & \notavailable & A collection of wrappers for trajectory inference methods \\
+    \githubpkg{dynverse}{dyno} & aut & Github & \notavailable & A pipeline for inferring, visualising and interpreting trajectories \\
+    \cranpkg{dynparam} & aut & CRAN & 3084 & Creating meta-information for parameters \\
+    \githubpkg{dynverse}{dynplot} & aut & Github & \notavailable & A simple visualisation library for trajectories \\
+    \githubpkg{dynverse}{dynplot2} & aut & Github & \notavailable & A fully customisable visualisation library for trajectories \\
+    \githubpkg{dynverse}{dyntoy} & aut & Github & \notavailable & Generating simple toy data of cellular differentiation \\
+    \cranpkg{dynutils} & aut & CRAN & 5657 & Common functionality for the dynverse packages \\
+    \githubpkg{dynverse}{dynwrap} & aut & Github & \notavailable & A common format for trajectories \\
+    \cranpkg{GillespieSSA} & aut & CRAN & 7546 & Gillespie's Stochastic Simulation Algorithm (SSA) \\
+    \cranpkg{GillespieSSA2} & aut & CRAN & 6506 & Gillespie's Stochastic Simulation Algorithm for Impatient People \\
+    \githubpkg{dynverse}{gng} & aut & Github & \notavailable & An Rcpp implementation of the Growing Neural Gas algorithm \\
+    \cranpkg{incgraph} & aut & CRAN & 3175 & Incremental graphlet counting for network optimisation \\
+    \githubpkg{rcannood}{lmds} & aut & Github & \notavailable & Landmark Multi-Dimensional Scaling \\
+    \cranpkg{princurve} & aut & CRAN & 26'991 & Fits a principal curve in arbitrary dimension \\
+    \cranpkg{proxyC} & aut & CRAN & 117'484 & Computes proximity in large sparse matrices \\
+    \cranpkg{qsub} & aut & CRAN & 3193 & Running commands remotely on gridengine clusters \\
+    \cranpkg{SCORPIUS} & aut & CRAN & 4772 & Inferring developmental chronologies from single-cell RNA sequencing data \\ \hline\hline
+    
+    \biocpkgl{ClusterSignificance}{Clus\-ter\-Sig\-nif\-i\-cance} &  & Bioc & 803 & Assess if class clusters in dimensionality reduced data representations have a separation different from permuted data \\
+    \cranpkg{devtools} & ctb & CRAN & 3'775'350 & Tools to make developing R packages easier \\
+    \githubpkg{soedinglab}{merlot} & ctb & Github & \notavailable & A method for reconstructing lineage-tree topologies from scRNA-seq data \\
+    \cranpkg{mlr} & ctb & CRAN & 142'605 & Machine Learning in R \\
+    \biocpkg{monocle} & ctb & Bioc & 35'240 & Clustering, differential expression, and trajectory analysis for single-cell RNA-Seq \\
+    \cranpkg{ParamHelpers} & ctb & CRAN & 109'408 & Helpers for Parameters in Black-Box Optimization, Tuning and Machine Learning \\
+    \githubpkg{kieranrcampbell}{pseudogp} & ctb & Github & \notavailable & Probabilistic pseudotime for single-cell RNA-seq \\
+    \cranpkg{Rdimtools} & ctb & CRAN & 7367 & Dimension Reduction and Estimation Methods \\
+    \cranpkg{remotes} & ctb & CRAN & 3'704'594 & R package installation from remote repositories, including GitHub \\
+    \cranpkg{rlang} & ctb & CRAN & 11'470'763 & Functions for base types and core R and tidyverse features \\
+    \githubpkg{aertslab}{SCope} & ctb & Github & \notavailable & Visualization of large-scale and high dimensional single cell data \\
+    \biocpkg{slingshot} & ctb & Bioc & 11'643 & Tools for ordering single-cell sequencing \\
+    \biocpkg{splatter} & ctb & Bioc & 3741 & Simple simulation of single-cell RNA sequencing data \\
+    \githubpkg{farrelja}{URD} & ctb & Github & \notavailable & URD reconstructs transcriptional trajectories underlying specification or differentiation processes in the form of a branching tree from single-cell RNAseq data \\
+    \githubpkg{ManuSetty}{wishbone} & ctb & Github & \notavailable & Identify bifurcating developmental trajectories from single-cell data \\\hline
+  \end{tabularx}
 \end{table}
