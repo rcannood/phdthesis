@@ -1,25 +1,100 @@
+%dus was ik aan het nadenken over de stand van zaken na dynbenchmark ─ oké, ik heb zin om een dynbenchmark2 te doen moet, alles meer en beter
+%maar hoe hebben we een impact gehad? als je kijkt naar course material over trajectory inference zou ik zeggen, veel ─ we zijn een gemakkelijke bron van guidelines
+%maar als ik kijk naar de manuscripten van nieuwe TI methoden zou ik zeggen dat we nog niet zijn waar we wouden geraken
+
+\section{Self-assessment in trajectory inference}
+Many trajectory inference (TI) tools lack quantitative assessment of the accuracy of the method. Instead, they rely on anecdotal evidence to demonstrate their added value. A brief review of 76 TI articles reveals that only about 35\% contain a self-assessment (Figure \ref{fig:benchmarks_over_time}). Peer-reviewed TI articles fared even worse, self-assessing in only 32\% of cases (n=52), whereas articles first published as a pre-print self-assess in 42\% of cases (n=40). Only four TI articles feature a decently-sized comparison of at least 5 methods using 5 datasets or more.
+% Note: i did not count how many metrics each of these manuscripts used.
+
+Self-assessments are universally biased in favour of the authors, intentionally or otherwise, but this does not mean they should be skipped out on. Norel et al. provide a valuable discussion on overcoming overly optimistic self-assessments \cite{norel_selfassessmenttrapcan_2011}.
+% TODO: improve working "this does not mean they should be skipped out on"
+
+In this perspective, we hypothesise that low self-assessment rates are primarily caused by a lack of a standardised problem definition, benchmarking datasets, and metrics. 
+We elaborate on these reasons and viable solutions to easy benchmarking trajectory inference.
+
+%in deze commentary geven we nog een kort overzicht van:
+%* standaard definitie van een trajectory inference probleem
+%* waar kan je datasets vinden (dynbenchmark zenodo, de verschillende simulatoren, of download ze zelf van GEO)
+%* hoe kan je methoden vergelijken (i.e. gebruik dynmethods)
+%* wat zijn bestaande metrieken (toon overzicht van metrieken uit verschillende benchmarks en ook die van dyneval)
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=.75\linewidth]{fig/self_assessment.pdf} 
+	\caption{\textbf{The number of manuscripts featuring trajectory inference tools over time.} Areas coloured in darker shades of blue represent manuscripts containing self-assessment of the tool, highlighting \textbf{A}: the number of datasets used and \textbf{B}: the number of methods used (including the method of the authors).}
+	\label{fig:benchmarks_over_time}
+\end{figure}
+
+\subsection{Problem definition}
+One main reason why benchmarking TI methods is difficult is due to there being slight variations 
+of the problem a method is attempting to solve (Figure \ref{fig:method_types}A). For example, a method might infer linear or cyclic trajectories, or predict the probability of a cell ending up in one of several end states.
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=.8\linewidth]{fig/method_types.pdf} 
+	\caption{\textbf{Different forms of trajectory inference cause }.}
+	\label{fig:method_types}
+\end{figure}
+
+As a result, it becomes harder to discover similar methods to compare against, as certain articles might only show up with search terms such as "pseudotemporal ordering", "lineage trees" or "fate bias". For the discoverability of a new TI method, it is therefore essential to use the term "trajectory inference", or at least list it as one of the keywords. 
+
+A more significant and harder to solve problem is that the data formats produced by different methods varies greatly. This makes visualising and comparing multiple trajectories difficult, as different output types cannot be compared directly. The most commonly used and general is one where cells are positioned along a set of edges connecting milestones (Figure~\ref{fig:method_types}B). In practice, this format consists of two data structures: the milestone network specify transition between cell states, and the cell progressions specify how far along each cell has progressed along a transition (Figure~\ref{fig:method_types}C). Optionally, a cell can be in a region of "delayed commitment", that is, it is not known which state will end up in but a probability for ending up in either state can be assigned (Figure~\ref{fig:method_types}D). 
+
+Saelens et al. \cite{saelens_comparisonsinglecelltrajectory_2019} developed an R package, \texttt{dynwrap}, for converting many of the variations of trajectory inference to the common format. Using this standardised format allows developing reusable software for interpreting, comparing, and visualising trajectories from any TI method.
+
+\subsection{Benchmarking datasets}
+
+\subsection{Multiple metrics}
+
+%waarom benchmarks maar een laag aantal datasets hebben: 
+%* echte datasets zijn duur om te genereren
+%* het is niet evident om ze te verzamelen
+%* otoh, we zouden naar de meta-informatie van de dynbenchmark/real datasets kunnen kijken en een cumulatieve plot genereren van hoeveel datasets er beschikbaar zijn over tijd, om aan te tonen dat sinds 2016-2017 er feitelijk wel al genoeg datasets zijn om aan self-benchmarking te doen
+
+%waarom benchmarks een laag aantal methoden hebben:
+%* iedere methode heeft zijn eigen set van functies
+%* methodes hebben vaak andere prior inputs (starting cell, time series, etc)
+%* methodes zijn vaak in verschillende talen geschreven (R, python, matlab)
+%* de output van methodes zijn vaak niet rechtstreeks vergelijkbaar, omdat er geen standaard definitie van wat trajectory inference is (zoals bv. wel het geval is bij clustering of differential expression)
+%
+%bovendien is trajectory inference een probleem met complexe output, waardoor geen kant-en-klare metrieken bestonden om de predicties mee te evalueren. ik zou nog eens door alle manuscripten die een evaluatie hebben gedaan, moeten gaan, maar ik denk dat alle of toch de meeste evaluaties tussen 2016 en 2018 enkel op basis van pseudotime zijn ─ ook voor bv. dpt, en dat er maar zelden evaluaties zijn die echt gaan kijken naar de branching
+%
+%
+%kaart aan dat we in 2018 een benchmark preprint hebben gepost van W methoden op X datasets, en in 2019 een artikel hebben gepubliceerd van Y methoden op Z datasets. Ondanks dat we in deze manuscripten de grootste problemen (# datasets, # methodes, # metrieken, leg iets beter uit) aanpakken, zien we geen vermindering in het aantal nieuwe publicaties die geen self-benchmark bevatten.
+%in deze commentary geven we nog een kort overzicht van:
+%* standaard definitie van een trajectory inference probleem
+%* waar kan je datasets vinden (dynbenchmark zenodo, de verschillende simulatoren, of download ze zelf van GEO)
+%* hoe kan je methoden vergelijken (i.e. gebruik dynmethods)
+%* wat zijn bestaande metrieken (toon overzicht van metrieken uit verschillende benchmarks en ook die van dyneval)
+%in conclusie, met al deze informatie melden we dat in 2019 er dus geen enkele reden is om ons te gedragen als gelijk welk ander computationeel / data mining / machine learning veld waarbij er voor quantitatief bewijs wordt gevraagd dat je methode goed werkt als je een nieuwe methode wilt publiceren. we vragen vriendelijk aan peer-reviewers om kritisch te zijn over deze kwestie.
+
+%in deze commentary geven we nog een kort overzicht van:
+%* standaard definitie van een trajectory inference probleem
+%* waar kan je datasets vinden (dynbenchmark zenodo, de verschillende simulatoren, of download ze zelf van GEO)
+%* hoe kan je methoden vergelijken (i.e. gebruik dynmethods)
+%* wat zijn bestaande metrieken (toon overzicht van metrieken uit verschillende benchmarks en ook die van dyneval)
+
+%in conclusie, met al deze informatie melden we dat in 2019 er dus geen enkele reden is om ons te gedragen als gelijk welk ander computationeel / data mining / machine learning veld waarbij er voor quantitatief bewijs wordt gevraagd dat je methode goed werkt als je een nieuwe methode wilt publiceren. we vragen vriendelijk aan peer-reviewers om kritisch te zijn over deze kwestie.
+
+%refer to: \cite{norel_selfassessmenttrapcan_2011} 
+%In order to alleviate the overestimation of accuracy from the many bias sources described above, we proposed a few guidelines:
+%* use third‐party validation to test a model with previously unseen data
+%* use more than one metric to evaluate the methods
+%* report well‐performing methods even if they are not the best performers on a particular data set
+%* increase the awareness of editors and reviewers that superior performance in self‐assessment is a biased demonstration of the method's value; instead, impartial assessment should be the preferred evaluation
+%* Establish a scientific culture that values timely, well‐conducted follow‐up studies that confirm or refute previous results
 
 
-%Recent technological advancements in profiling single cells are having significant repercussions in many fields of biology. Profiling thousands of individual cells in a genome-wide manner provides opportunities to study cell heterogeneity and dynamics, for example inferring mechanisms for cellular development or intercellular communication. 
-%Hundreds of new software tools were developed \cite{zappia_exploringsinglecellrnaseq_2018} to perform these new types of analyses, or to fit existing analytical tools to deal with new data characteristics (e.g. differential expression, dimensionality reduction, normalisation). 
+
+
+%Before 2016, only a handful of trajectory inference methods had been released. None of these articles contained a self-benchmark simply because
 %
-%One major shortcoming during the advent of single cell omics was that majority of the newly developed computational tools were not quantitatively and comparatively evaluated. Rather, they relied on anecdotal evidence to demonstrate its usefulness. This issue is not the result of the tool developer's malevolence, but instead of the lack of data required to perform such comprehensive benchmarks.
+%In all fairness towards the early TI methods, in 2016 or even 2017 there was a low abundance of good datasets to perform benchmarks with. The amount of data required to perform a comprehensive evaluation of their tool did not yet exist and was too expensive to generate. In April 2016, we started developing a single-cell simulator that would allow us to perform a comprehensive benchmark of TI methods. 
 %
-%Uncontrolled development of software tools without comprehensive benchmarking poses serious problems. 
-%For one, it slows down scientific progress. Every end-user needs to make a large commitment researching the domain in order to make an informed decision of which tool to use, or risk a higher incidence of false positive discoveries (either way, valuable resources are being wasted). It also negatively impacts the credibility of the field and discourages new users. 
 %
-%In this work, we aim to speed up scientific progress in single-cell omics by providing end-users with guidelines on how to use which state-of-the-art tools, and by providing developers with the necessary tools to assert a mimimum performance criterion when introducing new methods.
+%It was also non-trivial to compare against many methods as each method has a unique interface where some prior knowledge might be needed. 
 %
-%We develop benchmarking strategies for assessing the performance of novel computational tools constrained by low availability of real data (Chapter~\ref{chap:dyngen}). \textit{In silico} simulations of individual cells are used to help kick-start emerging domains much more safely and allow anticipation of future technological developments by already developing computational tools.
-%
-%We apply this strategy to perform a comparison of TI methods (Chapter~\ref{chap:dynbenchmark}). Trajectory inference is one of the largest categories of all the novel single-cell omics tools, yet a comprehensive and quantitative study of the advantages and disadvantages of the numerous tools was hitherto lacking. 
-%
-%We introduce a novel TI method specialised in inferring linear trajectories (Chapter~\ref{chap:scorpius}).
-%Despite linear TI being the most simple but commonly used form of trajectory inference, the benchmark demonstrated that most TI methods are not capable of producing accurate models of linear datasets.
-%
-%We conclude by inventing a new type of approach aimed at inferring the GRN of individual cells (Chapter~\ref{chap:bred}).
-%Due a lack of real data which can be used as a gold standard dataset, we use \textit{in silico} single-cell data to quantitatively evaluate the performance.
-%
+
 
 % * Single cell omics is expanding at rates faster than any single mind can try to conceive
 %Pioneers developing revolutionary tools to process new types of data are typically faced with the problem on how to quantitatively evaluate the accuracy of their approach. After all, the amount of data required to perform a comprehensive evaluation of their tool does not yet exist and is too expensive to generate at the time. 
@@ -55,7 +130,7 @@
 
 \section{bred discussion}
 
-\section{incgraph discussion}
+%\section{incgraph discussion}
 
-\section{dyno discussion}
+%\section{dyno discussion}
 
