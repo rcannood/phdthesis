@@ -93,130 +93,7 @@ tools <-
     manuscript_date2 = ifelse(is.na(manuscript_publication_date), manuscript_preprint_date, manuscript_publication_date) %>% as.Date(origin = "1970-01-01")
   )
 
-
-pubs <-
-  tibble(
-    x = as.Date(c("2018-03-05", "2019-04-01"), origin = "1970-01-01"),
-    y = 10,
-    text = c("bioRxiv", "NBT")
-  )
-g <- ggplot() +
-  geom_point(aes(manuscript_date, num_methods, size = num_datasets, colour = peer_reviewed), tools %>% arrange(desc(num_datasets)), shape = 21) +
-  geom_vline(aes(xintercept = x), pubs, linetype = "dashed", colour = "darkgray") +
-  geom_text(aes(x, 10, label = text), pubs, colour = "darkgray", hjust = 1, nudge_x = -15) +
-  theme_classic() +
-  labs(x = "Date", y = "Number of methods", size = "Number of datasets", colour = "Peer reviewed") +
-  scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
-  scale_y_continuous(limits = c(0, 12), breaks = c(0, 3, 6, 9, 12)) +
-  scale_colour_brewer(palette = "Set1") +
-  scale_size_continuous(breaks = c(0, 3, 6, 9, 12), limits = c(0, 12))
-
-g <- ggplot() +
-  geom_point(aes(manuscript_date, num_datasets, size = num_methods, colour = peer_reviewed), tools %>% arrange(desc(num_methods)), shape = 21) +
-  geom_vline(aes(xintercept = x), pubs, linetype = "dashed", colour = "darkgray") +
-  geom_text(aes(x, 8, label = text), pubs, colour = "darkgray", hjust = 1, nudge_x = -15) +
-  theme_classic() +
-  labs(x = "Date", y = "Number of datasets", size = "Number of methods", colour = "Peer reviewed") +
-  scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
-  scale_y_continuous(limits = c(0, 12), breaks = c(0, 3, 6, 9, 12)) +
-  scale_colour_brewer(palette = "Set1") +
-  scale_size_continuous(breaks = c(0, 3, 6, 9, 12), limits = c(0, 12))
-
-ggsave("fig/benchmarks.pdf", g, width = 6, height = 3)
-# ggplot(tools, aes(manuscript_date, num_methods)) +
-#   geom_point() +
-#   geom_vline(aes(xintercept = x), tibble(x = as.Date(c("2019-04-01", "2018-03-05"))), linetype = "dashed", colour = "darkgray") +
-#   theme_classic() +
-#   scale_x_date(date_breaks = "1 year", date_labels = "%Y")
-# ggplot(tools, aes(manuscript_date, num_datasets)) +
-#   geom_point() +
-#   geom_vline(aes(xintercept = x), tibble(x = as.Date(c("2019-04-01", "2018-03-05"))), linetype = "dashed", colour = "darkgray") +
-#   theme_classic() +
-#   scale_x_date(date_breaks = "1 year", date_labels = "%Y")
-# ggplot(tools, aes(manuscript_date, num_datasets)) +
-#   geom_text(aes(label = num_methods)) +
-#   geom_vline(aes(xintercept = x), tibble(x = as.Date(c("2019-04-01", "2018-03-05"))), linetype = "dashed", colour = "darkgray") +
-#   theme_classic() +
-#   scale_x_date(date_breaks = "1 year", date_labels = "%Y")
-#
-# ggplot(tools, aes(num_datasets, num_methods)) +
-#   geom_point() +
-#   ggrepel::geom_text_repel(aes(label = tool_name), tools %>% filter(num_methods > 0)) +
-#   theme_classic()
-#
-# tools_dat <-
-#   tools %>%
-#   select(tool_id, tool_name, manuscript_date, num_methods, num_datasets) %>%
-#   gather(variable, value, num_methods, num_datasets) %>%
-#   mutate(
-#     date_quart = lubridate::floor_date(manuscript_date, "quarter") + 30,
-#     group = case_when(
-#       value == 0 ~ "0",
-#       value == 1 ~ "1",
-#       value <= 3 ~ "2-3",
-#       value <= 5 ~ "4-5",
-#       value <= 8 ~ "6-8",
-#       TRUE ~ "9-11"
-#     ) %>% factor(levels = c("0", "1", "2-3", "4-5", "6-8", "9-11"))
-#   )
-# ggplot(tools_dat) +
-#   geom_histogram(aes(date_quart, fill = forcats::fct_rev(group)), binwidth = 365) +
-#   scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
-#   scale_fill_brewer(palette = "Blues", direction = -1) +
-#   theme_classic() +
-#   facet_wrap(~variable) +
-#   guides(fill = guide_legend(reverse = TRUE))
-#
-# summ_tools <- tools %>%
-#   select(num_methods, num_datasets) %>%
-#   gather(variable, value) %>%
-#   mutate(value = case_when(value == 0 ~ "0", value == 1 ~ "1", value <= 3 ~ "2-3", value <= 5 ~ "4-5", value <= 8 ~ "6-8", TRUE ~ "9-11") %>% factor(levels = c("0", "1", "2-3", "4-5", "6-8", "9-11"))) %>%
-#   group_by(variable, value) %>%
-#   summarise(pct = n()) %>%
-#   mutate(pct = pct / sum(pct)) %>%
-#   ungroup()
-# ggplot(summ_tools) +
-#   geom_bar(aes(variable, pct, fill = value, group = forcats::fct_rev(value)), stat = "identity") +
-#   scale_y_continuous(breaks = c(0, .25, .5, .75, 1), labels = rev(c("100%", "75%", "50%", "25%", "0%"))) +
-#   # scale_fill_brewer(palette = "Paired") +
-#   scale_fill_brewer(palette = "Blues") +
-#   # scale_fill_gradientn(colours = RColorBrewer::brewer.pal(8, "Blues")[-1:-2]) +
-#   coord_flip() +
-#   theme_classic()
-#
-#
-# ggplot(tools, aes(manuscript_date, log10(manuscript_citations + 1))) +
-#   geom_point(aes(colour = num_methods, size = real_datasets + simulated_datasets)) +
-#   ggrepel::geom_text_repel(aes(label = tool_name), colour = "darkgray") +
-#   theme_bw() +
-#   viridis::scale_color_viridis(direction = -1) +
-#   scale_shape_manual(values = c("FALSE" = 1, "TRUE" = 16)) +
-#   labs(size = "# Datasets", colour = "# Methods", shape = "Benchmarked", x = "Time", y = "Log Citations + 1")
-#
-#
-#
-#
-# ggplot(tools, aes(manuscript_date, log10(manuscript_citations + 1))) +
-#   geom_point(aes(size = num_methods, colour = real_datasets + simulated_datasets)) +
-#   geom_text(aes(label = tool_name), colour = "darkgray", nudge_y = .1) +
-#   theme_bw() +
-#   viridis::scale_color_viridis(direction = -1) +
-#   scale_shape_manual(values = c("FALSE" = 1, "TRUE" = 16)) +
-#   labs(colour = "# Datasets", size = "# Methods", shape = "Benchmarked", x = "Time", y = "Log Citations + 1")
-#
-# ggplot(tools, aes(manuscript_date, num_methods, colour = factor(eval_answer))) +
-#   geom_point(aes()) +
-#   geom_text(aes(label = tool_id), nudge_y = .1) +
-#   theme_bw()
-# ggplot(tools, aes(manuscript_date, real_datasets, colour = factor(eval_answer))) +
-#   geom_point(aes()) +
-#   geom_text(aes(label = tool_id), nudge_y = .1) +
-#   theme_bw()
-# ggplot(tools, aes(manuscript_date, simulated_datasets, colour = factor(eval_answer))) +
-#   geom_point(aes()) +
-#   geom_text(aes(label = tool_id), nudge_y = .1) +
-#   theme_bw()
-
+# cumulative plot
 dates <- seq(as.Date("2014-01-01"), Sys.Date(), by = 1)
 tools_cum <-
   tools %>%
@@ -257,7 +134,7 @@ g1 <- ggplot(tools_cum %>% filter(variable == "num_datasets")) +
   geom_area(aes(x = manuscript_date, y = cum, fill = forcats::fct_rev(groupings))) +
   theme_bw() +
   guides(fill = guide_legend(reverse = TRUE)) +
-  labs(x = NULL, y = "# Articles", fill = "# Datasets used\nin self-benchmark", tag = "A") +
+  labs(x = NULL, y = "# Articles", fill = "# Datasets used\nin self-assessment", tag = "A") +
   scale_x_date(limits = as.Date(c("2014-01-01", "2020-01-01")), expand = c(0, 0)) +
   scale_y_continuous(limits = c(0, 80), expand = c(0, 0)) +
   scale_fill_brewer(palette = "Blues", direction = -1)
@@ -265,13 +142,14 @@ g2 <- ggplot(tools_cum %>% filter(variable == "num_methods")) +
   geom_area(aes(x = manuscript_date, y = cum, fill = forcats::fct_rev(groupings))) +
   theme_bw() +
   guides(fill = guide_legend(reverse = TRUE)) +
-  labs(x = NULL, y = "# Articles", fill = "# Methods compared\nin self-benchmark", tag = "B") +
+  labs(x = NULL, y = "# Articles", fill = "# Methods compared\nin self-assessment", tag = "B") +
   scale_x_date(limits = as.Date(c("2014-01-01", "2020-01-01")), expand = c(0, 0)) +
   scale_y_continuous(limits = c(0, 80), expand = c(0, 0)) +
   scale_fill_brewer(palette = "Blues", direction = -1)
 ggsave("fig/self_assessment.pdf", patchwork::wrap_plots(g1, g2, ncol = 1), width = 6, height = 6)
 
-^tools_pie <-
+# citation pie
+tools_pie <-
   tools %>%
   select(manuscript_citations, eval_answer) %>%
   arrange(eval_answer, manuscript_citations) %>%
@@ -294,7 +172,110 @@ g <- ggplot(tools_pie) +
   coord_polar("y") +
   scale_fill_identity() +
   theme_classic() +
-  scale_x_continuous(breaks = NULL)#+
-  # scale_y_continuous(breaks = 1:4 / 4 * 5500)
+  scale_x_continuous(breaks = NULL)
 g
 ggsave("fig/citations.pdf", g, width = 5, height = 3)
+
+
+datasets <- dynbenchmark::load_datasets()
+dynbenchmark::list_datasets("real/gold/germlin")
+real_datasets <- read_rds(dynbenchmark::result_file("metadata.rds", "01-datasets/01-real"))
+
+dates <- seq(as.Date("2014-01-01"), as.Date("2018-12-31"), by = 1)
+trajtyps <- dynwrap::trajectory_types %>%
+  filter(!id %in% c("convergence", "acyclic_graph")) %>%
+  mutate(
+    label = dynbenchmark::label_long(id)
+  )
+datasets_cum <-
+  real_datasets %>%
+  filter(trajectory_type %in% trajtyps$id) %>%
+  mutate(trajectory_type = factor(trajectory_type, levels = trajtyps$id)) %>%
+  group_by(trajectory_type) %>%
+  do({
+    df <- .
+    if (nrow(df) > 0) {
+      tibble(
+        trajectory_type = df$trajectory_type[[1]],
+        date = dates,
+        count = map_int(date, function(da) sum(df$date == da)),
+        cum = cumsum(count)
+      )
+    } else {
+      NULL
+    }
+  }) %>%
+  ungroup() %>%
+  mutate(
+    trajectory_type_label = factor(dynbenchmark::label_long(trajectory_type), levels = trajtyps$label)
+  )
+g <- ggplot(datasets_cum) +
+  geom_area(aes(x = date, y = cum, fill = forcats::fct_rev(trajectory_type_label))) +
+  theme_bw() +
+  guides(fill = guide_legend(reverse = TRUE)) +
+  labs(x = NULL, y = "# Datasets", fill = "Trajectory type") +
+  scale_x_date(limits = as.Date(c("2014-01-01", "2019-01-01")), expand = c(0, 0)) +
+  scale_y_continuous(limits = c(0, 120), expand = c(0, 0)) +
+  scale_fill_manual(values = trajtyps %>% select(label, colour) %>% deframe())
+ggsave("fig/datasets.pdf", g, width = 6, height = 2.5)
+
+
+bench_out <- read_rds(dynbenchmark::result_file("benchmark_results_normalised.rds", "06-benchmark"))
+#boda <- bench_out$data_aggregations %>%
+#  filter(dataset_trajectory_type == "overall", dataset_source != "mean") %>%
+boda <- bench_out$data %>%
+  filter(method_id %in% dynbenchmark::load_methods()$method_id) %>%
+  # filter(dataset_source %in% c("real/gold", "real/silver", "synthetic/dyntoy", "synthetic/dyngen")) %>%
+  filter(dataset_source %in% c("real/gold", "real/silver", "synthetic/dyngen")) %>%
+  mutate(dataset_source2 = gsub("/.*", "", dataset_source)) %>%
+  group_by(dataset_source2, method_id, method_name) %>%
+  summarise_if(is.numeric, mean) %>%
+  ungroup()
+ggplot(boda %>% select(dataset_source2, overall, method_id, method_name) %>% spread(dataset_source2, overall)) +
+  geom_point(aes(real, synthetic)) +
+  geom_abline(intercept = 0, slope = 1) +
+  expand_limits(x = c(0, 1), y = c(0, 1))
+
+boda <- bench_out$data %>%
+  filter(
+    method_id %in% dynbenchmark::load_methods()$method_id
+  ) %>%
+  mutate(dataset_source2 = gsub("/.*", "", dataset_source)) %>%
+  group_by(dataset_source2, dataset_trajectory_type, method_id, method_name) %>%
+  summarise(overall = mean(overall), n = n()) %>%
+  ungroup() %>%
+  filter(n > 5, !dataset_trajectory_type %in% c("acyclic_graph", "convergence")) %>%
+  select(-n) %>%
+  spread(dataset_source2, overall) %>%
+  na.omit()
+ggplot(boda) +
+  geom_point(aes(real, synthetic, colour = dataset_trajectory_type)) +
+  geom_abline(intercept = 0, slope = 1) +
+  expand_limits(x = c(0, 1), y = c(0, 1)) +
+  coord_equal()
+
+
+ggplot(boda) +
+  geom_density_2d(aes(real, synthetic)) +
+  geom_abline(intercept = 0, slope = 1) +
+  expand_limits(x = c(0, 1), y = c(0, 1))
+
+
+
+boda <- bench_out$data %>%
+  filter(
+    method_id %in% dynbenchmark::load_methods()$method_id
+  ) %>%
+  mutate(dataset_source2 = ifelse(grepl("real", dataset_source), "real", dataset_source)) %>%
+  group_by(dataset_source2, dataset_trajectory_type, method_id, method_name) %>%
+  summarise(overall = mean(overall), n = n()) %>%
+  ungroup() %>%
+  filter(n > 5, !dataset_trajectory_type %in% c("acyclic_graph", "convergence")) %>%
+  select(-n) %>%
+  spread(dataset_source2, overall) %>%
+  gather(synthetic_source, synthetic_score, -dataset_trajectory_type:-real)
+ggplot(boda) +
+  geom_point(aes(real, synthetic_score, colour = dataset_trajectory_type)) +
+  facet_wrap(~synthetic_source) +
+  geom_abline(intercept = 0, slope = 1) +
+  expand_limits(x = c(0, 1), y = c(0, 1))

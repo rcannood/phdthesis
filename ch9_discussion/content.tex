@@ -31,8 +31,14 @@ of the problem a method is attempting to solve (Figure \ref{fig:method_types}A).
 
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[width=.8\linewidth]{fig/method_types.pdf} 
-	\caption{\textbf{Different forms of trajectory inference cause }.}
+	\includegraphics[width=\linewidth]{fig/method_types.pdf} 
+	\caption{
+		\textbf{Different forms of trajectory inference.}
+		\textbf{A:} All TI methods can be categorised in one of seven subtypes in terms of its produced output \cite{saelens_comparisonsinglecelltrajectory_2019}.
+		\textbf{B:} Each of these can be translated into a common format, allowing easier comparison of multiple trajectories.
+		\textbf{C:} The minimum information required to describe a trajectory in this way is the milestone network -- representing transitions between cellular states -- and the cell progressions -- representing the positions of cells along the transitions.
+		\textbf{D:} Optionally, regions of delayed commitment can be defined. A region of delayed commitment contain multiple transitions starting from the same milestone. This allows a TI method to assign probabilities on how likely a cell is part of one of these transitions.
+	}
 	\label{fig:method_types}
 \end{figure}
 
@@ -40,16 +46,31 @@ As a result, it becomes harder to discover similar methods to compare against, a
 
 A more significant and harder to solve problem is that the data formats produced by different methods varies greatly. This makes visualising and comparing multiple trajectories difficult, as different output types cannot be compared directly. The most commonly used and general is one where cells are positioned along a set of edges connecting milestones (Figure~\ref{fig:method_types}B). In practice, this format consists of two data structures: the milestone network specify transition between cell states, and the cell progressions specify how far along each cell has progressed along a transition (Figure~\ref{fig:method_types}C). Optionally, a cell can be in a region of "delayed commitment", that is, it is not known which state will end up in but a probability for ending up in either state can be assigned (Figure~\ref{fig:method_types}D). 
 
-Saelens et al. \cite{saelens_comparisonsinglecelltrajectory_2019} developed an R package, \texttt{dynwrap}, for converting many of the variations of trajectory inference to the common format. Using this standardised format allows developing reusable software for interpreting, comparing, and visualising trajectories from any TI method.
+\texttt{dynwrap} provides implementations for converting the output from different TI subtypes into the common format. Using this standardised format allows developing reusable software for visualising (\texttt{dynplot}) and comparing (\texttt{dyneval}) trajectories from different TI methods. All of these software packages are part of the \texttt{dyno} collection, soon to be available on CRAN \cite{dyno}.
+
+\mycomment{examples? elaborate? citation?}
 
 \subsection{Benchmarking datasets}
+Another hurdle in benchmarking trajectory inference methods is collecting datasets to benchmark against. Before 2018, there were only a handful of datasets containing complex trajectories (Figure~\ref{fig:datasets}). 
+
+To solve this problem, benchmarking studies typically use synthetic data to complement real data. 
+Several simulators have already been used to generate datasets to evaluate TI datasets, namely dyntoy \cite{saelens_comparisonsinglecelltrajectory_2019}}, dyngen \cite{dyngen}, splatter \cite{zappia_splattersimulationsinglecell_2017}, and PROSSTT \cite{papadopoulos_prossttprobabilisticsimulation_2018}.
+Benefits of synthetic data are that they offer more control over the data characteristics, and that they can be generated in large quantities. This allows to evaluate performance of a method in function of a changing parameter (e.g. dataset size or noise levels), which provides information on how well the method will work on real datasets.
+
+A common counterargument of synthetic data is that they generate unrealistic datasets and thus provide no additional value in evaluation a method. In contrast, we argue that a good set of synthetic datasets should allow benchmarkers to verify that a method should \textit{at least} work well on the synthetic datasets, but good performance on synthetic datasets does not guarantee good performance on real datasets.
+
+By now, already hundreds of suitable real datasets exist (Figure~\ref{fig:datasets}). Downloading and pre-processing them requires a significant time investment. However, by processing the datasets once and storing them in a single repository allows them to be reused for multiple purposes. Readers are invited to reuse and extend the datasets used from our comparison of TI methods hosted on Zenodo\cite{cannoodt_singlecellomicsdatasets_2018}.
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=.75\linewidth]{fig/datasets.pdf} 
+	\caption{\textbf{An overview collection of TI benchmarking datasets in function of their publication date and the topology of the trajectory.} These datasets are readily available on Zenodo\cite{cannoodt_singlecellomicsdatasets_2018}.}
+	\label{fig:datasets}
+\end{figure}
+
 
 \subsection{Multiple metrics}
 
-%waarom benchmarks maar een laag aantal datasets hebben: 
-%* echte datasets zijn duur om te genereren
-%* het is niet evident om ze te verzamelen
-%* otoh, we zouden naar de meta-informatie van de dynbenchmark/real datasets kunnen kijken en een cumulatieve plot genereren van hoeveel datasets er beschikbaar zijn over tijd, om aan te tonen dat sinds 2016-2017 er feitelijk wel al genoeg datasets zijn om aan self-benchmarking te doen
 
 %waarom benchmarks een laag aantal methoden hebben:
 %* iedere methode heeft zijn eigen set van functies
