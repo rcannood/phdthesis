@@ -68,17 +68,17 @@ A common counterargument of synthetic data is that they generate unrealistic dat
 Several authors use mainly real datasets to evaluate their method, though only few use more than four datasets (n=7). 
 By now, already hundreds of suitable real datasets are available from GEO and ArrayExpress (Figure~\ref{fig:datasets}). Downloading and pre-processing them requires a significant time investment, but by processing the datasets once and storing them in a single repository they can be reused for multiple purposes.
 
-Readers are welcome to reuse (and extend) the 110 real and 229 synthetic datasets used in our comparison of TI methods. The datasets are hosted on Zenodo\cite{cannoodt_singlecellomicsdatasets_2018} and the scripts to process them on GitHub\footnote{\href{https://github.com/dynverse/dynbenchmark/tree/master/scripts/01-datasets}{github.com/dynverse/dynbenchmark/tree/master/scripts/01-datasets}}. Note that the ground truths of the datasets are represented using the common data structures format in the previous section.
+Readers are welcome to reuse (and extend) the 110 real and 229 synthetic datasets used in our comparison of TI methods\cite{saelens_comparisonsinglecelltrajectory_2019}. The datasets are hosted on Zenodo\cite{cannoodt_singlecellomicsdatasets_2018} and the scripts to process them on GitHub\footnote{\href{https://github.com/dynverse/dynbenchmark/tree/master/scripts/01-datasets}{github.com/dynverse/dynbenchmark/tree/master/scripts/01-datasets}}. Note that the ground truths of the datasets are represented using the common data structures format in the previous section.
 
 
 
-\section{Multiple metrics}
+\section{Metrics}
 The largest problem, by far, seems to be a lack of standardised metrics to evaluate TI methods. None of the benchmarks use a metric directly aimed at comparing the topology or pairwise orderings of two trajectories. 
 
 Instead, most benchmarks (n=26) employ an ordering metric (e.g. pearson correlation) the pseudotime\footnote{The pseudotime value of is calculated by computing its distance from a pre-defined or inferred start cell.} of the predicted trajectory to ground truth information such as the cell type or time of sampling. Several benchmarks (n=5) use a clustering metric (e.g. ARI) to compare a cell's transition assignment or milestone assignment to the ground truth cell type. In four cases, multiple executions were compared to evaluate the robustness of the predictions.
 In one particular instance, the pseudotime correlation metric was adapted to be suitable for comparing rooted trees\cite{street_slingshotcelllineage_2018}. In another, an internal measure is used to quantify the smoothness of gene expression along the pseudotime \cite{darocha_reconstructioncomplexsinglecell_2018}.
 
-While each of these metrics provide some insight the correctness of cell orderings or cell clusterings, they do not evaluate the correctness of the prediction's topology. Using only a pseudotime-based metric to evaluate non-linear trajectories is particularly risky, as it 
+While each of these metrics provide some insight the correctness of cell orderings or cell clusterings, they do not evaluate the correctness of the prediction's topology. Using only a pseudotime-based metric to evaluate non-linear trajectories is particularly risky, as a \ldots. 
 
 \begin{figure}[htb!]
 	\centering
@@ -87,5 +87,18 @@ While each of these metrics provide some insight the correctness of cell orderin
 	\label{fig:metrics}
 \end{figure}
 
-\section{Further guidelines}
+\mycomment{explain why.}
+
+Given the multilayered complexity of a trajectory model, it is not trivial to compare the similarity of two trajectory models using only one metric. In Supplementary Note 1 in our comparison of TI methods\cite{saelens_comparisonsinglecelltrajectory_2019}, we describe and illustrate 10 very different metrics for comparing trajectories. We perform a comprehensive characterisation and validation of these metrics on several test cases. 
+
+\mycomment{Explain geodesic distance, him, f1 branches, wcor features}
+%Its ordering, using the
+%371 • Its branch assignment, using the
+%372 • Its topology, using the HIM
+%373 • The accuracy of differentially expressed features, using the
+%374
+%F1 branches
+%wcor features
+
+\section{Guidelines for benchmarking TI tools}
 
