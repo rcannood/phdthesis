@@ -4,3 +4,6 @@
 [submodule "ch5_scorpius"]
 	path = ch4_scorpius
 	url = git@github.com:rcannood/scorpius_analysis.git
+[submodule "ch7_selfassessment"]
+	path = ch7_selfassessment
+	url = git@github.com:rcannood/selfassessment.git
