@@ -1,202 +1,147 @@
 library(tidyverse)
+library(googlesheets)
+library(rlang)
 
 
-none <- character(0)
+# COLLECT DATA ------------------------------------------------------------
 
+# If it's your first time running this script, run this:
+# gs_auth()
+sheet <- gs_key("1Mug0yz8BebzWt8cmEW306ie645SBh_tDHwjVw4OFhlE")
 
-extra_evals <-
-  tribble(
-    ~tool_id, ~methods, ~real_datasets, ~synthetic_datasets, ~metrics,
-    "monocle1", none, none, none, none,
-    "wanderlust", none, none, none, none,
-    "scuba", none, none, none, none,
-    "sincell", none, none, none, none,
-    "nbor", none, none, none, none,
-    "cycler", none, none, none, none,
-    "oscope", none, none, none, none,
-    "waterfall", none, none, none, none,
-    "gpseudotime", none, none, none, none,
-    "embeddr", none, none, none, none,
-    "eclair", none, none, none, none,
-    "dpt", c("dpt", "wishbone", "monocle1"), c("moignard", "klein", "paul"), c("synthetic_dpt"), c("pseudotime_correlation", "robustness"),
-    "pseudogp", none, none, none, none,
-    "slicer", none, none, none, none,
-    "scell", none, none, none, none,
-    "wishbone", none, none, none, none,
-    "tscan", c("monocle1", "tscan", "waterfall", "scuba", "wanderlust"), c("trapnell", "amit", "shin"), none, "pseudotime_pos",
-    "scoup", c("scoup", "monocle1", "tscan"), c("kouno", "moignard", "shalek"), none, "pseudotime_pis",
-    "delorean", none, none, none, none,
-    "raceid_stemid", none, none, none, none,
-    "ouija", none, none, none, none,
-    "mpath", none, none, none, none,
-    "celltree", c("monocle1", "tscan", "celltree"), "trapnell", none, "pseudotime_unknown",
-    "wavecrest", none, none, none, none,
-    "stemnet", none, none, none, none,
-    "scimitar", c("scimitar", "monocle1", "wanderlust"), none, c("synthetic_scimitar", "synthetic_scimitar"), "pseudotime_correlation",
-    "scorpius", c("scorpius", "wanderlust", "monocle1", "waterfall"), c("schlitzer", "buettner", rep("shalek", 3), "trapnell", rep("kowalczyk", 4)), none, c("pseudotime_cos", "robustness_cva"),
-    "scent", c("scent", "slice", "stemid"), c("chu", "trapnell", "treutlein"), none, c("pseudotime_wilcox", "pseudotime_auc"),
-    "slice", none, none, none, none,
-    "topslam", c("monocle1", "wishbone", "topslam"), none, "synthetic_topslam", "pseudotime_correlation",
-    "monocle2", c("monocle1", "monocle2", "dpt", "wishbone"), "paul", none, c("pseudotime_correlation", "branch_ari"),
-    "gpfates", none, none, none, none,
-    "mfa", none, none, none, none,
-    "tasic", none, none, none, none,
-    "somsc", none, none, none, none,
-    "slingshot", c("slingshot", "monocle1", "monocle2", "dpt", "tscan"), none, rep("synthetic_splatter", 5), c("treepseudotime_correlation"),
-    "sctda", c("sctda", "wishbone", "slicer", "dpt"), none, "synthetic_sctda", "pseudotime_correlation",
-    "uncurl", none, none, none, none,
-    "recat", c("recat", "scuba", "monocle1", "tscan", "wishbone", "dpt"), "buettner", none, c("pseudotime_correlation", "pseudotime_custom"),
-    "forks", c("forks", "monocle2", "scuba", "tscan", "waterfall", "dpt", "gpfates", "slicer"), c("windram", "deng", "guo", "klein", "amit", "petropoulos"), none, c("pseudotime_correlation", "robustness_stdev"),
-    "matcher", "matcher", "angelmueller", "synthetic_matcher", "pseudotime_correlation",
-    "phenopath", none, none, none, none,
-    "hopland", c("hopland", "wanderlust", "monocle1", "topslam", "scuba", "wishbone", "dpt"), c("guo", "deng", "yan", "amit", "islam"), "synthetic_topslam", "pseudotime_correlation",
-    "soptsc", c("soptsc", "monocle2", "dpt"), c("guo", "klein", "shalek"), none, "pseudotime_correlation",
-    "pba", none, none, none, none,
-    "brgps", c("brgps", "grandprix", "monocle2", "scuba", "slicer", "tscan", "wishbone"), c("guo", "guo"), none, "pseudotime_correlation",
-    "wot", none, none, none, none,
-    "treetop", none, none, none, none,
-    "paga", none, none, none, none,
-    "fateid", none, none, none, none,
-    "pcreode", none, none, none, none,
-    "icpsc", c("icpsc", "wishbone", "monocle2", "dpt"), c("sun", "trapnell", "yao"), none, "pseudotime_correlation",
-    "grandprix", c("delorean", "grandprix"), c("windram"), none, "pseudotime_correlation",
-    "cshmm", none, none, none, none,
-    "calista", c("monocle2", "calista", "dpt"), c("moignard", "bargaje", "treutlein", "chu"), c("synthetic_calista"), "pseudotime_correlation",
-    "scepath", c("scepath", "monocle1", "monocle2", "tscan", "dpt"), c("yan", "treutlein", "trapnell"), none, c("pseudotime_correlation", "robustness_correlation"),
-    "merlot", c("merlot", "dpt", "slicer", "monocle2", "slingshot", "tscan"), c("paul", "guo", "velten"), c("synthetic_prosstt", "synthetic_prosstt", "synthetic_splatter"), c("branch_mi", "pseudotime_correlation"),
-    "gpseudorank", none, none, none, none,
-    "cellrouter", c("monocle2", "dpt", "wishbone", "waterfall"), c("paul", "olsson"), none, "internal_autocorrelation",
-    "densitypath", c("monocle2", "wishbone", "dpt", "densitypath"), c("petropoulos"), c("synthetic_phate", "synthetic_topslam"), c("branch_ari", "pseudotime_correlation"),
-    "topographer", none, none, none, none,
-    "stream", c("stream", "sctda", "wishbone", "slicer", "monocle2", "dpt", "tscan", "scuba", "mpath", "gpfates"), none, "synthetic_sctda", "pseudotime_correlation",
-    "elpigraph", none, none, none, none,
-    "urd", none, none, none, none,
-    "celltrails", none, none, none, none,
-    "ddd", none, none, none, none,
-    "palantir", none, none, none, none,
-    "confess", none, none, none, none,
-    "graphddp", none, none, none, none,
-    "monocle3", none, none, none, none,
-    "psupertime", c("monocle2", "slingshot", "psupertime"), c("enge", "qiu", "petropoulos", "li", "treutlein"), none, "pseudotime_correlation",
-    "cyclum", c("cyclum", "recat"), c("buettner", "mcdavid", "mcdavid", "mcdavid"), none, c("cluster_accuracy"),
-    "sinova", none, none, none, none,
-    "gpseudoclust", c("gpseudoclust", "monocle2", "delorian", "slicer"), c("sasagawa", "shalek"), c("synthetic_gpseudoclust", "synthetic_gpseudoclust"), c("cluster_ari", "cluster_fmi", "cluster_nmi"),
-    "pseudodynamics", none, none, none, none
-  ) %>%
-  mutate(
-    num_methods = map_int(methods, length),
-    num_datasets = map_int(real_datasets, length) + map_int(synthetic_datasets, length),
-    num_metrics = map_int(metrics, length)
-  )
-
+case_study_data <- gs_read(sheet, ws = "case_study") %>% select(tool_id = id, methods, datasets, metrics)
 
 tools <-
   read_rds(dynbenchmark::result_file("tools.rds", "03-methods")) %>%
   mutate(
     tool_id = ifelse(tool_id == "monocle", "monocle2", tool_id),
-    tool_name = ifelse(tool_id == "monocle2", "Monocle 2", ifelse(is.na(tool_name), method_name, tool_name))
+    tool_name = ifelse(tool_id == "monocle2", "Monocle 2", ifelse(is.na(tool_name), method_name, tool_name)),
+    manuscript_doi = ifelse(tool_id == "elpigraph", "arXiv:1804.0758", manuscript_doi)
   ) %>%
-  inner_join(extra_evals, by = c("tool_id")) %>%
+  inner_join(case_study_data, by = c("tool_id")) %>%
+  mutate_at(c("methods", "datasets", "metrics"), ~ strsplit(. %|% "", ",")) %>%
   mutate(
+    synthetic_datasets = map(datasets, keep, ~ grepl("synthetic_", .)),
+    real_datasets = map(datasets, discard, ~ grepl("synthetic_", .)),
+    num_methods = map_int(methods, length),
+    num_datasets = map_int(datasets, length),
+    num_metrics = map_int(metrics, length),
     self_assessment = num_methods > 0,
-    peer_reviewed = factor(ifelse(is.na(manuscript_publication_date), "No", "Yes"), levels = c("Yes", "No")),
-    manuscript_date2 = ifelse(is.na(manuscript_publication_date), manuscript_preprint_date, manuscript_publication_date) %>% as.Date(origin = "1970-01-01")
+    peer_reviewed = !is.na(manuscript_publication_date),
+    has_preprint = !is.na(manuscript_preprint_date),
+    manuscript_date = ifelse(has_preprint, manuscript_preprint_date, manuscript_publication_date) %>% as.Date(origin = "1970-01-01"),
+    manuscript_date2 = ifelse(peer_reviewed, manuscript_publication_date, manuscript_preprint_date) %>% as.Date(origin = "1970-01-01"),
+    metric_group = map_chr(metrics, function(w) {
+      x <- gsub("_.*", "", w)
+      case_when(
+        length(x) == 0 ~ "None",
+        "branch" %in% x && "pseudotime" %in% x ~ "Cluster & pseudotime",
+        "cluster" %in% x ~ "Cluster",
+        any(c("pseudotime", "internal", "pseudotime") %in% x) ~ "Pseudotime",
+        "cyclepseudotime" %in% x ~ "Pseudotime for cycles",
+        "treepseudotime" %in% x ~ "Pseudotime for trees"
+      )
+    }) %>% factor(levels = c("None", "Pseudotime", "Cluster", "Cluster & pseudotime", "Pseudotime for cycles", "Pseudotime for trees"))
   )
 
-# stats
+if (save_tsv) {
+  # # Only run this if you are prepared to clean up the mess if something goes wrong ;)
+  # overwrite <-
+  #   tools %>%
+  #   arrange(manuscript_date) %>%
+  #   select(
+  #     id = tool_id,
+  #     name = tool_name,
+  #     preprint_date = manuscript_preprint_date,
+  #     pub_date = manuscript_publication_date,
+  #     doi = manuscript_doi,
+  #     google_scholar_id = manuscript_google_scholar_cluster_id,
+  #     methods,
+  #     metrics,
+  #     datasets
+  #   ) %>%
+  #   mutate_at(c("methods", "metrics", "datasets"), ~ map_chr(., paste, collapse = ",")) %>%
+  #   mutate_at(c("preprint_date", "pub_date"), function(x) ifelse(is.na(x), "", as.character(x)))
+  # gs_edit_cells(sheet, ws = "case_study", input = overwrite, anchor = "A1", col_names = TRUE, trim = TRUE)
+}
+
+
+
+# INTRODUCTION ------------------------------------------------------------
+
 tools
 tools$self_assessment %>% mean
 tools %>% filter(!is.na(manuscript_publication_date)) %>% pull(self_assessment) %>% mean
 tools %>% filter(!is.na(manuscript_preprint_date)) %>% pull(self_assessment) %>% mean
 tools %>% filter(num_methods > 5, num_datasets > 5)
 
+tools %>% filter(num_datasets > 4)
+
 tools %>% filter(map_lgl(synthetic_datasets, ~length(.) > 0)) %>% transmute(real = map_lgl(real_datasets, ~length(.) > 0)) %>% table
 tools %>% filter(map_lgl(synthetic_datasets, ~length(.) > 0)) %>% select(tool_id, synthetic_datasets) %>% unnest(syn = synthetic_datasets) %>% as.data.frame
 
+tools %>% select(metrics, tool_id) %>% unnest(metric = metrics) %>% mutate(metric = gsub("_.*", "", metric)) %>% unique() %>% group_by(metric) %>% summarise(n = n(), m = paste(tool_id, collapse = ", "))
+
 # cumulative plot
 dates <- seq(as.Date("2014-01-01"), Sys.Date(), by = 1)
-groups <- forcats::fct_inorder(c("0", "1", "2", "3-4", "5-6", "7-8", "9-10"))
-groups_palette <- setNames(RColorBrewer::brewer.pal(length(groups), "Blues"), groups)
-tools_cum <-
-  tools %>%
-  select(tool_id, tool_name, manuscript_date, num_methods, num_datasets) %>%
-  gather(variable, value, num_methods, num_datasets) %>%
-  mutate(
-    group = case_when(
-      value == 0 ~ "0",
-      value == 1 ~ "1",
-      value == 2 ~ "2",
-      value <= 4 ~ "3-4",
-      value <= 6 ~ "5-6",
-      value <= 8 ~ "7-8",
-      TRUE ~ "9-10"
-    ) %>% factor(levels = groups)
-  ) %>%
-  arrange(manuscript_date) %>%
-  crossing(groupings = groups) %>%
-  group_by(variable, groupings) %>%
+
+
+# pct cumulatives
+pct_cum <- bind_rows(
+  tools %>% mutate(group = "All", date = manuscript_date),
+  tools %>% filter(has_preprint) %>% mutate(group = "Pre-print", date = manuscript_preprint_date),
+  tools %>% filter(peer_reviewed) %>% mutate(group = "Peer-reviewed", date = manuscript_publication_date)
+) %>%
+  group_by(group) %>%
   do({
     df <- .
-    df <- df %>% filter(group == groupings)
-    if (nrow(df) > 0) {
-      tibble(
-        variable = df$variable[[1]],
-        groupings = df$groupings[[1]],
-        manuscript_date = dates,
-        count = map_int(manuscript_date, function(da) sum(df$manuscript_date == da)),
-        cum = cumsum(count)
-      )
-    } else {
-      tibble()
-    }
+    df2 <- df %>% filter(self_assessment)
+    tibble(
+      group = df$group[[1]],
+      date = dates,
+      num_methods = cumsum(map_int(date, function(da) sum(df$date == da))),
+      num_evals = cumsum(map_int(date, function(da) sum(df2$date == da))),
+      pct_eval = num_evals / num_methods
+    )
   }) %>%
-  ungroup() %>%
-  mutate(facet = c(num_datasets = "Number of datasets", num_methods = "Number of methods")[variable])
+  ungroup()
 
-g1 <- ggplot(tools_cum %>% filter(variable == "num_datasets")) +
-  geom_area(aes(x = manuscript_date, y = cum, fill = forcats::fct_rev(groupings))) +
+g1 <- ggplot(pct_cum) +
+  geom_step(aes(x = date, y = num_methods, colour = group)) +
   theme_bw() +
   guides(fill = guide_legend(reverse = TRUE)) +
-  labs(x = NULL, y = "# Articles", fill = "# Datasets used\nin self-assessment", tag = "A") +
+  labs(x = NULL, y = "# Articles", colour = "Group", tag = "A") +
   scale_x_date(limits = as.Date(c("2014-01-01", "2020-01-01")), expand = c(0, 0)) +
   scale_y_continuous(limits = c(0, 80), expand = c(0, 0)) +
-  scale_fill_manual(values = rev(groups_palette))
-g2 <- ggplot(tools_cum %>% filter(variable == "num_methods")) +
-  geom_area(aes(x = manuscript_date, y = cum, fill = forcats::fct_rev(groupings))) +
+  scale_colour_brewer(palette = "Set1")
+g2 <- ggplot(pct_cum) +
+  geom_step(aes(x = date, y = pct_eval, colour = group)) +
   theme_bw() +
   guides(fill = guide_legend(reverse = TRUE)) +
-  labs(x = NULL, y = "# Articles", fill = "# Methods compared\nin self-assessment", tag = "B") +
+  labs(x = NULL, y = "% self-assessment", colour = "Group", tag = "B") +
   scale_x_date(limits = as.Date(c("2014-01-01", "2020-01-01")), expand = c(0, 0)) +
-  scale_y_continuous(limits = c(0, 80), expand = c(0, 0)) +
-  scale_fill_manual(values = rev(groups_palette))
-g <- patchwork::wrap_plots(g1, g2, ncol = 1)
+  scale_y_continuous(limits = c(0, .5), expand = c(0, 0)) +
+  scale_colour_brewer(palette = "Set1")
+
+g3 <- ggplot(tools) +
+  geom_point(aes(manuscript_date, num_datasets)) +
+  scale_x_date(limits = as.Date(c("2014-01-01", "2020-01-01")), expand = c(0, 0)) +
+  scale_y_continuous(breaks = seq(0, 10, by = 2)) +
+  theme_bw() +
+  labs(x = NULL, y = "# Datasets", colour = "Metric group", tag = "C")
+
+g4 <- ggplot(tools) +
+  geom_point(aes(manuscript_date, num_methods)) +
+  scale_x_date(limits = as.Date(c("2014-01-01", "2020-01-01")), expand = c(0, 0)) +
+  scale_y_continuous(breaks = seq(0, 10, by = 2)) +
+  theme_bw() +
+  labs(x = NULL, y = "# Methods", colour = "Metric group", tag = "D")
+
+g <- patchwork::wrap_plots(g1, g2 + theme(legend.position = "none"), g3, g4 + theme(legend.position = "none"), ncol = 1)
 ggsave("fig/self_assessment.pdf", g, width = 6, height = 6)
 
-# citation pie
-tools_pie <-
-  tools %>%
-  select(manuscript_citations, self_assessment) %>%
-  arrange(self_assessment, manuscript_citations) %>%
-  mutate(name = forcats::fct_inorder(paste0("row_", row_number()))) %>%
-  group_by(self_assessment) %>%
-  mutate(
-    colour = colorRampPalette(RColorBrewer::brewer.pal(8, ifelse(self_assessment[[1]], "Blues", "Reds")))(1000)[round(cumsum(manuscript_citations) / sum(manuscript_citations) * 999) + 1]
-  ) %>%
-  ungroup()
-g <- ggplot(tools_pie) +
-  geom_rect(aes(xmin = 0, xmax = 0, ymin = 0, ymax = 0, fill = group), tibble(group = c("Self-assessment", "No self-assessment"))) +
-  scale_fill_manual(values = c("Self-assessment" = "#084594", "No self-assessment" = "#99000D")) +
-  labs(fill = "Group", x = NULL, y = "Number of citations") +
-  ggnewscale::new_scale_fill() +
-  geom_bar(aes(0, manuscript_citations, fill = colour, group = name), stat = "identity") +
-  coord_polar("y") +
-  scale_fill_identity() +
-  theme_classic() +
-  scale_x_continuous(breaks = NULL)
-g
-ggsave("fig/citations.pdf", g, width = 5, height = 3)
 
-
+# DATASETS ----------------------------------------------------------------
 datasets <- dynbenchmark::load_datasets()
 dynbenchmark::list_datasets("real/gold/germlin")
 real_datasets <- read_rds(dynbenchmark::result_file("metadata.rds", "01-datasets/01-real"))
@@ -240,22 +185,24 @@ g <- ggplot(datasets_cum) +
 ggsave("fig/datasets.pdf", g, width = 6, height = 2.5)
 
 
-eval_method_graph <- extra_evals %>%
-  select(from = tool_id, to = methods) %>%
-  unnest(to) %>%
-  filter(from != to)
-
-gr <- igraph::graph_from_data_frame(eval_method_graph, directed = TRUE)
-plot(gr, layout = igraph::layout_with_fr)
-
-
-
-
-eval_dataset_graph <- extra_evals %>%
-  transmute(from = tool_id, to = map2(real_datasets, synthetic_datasets, c)) %>%
-  unnest(to)
-gr <- igraph::graph_from_data_frame(eval_dataset_graph, directed = TRUE)
-plot(gr, layout = igraph::layout_with_fr)
-
-tools %>% select(wrapper_most_complex_trajectory_type, metrics) %>% unnest(metric = metrics) %>% mutate(metric = gsub("_.*", "", metric)) %>% table
-
+# METRICS -----------------------------------------------------------------
+metric_summ <-
+  tools %>%
+  mutate(metric_group = forcats::fct_infreq(metric_group)) %>%
+  group_by(metric_group) %>%
+  summarise(n = n()) %>%
+  mutate(
+    xmax = cumsum(n),
+    xmin = xmax - n,
+    xmid = (xmin + xmax) / 2
+  )
+g <- ggplot(metric_summ) +
+  geom_rect(aes(xmin = xmin, xmax = xmax, ymin = 0, ymax = 1, fill = metric_group)) +
+  geom_text(aes(xmid, 1.1, label = n)) +
+  coord_polar() +
+  theme_classic() +
+  dynplot::theme_graph() +
+  scale_fill_manual(values = c("lightgray", RColorBrewer::brewer.pal(5, "Set3"))) +
+  labs(fill = "Metric group")
+g
+ggsave("fig/metrics.pdf", g, width = 5, height = 3)
