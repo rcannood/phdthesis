@@ -1,0 +1,108 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[scaled]{helvet}
+\renewcommand\familydefault{\sfdefault} 
+\usepackage[T1]{fontenc}
+
+\newcommand{\pluseq}{\mathrel{+}=}
+\newcommand{\asteq}{\mathrel{*}=}
+
+% Drawing with TiKz
+\usepackage{tikz}
+\usetikzlibrary[positioning]
+\usetikzlibrary{patterns}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{calc}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{shapes.arrows}
+\usetikzlibrary{arrows}
+\usetikzlibrary{calc,positioning,shapes,chains,mindmap,trees,decorations}
+\usetikzlibrary{matrix,fit}
+
+
+\usepackage{algorithm}
+\usepackage{fixltx2e}
+\usepackage{algpseudocode}
+\MakeRobust{\Call}
+
+\usepackage[small, bf]{caption}
+\usepackage{subcaption}
+
+\usepackage{float}
+
+\usepackage[cm]{fullpage}
+
+\usepackage{pdflscape}
+
+\newcommand{\subsubsec}[1]{{\setlength{\parindent}{0cm}\textbf{#1} \\}}
+\newcommand{\specialcell}[2][c]{\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
+
+\newcommand\mycaption[4]{%
+  \textbf{#1:\ \ \ #3} #4}
+
+\newcommand{\beginsupplement}{%
+        \setcounter{table}{0}
+        \renewcommand{\thetable}{S\arabic{table}}%
+        \setcounter{figure}{0}
+        \renewcommand{\thefigure}{S\arabic{figure}}%
+     }
+     
+
+\pagestyle{empty}
+\begin{document}
+	\begin{algorithmic}
+		\Function{BarabasiAlbert}{number of nodes $n$, degree $d$, \par\hspace*{3.72cm} number of operations $o$, offset exponent $x=1$}
+			\State $D \gets \Call{Rep}{0, n}$ \Comment{All nodes start with 0 degree}
+			\State $T \gets \Call{Rep}{\{\}, n}$ \Comment{List of targets of each node}
+			\State $S \gets \Call{Rep}{\{\}, n}$ \Comment{List of sources of each node}
+			\State $O \gets (\,)$ \Comment{Variable to store the generated operations in}
+
+			\Procedure{AddEdge}{node $i$, node $j$, add as operation $b$}
+				\State $D[i] \gets D[i] + 1$;\ $D[j] \gets D[j] + 1$ \Comment{Update degrees}
+				\State $T[i] \gets T[i] \cup \{j\}$;\ $S[j] \gets S[j] \cup \{i\}$ \Comment{Update targets and sources}
+				\If{$b$}
+					\State $O \gets O + (\textrm{ADD}, (i, j))$
+				\EndIf
+			\EndProcedure
+			\Procedure{RemoveEdge}{node $i$, node $j$, add as operation $b$}
+				\State $D[i] \gets D[i] - 1$;\ $D[j] \gets D[j] - 1$ \Comment{Update degrees}
+				\State $T[i] \gets T[i] \setminus \{j\}$;\ $S[j] \gets S[j] \setminus \{i\}$ \Comment{Update targets and sources}
+				\If{$b$}
+					\State $O \gets O + (\textrm{REM}, (i, j))$
+				\EndIf
+			\EndProcedure
+			\Procedure{AddNode}{node $i$, add as operations $b$}
+				\State $C \gets \{j \,|\, 0 \leq j < i \wedge j \not\in S[i]\}$ \Comment{Select candidate neighbours}
+				\State $W \gets (D[C] \,/\, \Sigma D[C])^x$ \Comment{Calculate weights for preferred attachment}
+				\State $X \gets $ sample $d$ neighbours from $C$ with weights $W$
+				\For{$j \in X$}
+					\State \Call{AddEdge}{$i$, $j$, $b$}
+				\EndFor
+			\EndProcedure
+			\Procedure{RemoveNode}{node $i$, add as operations $b$}
+				\While{$|T[i]| > 0$}
+				  \State $j \gets \Call{Head}{T[i], 1}$
+					\State \Call{RemoveEdge}{$i$, $j$, $b$}
+				\EndWhile
+			\EndProcedure
+			\For{$i \in \{1 \,..\, m\}$}
+				\For{$j \in \{0 \,..\, i-1\}$}
+					\State \Call{AddEdge}{$i$, $j$, false} \Comment{Start with $m+1$ complete graph}
+				\EndFor
+			\EndFor
+			\For{$i \in \{m+1\,..\,n-1\}$}
+				\State \Call{AddNode}{$i$, false} \Comment{Add the rest of the nodes}
+			\EndFor
+			\State $G_0 \gets \{ (i, j) \,|\, i \in \{0\,..\,n-1\} \wedge j \in N[i]\}$ \Comment{Initial network}
+			\While{$|O| < o$} \Comment{Modify network until $O$ is sufficiently large}
+				\State $i \gets$ Sample 1 index from $\{0 \,..\, n-1\}$
+				\State \Call{RemoveNode}{$i$, true}
+				\State \Call{AddNode}{$i$, true}
+			\EndWhile
+			\State $O \gets \Call{Head}{O, o}$ 
+			\State \Return $(N_0, O)$ \Comment{Return the initial network and $o$ operations}
+		\EndFunction
+	\end{algorithmic}
+
+\end{document}

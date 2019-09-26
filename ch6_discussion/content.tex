@@ -1,0 +1,92 @@
+\mycomment{Note: This text was written very quickly and is only meant as a temporary coathanger.}
+	
+This chapter reflects on the impact of this work on the field, referring back to the research objectives that were defined in Chapter \ref{chap:introduction}. 
+	
+dyngen is a succes, as we created a simulator of single cell data that is already used to evaluate trajectory\cite{saelens_comparisonsinglecelltrajectory_2019}, trajectory alignment\cite{vandenberge_trajectorybaseddifferentialexpression_2019} and single cell network inference\cite{pratapa_benchmarkingalgorithmsgene_2019}.
+
+dynbenchmark was meant to guide users to better practices for applying trajectory inference methods, and guide developers to adopt better practices for developing accurate and robust TI methods. The first part we succeeded in, as the guidelines are commonly disseminated in manuscripts \cite{lafzi_tutorialguidelinesexperimental_2018,luecken_currentbestpractices_2019}, courses \cite{kiselev_analysissinglecell_2019,martens_analysissinglecell_2019}, and slides shown during keynote caffeine refuelling sessions \cite{hemberg_coffeebreakanalysis_2019}. However, we do not observe an increase in developers of TI methods performing quantitative benchmarks. We will discuss this in more detail in Chapter~\ref{chap:selfassessment}.
+
+dynbenchmark was a benchmark of TI methods developed over the course of 4 years involving writing software to run 45 different error-prone TI methods with a common interface, downloading and processing hundreds of single cell datasets, developing novel metrics for comparing ground truth and predicted trajectories, writing a simulator for synthetic single cell data. Along the way, we have learned a lot about how to benchmark computational methods. We share our vision and guidelines on benchmarking computational methods in Chapter~\ref{chap:guidelines}.
+
+Something about SCORPIUS.
+
+Something about bred.
+
+Something about dyno.
+
+Something about gng?
+
+
+%in deze commentary geven we nog een kort overzicht van:
+%* standaard definitie van een trajectory inference probleem
+%* waar kan je datasets vinden (dynbenchmark zenodo, de verschillende simulatoren, of download ze zelf van GEO)
+%* hoe kan je methoden vergelijken (i.e. gebruik dynmethods)
+%* wat zijn bestaande metrieken (toon overzicht van metrieken uit verschillende benchmarks en ook die van dyneval)
+%in conclusie, met al deze informatie melden we dat in 2019 er dus geen enkele reden is om ons te gedragen als gelijk welk ander computationeel / data mining / machine learning veld waarbij er voor quantitatief bewijs wordt gevraagd dat je methode goed werkt als je een nieuwe methode wilt publiceren. we vragen vriendelijk aan peer-reviewers om kritisch te zijn over deze kwestie.
+
+%in deze commentary geven we nog een kort overzicht van:
+%* standaard definitie van een trajectory inference probleem
+%* waar kan je datasets vinden (dynbenchmark zenodo, de verschillende simulatoren, of download ze zelf van GEO)
+%* hoe kan je methoden vergelijken (i.e. gebruik dynmethods)
+%* wat zijn bestaande metrieken (toon overzicht van metrieken uit verschillende benchmarks en ook die van dyneval)
+
+%in conclusie, met al deze informatie melden we dat in 2019 er dus geen enkele reden is om ons te gedragen als gelijk welk ander computationeel / data mining / machine learning veld waarbij er voor quantitatief bewijs wordt gevraagd dat je methode goed werkt als je een nieuwe methode wilt publiceren. we vragen vriendelijk aan peer-reviewers om kritisch te zijn over deze kwestie.
+
+%refer to: \cite{norel_selfassessmenttrapcan_2011} 
+%In order to alleviate the overestimation of accuracy from the many bias sources described above, we proposed a few guidelines:
+%* use third‐party validation to test a model with previously unseen data
+%* use more than one metric to evaluate the methods
+%* report well‐performing methods even if they are not the best performers on a particular data set
+%* increase the awareness of editors and reviewers that superior performance in self‐assessment is a biased demonstration of the method's value; instead, impartial assessment should be the preferred evaluation
+%* Establish a scientific culture that values timely, well‐conducted follow‐up studies that confirm or refute previous results
+
+
+
+
+%Before 2016, only a handful of trajectory inference methods had been released. None of these articles contained a self-benchmark simply because
+%
+%In all fairness towards the early TI methods, in 2016 or even 2017 there was a low abundance of good datasets to perform benchmarks with. The amount of data required to perform a comprehensive evaluation of their tool did not yet exist and was too expensive to generate. In April 2016, we started developing a single-cell simulator that would allow us to perform a comprehensive benchmark of TI methods. 
+%
+%
+%It was also non-trivial to compare against many methods as each method has a unique interface where some prior knowledge might be needed. 
+%
+
+
+% * Single cell omics is expanding at rates faster than any single mind can try to conceive
+%Pioneers developing revolutionary tools to process new types of data are typically faced with the problem on how to quantitatively evaluate the accuracy of their approach. After all, the amount of data required to perform a comprehensive evaluation of their tool does not yet exist and is too expensive to generate at the time. 
+
+
+%In the computational jungle of single-cell omics, experts act as beacons of hope by sharing guidelines based on comprehensive benchmarking studies. Their disseminations (in the form of manuscripts \cite{lafzi_tutorialguidelinesexperimental_2018,luecken_currentbestpractices_2019}, courses \cite{kiselev_analysissinglecell_2019,martens_analysissinglecell_2019}, and slides shown during keynote caffeine refuelling sessions \cite{hemberg_coffeebreakanalysis_2019}) are crucial in leading new users, and ultimately the whole field, to better practices for performing single-cell omics analyses.
+
+%Before embarking on this perilous adventure, I attempt to write a "Hippocratic oath for bioinformaticians", to guide me through this dissertation and not stray from the path of righteousness.
+%
+%\subsection{Hippocratic oath for bioinformaticians}
+%We proceed with caution in developing new tools. Its results should not only be convincing and easy to interpret, but also accurate, robust, and reproducible. We open source. Our software should work reliably and fail gracefully when it does not. We acknowledge that writing automated tests is dull but necessary for maintaining long-term software projects. % TODO: improve
+
+%Computer scientists should proceed with caution in developing new software, however, as the results produced should not only be convincing and easy to interpret, but the software should be robust and generate sufficiently accurate models of the underlying system.
+%
+%Bit too excited -- false positives, poor accuracy, scalability issues, poor software quality. 
+%
+%\section{dyngen discussion}
+%% felt that upon the development of a new technologies, good quality control practices from
+%% other technologies were not being carried over because the data required to evaluate computational
+%% tools does not exist yet and is too expensive to develop.
+%
+%\section{dynbenchmark discussion}
+%\begin{itemize}
+%	\item Already outdated when the manuscript was published online
+%	\item Update benchmark with more TI methods, newer (and larger) datasets, perform parameter optimisation on methods
+%	\item Include RNA velocity as inputs
+%\end{itemize}
+%
+%\section{SCORPIUS discussion}
+%\begin{itemize}
+%	\item Extension to inferring non-linear trajectories, i.e. with principal graphs
+%\end{itemize}
+%
+%\section{bred discussion}
+%
+%%\section{incgraph discussion}
+%
+%%\section{dyno discussion}
+

@@ -1,0 +1,71 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[scaled]{helvet}
+\renewcommand\familydefault{\sfdefault} 
+\usepackage[T1]{fontenc}
+
+\newcommand{\pluseq}{\mathrel{+}=}
+\newcommand{\asteq}{\mathrel{*}=}
+
+% Drawing with TiKz
+\usepackage{tikz}
+\usetikzlibrary[positioning]
+\usetikzlibrary{patterns}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{calc}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{shapes.arrows}
+\usetikzlibrary{arrows}
+\usetikzlibrary{calc,positioning,shapes,chains,mindmap,trees,decorations}
+\usetikzlibrary{matrix,fit}
+
+
+\usepackage{algorithm}
+\usepackage{fixltx2e}
+\usepackage{algpseudocode}
+\MakeRobust{\Call}
+
+\usepackage[small, bf]{caption}
+\usepackage{subcaption}
+
+\usepackage{float}
+
+\usepackage[cm]{fullpage}
+
+\usepackage{pdflscape}
+
+\newcommand{\subsubsec}[1]{{\setlength{\parindent}{0cm}\textbf{#1} \\}}
+\newcommand{\specialcell}[2][c]{\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
+
+\newcommand\mycaption[4]{%
+  \textbf{#1:\ \ \ #3} #4}
+
+\newcommand{\beginsupplement}{%
+        \setcounter{table}{0}
+        \renewcommand{\thetable}{S\arabic{table}}%
+        \setcounter{figure}{0}
+        \renewcommand{\thefigure}{S\arabic{figure}}%
+     }
+     
+
+\pagestyle{empty}
+\begin{document}
+
+	\begin{algorithmic}
+		\Function{ErdosRenyi}{number of nodes $n$, number of edges $e$, number of operations $o$}
+			\State $P \gets \{(i, j) \,|\, i \in \{1 \,..\, n-1\} \wedge j \in \{0 \,..\, i-1\}\}$ \Comment{All possible interactions}
+			\State $N_0 \gets$ Sample $e$ edges from $P$
+			\State $N_c \gets N_0$
+			\While{$|O|<o$}
+				\State $e_a \gets $ Sample 1 edge from $P \setminus N_c$
+				\State $e_r \gets $ Sample 1 edge from $N_c$
+				\State $N_c \gets (N_c \setminus e_r) \cup \{e_a\}$
+				\State $O \gets O + ((\textrm{ADD}, e_a), (\textrm{REM}, e_r))$
+			\EndWhile
+			\State $O \gets \Call{Head}{O, o}$ 
+			\State \Return $(N_0, O)$ \Comment{Return the initial geometric network and $o$ operations}
+		\EndFunction
+	\end{algorithmic}
+	
+\end{document}
