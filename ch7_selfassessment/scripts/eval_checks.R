@@ -37,11 +37,9 @@ tools <-
         length(x) == 0 ~ "None",
         "branch" %in% x && "pseudotime" %in% x ~ "Cluster & pseudotime",
         "cluster" %in% x ~ "Cluster",
-        any(c("pseudotime", "internal", "pseudotime") %in% x) ~ "Pseudotime",
-        "cyclepseudotime" %in% x ~ "Pseudotime for cycles",
-        "treepseudotime" %in% x ~ "Pseudotime for trees"
+        any(c("pseudotime", "internal", "pseudotime") %in% x) ~ "Pseudotime"
       )
-    }) %>% factor(levels = c("None", "Pseudotime", "Cluster", "Cluster & pseudotime", "Pseudotime for cycles", "Pseudotime for trees"))
+    }) %>% factor(levels = c("None", "Pseudotime", "Cluster", "Cluster & pseudotime"))
   )
 
 if (save_tsv) {
@@ -63,12 +61,24 @@ if (save_tsv) {
   #   mutate_at(c("methods", "metrics", "datasets"), ~ map_chr(., paste, collapse = ",")) %>%
   #   mutate_at(c("preprint_date", "pub_date"), function(x) ifelse(is.na(x), "", as.character(x)))
   # gs_edit_cells(sheet, ws = "case_study", input = overwrite, anchor = "A1", col_names = TRUE, trim = TRUE)
+  # overwrite %>%
+  #   transmute(
+  #     id, preprint_date, pub_date,
+  #     doi = ifelse(grepl("arXiv",  doi), gsub("arXiv:(.*)", "arXiv:\\\\href{https://arxiv.org/abs/\\1}{\\1}", doi), paste0("\\doi{", doi, "}")),
+  #     methods = methods %>% gsub(",", ", ", .),
+  #     metrics = metrics %>% gsub(",", ", ", .),
+  #     datasets = datasets %>% gsub(",", ", ", .)
+  #   ) %>%
+  #   apply(1, paste, collapse = " & ") %>%
+  #   gsub("_", "\\\\_", .) %>%
+  #   paste0(" \\\\") %>%
+  #   write_lines("~/test.tex")
 }
 
 
 
 # INTRODUCTION ------------------------------------------------------------
-
+tools$metric_group %>% table
 tools
 tools$self_assessment %>% mean
 tools %>% filter(!is.na(manuscript_publication_date)) %>% pull(self_assessment) %>% mean
@@ -206,3 +216,4 @@ g <- ggplot(metric_summ) +
   labs(fill = "Metric group")
 g
 ggsave("fig/metrics.pdf", g, width = 5, height = 3)
+
