@@ -1,56 +1,29 @@
 % INTRODUCTION CONTENT
 
 \section{The cell}
-The cell is the smallest unit of life, of which all known living organisms are composed. Every cell houses a plethora of biomolecular processes that allow it to adapt to changes in its environment continuously. It can be very challenging to comprehend the cellular response to a signal due to the dynamic nature of these processes. A reductionist approach to understanding a complex biological system is to study the biochemical components which it is comprised of \cite{brigandt_reductionismbiology_2017}.
+The cell is the smallest unit of life, of which all known living organisms are composed. Every cell houses a plethora of biomolecular processes that allow it to continuously adapt to changes in its environment. Due to the dynamic nature of these processes, it can be very challenging to comprehend the cellular response to a signal. A reductionist approach to understanding a complex biological system is to study the biochemical components of which it is comprised\cite{brigandt_reductionismbiology_2017}.
 
-Recent advances in experimental technologies are playing a crucial role in reductionist biology, allowing to measure the abundance of thousands of different biochemical molecules in tens of thousands of individual cells. Observing the biomolecular insides of cells in this manner can ultimately provide fundamental insights into the processes that govern these cells and help uncover novel approaches for diagnosing and treating disease. Every coin has its flip side, however, and in this case, it is that the amount of data generated from these experiments is not analysable by hand.  
+Recent advances in experimental technologies are playing a crucial role in reductionist biology, allowing to measure the abundance of thousands of different biochemical molecules in tens of thousands of individual cells. With it comes the challenge of analysing what scientists refer to as “big data”, an amount of data that is not easily analysable and interpretable by hand. The sheer volume of the data generated from such highly-integrative and high-throughput experiments are not the only reason why they are so challenging to interpret. Namely, the generated data contains high levels of noise arising from inherent biomolecular stochasticity in the cells and from the experimental profiling techniques used, as well as batch effects arising from differences between donors and labs \cite{hon_humancellatlas_2018}. Biologists thus turn to computer scientists
+to develop new tools to tackle these problems and help them to extract meaningful biological insights from the data. In this work, incremental contributions were made to the field in order to be able to address the aforementioned problems in a more comprehensive context.
 
-For example, the Human Cell Atlas (HCA) consortium \cite{regev_humancellatlas_2018} has set out to develop a comprehensive reference map of all the different types of cells in the human body. Experts in the field often metaphorically describe the HCA initiative as aiming to develop a 'Google Maps' of the human body. Even in its infancy, the HCA has profiled 3.8 million cells from 248 donors across 42 labs \cite{humancellatlasconsortium_humancellatlas_2018}, and this number is likely to increase well above one hundred million.
+Observing the biomolecular insides of cells can ultimately provide fundamental insights into the processes that govern these cells and help uncover novel approaches for disease diagnosis, prognosis, and treatment. For example, the Human Cell Atlas (HCA) consortium \cite{regev_humancellatlas_2018} has set out to develop a comprehensive reference map of all the different types of cells in the human body. Experts in the field often metaphorically describe the HCA initiative as aiming to develop a 'Google Maps' of the human body. Even in its infancy, the HCA has profiled 3.8 million cells from 248 donors across 42 labs \cite{humancellatlasconsortium_humancellatlas_2018}, and this number is likely to increase well above one hundred million.
 
-\mycomment{
-HT: I feel like you're only going to focus on preprocessing, when reading this section. Maybe add a second paragraph mentioning that separating technical and biological noise from actual biological processes in the data is not the only challenge, and that there is also a necessity of new computational tools to start generating more complex models, integrating the information from single cell high sequencing experiments in a much more refined way? \\
-RC: Literally but succinctly state what the exact contributions of the thesis are, this is still very vague.
-}
-
-The sheer volume of the data generated from such highly-integrative and high-throughput experiments are not the only reason why they are so challenging to interpret. 
-Namely, the data contains high levels of noise arising from inherent biomolecular stochasticity in the cells and from the experimental profiling techniques uses, as well as batch effects arising from differences between donors and labs \cite{hon_humancellatlas_2018}. Biologists thus turn to computer scientists\footnote{or computational biologists turn to themselves} to develop new tools to tackle these problems and help biologists extract meaningful biological insights from the data.
-
-This work makes incremental contributions to the field in order to be able to address the aforementioned problems in a more comprehensive context. This chapter first introduces several key concepts in both cell biology and computer science, upon which the remainder of this work relies. Afterwards, the research objectives and main contributions of this work are outlined.
+The next part of the chapter highlights several key concepts in both cell biology and computer science, upon which the remainder of this work relies.
 
 \subsection{The origins of life and the RNA world}
-The discovery of the double helix shape of Deoxyribonucleic Acid (DNA) \cite{watson_molecularstructurenucleic_1953} is often considered the pivot point in our understanding of the origins of life and evolution. By now, it is well known that DNA serves as a medium for storing the genetic information required to reproduce a whole organism. With other words, the DNA of an organism contains the complete set of instructions required to build all of the biomolecular machinery present in its body.
-The magnitude of this discovery is reflected in our language and culture alike; with sayings such as "It's in your DNA.", or usage of its shape in countless illustrations or artworks (Figure \ref{fig:fsvm}).
+The discovery of the double helix shape of deoxyribonucleic acid (DNA) \cite{watson_molecularstructurenucleic_1953} is often considered the pivot point in our understanding of the origins of life and evolution. By now, it is well known that DNA serves as a medium for storing the genetic information required to reproduce a whole organism. With other words, the DNA of an organism contains the complete set of instructions required to build all of the biomolecular machinery present in its body.
 
-\mycomment{
-RC: Use crispr-cas to assert the impact of the discovery of DNA, not the FSVM spiral 
-}
+Even so, a widely-accepted hypothesis states that life (or cells) did not originate from DNA, but instead was kicked off from its lesser-known cousin, ribonucleic acid (RNA). According to the RNA world hypothesis \cite{alberts_rnaworldorigins_2002}, the very first primitive cells used RNA both to store genetic information and perform the chemical reactions required to sustain themselves (Figure \ref{fig:rnaworld}). Only later did cells develop the ability to use the more chemically stable DNA molecules to self-sustain in a process commonly referred to as the Central Dogma.
 
 \begin{figure}[htb!]
-  \centering\includegraphics[width=.5\linewidth]{fig/fsvm3} % TODO: change image
-  \caption{
-    \textbf{A prominent display of the double helix shape at the VIB FSVM building.}
-  }
-  \label{fig:fsvm}
+	\centering\includegraphics[width=.5\linewidth]{fig/rnaworld} % TODO: change image
+	\caption{
+		\textbf{RNA world.} The postulated rise and fall of the RNA world during the evolution of life, from early self-replicating RNA to complex, RNA-controlled metabolism, to the invention of translation, followed by diversification of all modern branches of life. Image from Horning (2011) \cite{horning_rnaworld_2011}. % TODO: expand the description
+	}
+	\label{fig:rnaworld}
 \end{figure}
 
-Even so, a widely-accepted hypothesis states that life (or cells) did not originate from DNA, but instead was kicked off from its lesser-known cousin, Ribonucleic Acid (RNA). According to the RNA world hypothesis \cite{alberts_rnaworldorigins_2002}, the very first primitive cells used RNA both to store genetic information and perform the chemical reactions required to sustain themselves (Figure \ref{fig:rnaworld}). Only later did cells develop the ability to use DNA and proteins to self-sustain in a process commonly referred to as the Central Dogma.
-
-\mycomment{use this reference? \cite{cornell_prebioticaminoacids_2019}}
-
-\begin{figure}[htb!]
-  \centering\includegraphics[width=.5\linewidth]{fig/rnaworld} % TODO: change image
-  \caption{
-    \textbf{RNA world.} The postulated rise and fall of the RNA world during the evolution of life, from early self-replicating RNA to complex, RNA-controlled metabolism, to the invention of translation, followed by diversification of all modern branches of life. Image from Horning (2011) \cite{horning_rnaworld_2011}. % TODO: expand the description
-  }
-  \label{fig:rnaworld}
-\end{figure}
-
-\subsection{The Central Dogma}
-\mycomment{HT: feels like an enumeration, should make it more into a story}
-
-The Central Dogma is a set of processes present which govern the general flow of genetic information in almost all existent living cells. In short, it states that DNA codes for RNA, which in turn codes for proteins.
-In this work, we assume the main processes involved in the Central Dogma are replication, transcription, splicing and translation (Figure \ref{fig:centraldogma}). 
-
+The central dogma describes the general flow of genetic information in almost all existent living cells: DNA is decoded to RNA, which in turn encodes proteins. Main processes involved in the central dogma are transcription, splicing and translation (Figure \ref{fig:centraldogma}). 
 
 \begin{figure}[htb!]
   \centering\includegraphics[width=.5\linewidth]{fig/central_dogma} % TODO: change image
@@ -60,14 +33,23 @@ In this work, we assume the main processes involved in the Central Dogma are rep
   \label{fig:centraldogma}
 \end{figure}
 
-\textbf{Replication} is the process of duplicating DNA, which allows a cell to divide such that the resulting daughter cells retain complete copies of its genetic information. DNA consists of four different so-called nucleobases named adenine (A), cytosine (C), guanine (G), and thymine (T). Each strand of the double helix structure of DNA is a linear chain of nucleobases. The two strands are held together by hydrogen bonds since adenine can form three hydrogen bonds with thymine and cytosine can form two hydrogen bonds with guanine. Each nucleobase can only bond with one other nucleobase, making the strands complementary to one another. 
-Since one strand can be deduced from its complementary strand, DNA can be represented by a sequence of letters, for example, "ACTCGGTTTAGCA". 
-
 A stretch of DNA that contains a genetic blueprint for a particular molecule is called a gene, and the collection of an organism's genes is called its genome. \textbf{Transcription} is the process of synthesising an RNA molecule from a gene, and the resulting molecule is called a transcript. RNA is similar to DNA but differs in several ways; most notably all thymine nucleobases are replaced with uracil (U), and RNA molecules consist of only one strand.
 % HT: Add: which is able to exit the nucleus compartment.
 % RC: I haven't introduced the concept of a nucleus yet
 Due to its single-strandedness, RNA is less stable and will break down faster. Single-strandedness also allows some types of RNA (e.g. transfer RNA, ribosomal RNA) to form more complex three-dimensional structures by having certain regions bind to other regions of the strand. This work only considers messenger RNA (mRNA), which are transcribed from protein-coding genes, meaning that the mRNAs can result in the production of particular proteins. A protein-coding gene consists of alternating sections called introns and exons. Exonic regions contain code for what a protein should be made up of, whereas the intronic regions can contain information on how to assemble the pieces.
-% TODO: mention that there are about 20'000 protein-coding genes in the human body.
+
+% CVC: Work in progress
+%A gene is a stretch of DNA that contains a genetic blueprint for a RNA molecule. The gene serves as a template for making an RNA molecule in a process called transcription. 
+%The resulting RNA transcript can be protein-coding or non-coding. For this work we only consider the protein-coding genes, which consists of alternating sections called introns and exons. Exonic regions contain code for what a protein should be made up of, whereas the intronic regions can contain information on how to assemble the pieces.
+%
+%A protein-coding gene encodes protein-coding RNA molecules, the so-called messenger RNA (mRNA).
+%
+%This work only considers the protein-coding RNA molecules, the so-called messenger RNA (mRNA).
+%% TODO: mention that there are about 20'000 protein-coding genes in the human body.
+%
+%The DNA that serves as a template for making a protein-coding RNA molecule is called a gene, and the complete set of an organism's genes is called its genome.
+%
+%The protein-coding part of the DNA is called a gene.
 
 \textbf{RNA splicing} is a process that occurs in almost all organisms and results in the removal of intronic regions in the mRNA molecules, resulting in a mature mRNA. 
 Splicing allows to create multiple variants of the same product, which can affect the enzymatic properties or localisation of the resulting product \cite{kelemen_functionalternativesplicing_2013}.
