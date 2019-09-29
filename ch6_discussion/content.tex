@@ -1,45 +1,40 @@
 % DISCUSSION CONTENT
-
-\mycomment{Note: This text was written very quickly and is only meant as a temporary coat-hanger.}
 	
 This chapter reflects on the impact of this work on the field, referring back to the research objectives that were defined in Chapter \ref{chap:introduction}. 
-	
-dyngen is a succes, as we created a simulator of single cell data that is already used to evaluate trajectory\cite{saelens_comparisonsinglecelltrajectory_2019}, trajectory alignment\cite{vandenberge_trajectorybaseddifferentialexpression_2019} and single cell network inference\cite{pratapa_benchmarkingalgorithmsgene_2019}.
 
-dynbenchmark was meant to guide users to better practices for applying trajectory inference methods, and guide developers to adopt better practices for developing accurate and robust TI methods. The first part we succeeded in, as the guidelines are commonly disseminated in manuscripts \cite{lafzi_tutorialguidelinesexperimental_2018,luecken_currentbestpractices_2019}, courses \cite{kiselev_analysissinglecell_2019,martens_analysissinglecell_2019}, and slides shown during keynote caffeine refuelling sessions \cite{hemberg_coffeebreakanalysis_2019}. However, we do not observe an increase in developers of TI methods performing quantitative benchmarks. We will discuss this in more detail in Chapter~\ref{chap:selfassessment}.
+\section{dyngen: benchmarking with \textit{in silico} single cells}
+We developed a single-cell simulator that can be used to simulate types of single-cell omics data for which the technology does not yet exist (Chapter~\ref{chap:dyngen}). The \textit{in silico} single cell data can help kick-start emerging domains with low data availability more safely by making novel computational tools more reproducible. Indeed, the simulator has already been used to evaluate trajectory inference\cite{saelens_comparisonsinglecelltrajectory_2019}, trajectory alignment\cite{vandenberge_trajectorybaseddifferentialexpression_2019}, and single cell network inference\cite{pratapa_benchmarkingalgorithmsgene_2019} methods.
 
-dynbenchmark was developed over the course of 4 years and involved writing software to run 45 different error-prone TI methods with a common interface, downloading and processing hundreds of single cell datasets, developing novel metrics for comparing ground truth and predicted trajectories, writing a simulator for synthetic single cell data. Along the way, we have learned a lot about how to benchmark computational methods. We share our vision and guidelines on benchmarking computational methods in Chapter~\ref{chap:guidelines}.
+\section{dynbenchmark: A comparison of single-cell trajectory inference methods}
+Using this simulator and a collection of real datasets, we performed a comparison of 45 TI methods (Chapter~\ref{chap:dynbenchmark}). 
+Our contributions include writing software to run 45 different error-prone TI methods with a common interface, downloading and processing hundreds of single cell datasets, and developing novel metrics for comparing ground truth and predicted trajectories.
 
-Something about SCORPIUS.
+We constructed a set of guidelines for end-users to help choose a TI method that is accurate, robust and fit for their application. 
+Since such guidelines were hitherto lacking, they are commonly disseminated in manuscripts \cite{lafzi_tutorialguidelinesexperimental_2018,luecken_currentbestpractices_2019}, courses \cite{kiselev_analysissinglecell_2019,martens_analysissinglecell_2019}, and slides shown during keynote caffeine refuelling sessions \cite{hemberg_coffeebreakanalysis_2019}. 
 
-Something about bred.
+We made our pipeline, datasets, metrics, and containerised wrappers of TI methods publicly available for developers to use. Despite our best efforts, we do not observe an increase in developers performing quantitative benchmarks. We hypothesise causal reasons for this phenomenon and provide solutions in order to spur TI developers to perform more self-assessments (Chapter~\ref{chap:selfassessment}).
 
-Something about dyno.
+Over the course of four years, we developed a lot of practical experience in benchmarking complex computational tools. We summarise this experience in a set of essential guidelines for benchmarking computational tools (Chapter~\ref{chap:guidelines}).
 
-Something about gng?
-
-
-
-%\section{dyngen discussion}
-%% felt that upon the development of a new technologies, good quality control practices from
-%% other technologies were not being carried over because the data required to evaluate computational
-%% tools does not exist yet and is too expensive to develop.
-%
-%\section{dynbenchmark discussion}
-%\begin{itemize}
 %	\item Already outdated when the manuscript was published online
 %	\item Update benchmark with more TI methods, newer (and larger) datasets, perform parameter optimisation on methods
 %	\item Include RNA velocity as inputs
-%\end{itemize}
-%
+
+\section{SCORPIUS: Fast, accurate, and robust single-cell pseudotime}
+
+%\item We introduce a novel TI method specialised in inferring linear trajectories (Chapter~\ref{chap:scorpius}). Despite linear TI being the most simple but commonly used form of trajectory inference, the benchmark demonstrated that most TI methods are not capable of producing accurate models of linear datasets.
+
+
 %\section{SCORPIUS discussion}
 %\begin{itemize}
-%	\item Extension to inferring non-linear trajectories, i.e. with principal graphs
+%	\item Extension to inferring non-linear trajectories, i.e. with principal graphs or GNG
 %\end{itemize}
-%
-%\section{bred discussion}
-%
-%%\section{incgraph discussion}
-%
-%%\section{dyno discussion}
+
+\section{bred: Inferring single cell regulatory networks}
+
+%\item We invent a new type of NI method capable of inferring the GRN of individual cells (Chapter~\ref{chap:bred}). We demonstrate this <yadeyade .. fill in when the chapter is actually written.>
+
+\section{incgraph: Optimising regulatory networks}
+
+%\item Every NI method has certain topological biases. We provide a tool for analysing the topological properties of large, evolving networks and use this to iteratively optimise GRN predictions (Chapter~\ref{chap:incgraph}).
 

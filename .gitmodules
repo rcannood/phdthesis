@@ -7,3 +7,6 @@
 [submodule "ch7_selfassessment"]
 	path = ch7_selfassessment
 	url = git@github.com:rcannood/selfassessment.git
+[submodule "ch3b_dyno"]
+	path = ch3b_dyno
+	url = git@github.com:rcannood/dyno_analysis.git
