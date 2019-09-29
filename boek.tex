@@ -64,7 +64,7 @@
 %\titleformat{\subsubsection} [block]{\normalsize\bfseries\filcenter}{}{0em}{\MakeUppercase}
 
 % references packages
-\usepackage[sorting=none]{biblatex}
+\usepackage[sorting=none,refsection=chapter]{biblatex}
 \bibliography{library}
 \usepackage{bibentry}
 \nobibliography*
@@ -426,6 +426,10 @@ Adapted from:\\
 \graphicspath{{./ch4_dyno/}}
 \include{ch4_dyno/content}
 
+\clearpage
+\section{References}
+\printbibliography[heading=none]
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%       CH5: SCORPIUS       %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -492,7 +496,6 @@ Adapted from:\\
 \graphicspath{{./ch8_discussion/}}
 \include{ch8_discussion/content}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%   CH9: Self-assessment    %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -530,7 +533,6 @@ Boulesteix, A., Saeys, Y., and Robinson, M. D.
 Essential guidelines for computational method benchmarking. \textit{Genome Biology} 20, 125 (2019). \doi{10.1186/s13059-019-1738-8}.
 \newpage
 \include{ch10_guidelines/content}
-
 
 
 
