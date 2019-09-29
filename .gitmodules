@@ -2,11 +2,11 @@
 	path = ch2_dyngen
 	url = git@github.com:rcannood/dyngen_analysis.git
 [submodule "ch5_scorpius"]
-	path = ch4_scorpius
+	path = ch5_scorpius
 	url = git@github.com:rcannood/scorpius_analysis.git
 [submodule "ch7_selfassessment"]
-	path = ch7_selfassessment
+	path = ch9_selfassessment
 	url = git@github.com:rcannood/selfassessment.git
 [submodule "ch3b_dyno"]
-	path = ch3b_dyno
+	path = ch4_dyno
 	url = git@github.com:rcannood/dyno_analysis.git
