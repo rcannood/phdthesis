@@ -247,9 +247,9 @@ pheatmap::pheatmap(
 grouping <- model$progressions %>%
   mutate(group = case_when(
     from == "3" & percentage < .33 ~ "MEF",
-    from == "3" & percentage < .66 ~ "early-intermediate",
-    from == "3" ~ "intermediate",
-    percentage < .33 ~ "intermediate",
+    from == "3" & percentage < .66 ~ "early-induced",
+    from == "3" ~ "induced",
+    percentage < .33 ~ "induced",
     to == "4" & percentage < .66 ~ "early-neuron",
     to == "5" & percentage < .66 ~ "early-myocyte",
     to == "4" ~ "neuron",

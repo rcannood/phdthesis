@@ -3,7 +3,10 @@ library(dyno)
 options(dynwrap_backend = 'r_wrapper')
 
 # download and preprocess dataset
-file <- "derived_files/GSE67310.txt.gz"
+dest_dir <- "derived_files/GSE107727/"
+dir.create(dest_dir, showWarnings = FALSE, recursive = TRUE)
+
+file <- paste0(dest_dir, "data.tar")
 url <- "https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE67310&format=file&file=GSE67310%5FiN%5Fdata%5Flog2FPKM%5Fannotated%2Etxt%2Egz"
 if (!file.exists(file)) {
   download.file(url, file)
