@@ -1,109 +1,196 @@
 library(tidyverse)
 
-dest_dir <- "derived_files/tabula_muris/"
-dir.create(dest_dir, recursive = TRUE, showWarnings = FALSE)
+tcga_folder <- "~/Workspace/tcga/"
+data_dir <- "derived_files/tcga/"
+dir.create(data_dir, showWarnings = FALSE, recursive = TRUE)
 
+tcga_data_file <- paste0(tcga_folder, "data.rds")
+data_file <- paste0(data_dir, "data.rds")
 
-data_rnaseq <- paste0(dest_dir, "data_rnaseq/")
-data_rds <- paste0(dest_dir, "data_rds/")
+if (!file.exists(tcga_data_file)) {
+  sample_info <- read_tsv(paste0(tcga_folder, "sample_sheet.tsv"))
+  colnames(sample_info) <- colnames(sample_info) %>% tolower() %>% gsub(" ", "_", .)
 
-# zip_file <- paste0(dest_dir, "data_rnaseq.zip")
-# download.file("https://ndownloader.figshare.com/articles/5968960/versions/3", zip_file)
-# unzip(zip_file, exdir = data_rnaseq)
-# unzip(paste0(data_rnaseq, "droplet.zip"), exdir = data_rnaseq)
-
-# cell_info <- read_csv(
-#   paste0(data_rnaseq, "annotations_droplet.csv"),
-#   col_types = cols(
-#     .default = "c",
-#     tissue_tSNE_1 = "d",
-#     tissue_tSNE_2 = "d",
-#     subsetA = "l",
-#     subsetB = "l",
-#     subsetC = "l",
-#     subsetD = "l"
-#   )
-# )
-#
-# write_rds(cell_info, paste0(data_rds, "cell_info.rds"), compress = "gz")
-#
-# droplet <- paste0(data_rnaseq, "/droplet")
-# samples <- list.files(droplet, full.names = TRUE)
-# counts <- pbapply::pblapply(samples, function(folder_10x) {
-#   channel <- basename(folder_10x) %>% gsub(".*-", "", .)
-#
-#   counts <- Seurat::Read10X(folder_10x) %>% Matrix::t()
-#   rownames(counts) <- paste0(channel, "_", rownames(counts))
-#
-#   counts <- counts[rownames(counts) %in% cell_info$cell, ]
-#
-#   counts
-# }) %>% do.call(rbind, .)
-# counts <- counts[cell_info$cell, ] # reorder cells
-#
-# write_rds(counts, paste0(data_rds, "counts.rds"), compress = "gz")
-#
-# tpm <- counts / Matrix::rowSums(counts) * 1000000
-# # write_rds(tpm, paste0(data_rds, "tpm.rds"), compress = "gz")
-# write_rds(tpm, paste0(data_rds, "tpm.rds"))
-#
-# expression <- tpm
-# expression@x <- log2(expression@x + 1)
-# # write_rds(expression, paste0(data_rds, "expression.rds"), compress = "gz")
-# write_rds(expression, paste0(data_rds, "expression.rds"))
-
-
-# FILTER DATA -------------------------------------------------------------
-data_rds <- "derived_files/tabula_muris/data_rds/"
-
-if (!file.exists(paste0(data_rds, "data.rds"))) {
-  counts <- read_rds(paste0(data_rds, "counts.rds"))
-  # expression <- read_rds(paste0(data_rds, "expression.rds"))
-  cell_info <- read_rds(paste0(data_rds, "cell_info.rds"))
-
-  seu <-
-    Seurat::CreateSeuratObject(
-      Matrix::t(counts),
-      min.cells = 10,
-      min.features = 500,
-      meta.data = cell_info %>% column_to_rownames("cell")
+  # preproc metadata
+  sample_info$project_id <- gsub(",.*", "", sample_info$project_id)
+  sample_info$sample_type <- gsub(",.*", "", sample_info$sample_type)
+  sample_info$sample_id <- gsub(",.*", "", sample_info$sample_id)
+  sample_info <- sample_info %>%
+    filter(!sample_type %in% c("Control Analyte", "Additional Metastatic", "FFPE Scrolls", "Slides")) %>%
+    mutate(
+      sample_group = case_when(
+        sample_type == "Blood Derived Normal" ~ "Normal Blood",
+        sample_type == "Solid Tissue Normal" ~ "Normal Tissue",
+        grepl("Tumor", sample_type) ~ "Cancer Tumor",
+        sample_type == "Additional - New Primary" ~ "Cancer Tumor",
+        grepl("Metastatic", sample_type) ~ "Cancer Metastatic",
+        grepl("Cancer.*Bone Marrow", sample_type) ~ "Cancer BM",
+        grepl("Cancer.*Blood", sample_type) ~ "Cancer Blood"
+      ),
+      file = paste0(tcga_folder, "data/", file_id, "/", file_name)
     ) %>%
-    Seurat::NormalizeData() %>%
-    Seurat::FindVariableFeatures()
-  expression <- Matrix::t(seu@assays$RNA@data)
-  feature_info <- seu@assays$RNA@meta.features %>% rownames_to_column("feature_id") %>% as_tibble()
-  sample_info <- seu@meta.data %>% rownames_to_column("cell_id") %>% as_tibble()
+    group_by(project_id, sample_group) %>%
+    mutate(
+      id = paste0(project_id, "_", tolower(gsub(" ", "-", sample_group)), "_sample", seq_len(n()))
+    ) %>%
+    ungroup() %>%
+    select(id, project_id, sample_group, everything())
 
-  write_rds(lst(expression, feature_info, sample_info), paste0(data_rds, "data.rds"))
+  # check classes
+  table(sample_info$project_id) %>% sort
+  table(sample_info$sample_type) %>% sort
+  table(sample_info$sample_group) %>% sort
+  table(sample_info$sample_type, sample_info$sample_group)
+
+  # check genes and rename genes^
+  feature_info <-
+    read_tsv(sample_info$file[[1]], col_names = c("id", "values"), col_types = cols(.default = "d", id = "c")) %>%
+    transmute(orig_id = id, ensembl_gene_id = gsub("\\..*", "", id))
+
+  ensembl <- biomaRt::useMart(
+    "ENSEMBL_MART_ENSEMBL",
+    dataset = "hsapiens_gene_ensembl",
+    host = "http://mar2015.archive.ensembl.org"
+  )
+  gene_symbols <- biomaRt::getBM(
+    attributes = c("ensembl_gene_id", "hgnc_symbol", "entrezgene"),
+    filters = "ensembl_gene_id",
+    values = feature_info$ensembl_gene_id,
+    mart = ensembl
+  ) %>%
+    as_tibble()
+
+  gene_symbols_gath <-
+    gene_symbols %>%
+    gather(type, value, hgnc_symbol, entrezgene) %>%
+    filter(!is.na(value), value != "") %>%
+    group_by(ensembl_gene_id, type) %>%
+    summarise(value = list(value)) %>%
+    spread(type, value)
+
+  feature_info <-
+    left_join(
+      feature_info,
+      gene_symbols_gath,
+      by = "ensembl_gene_id"
+    ) %>%
+    mutate(
+      symbol = ifelse(map_lgl(hgnc_symbol, is.null), ensembl_gene_id, map_chr(hgnc_symbol, ~ ifelse(length(.) > 0, first(.), NA_character_)))
+    ) %>%
+    group_by(symbol) %>%
+    mutate(
+      id = if (n() > 1) paste0(symbol, "_", row_number()) else symbol
+    ) %>%
+    ungroup() %>%
+    select(id, ensembl_gene_id, symbol, everything())
+
+  # load in all files
+  tmp_dir <- "~/tcga_tmp/"
+  dir.create(tmp_dir, showWarnings = FALSE, recursive = TRUE)
+  by <- round(nrow(sample_info) / 100)
+  start_ix <- seq(1, nrow(sample_info), by = by)
+  end_ix <- pmin(nrow(sample_info), start_ix + by - 1)
+  mat_files <- paste0(tmp_dir, "mat_", seq_along(start_ix), ".rds")
+  exists <- file.exists(mat_files)
+
+  assertthat::assert_that(
+    !any(duplicated(sample_info$id)),
+    !any(duplicated(feature_info$id))
+  )
+
+  rm <- pbapply::pblapply(which(!exists), cl = 8, function(i) {
+    mat_file <- mat_files[[i]]
+    if (!file.exists(mat_file)) {
+      cat("Progress ", i, "/", length(start_ix), "\n", sep = "")
+      six <- start_ix[[i]]
+      eix <- end_ix[[i]]
+      ixs <- seq(six, eix)
+      mats <- map(ixs, function(j) {
+        mat <-
+          read_tsv(
+            sample_info$file[[j]],
+            col_names = c("feature_id", "counts"),
+            col_types = cols(counts = "d", feature_id = "c"),
+            progress = FALSE
+          ) %>%
+          column_to_rownames("feature_id") %>%
+          as.matrix()
+        if (!all(rownames(mat) == feature_info$orig_id)) {
+          if (!all(rownames(mat) %in% feature_info$orig_id)) {
+            stop("Rowname mismatch in sample ", i)
+          }
+          mat <- mat[feature_info$orig_id, ]
+        }
+        rownames(mat) <- NULL
+        mat
+      }) %>% do.call(cbind, .)
+
+      rownames(mats) <- feature_info$id
+      colnames(mats) <- sample_info$id[ixs]
+
+      write_rds(mats, mat_file)
+
+      NULL
+    }
+  })
+
+  counts <- map(seq_along(start_ix), function(i) {
+    mat_file <- paste0(tmp_dir, "mat_", i, ".rds")
+    read_rds(mat_file)
+  }) %>%
+    do.call(cbind, .) %>%
+    t()
+
+  # if (file.exists(paste0(tcga_folder, "rnaseq.rds"))) {
+  #   unlink(tmp_dir, recursive = TRUE)
+  # }
+
+  gc()
+
+  write_rds(lst(counts, sample_info, feature_info, gene_symbols), tcga_data_file)
 }
 
-if (!file.exists(paste0(data_rds, "data_filt.rds"))) {
-  genesets <- read_rds("derived_files/data_genesets.rds")
+if (!file.exists(data_file)) {
+  list2env(read_rds(tcga_data_file), .GlobalEnv)
+  expr <- log2(counts + 1)
+
+  rm(counts)
+
+  means <- colMeans(expr)
+  vars <- apply(expr, 2, var)
+  minexpr <- colMeans(expr > 2)
+
+  expr <- expr[, minexpr >= .01]
+
+  feature_info <- feature_info %>% slice(match(colnames(expr), id))
+
+  genesets <- read_rds("derived_files/data_genesets_human.rds")
   reg_entrezs <- genesets %>% filter(grepl("transcription factor", description)) %>% pull(entrezs) %>% unlist() %>% unique()
+  regulators <- feature_info %>% select(id, entrezgene) %>% unnest(entrezgene) %>% filter(entrezgene %in% reg_entrezs) %>% pull(id) %>% unique()
 
-  alias2eg <- as.list(org.Mm.eg.db::org.Mm.egALIAS2EG)
-  regulators <- feature_info %>% transmute(feature_id, entrez = alias2eg[feature_id]) %>% unnest(entrez) %>%
-    filter(entrez %in% reg_entrezs) %>% pull(feature_id) %>% unique()
+  vars <- apply(expr, 2, var)
+  targets <- names(sort(vars, decreasing = TRUE))
 
-  targets_filt <- feature_info %>% arrange(desc(vst.variance.standardized)) %>% pull(feature_id) %>% head(2000)
-  regulators_filt <- feature_info %>% top_n(5000, vst.variance.standardized) %>% filter(feature_id %in% regulators) %>% pull(feature_id)
-  samples <- rownames(expression)
+  samples <- sample_info$id
 
-  expr_filt <- expression[, union(targets_filt, regulators_filt)]
+  assertthat::assert_that(
+    !any(duplicated(sample_info$id)),
+    !any(duplicated(feature_info$id)),
+    !any(duplicated(rownames(expr))),
+    !any(duplicated(colnames(expr)))
+  )
 
-  write_rds(lst(expr_filt, targets_filt, regulators_filt, samples, sample_info, feature_info), paste0(data_rds, "data_filt.rds"))
-
-  rm(list = ls())
+  write_rds(lst(expr, sample_info, feature_info, regulators, targets, samples), data_file)
 }
+
+
+
 
 
 # SUBMIT BRED -------------------------------------------------------------
-dest_dir <- "derived_files/tabula_muris/"
-data_rds <- paste0(dest_dir, "data_rds/")
-# list2env(read_rds(paste0(data_rds, "data.rds")), .GlobalEnv)
-list2env(read_rds(paste0(data_rds, "data_filt.rds")), .GlobalEnv)
+if (!file.exists(paste0(data_dir, "qsub_handle.rds"))) {
+  list2env(read_rds(data_file), .GlobalEnv)
 
-if (!file.exists(paste0(dest_dir, "qsub_handle.rds"))) {
   calculate_target_importance <- function(
     target_ix,
     expr,
@@ -112,7 +199,6 @@ if (!file.exists(paste0(dest_dir, "qsub_handle.rds"))) {
     targets,
     num_trees = 10000,
     num_variables_per_split = 100,
-    # num_samples_per_tree = 250,
     min_node_size = 10,
     max_depth = NULL,
     interaction_importance_filter = .01,
@@ -196,28 +282,34 @@ if (!file.exists(paste0(dest_dir, "qsub_handle.rds"))) {
   num_trees = 1000
   num_variables_per_split = 100
   max_depth = 20
-  min_node_size = 10
+  min_node_size = 20
   interaction_importance_filter = .01
-  sigmoid_mean = mean(expr_filt@x)
-  sigmoid_sd = sd(expr_filt@x)
+  sigmoid_mean = mean(expr)
+  sigmoid_sd = sd(expr)
 
+  regulators_filt <- regulators
+  targets_filt <- targets[1:2000]
+  expr_filt <- expr[, union(targets_filt, regulators_filt)]
+  samples_filt <- rownames(expr_filt)
+
+  x <- 1
   qsub_handle <- qsub::qsub_lapply(
     X = seq_along(targets_filt),
     qsub_config = qsub::override_qsub_config(
-      max_wall_time = NULL,
+      max_wall_time = "12:00:00",
       memory = "10G",
       name = "bred",
       wait = FALSE,
       stop_on_error = FALSE,
       remove_tmp_folder = FALSE,
-      execute_before = "#$ -l h=!prismcls05"
+      execute_before = "#$ -l h=!prismcls08",
     ),
     qsub_packages = c("dynutils", "dplyr", "purrr", "magrittr", "tibble"),
     qsub_environment = c("x"),
     FUN = calculate_target_importance,
     # pass data and other parameters
     expr = expr_filt,
-    samples = samples,
+    samples = samples_filt,
     regulators = regulators_filt,
     targets = targets_filt,
     num_trees = num_trees,
@@ -228,26 +320,28 @@ if (!file.exists(paste0(dest_dir, "qsub_handle.rds"))) {
     sigmoid_mean = sigmoid_mean,
     sigmoid_sd = sigmoid_sd
   )
-  dest_dir <- "derived_files/tabula_muris/"
-  write_rds(qsub_handle, paste0(dest_dir, "qsub_handle.rds"))
+  write_rds(qsub_handle, paste0(data_dir, "qsub_handle.rds"))
 }
 
-dest_dir <- "derived_files/tabula_muris/"
-qsub_handle <- read_rds(paste0(dest_dir, "qsub_handle.rds"))
 
-grn <- qsub::qsub_retrieve(
-  qsub_handle,
-  wait = "just_do_it",
-  post_fun = function(i, li) {
-    li$importance <- li$importance %>% filter(importance > .01)
-    li$importance_sc <- li$importance_sc %>% filter(importance_sc > .01) %>%
-      inner_join(li$importance %>% select(regulator, target), by = c("regulator", "target"))
-    li
-  }
-)
-write_rds(grn, paste0(dest_dir, "grn.rds"))
+if (!file.exists(paste0(data_dir, "grn.rds"))) {
+  qsub_handle <- read_rds(paste0(data_dir, "qsub_handle.rds"))
 
-grn <- read_rds(paste0(dest_dir, "grn.rds"))
+  grn <- qsub::qsub_retrieve(
+    qsub_handle,
+    wait = "just_do_it",
+    post_fun = function(i, li) {
+      li$importance <- li$importance %>% filter(importance > .01)
+      li$importance_sc <- li$importance_sc %>% filter(importance_sc > .01) %>%
+        inner_join(li$importance %>% select(regulator, target), by = c("regulator", "target"))
+      li
+    }
+  )
+
+  write_rds(grn, paste0(data_dir, "grn.rds"))
+}
+
+grn <- read_rds(paste0(data_dir, "grn.rds"))
 
 # remove unfinished executions
 grn[map_lgl(grn, ~ length(.) == 1 && is.na(.))] <- NULL
@@ -256,13 +350,15 @@ grn[map_lgl(grn, ~ length(.) == 1 && is.na(.))] <- NULL
 importance <-
   grn %>%
   map_df("importance") %>%
+  arrange(desc(importance)) %>%
   mutate(
     i = row_number(),
     name = paste0(regulator, "->", target)
   )
 ggplot(importance) +
   geom_point(aes(effect, importance))
-write_tsv(importance, "~/importance.tsv")
+
+# write_tsv(importance %>% filter(importance > .1), "~/importance.tsv")
 importance_sc <- grn %>%
   map_df("importance_sc") %>%
   inner_join(importance %>% select(-importance, -name), by = c("regulator", "target"))
@@ -270,10 +366,7 @@ importance_sc <- grn %>%
 rm(grn)
 gc()
 
-list2env(read_rds(paste0(data_rds, "data_filt.rds")), .GlobalEnv)
-list2env(read_rds("derived_files/cell_ontology.rds"), .GlobalEnv)
-
-# clustering
+samples <- levels(importance_sc$cell_id)
 imp_sc_mat <- Matrix::sparseMatrix(
   i = importance_sc$cell_id %>% as.integer,
   j = importance_sc$i,
@@ -283,6 +376,13 @@ imp_sc_mat <- Matrix::sparseMatrix(
 )
 dimred <- dyndimred::dimred_landmark_mds(imp_sc_mat, ndim = 20, distance_method = "spearman")
 rm(imp_sc_mat)
+
+list2env(read_rds(data_file), .GlobalEnv)
+# df <- data.frame(
+#   sample_info,
+#   dimred2
+# )
+# ggplot(df) + geom_point(aes(comp_1, comp_2, colour = project_id))
 
 knn <- RANN::nn2(dimred, k = 100)
 knn$nn.dists <- knn$nn.dists[,-1]
@@ -528,6 +628,7 @@ impsc2 <-
 impsc2f <- impsc2 %>% group_by(name) %>% arrange(desc(importance_sc)) %>% slice(1:50) %>% ungroup() %>% filter(importance_sc > 1)
 impsc2f %>% group_by(name) %>% summarise(n = n()) %>% arrange(desc(n))
 write_tsv(impsc2f, paste0(dest_dir, "aaa_impsc2.tsv"))
+
 
 
 

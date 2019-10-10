@@ -240,19 +240,19 @@ if (!file.exists(paste0(dest_dir, "qsub_handle.rds"))) {
 }
 
 dest_dir <- "derived_files/tabula_muris_hema/"
-qsub_handle <- read_rds(paste0(dest_dir, "qsub_handle.rds"))
-
-grn <- qsub::qsub_retrieve(
-  qsub_handle,
-  wait = "just_do_it",
-  post_fun = function(i, li) {
-    li$importance <- li$importance %>% filter(importance > .01)
-    li$importance_sc <- li$importance_sc %>% filter(importance_sc > .01) %>%
-      inner_join(li$importance %>% select(regulator, target), by = c("regulator", "target"))
-    li
-  }
-)
-write_rds(grn, paste0(dest_dir, "grn.rds"))
+# qsub_handle <- read_rds(paste0(dest_dir, "qsub_handle.rds"))
+#
+# grn <- qsub::qsub_retrieve(
+#   qsub_handle,
+#   wait = "just_do_it",
+#   post_fun = function(i, li) {
+#     li$importance <- li$importance %>% filter(importance > .01)
+#     li$importance_sc <- li$importance_sc %>% filter(importance_sc > .01) %>%
+#       inner_join(li$importance %>% select(regulator, target), by = c("regulator", "target"))
+#     li
+#   }
+# )
+# write_rds(grn, paste0(dest_dir, "grn.rds"))
 
 grn <- read_rds(paste0(dest_dir, "grn.rds"))
 
@@ -263,13 +263,14 @@ grn[map_lgl(grn, ~ length(.) == 1 && is.na(.))] <- NULL
 importance <-
   grn %>%
   map_df("importance") %>%
+  arrange(desc(importance)) %>%
   mutate(
     i = row_number(),
     name = paste0(regulator, "->", target)
   )
 ggplot(importance) +
   geom_point(aes(effect, importance))
-write_tsv(importance, "~/importance.tsv")
+write_tsv(importance %>% filter(importance > .1), "~/importance.tsv")
 importance_sc <- grn %>%
   map_df("importance_sc") %>%
   inner_join(importance %>% select(-importance, -name), by = c("regulator", "target"))
@@ -290,31 +291,101 @@ data_rds <- paste0(dest_dir, "data_rds/")
 list2env(read_rds(paste0(data_rds, "data_filt.rds")), .GlobalEnv)
 list2env(read_rds("derived_files/cell_ontology.rds"), .GlobalEnv)
 
-# clustering
-dimred <- dyndimred::dimred_landmark_mds(imp_sc_mat, ndim = 10, distance_method = "spearman")
-# dimred <- dyndimred::dimred_landmark_mds(imp_sc_mat, ndim = 10, distance_method = "manhattan")
 
-# dimred_co <- ciddr[sample_info$cell_ontology_id, ] %>%
-#   magrittr::set_rownames(sample_info$cell_id) %>%
-#   {magrittr::set_colnames(., paste0("ciddr_", seq_len(ncol(.))))} %>%
-#   dynutils::scale_uniform()
+ndims <- c(2:30, seq(34, 100, by = 4))
+dist2lm <- lmds::select_landmarks(imp_sc_mat, distance_method = "spearman")
+ix <- sample.int(nrow(imp_sc_mat), 1000)
+df <- bind_rows(pbapply::pblapply(ndims, cl = 8, function(ndim) {
+  dimred <- lmds::cmdscale_landmarks(dist2lm, ndim = ndim)
+  euc <- dynutils::euclidean_distance(dimred[ix,])
+  cor <- dynutils::correlation_distance(imp_sc_mat[ix,])
+  tibble(
+    ndim,
+    cor = cor(as.vector(euc), as.vector(cor))
+  )
+}))
+ggplot(df) + geom_line(aes(ndim, cor))
+ndim <- df %>% arrange(desc(cor)) %>% slice(1) %>% pull(ndim)
+dimred <- lmds::cmdscale_landmarks(dist2lm, ndim = ndim)
 
-dimreds <- dimred
-# dimreds <- cbind(dimred, dimred_co[,1:3] / 5)
-dimred_umap <- dyndimred::dimred_umap(dimred, pca_components = NULL, n_neighbors = 20)
+knn <- RANN::nn2(dimred, k = 100)
+knn$nn.dists <- knn$nn.dists[,-1]
+knn$nn.idx <- knn$nn.idx[,-1]
+
+knndf <-
+  inner_join(
+    reshape2::melt(knn$nn.idx, varnames = c("i", "nn"), value.name = "j"),
+    reshape2::melt(knn$nn.dists, varnames = c("i", "nn"), value.name = "dist"),
+    by = c("i", "nn")
+  ) %>%
+  as_tibble() %>%
+  mutate(i2 = pmin(i, j), j2 = pmax(i, j)) %>%
+  select(i = i2, j = j2, dist) %>%
+  unique() %>%
+  arrange(dist) %>%
+  mutate(weight = 1 / dist)
+
+gr <- igraph::graph_from_data_frame(knndf %>% select(i, j, dist), vertices = seq_len(nrow(dimred)), directed = FALSE)
+cl <- igraph::cluster_louvain(gr)
+clus <- cl$membership
+dimred2 <- igraph::layout_with_fr(gr)
+rownames(dimred2) <- rownames(dimred)
+colnames(dimred2) <- paste0("comp_", seq_len(ncol(dimred2)))
+
+knns <- pbapply::pblapply(
+  seq_len(12),
+  function(repi) {
+    cix <- sample.int(ncol(knn$nn.idx), floor(.9 * ncol(knn$nn.idx)))
+    knndf <-
+      inner_join(
+        reshape2::melt(knn$nn.idx[,cix], varnames = c("i", "nn"), value.name = "j"),
+        reshape2::melt(knn$nn.dists[,cix], varnames = c("i", "nn"), value.name = "dist"),
+        by = c("i", "nn")
+      ) %>%
+      as_tibble() %>%
+      mutate(i2 = pmin(i, j), j2 = pmax(i, j)) %>%
+      select(i = i2, j = j2, dist) %>%
+      unique() %>%
+      arrange(dist) %>%
+      mutate(weight = 1 / dist)
+
+    gr <- igraph::graph_from_data_frame(knndf %>% select(i, j, dist), vertices = seq_len(nrow(dimred)), directed = FALSE)
+    cl <- igraph::cluster_louvain(gr)
+    clus <- cl$membership
+    dimred2 <- igraph::layout_with_fr(gr)
+    rownames(dimred2) <- rownames(dimred)
+    colnames(dimred2) <- paste0("comp_", seq_len(ncol(dimred2)))
+
+    lst(clus, dimred2)
+  }
+)
+
+dimred_fr <- map(knns, "dimred2") %>% do.call(cbind, .) %>% dynutils::scale_uniform()
+
+
+# dimreds <- dimred
+# # dimreds <- cbind(dimred, dimred_co[,1:3] / 5)
+dimred_umap <- dyndimred::dimred_umap(dimred_fr, pca_components = NULL, n_neighbors = 50)
 
 df <- data.frame(
   dimred_umap,
-  sample_info
+  # dimred,
+  # dimred_fr,
+  sample_info,
+  clus
 )
 # ggplot(df, aes(comp_1, comp_2, col = tissue)) + geom_point()
-ggplot(df, aes(comp_1, comp_2, col = cell_ontology_class)) + geom_point()
+patchwork::wrap_plots(
+  ggplot(df, aes(comp_1, comp_2, col = cell_ontology_class)) + geom_point(),
+  ggplot(df, aes(comp_1, comp_2, col = factor(clus))) + geom_point(),
+  nrow = 1
+)
 
-`%/%` <- function(x, y) ifelse(y == 0, 1, x / y)
+`%s/%` <- function(x, y) ifelse(y == 0, 1, x / y)
 ks <- seq(10, 30)
-backgr <- pbapply::pblapply(ks, cl = 8, function(k) {
+backgr <- pbapply::pblapply(ks, cl = 1, function(k) {
   out <- map_df(seq_len(100), function(i) {
-    km <- stats::kmeans(dimreds, centers = k)
+    km <- stats::kmeans(dimred_fr, centers = k)
     clus <- km$cluster
 
     samdf <-
@@ -338,31 +409,30 @@ backgr <- pbapply::pblapply(ks, cl = 8, function(k) {
         ONTPOS = ONTPOS[[1]],
         TP = n()
       ) %>%
-      left_join(cell_ont %>% select(ontology = id, name), by = "ontology") %>%
       ungroup() %>%
       mutate(
         FN = ONTPOS - TP,
         FP = CLUSPOS - TP,
         TN = TOT - TP - FN - FP,
-        TPR = TP %/% ONTPOS,
-        TNR = TN %/% (TN + FP),
-        PPV = TP %/% (TP + FP),
-        NPV = TN %/% (TN + FN),
-        FNR = FN %/% (FN + TP),
-        FPR = FP %/% (FP + TN),
-        FDR = FP %/% (FP + TP),
-        FOR = FN %/% (FN + TN),
-        F1 = (2 * TP) %/% (2 * TP + FP + FN)
+        TPR = TP %s/% ONTPOS,
+        TNR = TN %s/% (TN + FP),
+        PPV = TP %s/% (TP + FP),
+        NPV = TN %s/% (TN + FN),
+        FNR = FN %s/% (FN + TP),
+        FPR = FP %s/% (FP + TN),
+        FDR = FP %s/% (FP + TP),
+        FOR = FN %s/% (FN + TN),
+        F1 = (2 * TP) %s/% (2 * TP + FP + FN)
       )
   })
 
   out %>% select(-cluster:-TN) %>% map(ecdf)
 })
 
-outs <- pbapply::pblapply(rep(seq_along(ks), 10), cl = 8, function(ki) {
+outs <- pbapply::pblapply(rep(seq_along(ks), 10), cl = 1, function(ki) {
   k <- ks[[ki]]
 
-  km <- stats::kmeans(dimreds, centers = k)
+  km <- stats::kmeans(dimred_fr, centers = k)
   clus <- km$cluster
 
   samdf <-
@@ -371,8 +441,6 @@ outs <- pbapply::pblapply(rep(seq_along(ks), 10), cl = 8, function(ki) {
     filter(!is.na(cell_ontology_id))
 
   TOT <- nrow(samdf)
-
-  ecdfs <- backgr[[ki]]
 
   test <-
     samdf %>%
@@ -388,26 +456,26 @@ outs <- pbapply::pblapply(rep(seq_along(ks), 10), cl = 8, function(ki) {
       ONTPOS = ONTPOS[[1]],
       TP = n()
     ) %>%
-    left_join(cell_ont %>% select(ontology = id, name), by = "ontology") %>%
     ungroup() %>%
+    left_join(cell_ont %>% select(ontology = id, name), by = "ontology") %>%
     mutate(
       FN = ONTPOS - TP,
       FP = CLUSPOS - TP,
       TN = TOT - TP - FN - FP,
-      TPR = TP / ONTPOS,
-      TNR = TN %/% (TN + FP),
-      PPV = TP %/% (TP + FP),
-      NPV = TN %/% (TN + FN),
-      FNR = FN %/% (FN + TP),
-      FPR = FP %/% (FP + TN),
-      FDR = FP %/% (FP + TP),
-      FOR = FN %/% (FN + TN),
-      F12 = dynutils::calculate_harmonic_mean(cbind(PPV, TPR), weights = c(2, 1)),
-      F1 = (2 * TP) %/% (2 * TP + FP + FN)
+      TPR = TP %s/% (TP + FN),
+      TNR = TN %s/% (TN + FP),
+      PPV = TP %s/% (TP + FP),
+      NPV = TN %s/% (TN + FN),
+      FNR = FN %s/% (FN + TP),
+      FPR = FP %s/% (FP + TN),
+      FDR = FP %s/% (FP + TP),
+      FOR = FN %s/% (FN + TN),
+      F1 = (2 * TP) %s/% (2 * TP + FP + FN)
     )
 
+  ecdfs <- backgr[[ki]]
   for (ne in names(ecdfs)) {
-    test[[paste0("p_", ne)]] <- 1 - ecdfs[[ne]](test[[ne]])
+    test[[paste0("p_", ne)]] <- ecdfs[[ne]](test[[ne]])
   }
 
   labels <-
@@ -426,32 +494,82 @@ summ <- map_df(outs, "summ") %>% mutate(row = row_number())
 ggplot(summ) + geom_point(aes(k, F1))
 ggplot(summ) + geom_point(aes(k, p_F1))
 
-out <- outs[[summ %>% arrange(p_F1, desc(F1)) %>% pull(row) %>% first()]]
+out <- outs[[summ %>% arrange(desc(p_F1), desc(F1)) %>% pull(row) %>% first()]]
 out$summ
 km <- out$km
 labels <- out$labels
 clus <- out$clus
 
-# merge clusters
-tryjoining <-
-  labels %>%
+# # merge clusters
+# tryjoining <-
+#   labels %>%
+#   group_by(name) %>%
+#   summarise(clusters = list(cluster))
+#
+# dissen <- dist(km$centers) %>% as.matrix
+#
+# for (ri in seq_len(nrow(tryjoining))) {
+#   cli <- tryjoining$clusters[[ri]]
+#   if (length(cli) > 1) {
+#     hcl <- hclust(as.dist(dissen[cli, cli]))
+#     gr <- cutree(hcl, h = quantile(dissen, .1))
+#     if (!all(gr == 1)) {
+#       labels$name[cli] <- paste0(labels$name[cli], " #", gr)
+#     }
+#   }
+# }
+#
+# labels$name %>% sort
+
+labels <- labels %>%
   group_by(name) %>%
-  summarise(clusters = list(cluster))
+  mutate(name2 = if (n() == 1) name else paste0(name, " #", row_number())) %>%
+  ungroup() %>%
+  select(-name) %>%
+  rename(name = name2)
 
-dissen <- dist(km$centers) %>% as.matrix
+# labels$name <- c(
+#   "immature T/erythroblast",
+#   "macrophage + blood cell #1",
+#   "late pro-B",
+#   "granulocyte",
+#   "promonocyte",
+#   "B cell #1",
+#   "B cell #2",
+#   "B cell #3",
+#   "T cell #1 / NK",
+#   "hematopoietic precursor cell",
+#   "T cell #2",
+#   "B cell #4",
+#   "alveolar macrophage",
+#   "macrophage + blood cell #2",
+#   "immature T cell",
+#   "monocyte"
+# )
 
-for (ri in seq_len(nrow(tryjoining))) {
-  cli <- tryjoining$clusters[[ri]]
-  if (length(cli) > 1) {
-    hcl <- hclust(as.dist(dissen[cli, cli]))
-    gr <- cutree(hcl, h = quantile(dissen, .1))
-    if (!all(gr == 1)) {
-      labels$name[cli] <- paste0(labels$name[cli], " #", gr)
-    }
-  }
-}
 
-labels$name %>% sort
+# cluster_name <- factor(labels$name[clus])
+# cell_ontology <- sample_info$tissue
+# cell_ontology <- sample_info$cell_ontology_class
+# jacc <- sapply(sort(labels$name), function(clus_name) {
+#   sapply(unique(cell_ontology) %>% sort, function(coterm) {
+#     jaccard::jaccard(cluster_name == clus_name, cell_ontology == coterm)
+#   })
+# })
+# pheatmap::pheatmap(jacc, cluster_rows = T, cluster_cols = FALSE, angle_col = 315)
+#
+# tab <- table(labels$name[clus], sample_info$cell_ontology_class) %>% as.matrix() %>% t
+# tab2 <- tab / rowSums(tab)
+# ord1 <- SCORPIUS::infer_trajectory(tab2, k = 0)$time %>% order
+# # ord2 <- SCORPIUS::infer_trajectory(t(tab2), k = 0)$time %>% order
+# pheatmap::pheatmap(tab2[ord1, ], cluster_rows = F, cluster_cols = F, angle_col = 315)
+#
+#
+# tab <- table(labels$name[clus], sample_info$cell_ontology_class) %>% as.matrix()
+# tab2 <- t(tab / rowSums(tab))
+# ord1 <- SCORPIUS::infer_trajectory(tab2, k = 0)$time %>% order
+# ord2 <- SCORPIUS::infer_trajectory(t(tab2), k = 0)$time %>% order
+# pheatmap::pheatmap(tab2[ord1, ], cluster_rows = F, cluster_cols = F, angle_col = 315)
 
 cell_names <- unique(labels$name) %>% sort()
 col_names <- grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, "Accent"))(length(cell_names))
@@ -460,15 +578,14 @@ labels <- labels %>%
   mutate(col = col_names[match(name, cell_names)])
 
 df <- data.frame(
-  dimred_umap,
-  # dimred,
-  sample_info
+  dimred_fr,
+  sample_info,
+  expr_filt
 ) %>%
   mutate(
     cluster = clus
   ) %>%
   left_join(labels %>% select(cluster, name), by = "cluster")
-# labeldf <- df %>% group_by(cluster) %>% summarise(comp_1 = mean(comp_1), comp_2 = mean(comp_2), name = name[[1]])
 labeldf <- df %>% group_by(name) %>% summarise(comp_1 = mean(comp_1), comp_2 = mean(comp_2))
 g <- ggplot(df, aes(comp_1, comp_2, col = name)) +
   geom_point(size = .5) +
@@ -477,7 +594,25 @@ g <- ggplot(df, aes(comp_1, comp_2, col = name)) +
   coord_equal() +
   scale_colour_manual(values = setNames(col_names, cell_names))
 g
-ggsave(paste0(dest_dir, "plot_umap.pdf"), g, width = 15, height = 13)
+ggsave(paste0(dest_dir, "plot_fr.pdf"), g, width = 15, height = 8)
+df <- data.frame(
+  dimred_umap,
+  sample_info,
+  expr_filt
+) %>%
+  mutate(
+    cluster = clus
+  ) %>%
+  left_join(labels %>% select(cluster, name), by = "cluster")
+labeldf <- df %>% group_by(name) %>% summarise(comp_1 = mean(comp_1), comp_2 = mean(comp_2))
+g <- ggplot(df, aes(comp_1, comp_2, col = name)) +
+  geom_point(size = .5) +
+  shadowtext::geom_shadowtext(aes(label = name), labeldf, bg.colour = "white", size = 5) +
+  theme_bw() +
+  coord_equal() +
+  scale_colour_manual(values = setNames(col_names, cell_names))
+g
+ggsave(paste0(dest_dir, "plot_umap.pdf"), g, width = 15, height = 8)
 
 impsc2 <-
   importance_sc %>%
@@ -485,6 +620,8 @@ impsc2 <-
   left_join(labels %>% select(cluster, ontology, name, col), by = "cluster") %>%
   group_by(name, i, regulator, target) %>%
   summarise(
+    # importance = quantile(importance, .25),
+    # importance_sc = quantile(importance_sc, .25),
     importance = mean(importance),
     importance_sc = mean(importance_sc),
     effect = effect[[1]],
@@ -493,14 +630,20 @@ impsc2 <-
   ungroup() %>%
   select(regulator, name, target, everything())
 # impsc2f <- impsc2 %>% filter(importance_sc > 5)
-impsc2f <- impsc2 %>% group_by(name) %>% arrange(desc(importance_sc)) %>% slice(1:50) %>% ungroup() #%>% filter(importance_sc > 1)
-impsc2f
+impsc2f <- impsc2 %>% group_by(name) %>% arrange(desc(importance_sc)) %>% slice(1:50) %>% ungroup() %>% filter(importance_sc > 1)
+# # impsc2f <- impsc2 %>% group_by(name) %>% arrange(desc(importance_sc)) %>% ungroup() %>% filter(importance_sc > 2)
+# impsc2f
+# impsc2f %>% group_by(name) %>% summarise(n = n()) %>% arrange(desc(n))
 impsc2f %>% group_by(name) %>% summarise(n = n()) %>% arrange(desc(n))
 write_tsv(impsc2f, "~/aaa_impsc2.tsv")
 
 
 
 
+macrophages <- df %>% filter(name == "macrophage")
+ggplot(df) +
+  geom_jitter(aes(Il18, Marco)) +
+  theme_classic()
 
 
 
@@ -508,4 +651,28 @@ write_tsv(impsc2f, "~/aaa_impsc2.tsv")
 
 
 
+sample_info %>%
 
+
+impsc2 <-
+  importance_sc %>%
+  mutate(cluster = as.vector(clus[cell_id])) %>%
+  left_join(labels %>% select(cluster, ontology, name, col), by = "cluster") %>%
+  group_by(name, i, regulator, target) %>%
+  summarise(
+    # importance = quantile(importance, .25),
+    # importance_sc = quantile(importance_sc, .25),
+    importance = mean(importance),
+    importance_sc = mean(importance_sc),
+    effect = effect[[1]],
+    col = col[[1]]
+  ) %>%
+  ungroup() %>%
+  select(regulator, name, target, everything())
+# impsc2f <- impsc2 %>% filter(importance_sc > 5)
+impsc2f <- impsc2 %>% group_by(name) %>% arrange(desc(importance_sc)) %>% slice(1:50) %>% ungroup() %>% filter(importance_sc > 1)
+# # impsc2f <- impsc2 %>% group_by(name) %>% arrange(desc(importance_sc)) %>% ungroup() %>% filter(importance_sc > 2)
+# impsc2f
+# impsc2f %>% group_by(name) %>% summarise(n = n()) %>% arrange(desc(n))
+impsc2f %>% group_by(name) %>% summarise(n = n()) %>% arrange(desc(n))
+write_tsv(impsc2f, "~/aaa_impsc2.tsv")
