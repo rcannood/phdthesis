@@ -324,7 +324,7 @@ if (!file.exists(paste0(data_dir, "qsub_handle.rds"))) {
 }
 
 
-if (!file.exists(paste0(data_dir, "grn.rds"))) {
+# if (!file.exists(paste0(data_dir, "grn.rds"))) {
   qsub_handle <- read_rds(paste0(data_dir, "qsub_handle.rds"))
 
   grn <- qsub::qsub_retrieve(
@@ -339,7 +339,7 @@ if (!file.exists(paste0(data_dir, "grn.rds"))) {
   )
 
   write_rds(grn, paste0(data_dir, "grn.rds"))
-}
+# }
 
 grn <- read_rds(paste0(data_dir, "grn.rds"))
 
@@ -370,7 +370,8 @@ samples <- levels(importance_sc$cell_id)
 imp_sc_mat <- Matrix::sparseMatrix(
   i = importance_sc$cell_id %>% as.integer,
   j = importance_sc$i,
-  x = importance_sc$importance_sc,
+  # x = importance_sc$importance_sc,
+  x = importance_sc$importance,
   dims = c(length(samples), nrow(importance)),
   dimnames = list(samples, importance$name)
 )
@@ -380,7 +381,9 @@ rm(imp_sc_mat)
 list2env(read_rds(data_file), .GlobalEnv)
 # df <- data.frame(
 #   sample_info,
+#   # dimred
 #   dimred2
+#   # dimred_fr2
 # )
 # ggplot(df) + geom_point(aes(comp_1, comp_2, colour = project_id))
 
@@ -441,145 +444,84 @@ dimred_fr <- map(knns, "dimred2") %>% do.call(cbind, .) %>% dynutils::scale_unif
 dimred_fr2 <- dyndimred::dimred_pca(dimred_fr)
 plot(dimred_fr2, col = clus)
 
-dimred_umap <- dyndimred::dimred_umap(dimred_fr, pca_components = NULL, n_neighbors = 50)
-plot(dimred_umap, col = clus)
-
-df <- data.frame(
-  dimred_umap,
-  # dimred2,
-  # dimred_fr2,
-  sample_info,
-  clus
-)
+# dimred_umap <- dyndimred::dimred_umap(dimred_fr, pca_components = NULL, n_neighbors = 50)
+# plot(dimred_umap, col = clus)
 
 
+
+proj_annot <-
+  read_tsv(paste0(data_dir, "projects.tsv")) %>%
+  mutate(
+    wheretype = ifelse(!is.na(ontology) & !is.na(type), paste0(gsub(",.*", "", where), " ", type), NA_character_)
+  ) %>%
+  select(-ontology, -name_long) %>%
+  rename(project_id = project) %>%
+  gather(group, value, -project_id) %>%
+  na.omit() %>%
+  mutate(value = strsplit(value, ", ")) %>%
+  unnest(value)
+
+samdf <-
+  sample_info %>%
+  transmute(id, project_id, cluster = clus)
+
+TOT <- nrow(samdf)
 
 `%s/%` <- function(x, y) ifelse(y == 0, 1, x / y)
-ks <- seq(10, 30)
-backgr <- pbapply::pblapply(ks, cl = 1, function(k) {
-  out <- map_df(seq_len(100), function(i) {
-    km <- stats::kmeans(dimred_fr, centers = k)
-    clus <- km$cluster
-
-    samdf <-
-      sample_info %>%
-      transmute(cell_id, cell_ontology_id, cluster = clus) %>%
-      filter(!is.na(cell_ontology_id))
-
-    TOT <- nrow(samdf)
-
-    test <-
-      samdf %>%
-      group_by(cluster) %>%
-      mutate(CLUSPOS = n()) %>%
-      ungroup() %>%
-      left_join(cell_ont_up %>% rename(ontology = upstream), by = "cell_ontology_id") %>%
-      group_by(ontology) %>%
-      mutate(ONTPOS = n()) %>%
-      group_by(cluster, ontology) %>%
-      summarise(
-        CLUSPOS = CLUSPOS[[1]],
-        ONTPOS = ONTPOS[[1]],
-        TP = n()
-      ) %>%
-      ungroup() %>%
-      mutate(
-        FN = ONTPOS - TP,
-        FP = CLUSPOS - TP,
-        TN = TOT - TP - FN - FP,
-        TPR = TP %s/% ONTPOS,
-        TNR = TN %s/% (TN + FP),
-        PPV = TP %s/% (TP + FP),
-        NPV = TN %s/% (TN + FN),
-        FNR = FN %s/% (FN + TP),
-        FPR = FP %s/% (FP + TN),
-        FDR = FP %s/% (FP + TP),
-        FOR = FN %s/% (FN + TN),
-        F1 = (2 * TP) %s/% (2 * TP + FP + FN)
-      )
-  })
-
-  out %>% select(-cluster:-TN) %>% map(ecdf)
-})
-
-outs <- pbapply::pblapply(rep(seq_along(ks), 10), cl = 1, function(ki) {
-  k <- ks[[ki]]
-
-  km <- stats::kmeans(dimred_fr, centers = k)
-  clus <- km$cluster
-
-  samdf <-
-    sample_info %>%
-    transmute(cell_id, cell_ontology_id, cluster = clus) %>%
-    filter(!is.na(cell_ontology_id))
-
-  TOT <- nrow(samdf)
-
-  test <-
-    samdf %>%
-    group_by(cluster) %>%
-    mutate(CLUSPOS = n()) %>%
-    ungroup() %>%
-    left_join(cell_ont_up %>% rename(ontology = upstream), by = "cell_ontology_id") %>%
-    group_by(ontology) %>%
-    mutate(ONTPOS = n()) %>%
-    group_by(cluster, ontology) %>%
-    summarise(
-      CLUSPOS = CLUSPOS[[1]],
-      ONTPOS = ONTPOS[[1]],
-      TP = n()
-    ) %>%
-    ungroup() %>%
-    left_join(cell_ont %>% select(ontology = id, name), by = "ontology") %>%
-    mutate(
-      FN = ONTPOS - TP,
-      FP = CLUSPOS - TP,
-      TN = TOT - TP - FN - FP,
-      TPR = TP %s/% (TP + FN),
-      TNR = TN %s/% (TN + FP),
-      PPV = TP %s/% (TP + FP),
-      NPV = TN %s/% (TN + FN),
-      FNR = FN %s/% (FN + TP),
-      FPR = FP %s/% (FP + TN),
-      FDR = FP %s/% (FP + TP),
-      FOR = FN %s/% (FN + TN),
-      F1 = (2 * TP) %s/% (2 * TP + FP + FN)
-    )
-
-  ecdfs <- backgr[[ki]]
-  for (ne in names(ecdfs)) {
-    test[[paste0("p_", ne)]] <- ecdfs[[ne]](test[[ne]])
-  }
-
-  labels <-
-    test %>%
-    arrange(desc(F1)) %>%
-    group_by(cluster) %>%
-    slice(1) %>%
-    ungroup()
-
-  summ <- labels %>% summarise_if(is.numeric, dynutils::calculate_geometric_mean) %>% mutate(k, ki)
-
-  lst(clus, test, labels, summ, km)
-})
-
-summ <- map_df(outs, "summ") %>% mutate(row = row_number())
-ggplot(summ) + geom_point(aes(k, F1))
-ggplot(summ) + geom_point(aes(k, p_F1))
-
-out <- outs[[summ %>% arrange(desc(p_F1), desc(F1)) %>% pull(row) %>% first()]]
-out$summ
-km <- out$km
-labels <- out$labels
-clus <- out$clus
+test <-
+  samdf %>%
+  group_by(cluster) %>%
+  mutate(CLUSPOS = n()) %>%
+  ungroup() %>%
+  left_join(proj_annot, by = "project_id") %>%
+  group_by(group, value) %>%
+  mutate(GRPOS = n()) %>%
+  group_by(cluster, group, value) %>%
+  summarise(
+    CLUSPOS = CLUSPOS[[1]],
+    GRPOS = GRPOS[[1]],
+    TP = n()
+  ) %>%
+  ungroup() %>%
+  mutate(
+    FN = GRPOS - TP,
+    FP = CLUSPOS - TP,
+    TN = TOT - TP - FN - FP,
+    TPR = TP %s/% (TP + FN),
+    TNR = TN %s/% (TN + FP),
+    PPV = TP %s/% (TP + FP),
+    NPV = TN %s/% (TN + FN),
+    FNR = FN %s/% (FN + TP),
+    FPR = FP %s/% (FP + TN),
+    FDR = FP %s/% (FP + TP),
+    FOR = FN %s/% (FN + TN),
+    F1 = (2 * PPV * TPR) %s/% (PPV + TPR)
+  )
 
 
-labels <- labels %>%
+labels <-
+  test %>%
+  arrange(desc(PPV * TPR)) %>%
+  group_by(cluster) %>%
+  slice(1) %>%
+  ungroup() %>%
+  rename(name = value) %>%
   group_by(name) %>%
   mutate(name2 = if (n() == 1) name else paste0(name, " #", row_number())) %>%
   ungroup() %>%
   select(-name) %>%
   rename(name = name2)
+
+
+clus <- cl$membership
+tab <- as.matrix(table(
+  paste0(clus, " ", labels$name[clus]),
+  sample_info$project_id
+))
+tab <- sweep(tab, 1, rowSums(tab), "/")
+tab <- tab[order(apply(tab, 1, max), decreasing = TRUE), ]
+tab <- tab[, order(apply(tab, 2, which.max))]
+pheatmap::pheatmap(tab, angle_col = 315, cluster_rows = FALSE, cluster_cols = FALSE, filename = paste0(data_dir, "cluster_heatmap.pdf"), width = 16, height = 8)
 
 
 cell_names <- unique(labels$name) %>% sort()
@@ -589,25 +531,40 @@ labels <- labels %>%
   mutate(col = col_names[match(name, cell_names)])
 
 df <- data.frame(
-  dimred_fr2,
+  dimred_fr,
   sample_info
 ) %>%
   mutate(
     cluster = clus
   ) %>%
-  left_join(labels %>% select(cluster, name), by = "cluster")
+  left_join(labels, by = "cluster")
+
+ggplot(df) +
+  geom_point(aes(expr[,"IRF4"], expr[,"IGJ"], colour = name)) +
+  scale_colour_manual(values = setNames(col_names, cell_names)) +
+  theme_bw()
 
 
-# labeldf <- df %>% group_by(cluster) %>% summarise(comp_1 = mean(comp_1), comp_2 = mean(comp_2), name = name[[1]])
 labeldf <- df %>% group_by(name) %>% summarise(comp_1 = mean(comp_1), comp_2 = mean(comp_2))
-g <- ggplot(df, aes(comp_1, comp_2, col = name)) +
+g <-
+  ggplot(df, aes(comp_1, comp_2, col = name)) +
   geom_point(size = .5) +
   shadowtext::geom_shadowtext(aes(label = name), labeldf, bg.colour = "white", size = 5) +
   theme_bw() +
   coord_equal() +
   scale_colour_manual(values = setNames(col_names, cell_names))
 g
-ggsave(paste0(dest_dir, "plot_umap.pdf"), g, width = 15, height = 13)
+ggsave(paste0(data_dir, "plot_fr.pdf"), g, width = 15, height = 13)
+
+g <-
+  ggplot() +
+  # geom_point(size = .5) +
+  geom_segment(aes(x = 1, xend = 2, y = name, yend = name, col = name), labeldf, size = 2) +
+  theme_bw() +
+  scale_colour_manual(values = setNames(col_names, cell_names)) +
+  labs(colour = "Group")
+g
+ggsave(paste0(data_dir, "legend.pdf"), g, width = 6, height = 6)
 
 gc()
 
@@ -624,10 +581,12 @@ impsc2 <-
   ungroup() %>%
   mutate(col = col_names[name]) %>%
   select(regulator, name, target, everything())
+plot(density(impsc2$importance))
 # impsc2f <- impsc2 %>% filter(importance_sc > 5)
-impsc2f <- impsc2 %>% group_by(name) %>% arrange(desc(importance_sc)) %>% slice(1:50) %>% ungroup() %>% filter(importance_sc > 1)
-impsc2f %>% group_by(name) %>% summarise(n = n()) %>% arrange(desc(n))
-write_tsv(impsc2f, paste0(dest_dir, "aaa_impsc2.tsv"))
+impsc2f <- impsc2 %>% group_by(name) %>% arrange(desc(importance)) %>% slice(1:50) %>% ungroup() %>% filter(importance > .2)
+# impsc2f <- impsc2 %>% group_by(name) %>% arrange(desc(importance_sc)) %>% slice(1:50) %>% ungroup() %>% filter(importance > 1)
+impsc2f %>% group_by(name) %>% summarise(n = n()) %>% arrange(desc(n)) %>% print(n = Inf)
+write_tsv(impsc2f, paste0(data_dir, "grouped_interactions.tsv"))
 
 
 
