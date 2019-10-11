@@ -24,6 +24,7 @@ Life (or cells) did not originate from DNA, however. A widely-accepted hypothesi
 	\label{fig:rnaworld}
 \end{figure}
 
+\subsection{Central dogma}
 The central dogma describes the general flow of genetic information in almost all existing living cells: DNA is decoded to RNA, which in turn encodes proteins\cite{strachan_humanmoleculargenetics_2011}. Main processes involved in the central dogma are \textbf{transcription}, \textbf{splicing}, and \textbf{translation} (Figure \ref{fig:centraldogma}). 
 
 \begin{figure}[htb!]
@@ -35,6 +36,7 @@ The central dogma describes the general flow of genetic information in almost al
   \label{fig:centraldogma}
 \end{figure}
 
+% KDP: je zegt niets over epigenetica, die min of meer bepaald welke gebieden in het DNA worden vertaald (dit leidt je misschien te ver...)
 During the process of \textbf{transcription} that takes place in the cell nucleus, a complementary RNA copy is transcribed from the template DNA. The initial RNA transcript is a precursor messenger RNA (pre-mRNA) that needs to undergo series of maturation steps to ultimately form the mature messenger RNA (mRNA). This maturation includes pre-mRNA \textbf{splicing} to remove non-protein coding intervening sequences (the introns) and to join the neighbouring protein-coding sequences (the exons). A single pre-mRNA can be alternatively spliced to generate multiple forms of mRNAs that will result in the production of multiple protein isoforms. This process of alternative splicing is essential to generate more than 100'000 different proteins starting from just 20'000 genes\cite{nilsen_expansioneukaryoticproteome_2010}.
  
 The mature mRNA is then transported to the cytoplasm, where it engages with ribosomes to initiate \textbf{translation}. During this highly evolutionary conserved process, a chain of amino acids, known as the protein building blocks, is being synthesised. Each amino acid is specified by three nucleotides (a codon) in the mRNA, according to a nearly universal genetic code. After being released by the ribosomes, the translation product undergoes a variety of chemical modifications to form the final folded protein, the structure of which is determined by the sequence of different amino acids in the chain. In addition, polypeptides may be cleaved to yield more than one active polypeptide product. The structure of a protein determines its functionality, which includes catalysing biochemical reactions, providing structure, and transportation of molecules.
@@ -48,23 +50,26 @@ The concept of cell types eases reasoning and our understanding about many aspec
 One common approach for understanding the functionality of a particular cell is to observe which molecules are present in the cell and to associate those set of molecules with functionality. Taking a snap shot of the protein or RNA transcript content in a particular cell, might already provide us with major insights into its functionality. However, in order to fulfil a particular task, the biochemical machinery of the cell gradually changes over time. Therefore it is highly informative to also consider the transition states between cell types and the dynamic processes involved therein.
 
 \subsection{Cell dynamics and gene regulation}
-Cells are dynamic entities that can gradually produce the molecules needed to acquire new functionality. The naturally occurring cell-to-cell variability happens at the level of gene expression. Gene expression itself can be controlled at different levels (Figx), one of which is gene regulation by transcription.
-%Ref: Alberts B, Johnson A, Lewis J, Raff M, Roberts K, Walter P. An Overview of Gene Control. InMolecular Biology of the Cell. 4th edition 2002. Garland Science.
+Cells are dynamic entities that can gradually produce the molecules needed to acquire new functionality. The naturally occurring cell-to-cell variability happens at the level of gene expression. Gene expression itself can be controlled at different levels (Figure~\ref{fig:controlexpression}), one of which is gene regulation by transcription.
 
-Fig. x: \textbf{Levels of controlling gene expression} can happen at the level of transcription, RNA processing (i.e. splicing), RNA transport and localization, mRNA translation, mRNA degradation and protein activity.
-%From: (https://www.ncbi.nlm.nih.gov/books/NBK26885/figure/A1220/?report=objectonly) Meer inhoudelijke info: https://www.ncbi.nlm.nih.gov/books/NBK26885/ Ref: Alberts B, Johnson A, Lewis J, Raff M, Roberts K, Walter P. An Overview of Gene Control. InMolecular Biology of the Cell. 4th edition 2002. Garland Science.
+\begin{figure}[htb!]
+	\centering\includegraphics[width=.8\linewidth]{fig/control_gene_expression} % TODO: change image
+	\caption{
+		\textbf{Levels of controlling gene expression} can happen at the level of transcription, RNA processing (i.e. splicing), RNA transport and localization, mRNA translation, mRNA degradation and protein activity \cite{alberts_overviewgenecontrol_2002}.
+	}
+	\label{fig:controlexpression}
+\end{figure}
 
+% KDP: niet alleen TFs maar volledige epigenetica regelt of een gen al dan niet tot expressie wordt gebracht, dus misschien kort vermelden dat het toch iets complexer is
 
 According to the needs of a cell, different genes are being transcribed. Housekeeping genes are being expressed in essentially every cell, while other genes are cell type or tissue specific or may be expressed in response to developmental and environmental signals\cite{strachan_humanmoleculargenetics_2011}. 
 
-
 Transcription factors (TFs) modulate the rate of gene transcription by binding and recruiting the transcriptional machinery to \emph{cis}-regulatory regions (enhancers, and silencers) that are typically located in the promotor region of target genes. These bindings may result in increased or decreased gene expression. 
-There are several TF families of which members share structural characteristics (e.g. zink finger, helix-loop-helix). 
+There are several TF families of which members share structural characteristics (e.g. zinc finger, helix-loop-helix).
 
-Many TFs are commonly present in virtually all cell types (e.g. NF-κB), while others are specific for cells and developmental stages. Typically, the same TF can regulate the rate of transcription of many target genes in different cell types, indicating that these gene regulatory networks (GRNs) are dynamic. Moreover, the production of a specific molecule might require several gene regulatory cascades. Studying the active parts of a cell's GRN can thus reveal which dynamic processes are taking place within a cell.
-% Ref: Lambert SA, Jolma A, Campitelli LF, Das PK, Yin Y, Albu M, Chen X, Taipale J, Hughes TR, Weirauch MT. The human transcription factors. Cell. 2018 Feb 8;172(4):650-65.
-% The kappa in NF-κB wordt niet goed omgezet in pdf doc
+Many TFs are commonly present in virtually all cell types (e.g. NF-$\kappa$B), while others are specific for cells and developmental stages\cite{lambert_humantranscriptionfactors_2018}. Typically, the same TF can regulate the rate of transcription of many target genes in different cell types, indicating that these gene regulatory networks (GRNs) are dynamic. Moreover, the production of a specific molecule might require several gene regulatory cascades. Studying the active parts of a cell's GRN can thus reveal which dynamic processes are taking place within a cell.
 
+% KDP: misschien interessant om over tumor heterogeniteit te spreken: waarvan we vroeger dachten dat homogene massa van cellen was, blijkt toch veel complexer te zijn --> nu mogelijk om met sc technieken te bestuderen?
 
 \subsection{Profiling single cells}
 Several technologies are now available to profile (i.e. observe) biomolecular components, allowing us to gain better understanding in the biological processes that take place within a cell. The single-cell "omics" technologies originated from the convergence of two different fields, \emph{"single-cell"} and \emph{"omics"}.
@@ -73,60 +78,88 @@ Several technologies are now available to profile (i.e. observe) biomolecular co
 The earliest approach for measuring the abundance of a particular molecule in \emph{single cells} is the microscope.
 Since its development by Coons et al. (1941), immunohistochemistry (IHC) has been instrumental in visualising antigen-antibody proteins\cite{coons_immunologicalpropertiesantibody_1941}. In many multicellular organisms, antibodies and antigens serve as crucial communication tools as part of the organism's immune system. A cell can present a particular type of antigen on its cell surface, which allows a particular type of antibody to bind to it.
 
-IHC (and many other biotechnologies) visualises antigen-antibody reactions by attaching particular molecules to the antibody, such as an enzyme that catalyses a colour-producing reaction, or a fluorescent chemical compound that can re-emit light upon light excitation. The use of different colours (wavelengths) allows measuring expression levels of different antibodies simultaneously. Characterising cells in a semi-quantifiable way is labour intensive, however; since it involves acquiring an image of many cells and drawing a contour around each cell (called cell segmentation). While modern implementations of IHC improve the throughput drastically by using robots to automate the image acquisition and computer software to automate cell segmentation, the procedure is still labour intensive as the robots and computer software still needs to be kept in check.
+% KDP: antigen-antibody: eerder over protein spreken ipv over antigen dan wordt het toch iets duidelijker, denk ik: een antibody herkent en bindt een bepaald proteine/eiwit,...
+IHC (and many other biotechnologies) visualises antigen-antibody reactions by attaching particular molecules to the antibody, such as an enzyme that catalyses a colour-producing reaction, or a fluorescent chemical compound that can re-emit light upon light excitation. The use of different colours (wavelengths) allows measuring expression levels of different antibodies simultaneously. Characterising cells in a semi-quantifiable way is labour intensive, however; since it involves acquiring an image of many cells and drawing a contour around each cell (called cell segmentation).
+While modern implementations of IHC improve the throughput drastically by using robots to automate the image acquisition and computer software to automate cell segmentation, the procedure is still labour intensive as the robots and computer software still needs to be kept in check.
 
-Flow cytometry\cite{fulwyler_electronicseparationbiological_1965} is a technique which circumvents imaging and segmentation issues by having a steady stream of cells run through a laser and measuring the amount of light scattered from those cells. Flow cytometry technology enables to measure protein expression levels for millions of cells and tens of different antibodies. 
+Flow cytometry\cite{fulwyler_electronicseparationbiological_1965} is a technique which circumvents imaging and segmentation issues by having a steady stream of cells run through a laser and measuring the amount of light scattered from those cells.
+% KDP: circumvents segmentation: if you want to investigate tissues you have to dissociate the tissue 
+Flow cytometry technology enables to measure protein expression levels for millions of cells and tens of different antibodies. 
+% KDP: vermeld hier hoeveel merkers flow cytometrie tegenwoordig aankan, want je komt er later op terug
 
 Besides IHC and flow cytometry, many new technologies have been developed which allow quantifying expression levels of molecules in single cells (e.g. mass cytometry, single-cell qPCR, FISH). All of these single-cell (non-omics) technologies are limited by the number of different molecules they could measure, however. Selecting molecules of interest prior to analysis, makes the experiment biased towards the preconceptions of the experimenter.
 
 \subsubsection{Omics}
-On the other side of the spectrum are the so-called "omics" technologies. "Omics"\footnote{The etymology of "omics" is quite interesting\cite{yadav_wholenesssuffixomics_2007}.} is a collective term for profiling all molecules of a particular type in a high-throughput manner. There are many types of "omics", but the most commonly used are the following. In genomics, all of an organism's genes are studied -- its whole genome. Transcriptomics and proteomics study the organisms RNA transcripts and proteins, respectively. A notable downside of traditional omics technologies is that in order to capture enough material an ensemble of cells needs to be profiled, and thus only the average expression levels are returned; thereby granting the technology the name "bulk" omics. If a subset of these cells contains unique patterns in expression levels, this pattern will be masked in the bulk population and is thus undetectable. Specific examples of omics technologies are next-generation sequencing, which can be used to determine the DNA sequence of an organism, and RNA sequencing, which profiles the sequences of RNA transcripts. By mapping the sequences of RNA transcripts to genes in the organisms DNA, a gene expression profile can be obtained.
-\mycomment{Demonstrate the masking effect of bulk analyses.}
+On the other side of the spectrum are the so-called "omics" technologies. "Omics"\footnote{The etymology of "omics" is quite interesting\cite{yadav_wholenesssuffixomics_2007}.} is a collective term for profiling all molecules of a particular type in a high-throughput manner.
+
+There are many types of "omics", but the most commonly used are the following. In genomics, all of an organism's genes are studied -- its whole genome. Transcriptomics and proteomics study the organisms RNA transcripts and proteins, respectively. 
+
+Specific examples of omics technologies are next-generation sequencing, which can be used to determine the DNA sequence of an organism, and RNA sequencing, which profiles the sequences of RNA transcripts. By mapping the sequences of RNA transcripts to genes in the organisms DNA, a gene expression profile can be obtained.
+
+Traditionally, profiling nano-litre volumes was infeasible. To capture enough material to generate a profile, an ensemble of cells needs to be pooled and lysed together, thereby granting the technology the name "bulk" omics. 
+Bulk omics is a major workhorse in <...> and has applications in <...>. To capture enough material, an ensemble of cells is pooled and profiled all together. 
+
+\mycomment{TODO: fill in}
+
+A notable downside of bulk omics arises when the cells are biomolecularly heterogeneous (Figure~\ref{fig:bulk_vs_sc}A). Since the profile is a population average (or rather, a summation), information pertaining the individual profiles of cell subpopulations cannot be discerned (Figure~\ref{fig:bulk_vs_sc}B).
+
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=\LARgefigure]{fig/bulk_vs_sc} 
+	\caption{
+		\textbf{The 'masking' effect of bulk omics.} 
+		\textbf{A:} Cells from several subpopulations are incorrectly assumed to be homogeneous and are profiled with a single bulk omics experiment.
+		\textbf{B:} The signals from the different subpopulations are masked. The resulting profile is dissimilar from the majority of cells it is supposed to represent.
+	}
+	\label{fig:bulk_vs_sc}
+\end{figure}
 
 \subsubsection{Single-cell omics}
-Transformative technological advances in microvolume sequencing allowed Tang et al. to analyse the transcriptome at single-cell resolution\cite{tang_mrnaseqwholetranscriptomeanalysis_2009}, thereby bringing single-cell biology and omics together to create single-cell omics (Figure \ref{fig:profiling_convergence}A). During the decade that followed, the number of single-cell omics technologies has skyrocketed, allowing to profile tens of thousands of cells (Figure \ref{fig:profiling_convergence}B) and measuring other levels of information such as proteomic expression levels (Figure \ref{fig:profiling_convergence}C).
+Transformative technological advances in microvolume sequencing allowed Tang et al. to analyse the transcriptome at single-cell resolution\cite{tang_mrnaseqwholetranscriptomeanalysis_2009}, thereby bringing single-cell biology and omics together to create single-cell omics (Figure \ref{fig:profiling_convergence}A). During the decade that followed, the number of single-cell omics technologies has skyrocketed, allowing to profile tens of thousands of cells and measuring other levels of information (e.g. proteomic expression levels and spatial location).
+% KDP: wat bedoel je met: such as proteomic expr levels
 
 \begin{figure}[htb!]
   \centering
-  A. \includegraphics[width=.45\linewidth]{fig/profiling_convergence} 
-  % also figure with cell numbers
-  C. \includegraphics[width=.45\linewidth]{fig/multimodal} 
+  \includegraphics[width=\linewidth]{fig/singlecell_omics_evolution} 
   \caption{
-    A. \textbf{Convergence of "Omics" Biology and Single-Cell Biology.} Technology that allows researchers to obtain genome-wide information from single cells is extending the boundaries of a field that has thus far been limited to the analyses of a select gene in eukaryotes. Image from Junker and van Oudenaarden (2014)\cite{junker_everycellspecial_2014}. 
-    B. Cell numbers vs. gene count over time.
-    C. scmultiomics\cite{moudgil_multimodalscrnaseq_2019}. 
-    \fbox{\color{red} TODO: combine images, rewrite the description.}
+    \textbf{} %Convergence of "Omics" Biology and Single-Cell Biology. Technology that allows researchers to obtain genome-wide information from single cells is extending the boundaries of a field that has thus far been limited to the analyses of a select gene in eukaryotes. Image from Junker and van Oudenaarden (2014)\cite{junker_everycellspecial_2014}. 
   }
   \label{fig:profiling_convergence}
 \end{figure}
 
 The rapidly advancing field of single-cell omics harbours exceptional opportunities to discover new aspects of biology and redefine existing knowledge. Some of these opportunities lie in efforts like the Human Cell Atlas. The HCA consortium has set out to redefine all human cell types in terms of their gene expression and location, and the developmental trajectories connecting the different cell types. As part of this endeavour, the consortium will likely profile the whole transcriptomes tens or even hundreds of millions of cells. 
+% KDP: hier heb je het al eens over gehad: zou je dit niet samenbrengen?
 
 \section{Computational tools}
-The new types of analyses permitted by single-cell omics harbour exceptional opportunities to discover new aspects of biology and redefine existing knowledge (Figure \ref{fig:comp_tools}A). These include the following categories\cite{zappia_exploringsinglecellrnaseq_2018}.
-\begin{itemize}
-	\item \textbf{Data imputation}: \ldots.
-	\item \textbf{Data integration}: \ldots.
-	\item \textbf{Clustering}: \ldots.
-	\item \textbf{Dimensionality reduction}: providing a visual and informative overview of a given dataset.
-	\item \textbf{Trajectory inference}: identifying and characterising transitions between different cellular states.
-	\item \textbf{Trajectory alignment}: \ldots.
-	\item \textbf{Network inference}: inferring gene regulatory interactions between transcription factors across individual cells.
-\end{itemize}
-\mycomment{To do: write a section for each of these categories.}
+Whole-genome profiling at single-cell level allows new types of analyses with which to study cellular heterogeneity at a hitherto unseen throughput. 
+The new types of analyses permitted by single-cell omics present several computational challenges\cite{stegle_computationalanalyticalchallenges_2015, yuan_challengesemergingdirections_2017, chen_singlecellrnaseqtechnologies_2019}. This necessitates the development of novel computational tools, either because the problem statement of the performed analysis is completely novel, or to adapt existing methodology to new data characteristics (e.g. dimensionality and noise levels). Over the past five years, already 450 new tools for analysing single-cell omics data have been developed\cite{zappia_exploringsinglecellrnaseq_2018}. These tools typically fall within one of nine categories (Figure \ref{fig:comp_tools}). We discuss each category in the following subsections.
 
-Developing new computational tools to perform these analyses has proven challenging for two main reasons\cite{stegle_computationalanalyticalchallenges_2015, yuan_challengesemergingdirections_2017, chen_singlecellrnaseqtechnologies_2019}. Firstly, single-cell omics data suffers from hitherto unseen noise characteristics, including high dropout rates and high levels of transcriptional stochasticity. In addition, a low abundance of single-cell omics data that can be used as a ground-truth obstruct quantitative evaluation of such methods. 
-
+\mycomment{Todo: describe the characteristics of single cell omics data in the subsection on 'single cell omics'. -> counts data. additional information from the cell can be present, such as the time of sampling in a time-series experiment or a cell type if the cells have been sorted using a FACS experiment. information on the features are typically restricted to the gene symbol, or an identifier of a xxx, such as ensembl or entrez. in comparison to bulk data, single-cell omics data is typically very sparse, due to technical and biological stochasticity. if several transcripts of a low abundance gene are not captured, this will be seen as a dropout. dropouts can also be biological, due to transcriptional bursting. }
 
 \begin{figure}[htb!]
-  \centering\includegraphics[width=.5\linewidth]{fig/singlecell_tools}
-  \centering\includegraphics[width=.3\linewidth]{fig/scrnatools}
-  \caption{\textbf{A. Single-cell omics allows for many new types of computational approaches.} Figure adapted from Wagner et al. (2016)\cite{wagner_revealingvectorscellular_2016}.
-    B. Zappia et al. (2018)\cite{zappia_exploringsinglecellrnaseq_2018}.
-    \fbox{\color{red} TODO: combine images, rewrite the description.}
+	\centering
+	\includegraphics[width=.75\linewidth]{fig/comptools/comptools_3.pdf} 
+  \caption{
+  	\textbf{Computational tools developed for processing single-cell omics data usually lie within one of nine categories.}
+  	\textbf{A:} Normalisation, separating meaningful biological signal from technical noise or irrelevant biological information.
+  	\textbf{B:} Data imputation, masking dropouts.
+  	\textbf{C:} Data integration, combining multiple single-cell modalities.
+  	\textbf{D:} Dimensionality reduction, providing a visual overview of the main cellular heterogeneity in the dataset.
+  	\textbf{E:} Clustering, grouping together similar cells.
+  	\textbf{F:} Trajectory inference, identifying and characterising transitions between different cellular states.
+  	\textbf{G:} Network inference, predicting gene regulatory interactions from cell-to-cell heterogeneity.
+  	\textbf{H:} RNA velocity, inferring the directionality of trajectories by predicting the future state of each cell.
+  	\textbf{I:} Trajectory alignment, aligning multiple trajectories.
   }
   \label{fig:comp_tools}
 \end{figure}
+
+\subsection{Normalisation}
+
+\subsection{Data imputation}
+
+\subsection{Data integration}
 
 \subsection{Dimensionality reduction}
 Single-cell omics datasets typically have too many dimensions (features) in order to be easily interpretable by humans and even by most computational tools. 
@@ -137,6 +170,8 @@ Projection-based DR methods aim to perform a linear transformation of the data w
 Manifold learning methods are methods which reconstruct a higher-order structure in the original space (e.g. a graph or a grid), visualising the structure in a lower-dimensional space, and mapping the original samples to the lower-dimensional space. Manifold learning can be an iterative optimisation process using a predefined criterion. Examples of manifold learning techniques are t-SNE, Diffusion Maps and UMAP. 
 
 \mycomment{This section is not very interestingly written}
+
+\subsection{Clustering}
 
 \subsection{Trajectory inference}
 Single-cell omics data provide new opportunities for studying cellular dynamic processes, such as the cell cycle, cell differentiation and cell activation\cite{tanay_scalingsinglecellgenomics_2017,etzrodt_quantitativesinglecellapproaches_2014}. 
@@ -168,13 +203,19 @@ After the last DREAM competition, it seemed that interest in NI methodology had 
 \begin{figure}[htb!]
   \centering
   \includegraphics[width=\Largefigure]{fig/ni_bulk_vs_sc}
-  \caption{Bulk expression data return the average expressions of genes among large numbers of cells. In order to infer regulatory networks from this type of data, multiple bulk profiles (resulting from time series or perturbation experiments) are required. On the other hand, sequencing the transcriptome at the single-cell level uncovers the high variability among cells, providing the necessary information to infer gene regulatory networks directly.} % TODO: update label
+  \caption{Bulk expression data return the average expressions of genes among large numbers of cells. In order to infer regulatory networks from this type of data, multiple bulk profiles (resulting from time series or perturbation experiments) are required. On the other hand, sequencing the transcriptome at the single-cell level uncovers the high variability among cells, providing the necessary information to infer gene regulatory networks directly.} % TODO: Already used this figure in the previous section
   \label{fig:bulk_vs_singlecell}
 \end{figure}
 
 The advent of single-cell omics has made scientists wonder whether now is the time to revisit network inference\cite{stegle_computationalanalyticalchallenges_2015}. 
 One of the main advantages of single-cell omics is the ability to quantify the exact cellular state of thousands of cells per experiment. The heterogeneity between cells caused by naturally occurring biological randomness\cite{padovan-merhar_usingvariabilitygene_2013} can be exploited to infer regulatory interactions between TFs and their target genes at much lower costs (see Figure \ref{fig:bulk_vs_singlecell}).
 In this setting, heterogeneity in the cell population eases network inference, rather than mask condition-specific expression patterns in regulatory interactions.
+
+% mention differential networks
+
+\subsection{RNA velocity}
+
+\subsection{Trajectory alignment}
 
 \section{Research context and objectives}
 Recent technological advancements in profiling single cells are having significant repercussions in many fields of biology. Profiling thousands of individual cells in a genome-wide manner provides opportunities to study cell heterogeneity and dynamics, for example inferring mechanisms for cellular development or intercellular communication. 
@@ -238,7 +279,7 @@ As part of this work, many open-source software packages were created and many o
 
 Packages that were created as part of this work are hosted on Github under the username rcannood\footnote{\url{https://github.com/rcannood?tab=repositories}} or the dynverse organisation\footnote{\url{https://github.com/dynverse?tab=repositories}}. As part of our standard development practices, we automate execution of unit tests and writing extensive documentation to ensure the code complies with CRAN policy before submission. We aim to submit all other packages to CRAN as well.
 
-We also helped maintain or extend other packages on Github, CRAN or Bioconductor on which our software depends. This includes help speed up parts of the dependency (slingshot), adding new functionality (devtools, ParamHelpers), fixing bugs (proxyC, rlang, monocle, splatter, slingshot), becoming a maintainer of orphaned packages (diffusionMap, princurve, GillespieSSA), and extending the documentation (devtools, mlr, remotes). Several of these package receive millions of downloads per year (devtools, remotes, rlang).
+We also helped maintain or extend other packages on Github, CRAN or Bioconductor on which our software depends. This includes speeding up parts of the dependency (slingshot), adding new functionality (devtools, ParamHelpers), fixing bugs (proxyC, rlang, monocle, splatter, slingshot), becoming a maintainer of orphaned packages (diffusionMap, princurve, GillespieSSA), and extending the documentation (devtools, mlr, remotes). Several of these package receive millions of downloads per year (devtools, remotes, rlang).
 
 \newcommand{\cranpkg}[1]{\href{https://cran.r-project.org/package=#1}{#1}}
 \newcommand{\biocpkg}[1]{\href{https://bioconductor.org/packages/#1}{#1}}
