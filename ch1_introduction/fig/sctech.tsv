@@ -1,0 +1,54 @@
+date	citation	num_cells	technique	strategy	isolation
+01/05/2009	Tang et al NMeth	1	Tang et al		Pipetting (Manual picking)
+01/05/2010	Tang et al CSC	34	Tang		
+01/05/2011	Islam et al GR	85	STRT-Seq		
+01/06/2011	Tang et al POne	24	Tang		Sorting (FACS)
+01/08/2012	Hashimshony et al CR	96	CEL-Seq		Pipetting (Manual picking)
+01/08/2012	Ramsköld et al NBT	12	SMART-Seq		Sorting (FACS)
+01/10/2012	Brouilette et al DevDyn	6	Brouilette		Sorting (FACS)
+01/04/2013	Sasagawa et al GB	77	Quartz-seq		
+01/04/2013	Magnusdottir et al NCB	10	Tang		
+01/06/2013	Shalek et al Nature	18	SMARTer		Sorting (FACS)
+01/07/2013	Yan et al	124	Tang		Sorting (FACS)
+01/11/2013	Brennecke et al NMeth	100	SMARTer (C1)		Pipetting (Manual picking)
+01/11/2013	Picelli et al NMeth	68	Smart-seq2		Pipetting (Manual picking)
+01/12/2013	Grindberg et al PNAS	18			IFC Capture
+01/12/2013	Marinov et al GR	15	SMARTer		IFC Capture
+01/01/2014	Wu et al NMeth	100	SMARTer (C1)		
+01/02/2014	Islam et al NMeth	192	STRT-Seq (C1)		IFC Capture
+01/02/2014	Jaitin et al Science	4000	MARS-Seq		IFC Capture
+01/05/2014	Treutlein et al Nature	400	SMARTer (C1)		Picowell deposition
+01/06/2014	Shalek et al Nature	1800	SMARTer (C1)		
+01/06/2014	Patel et al Science	768		Cells captured by microfluidics and split in to individual samples.	IFC Capture
+01/12/2014	Kumar et al Nature	415			
+01/02/2015	Fan et al Science	15000	CytoSeq		
+01/04/2015	Darmanis et al	470	SMARTer (C1)		
+01/04/2015	Zeisel et al	3000	STRT-Seq (C1)		
+01/05/2015	Macosco et al	44808	Drop-seq		
+01/05/2015	Klein et al	9000	InDrop		
+01/05/2015	Bose et al GB	400			IFC Capture
+01/10/2015	Kolodziejczyk et al CSC	869			Sorting (FACS)
+01/11/2015	Paul et al Cell	9000	MARS-Seq		Picowell deposition
+01/03/2016	Habib et al BioRxiv	1682	Div-Seq		
+01/04/2016	Tirosh et al Science	4600	Smart-seq2	Cells captured by microfluidics and split in to individual samples.	IFC Capture
+01/06/2016	Marques et al	5000	STRT-Seq (C1)		IFC Capture
+01/06/2016	Lake et al Science	3000	SMARTer (C1)	Cells distributed over microarray of probes with spatial barcodes.	Array placement
+01/07/2016	Tasic et al	1800	SMARTer		Sorting (FACS)
+01/09/2016	Yuan et al SR	2200	SCRB-Seq		Sorting (FACS)
+01/09/2016	Joost et al CSyst	1422	STRT-Seq (C1)		Picowell deposition
+01/10/2016	Vickovic et al NComm	3000	MASC-Seq	Cells captured by microfluidics and split in to individual samples.	IFC Capture
+01/10/2016	La manno et al Cell	6100	STRT-Seq (C1)		
+01/10/2016	Muraro et al CSyst	12200	SORT-Seq		
+01/12/2016	Dixit et al Cell	200000	Perturb-seq	Cells loaded in droplets with barcodes on beads.	Nanodroplet dilution
+01/12/2016	Jaitin et al Science	50000	CRISP-seq		Sorting (FACS)
+01/12/2016	Adamson et al Cell	86000	Perturb-seq		
+01/01/2017	Zheng et al NComm	250000	GemCode	Cells microfluidically deposited in an array of picoliter wells, with barcodes delivered by beads.	Picowell deposition
+01/01/2017	Datlinger et al NMeth	5905	CROP-seq		
+01/01/2017	Alles et al BioRxi	1369			Nanodroplet dilution
+01/02/2017	Gierahn et al NMeth	4638	Seq-Well		None
+01/02/2017	Rosenberg et al	110000	SPLiT-Seq	Cells loaded in droplets with barcodes on beads.	Nanodroplet dilution
+01/02/2017	Cao et al	42000	sci-RNA-seq		
+01/02/2017	Mayer et al	36000	Drop-seq		
+01/03/2017	Guillaumet-Adkins et al GB	1486		Fixed cells randomly split, labeled, pooled succesively.	None
+01/03/2017	Habib et al BioRxiv	29543	DroNC-Seq		Nanodroplet dilution
+01/03/2017	Stoeckius et al BioRxiv	2616	CITE-seq	Cells loaded in droplets with barcodes on gel beads.	Nanodroplet dilution

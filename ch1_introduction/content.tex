@@ -88,7 +88,6 @@ Besides IHC and flow cytometry, many new technologies have been developed which 
 
 \subsubsection{Omics}
 On the other side of the spectrum are the so-called "omics" technologies. "Omics"\footnote{The etymology of "omics" is quite interesting\cite{yadav_wholenesssuffixomics_2007}.} is a collective term for profiling all molecules of a particular type in a high-throughput manner.
-
 There are many types of "omics", but the most commonly used are the following. In genomics, all of an organism's genes are studied -- its whole genome. Transcriptomics and proteomics study the organisms RNA transcripts and proteins, respectively. 
 
 Specific examples of omics technologies are next-generation sequencing, which can be used to determine the DNA sequence of an organism, and RNA sequencing, which profiles the sequences of RNA transcripts. By mapping the sequences of RNA transcripts to genes in the organisms DNA, a gene expression profile can be obtained.
@@ -99,6 +98,10 @@ Bulk omics is a major workhorse in <...> and has applications in <...>. To captu
 \mycomment{TODO: fill in}
 
 A notable downside of bulk omics arises when the cells are biomolecularly heterogeneous (Figure~\ref{fig:bulk_vs_sc}A). Since the profile is a population average (or rather, a summation), information pertaining the individual profiles of cell subpopulations cannot be discerned (Figure~\ref{fig:bulk_vs_sc}B).
+
+% Increasing evidence further suggests that gene expression is heterogeneous, even in similar cell types [https://www.nature.com/articles/s12276-018-0071-8, cites 3 other papers as well]
+% Currently, however, the majority of transcriptome analysis experiments continue to be based on the assumption that cells from a given tissue are homogeneous, and thus, these studies are likely to miss important cell-to-cell variability. To better understand stochastic biological processes, a more precise understanding of the transcriptome in individual cells will be essential for elucidating their role in cellular functions and understanding how gene expression can promote beneficial or harmful states.
+
 
 
 \begin{figure}[htb!]
@@ -113,29 +116,36 @@ A notable downside of bulk omics arises when the cells are biomolecularly hetero
 \end{figure}
 
 \subsubsection{Single-cell omics}
-Transformative technological advances in microvolume sequencing allowed Tang et al. to analyse the transcriptome at single-cell resolution\cite{tang_mrnaseqwholetranscriptomeanalysis_2009}, thereby bringing single-cell biology and omics together to create single-cell omics (Figure \ref{fig:profiling_convergence}A). During the decade that followed, the number of single-cell omics technologies has skyrocketed, allowing to profile tens of thousands of cells and measuring other levels of information (e.g. proteomic expression levels and spatial location).
-% KDP: wat bedoel je met: such as proteomic expr levels
+Transformative technological advances in microvolume sequencing allowed Tang et al. to analyse the transcriptome at single-cell resolution\cite{tang_mrnaseqwholetranscriptomeanalysis_2009}, thereby bringing single-cell biology and omics together to create single-cell omics (Figure \ref{fig:profiling_convergence}). During the decade that followed, the number of single-cell omics technologies has sky-rocketed, allowing to profile >100'000 cells\cite{svensson_exponentialscalingsinglecell_2018} and measuring other levels of information (e.g. protein abundance and spatial location) \cite{moudgil_multimodalscrnaseq_2019}.
 
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[width=\linewidth]{fig/singlecell_omics_evolution} 
+	\includegraphics[width=.7\linewidth]{fig/singlecell_omics_methodology} 
 	\caption{
-		\textbf{} %Convergence of "Omics" Biology and Single-Cell Biology. Technology that allows researchers to obtain genome-wide information from single cells is extending the boundaries of a field that has thus far been limited to the analyses of a select gene in eukaryotes. Image from Junker and van Oudenaarden (2014)\cite{junker_everycellspecial_2014}. 
+		\textbf{A:} Convergence of single-cell and omics biology\cite{junker_everycellspecial_2014}.
+		\textbf{B:} Different approaches for sampling cells with decreasing levels of cellular heterogeneity within the different sub-populations: snapshot, time-series, sorted.
+		\textbf{C:} Two common single-cell RNA sequencing technologies. Microfluidics systems let cells travel through nanometer scale tubing, capturing individual cells at intersections. Droplet-based systems encapsulate individual cells in droplets.
 	}
 	\label{fig:profiling_convergence}
 \end{figure}
+
+% could be expanded with information on how to isolate single cells and how to profile them
+% see https://www.nature.com/articles/s12276-018-0071-8
+% seems interesting as well: 10.1146/annurev-biodatasci-080917-013452
+
+In this work, unless noted otherwise, we will be working with transcriptomics data resulting from a single-cell RNA-sequencing experiment (scRNA-seq). The workflow of generating scRNA-seq profiles is as follows. Same as other single-cell (non-omics) profiling methods, cells first need to be isolated (Figure~\ref{fig:profiling_convergence}B). Different sampling techniques yield different levels of information about cellular state. By now, many protocols for extracting and tagging RNA from single cells have been developed\cite{svensson_exponentialscalingsinglecell_2018}, the most popular of which are based on microfluidics or droplets (Figure~\ref{fig:profiling_convergence}C). By sequencing the trancripts and the attached unique cell identifier tags, each read can be mapped and tallied up. scRNA-seq data can thus be summarised in a matrix, where each column represent a single cell, each row a gene, and each value represents the number of transcripts that were sequenced for that gene and cell.
 
 The rapidly advancing field of single-cell omics harbours exceptional opportunities to discover new aspects of biology and redefine existing knowledge. Some of these opportunities lie in efforts like the Human Cell Atlas. The HCA consortium has set out to redefine all human cell types in terms of their gene expression and location, and the developmental trajectories connecting the different cell types. As part of this endeavour, the consortium will likely profile the whole transcriptomes tens or even hundreds of millions of cells. 
 % KDP: hier heb je het al eens over gehad: zou je dit niet samenbrengen?
 
 \section{Computational tools}
 Whole-genome profiling at single-cell level allows new types of analyses with which to study cellular heterogeneity at a hitherto unseen throughput. 
-The new types of analyses permitted by single-cell omics present several computational challenges\cite{stegle_computationalanalyticalchallenges_2015, yuan_challengesemergingdirections_2017, chen_singlecellrnaseqtechnologies_2019}. This necessitates the development of novel computational tools, either because the problem statement of the performed analysis is completely novel, or to adapt existing methodology to new data characteristics (e.g. dimensionality and noise levels). Over the past five years, already 450 new tools for analysing single-cell omics data have been developed\cite{zappia_exploringsinglecellrnaseq_2018}. These tools typically fall within one of nine categories (Figure \ref{fig:comp_tools}). We discuss each category in the following subsections.
-Whole-genome profiling at a single-cell level harbours exceptional opportunities to discover new aspects of biology and redefine existing knowledge.
-% KDP: the new type of computational analysis etc... of eerder zeggen dat met de ontwikkeling van single cell technieken ook nieuwe computationele methoden moe(s)ten ontwikkeld worden
-(Figure \ref{fig:comp_tools})
+The new types of analyses permitted by single-cell omics present several computational challenges\cite{stegle_computationalanalyticalchallenges_2015, yuan_challengesemergingdirections_2017, chen_singlecellrnaseqtechnologies_2019}. This necessitates the development of novel computational tools, either because the problem statement of the performed analysis is completely novel, or to adapt existing methodology to new data characteristics -- dimensionality and noise. 
 
-\mycomment{Todo: describe the characteristics of single cell omics data in the subsection on 'single cell omics'. -> counts data. additional information from the cell can be present, such as the time of sampling in a time-series experiment or a cell type if the cells have been sorted using a FACS experiment. information on the features are typically restricted to the gene symbol, or an identifier of a xxx, such as ensembl or entrez. in comparison to bulk data, single-cell omics data is typically very sparse, due to technical and biological stochasticity. if several transcripts of a low abundance gene are not captured, this will be seen as a dropout. dropouts can also be biological, due to transcriptional bursting. }
+scRNA-seq data is typically very sparse -- while the human genome has more than 20'000 genes, they only contain non-zero values of a few thousand genes (typically <4'000). This is partially due to cells being specialised in particular functions and thus they do not need proteins of every time, but also due to RNA transcription occurring in bursts rather than continuously\cite{nicolas_whatshapeseukaryotic_2017}.
+
+Over the past five years, already 450 new tools for analysing single-cell omics data have been developed\cite{zappia_exploringsinglecellrnaseq_2018}. These tools typically fall within one of nine categories (Figure \ref{fig:comp_tools}). We discuss each category in the following subsections.
+Whole-genome profiling at a single-cell level harbours exceptional opportunities to discover new aspects of biology and redefine existing knowledge.
 
 \begin{figure}[htb!]
 	\centering
