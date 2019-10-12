@@ -60,8 +60,6 @@ Cells are dynamic entities that can gradually produce the molecules needed to ac
 	\label{fig:controlexpression}
 \end{figure}
 
-% CVC: weggewerkt --> KDP: niet alleen TFs maar volledige epigenetica regelt of een gen al dan niet tot expressie wordt gebracht, dus misschien kort vermelden dat het toch iets complexer is
-
 According to the needs of a cell, different genes are being transcribed. Housekeeping genes are being expressed in essentially every cell, while other genes are cell type or tissue specific or may be expressed in response to developmental and environmental signals\cite{strachan_humanmoleculargenetics_2011}. 
 
 Transcription factors (TFs) modulate the rate of gene transcription by binding and recruiting the transcriptional machinery to \emph{cis}-regulatory regions (enhancers, and silencers) that are typically located in the promotor region of target genes. These bindings may result in increased or decreased gene expression. 
@@ -79,16 +77,12 @@ The earliest approach for measuring the abundance of a particular molecule in \e
 Since its development by Coons et al. (1941), immunohistochemistry (IHC) has been instrumental in visualising proteins.\cite{coons_immunologicalpropertiesantibody_1941}. 
 A cell can present a particular type of protein, also called an antigen, on its cell surface. In many multicellular organisms, antigens can stimulate the immune system to produce antibodies. IHC realises the visualisation of proteins by exploiting the principle of antibodies binding specific to antigens.
 
-% CVC --> comment verwerkt. KDP: antigen-antibody: eerder over protein spreken ipv over antigen dan wordt het toch iets duidelijker, denk ik: een antibody herkent en bindt een bepaald proteine/eiwit,...
 IHC (and many other biotechnologies) visualises antigen-antibody reactions by attaching particular molecules to the antibody, such as an enzyme that catalyses a colour-producing reaction, or a fluorescent chemical compound that can re-emit light upon excitation. The use of several colours (wavelengths) allows measuring expression levels of different antibodies simultaneously. Characterising cells in a semi-quantifiable way is labour intensive, however; since it involves acquiring an image of many cells and drawing a contour around each cell (called cell segmentation).
 Modern implementations of IHC improve the throughput drastically by using robots and computer software to automate the image acquisition and cell segmentation. Nonetheless, the procedure is still labour intensive as the robots and computer software still needs to be kept in check.
 
-Flow cytometry\cite{fulwyler_electronicseparationbiological_1965} is a technique which circumvents imaging and segmentation issues by having a steady stream of cells run through a laser and measuring the amount of light scattered from those cells. A major limitation of cytometry is that it only enables to study a suspension of viable single cells. Today, there are several protocols available to gain viable single cells from human tissues and tumours.
-
-% Eventueel dit als ref: Leelatian N, Doxie DB, Greenplate AR, Sinnaeve J, Ihrie RA, Irish JM. Preparing viable single cells from human tissue and tumors for cytomic analysis. Current protocols in molecular biology. 2017 Apr;118(1):25C-1.
-% --> CVC: Comment verwerkt KDP: circumvents segmentation: if you want to investigate tissues you have to dissociate the tissue . 
-Flow cytometry technology enables to measure protein expression levels for millions of cells and tens of different antibodies. 
-% KDP: vermeld hier hoeveel merkers flow cytometrie tegenwoordig aankan, want je komt er later op terug --> CVC zie mail
+Flow cytometry\cite{fulwyler_electronicseparationbiological_1965} is a technique which circumvents imaging and segmentation issues by having a steady stream of cells run through a laser and measuring the amount of light scattered from those cells. 
+Since cells need to be suspended in a buffer, flow cytometry is particularly useful for analysing non-adherent cells such as the many different immune cells in the blood. However, many protocols already exist to extract viable single cells from tissue as well\cite{leelatian_preparingviablesingle_2017}.
+Common flow cytometry enables to measure proteins expression levels of millions of cells for 8 different antibodies, though state-of-the-art instrumentation allow detecting up to 27 biomarkers simultaneously\cite{cossarizza_guidelinesuseflow_2017}.
 
 Besides IHC and flow cytometry, many new technologies have been developed which allow quantifying expression levels of molecules in single cells (e.g. mass cytometry, single-cell quantitative polymerase chain reaction, fluorescence \emph{in situ} hybridization). All of these single-cell (non-omics) technologies are limited by the number of different molecules they could measure, however. Selecting molecules of interest prior to analysis, makes the experiment biased towards the preconceptions of the experimenter.
 
@@ -137,6 +131,9 @@ The rapidly advancing field of single-cell omics harbours exceptional opportunit
 \section{Computational tools}
 Whole-genome profiling at single-cell level allows new types of analyses with which to study cellular heterogeneity at a hitherto unseen throughput. 
 The new types of analyses permitted by single-cell omics present several computational challenges\cite{stegle_computationalanalyticalchallenges_2015, yuan_challengesemergingdirections_2017, chen_singlecellrnaseqtechnologies_2019}. This necessitates the development of novel computational tools, either because the problem statement of the performed analysis is completely novel, or to adapt existing methodology to new data characteristics (e.g. dimensionality and noise levels). Over the past five years, already 450 new tools for analysing single-cell omics data have been developed\cite{zappia_exploringsinglecellrnaseq_2018}. These tools typically fall within one of nine categories (Figure \ref{fig:comp_tools}). We discuss each category in the following subsections.
+Whole-genome profiling at a single-cell level harbours exceptional opportunities to discover new aspects of biology and redefine existing knowledge.
+% KDP: the new type of computational analysis etc... of eerder zeggen dat met de ontwikkeling van single cell technieken ook nieuwe computationele methoden moe(s)ten ontwikkeld worden
+(Figure \ref{fig:comp_tools})
 
 \mycomment{Todo: describe the characteristics of single cell omics data in the subsection on 'single cell omics'. -> counts data. additional information from the cell can be present, such as the time of sampling in a time-series experiment or a cell type if the cells have been sorted using a FACS experiment. information on the features are typically restricted to the gene symbol, or an identifier of a xxx, such as ensembl or entrez. in comparison to bulk data, single-cell omics data is typically very sparse, due to technical and biological stochasticity. if several transcripts of a low abundance gene are not captured, this will be seen as a dropout. dropouts can also be biological, due to transcriptional bursting. }
 
@@ -330,7 +327,7 @@ We also helped maintain or extend other packages on Github, CRAN or Bioconductor
 		\githubpkg{dynverse}{dynplot2} & aut & Github & \notavailable & A fully customisable visualisation library for trajectories \\
 		\githubpkg{dynverse}{dyntoy} & aut & Github & \notavailable & Generating simple toy data of cellular differentiation \\
 		\cranpkg{dynutils} & aut & CRAN & 5657 & Common functionality for the dynverse packages \\
-		\githubpkg{dynverse}{dynwrap} & aut & Github & \notavailable & A common format for trajectories \\
+		\cranpkg{dynwrap} & aut & CRAN & ? & A common format for trajectories \\
 		\cranpkg{GillespieSSA} & aut & CRAN & 7546 & Gillespie's Stochastic Simulation Algorithm (SSA) \\
 		\cranpkg{GillespieSSA2} & aut & CRAN & 6506 & Gillespie's Stochastic Simulation Algorithm for Impatient People \\
 		\githubpkg{dynverse}{gng} & aut & Github & \notavailable & An Rcpp implementation of the Growing Neural Gas algorithm \\
