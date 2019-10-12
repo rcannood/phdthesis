@@ -144,32 +144,26 @@ The new types of analyses permitted by single-cell omics present several computa
 
 scRNA-seq data is typically very sparse -- while the human genome has more than 20'000 genes, they only contain non-zero values of a few thousand genes (typically <4'000). This is partially due to cells being specialised in particular functions and thus they do not need proteins of every time, but also due to RNA transcription occurring in bursts rather than continuously\cite{nicolas_whatshapeseukaryotic_2017}.
 
-Over the past five years, already 450 new tools for analysing single-cell omics data have been developed\cite{zappia_exploringsinglecellrnaseq_2018}. These tools typically fall within one of nine categories (Figure \ref{fig:comp_tools}). We discuss each category in the following subsections.
+Over the past five years, already 450 new tools for analysing single-cell omics data have been developed\cite{zappia_exploringsinglecellrnaseq_2018}. These tools typically fall within one of seven categories (Figure \ref{fig:comp_tools}). We discuss each category in the following subsections.
 Whole-genome profiling at a single-cell level harbours exceptional opportunities to discover new aspects of biology and redefine existing knowledge.
 
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[width=.75\linewidth]{fig/comptools/comptools_3.pdf} 
+	\includegraphics[width=\linewidth]{fig/comptools/comptools_4.pdf} 
 	\caption{
-		\textbf{Computational tools developed for processing single-cell omics data usually lie within one of nine categories.}
-		\textbf{A:} Normalisation, separating meaningful biological signal from technical noise or irrelevant biological information.
-		\textbf{B:} Data imputation, masking dropouts.
-		\textbf{C:} Data integration, combining multiple single-cell modalities.
-		\textbf{D:} Dimensionality reduction, providing a visual overview of the main cellular heterogeneity in the dataset.
-		\textbf{E:} Clustering, grouping together similar cells.
-		\textbf{F:} Trajectory inference, identifying and characterising transitions between different cellular states.
-		\textbf{G:} Network inference, predicting gene regulatory interactions from cell-to-cell heterogeneity.
-		\textbf{H:} RNA velocity, inferring the directionality of trajectories by predicting the future state of each cell.
-		\textbf{I:} Trajectory alignment, aligning multiple trajectories.
+		\textbf{Computational tools developed for processing single-cell omics data usually lie within one of seven categories.}
+		\textbf{A:} Example of a count matrix from a scRNA-seq dataset, showing only 100 genes (rows) and 100 cells (columns).
+		\textbf{B:} Dimensionality reduction, providing a visual overview of the main cellular heterogeneity in the dataset.
+		\textbf{C:} Clustering, grouping together cells with similar omics profiles.
+		\textbf{D:} Trajectory inference, identifying and characterising transitions between different cellular states.
+		\textbf{E:} Differential expression, \ldots.
+		\textbf{F:} Network inference, predicting gene regulatory interactions from cell-to-cell heterogeneity.
+		\textbf{G:} RNA velocity, inferring the directionality of trajectories by predicting the future state of each cell.
+		\textbf{H:} Trajectory alignment, aligning multiple trajectories.
 	}
 	\label{fig:comp_tools}
 \end{figure}
 
-\subsection{Normalisation}
-
-\subsection{Data imputation}
-
-\subsection{Data integration}
 
 \subsection{Dimensionality reduction}
 Single-cell omics datasets typically have too many dimensions (features) in order to be easily interpretable by humans and even by most computational tools. 
@@ -178,8 +172,6 @@ Dimensionality reduction (DR) methods transform high-dimensional data into a mea
 There are many ways of classifying DR methods\cite{engel_surveydimensionreduction_2012}, but this work will use the following main categories: feature projection-based and manifold learning. 
 Projection-based DR methods aim to perform a linear transformation of the data while preserving the pairwise distances between samples as much as possible. Examples of commonly used projection-based DR methods in single-cell omics are PCA and MDS. 
 Manifold learning methods are methods which reconstruct a higher-order structure in the original space (e.g. a graph or a grid), visualising the structure in a lower-dimensional space, and mapping the original samples to the lower-dimensional space. Manifold learning can be an iterative optimisation process using a predefined criterion. Examples of manifold learning techniques are t-SNE, Diffusion Maps and UMAP. 
-
-\mycomment{This section is not very interestingly written}
 
 \subsection{Clustering}
 
@@ -204,6 +196,7 @@ TI methods allow the identification of new subsets of cells, delineation of a di
 \end{figure}
 
 \mycomment{Could still expand this section with pieces from the EJI paper, though it needs to be adapted strongly.}
+\subsection{Differential expression}
 
 \subsection{Network inference}
 Gene regulatory network inference, or network inference (NI) for short, is a type of computational analysis where thousands of transcriptomic profiles are analysed together in order to infer the regulatory interactions between transcription factors and genes. This topic already received much attention with the advent of bulk omics (before single-cell omics). These efforts culminated in several DREAM competitions assessing the performance of 29 different NI methods\cite{marbach_revealingstrengthsweaknesses_2010, marbach_wisdomcrowdsrobust_2012}. 
