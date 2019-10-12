@@ -580,21 +580,45 @@ impsc2 <-
   ) %>%
   ungroup() %>%
   mutate(col = col_names[name]) %>%
-  select(regulator, name, target, everything())
+  select(regulator, name, target, everything()) %>%
+  arrange(desc(importance))
 plot(density(impsc2$importance))
 # impsc2f <- impsc2 %>% filter(importance_sc > 5)
-impsc2f <- impsc2 %>% group_by(name) %>% arrange(desc(importance)) %>% slice(1:50) %>% ungroup() %>% filter(importance > .2)
+impsc2f <- impsc2 %>% group_by(name) %>% slice(1:50) %>% ungroup() %>% filter(importance > .15)
 # impsc2f <- impsc2 %>% group_by(name) %>% arrange(desc(importance_sc)) %>% slice(1:50) %>% ungroup() %>% filter(importance > 1)
 impsc2f %>% group_by(name) %>% summarise(n = n()) %>% arrange(desc(n)) %>% print(n = Inf)
 write_tsv(impsc2f, paste0(data_dir, "grouped_interactions.tsv"))
 
 
 
+ggplot(impsc2 %>% filter(importance > .1)) +
+  geom_histogram(aes(importance, fill = name)) +
+  scale_fill_manual(values = set_names(col_names, cell_names))
 
 
+ggplot(impsc2 %>% filter(importance > .1)) +
+  geom_histogram(aes(log10(importance), fill = name)) +
+  scale_fill_manual(values = set_names(col_names, cell_names)) + facet_wrap(~name, scale = "free_y")
+
+ggplot(impsc2) +
+  geom_histogram(aes(log10(importance), fill = name)) +
+  scale_fill_manual(values = set_names(col_names, cell_names)) + facet_wrap(~name, scale = "free_y")
 
 
+ggplot(impsc2 %>% filter(importance > .1)) +
+  geom_point(aes(effect, importance, colour = name)) +
+  scale_colour_manual(values = set_names(col_names, cell_names)) + facet_wrap(~name, scale = "free_y")
 
 
+# individual interactions
+clus_ids <- labels %>% filter(name %in% c("AML", "ALL")) %>% pull(cluster)
+sel_ids <-
+  samples[clus %in% clus_ids] %>% sample(100)
 
-
+sample_network <-
+  importance_sc %>%
+  filter(cell_id %in% sel_ids) %>%
+  mutate(cluster = as.vector(clus[cell_id])) %>%
+  left_join(labels %>% transmute(cluster, name = factor(name, levels = cell_names)), by = "cluster") %>%
+  filter(importance > .3)
+write_tsv(impsc2f, paste0(data_dir, "single_interactions.tsv"))
