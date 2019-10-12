@@ -60,7 +60,7 @@ Cells are dynamic entities that can gradually produce the molecules needed to ac
 	\label{fig:controlexpression}
 \end{figure}
 
-% KDP: niet alleen TFs maar volledige epigenetica regelt of een gen al dan niet tot expressie wordt gebracht, dus misschien kort vermelden dat het toch iets complexer is
+% CVC: weggewerkt --> KDP: niet alleen TFs maar volledige epigenetica regelt of een gen al dan niet tot expressie wordt gebracht, dus misschien kort vermelden dat het toch iets complexer is
 
 According to the needs of a cell, different genes are being transcribed. Housekeeping genes are being expressed in essentially every cell, while other genes are cell type or tissue specific or may be expressed in response to developmental and environmental signals\cite{strachan_humanmoleculargenetics_2011}. 
 
@@ -76,18 +76,21 @@ Several technologies are now available to profile (i.e. observe) biomolecular co
 
 \subsubsection{Single-cell}
 The earliest approach for measuring the abundance of a particular molecule in \emph{single cells} is the microscope.
-Since its development by Coons et al. (1941), immunohistochemistry (IHC) has been instrumental in visualising antigen-antibody proteins\cite{coons_immunologicalpropertiesantibody_1941}. In many multicellular organisms, antibodies and antigens serve as crucial communication tools as part of the organism's immune system. A cell can present a particular type of antigen on its cell surface, which allows a particular type of antibody to bind to it.
+Since its development by Coons et al. (1941), immunohistochemistry (IHC) has been instrumental in visualising proteins.\cite{coons_immunologicalpropertiesantibody_1941}. 
+A cell can present a particular type of protein, also called an antigen, on its cell surface. In many multicellular organisms, antigens can stimulate the immune system to produce antibodies. IHC realises the visualisation of proteins by exploiting the principle of antibodies binding specific to antigens.
 
-% KDP: antigen-antibody: eerder over protein spreken ipv over antigen dan wordt het toch iets duidelijker, denk ik: een antibody herkent en bindt een bepaald proteine/eiwit,...
-IHC (and many other biotechnologies) visualises antigen-antibody reactions by attaching particular molecules to the antibody, such as an enzyme that catalyses a colour-producing reaction, or a fluorescent chemical compound that can re-emit light upon light excitation. The use of different colours (wavelengths) allows measuring expression levels of different antibodies simultaneously. Characterising cells in a semi-quantifiable way is labour intensive, however; since it involves acquiring an image of many cells and drawing a contour around each cell (called cell segmentation).
-While modern implementations of IHC improve the throughput drastically by using robots to automate the image acquisition and computer software to automate cell segmentation, the procedure is still labour intensive as the robots and computer software still needs to be kept in check.
+% CVC --> comment verwerkt. KDP: antigen-antibody: eerder over protein spreken ipv over antigen dan wordt het toch iets duidelijker, denk ik: een antibody herkent en bindt een bepaald proteine/eiwit,...
+IHC (and many other biotechnologies) visualises antigen-antibody reactions by attaching particular molecules to the antibody, such as an enzyme that catalyses a colour-producing reaction, or a fluorescent chemical compound that can re-emit light upon excitation. The use of several colours (wavelengths) allows measuring expression levels of different antibodies simultaneously. Characterising cells in a semi-quantifiable way is labour intensive, however; since it involves acquiring an image of many cells and drawing a contour around each cell (called cell segmentation).
+Modern implementations of IHC improve the throughput drastically by using robots and computer software to automate the image acquisition and cell segmentation. Nonetheless, the procedure is still labour intensive as the robots and computer software still needs to be kept in check.
 
-Flow cytometry\cite{fulwyler_electronicseparationbiological_1965} is a technique which circumvents imaging and segmentation issues by having a steady stream of cells run through a laser and measuring the amount of light scattered from those cells.
-% KDP: circumvents segmentation: if you want to investigate tissues you have to dissociate the tissue 
+Flow cytometry\cite{fulwyler_electronicseparationbiological_1965} is a technique which circumvents imaging and segmentation issues by having a steady stream of cells run through a laser and measuring the amount of light scattered from those cells. A major limitation of cytometry is that it only enables to study a suspension of viable single cells. Today, there are several protocols available to gain viable single cells from human tissues and tumours.
+
+% Eventueel dit als ref: Leelatian N, Doxie DB, Greenplate AR, Sinnaeve J, Ihrie RA, Irish JM. Preparing viable single cells from human tissue and tumors for cytomic analysis. Current protocols in molecular biology. 2017 Apr;118(1):25C-1.
+% --> CVC: Comment verwerkt KDP: circumvents segmentation: if you want to investigate tissues you have to dissociate the tissue . 
 Flow cytometry technology enables to measure protein expression levels for millions of cells and tens of different antibodies. 
-% KDP: vermeld hier hoeveel merkers flow cytometrie tegenwoordig aankan, want je komt er later op terug
+% KDP: vermeld hier hoeveel merkers flow cytometrie tegenwoordig aankan, want je komt er later op terug --> CVC zie mail
 
-Besides IHC and flow cytometry, many new technologies have been developed which allow quantifying expression levels of molecules in single cells (e.g. mass cytometry, single-cell qPCR, FISH). All of these single-cell (non-omics) technologies are limited by the number of different molecules they could measure, however. Selecting molecules of interest prior to analysis, makes the experiment biased towards the preconceptions of the experimenter.
+Besides IHC and flow cytometry, many new technologies have been developed which allow quantifying expression levels of molecules in single cells (e.g. mass cytometry, single-cell quantitative polymerase chain reaction, fluorescence \emph{in situ} hybridization). All of these single-cell (non-omics) technologies are limited by the number of different molecules they could measure, however. Selecting molecules of interest prior to analysis, makes the experiment biased towards the preconceptions of the experimenter.
 
 \subsubsection{Omics}
 On the other side of the spectrum are the so-called "omics" technologies. "Omics"\footnote{The etymology of "omics" is quite interesting\cite{yadav_wholenesssuffixomics_2007}.} is a collective term for profiling all molecules of a particular type in a high-throughput manner.
