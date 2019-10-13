@@ -75,34 +75,31 @@ Several technologies are now available to profile (i.e. observe) biomolecular co
 \subsubsection{Single-cell}
 The earliest approach for measuring the abundance of a particular molecule in \emph{single cells} is the microscope.
 Since its development by Coons et al. (1941), immunohistochemistry (IHC) has been instrumental in visualising proteins.\cite{coons_immunologicalpropertiesantibody_1941}. 
-A cell can present a particular type of protein, also called an antigen, on its cell surface. In many multicellular organisms, antigens can stimulate the immune system to produce antibodies. IHC realises the visualisation of proteins by exploiting the principle of antibodies binding specific to antigens.
+A cell can present a particular type of protein, also called an antigen, on its cell surface. In many multicellular organisms, antigens can stimulate the immune system to produce antibodies. IHC realises the visualisation of proteins by exploiting the principle of antibodies binding to specific antigens.
 
 IHC (and many other biotechnologies) visualises antigen-antibody reactions by attaching particular molecules to the antibody, such as an enzyme that catalyses a colour-producing reaction, or a fluorescent chemical compound that can re-emit light upon excitation. The use of several colours (wavelengths) allows measuring expression levels of different antibodies simultaneously. Characterising cells in a semi-quantifiable way is labour intensive, however; since it involves acquiring an image of many cells and drawing a contour around each cell (called cell segmentation).
 Modern implementations of IHC improve the throughput drastically by using robots and computer software to provide semi-automated image acquisition and cell segmentation\cite{theodosiou_automatedanalysisfish_2007}.
 
 Flow cytometry\cite{fulwyler_electronicseparationbiological_1965} circumvents imaging and segmentation issues by running a steady stream of cells through a laser and measuring the amount of fluorescent light scattered from those cells. 
-Since cells need to be suspended in a buffer, flow cytometry is particularly useful for analysing non-adherent cells such as the many different immune cells in the blood. However, many protocols already exist to extract viable single cells from tissue as well\cite{leelatian_preparingviablesingle_2017}.
-Common flow cytometry enables to measure proteins expression levels of millions of cells for 8 different antibodies, though state-of-the-art instrumentation allow detecting up to 27 biomarkers simultaneously\cite{cossarizza_guidelinesuseflow_2017}.
+Since cells need to be suspended in a buffer, flow cytometry is particularly useful for analysing non-adherent cells such as the many different immune cells in blood. However, many protocols already exist to extract viable single cells from tissues and tumours\cite{leelatian_preparingviablesingle_2017}.
+Conventional flow cytometry devices enable to measure protein expression levels of millions of cells using up to eight different antibody fluorochromes simultaneously, while state-of-the-art instrumentation allows detection of up to 27 biomarkers simultaneously\cite{cossarizza_guidelinesuseflow_2017}.
 
-Besides IHC and flow cytometry, many new technologies have been developed which allow quantifying expression levels of molecules in single cells (e.g. mass cytometry, single-cell quantitative polymerase chain reaction, fluorescence \emph{in situ} hybridization). All of these single-cell (non-omics) technologies are limited by the number of different molecules they could measure, however. Selecting molecules of interest prior to analysis, makes the experiment biased towards the preconceptions of the experimenter.
+Besides IHC and flow cytometry, many new technologies have been developed which allow quantifying expression levels of molecules in single cells (e.g. mass cytometry, single-cell quantitative polymerase chain reaction, fluorescence \emph{in situ} hybridization). All of these single-cell (non-omics) technologies are limited by the number of different molecules they measure, however. Selecting molecules of interest prior to analysis, makes the experiment biased towards the preconceptions of the experimenter.
 
 \subsubsection{Omics}
 On the other side of the spectrum are the so-called "omics" technologies. "Omics"\footnote{The etymology of "omics" is quite interesting\cite{yadav_wholenesssuffixomics_2007}.} is a collective term for profiling all molecules of a particular type in a high-throughput manner.
-There are many types of "omics", but the most commonly used are the following. In genomics, all of an organism's genes are studied -- its whole genome. Transcriptomics and proteomics study the organisms RNA transcripts and proteins, respectively. 
+There are many types of "omics", such as genomics, transcriptomics and proteomics. Genomics studies the complete DNA sequence of an organism's genome, while transcriptomics and proteomics study the RNA transcripts and proteins, respectively.
 
-Specific examples of omics technologies are next-generation sequencing, which can be used to determine the DNA sequence of an organism, and RNA sequencing, which profiles the sequences of RNA transcripts. By mapping the sequences of RNA transcripts to genes in the organisms DNA, a gene expression profile can be obtained.
+Specific examples of omics technologies are whole genome sequencing to determine the DNA sequence of an organism, and RNA sequencing to profiles the sequence of RNA transcripts, both using next-generation sequencing technologies. A gene expression profile can be obtained by mapping the sequences of RNA transcripts to the genome.
 
-Traditionally, profiling nano-litre volumes was infeasible. To capture enough material to generate a profile, an ensemble of cells needs to be pooled and lysed together, thereby granting the technology the name "bulk" omics. 
-Bulk omics is a major workhorse in <...> and has applications in <...>. To capture enough material, an ensemble of cells is pooled and profiled all together. 
+Several high-throughput technologies have been developed to investigate proteomes in depth. The most commonly applied are mass spectrometry-based and gel-based techniques (e.g. differential in-gel electrophoresis).
 
-\mycomment{TODO: fill in}
+% Je had proteomics technieken niet meer aangehaald. -> zie deze paperlink voor eventueel fig 1 of 2. Hoewel dit misschien niet je hoofdtopic is. https://academic.oup.com/chromsci/article/55/2/182/2333796
 
-A notable downside of bulk omics arises when the cells are biomolecularly heterogeneous (Figure~\ref{fig:bulk_vs_sc}A). Since the profile is a population average (or rather, a summation), information pertaining the individual profiles of cell subpopulations cannot be discerned (Figure~\ref{fig:bulk_vs_sc}B).
+Typically for these methods, to capture enough material to generate a profile, numerous cells need to be pooled and lysed together, thereby granting the technology's name "bulk" omics.
+Bulk omics is a major workhorse in molecular genetics and has applications in cancer research and in diagnostic screening of inheritable disorders.
 
-% Increasing evidence further suggests that gene expression is heterogeneous, even in similar cell types [https://www.nature.com/articles/s12276-018-0071-8, cites 3 other papers as well]
-% Currently, however, the majority of transcriptome analysis experiments continue to be based on the assumption that cells from a given tissue are homogeneous, and thus, these studies are likely to miss important cell-to-cell variability. To better understand stochastic biological processes, a more precise understanding of the transcriptome in individual cells will be essential for elucidating their role in cellular functions and understanding how gene expression can promote beneficial or harmful states.
-
-
+Increasing evidence shows that cells are biomoleculary heterogeneous, even in very similar cell types\cite{hwang_singlecellrnasequencing_2018} (Figure~\ref{fig:bulk_vs_sc}A). Since a bulk profile is a population average (or rather, a summation), important cell-to-cell variability is not discernible (Figure~\ref{fig:bulk_vs_sc}B). 
 
 \begin{figure}[htb!]
 	\centering
@@ -116,11 +113,13 @@ A notable downside of bulk omics arises when the cells are biomolecularly hetero
 \end{figure}
 
 \subsubsection{Single-cell omics}
-Transformative technological advances in microvolume sequencing allowed Tang et al. to analyse the transcriptome at single-cell resolution\cite{tang_mrnaseqwholetranscriptomeanalysis_2009}, thereby bringing single-cell biology and omics together to create single-cell omics (Figure \ref{fig:profiling_convergence}). During the decade that followed, the number of single-cell omics technologies has sky-rocketed, allowing to profile >100'000 cells\cite{svensson_exponentialscalingsinglecell_2018} and measuring other levels of information (e.g. protein abundance and spatial location) \cite{moudgil_multimodalscrnaseq_2019}.
+Comparing single-cell technologies with omics technologies shows that they have both clear advantages but also significant drawbacks (Figure \ref{fig:profiling_convergence}A). Single-cell biology allows profiling thousands or even millions of cells, but only for a select number of genes. On the other hand, omics biology provides a broader view -- since genes do not need to be selected beforehand -- but is a profile of ensemble of cells and thus masks important cellular heterogeneity.
+
+Advances in microvolume sequencing allowed profiling the transcriptome at single-cell resolution, thereby bringing single-cell biology and omics together to create single-cell omics. During the decade that followed, the number of single-cell omics technologies has sky-rocketed, allowing to profile >100'000 cells\cite{svensson_exponentialscalingsinglecell_2018} and measuring other levels of information (e.g. protein abundance and spatial location) \cite{moudgil_multimodalscrnaseq_2019}.
 
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[width=.7\linewidth]{fig/singlecell_omics_methodology} 
+	\includegraphics[width=.7\linewidth]{fig/scomics_2.pdf} 
 	\caption{
 		\textbf{A:} Convergence of single-cell and omics biology\cite{junker_everycellspecial_2014}.
 		\textbf{B:} Different approaches for sampling cells with decreasing levels of cellular heterogeneity within the different sub-populations: snapshot, time-series, sorted.
@@ -135,8 +134,7 @@ Transformative technological advances in microvolume sequencing allowed Tang et 
 
 In this work, unless noted otherwise, we will be working with transcriptomics data resulting from a single-cell RNA-sequencing experiment (scRNA-seq). The workflow of generating scRNA-seq profiles is as follows. Same as other single-cell (non-omics) profiling methods, cells first need to be isolated (Figure~\ref{fig:profiling_convergence}B). Different sampling techniques yield different levels of information about cellular state. By now, many protocols for extracting and tagging RNA from single cells have been developed\cite{svensson_exponentialscalingsinglecell_2018}, the most popular of which are based on microfluidics or droplets (Figure~\ref{fig:profiling_convergence}C). By sequencing the trancripts and the attached unique cell identifier tags, each read can be mapped and tallied up. scRNA-seq data can thus be summarised in a matrix, where each column represent a single cell, each row a gene, and each value represents the number of transcripts that were sequenced for that gene and cell.
 
-The rapidly advancing field of single-cell omics harbours exceptional opportunities to discover new aspects of biology and redefine existing knowledge. Some of these opportunities lie in efforts like the Human Cell Atlas. The HCA consortium has set out to redefine all human cell types in terms of their gene expression and location, and the developmental trajectories connecting the different cell types. As part of this endeavour, the consortium will likely profile the whole transcriptomes tens or even hundreds of millions of cells. 
-% KDP: hier heb je het al eens over gehad: zou je dit niet samenbrengen?
+The rapidly advancing field of single-cell omics harbours exceptional opportunities to discover new aspects of biology and redefine existing knowledge. Some of these opportunities lie in efforts like the HCA consortium. They have set out to redefine all human cell types in both terms of their gene expression and location, and as well as the developmental trajectories connecting the different cell types. As part of this endeavour, the consortium will likely profile the whole transcriptomes of tens or even hundreds of millions of cells. 
 
 \section{Computational tools}
 Whole-genome profiling at single-cell level allows new types of analyses with which to study cellular heterogeneity at a hitherto unseen throughput. 
