@@ -8070,11 +8070,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8284272"
-     inkscape:cx="292.14553"
-     inkscape:cy="302.65154"
+     inkscape:zoom="1"
+     inkscape:cx="154.72419"
+     inkscape:cy="216.22143"
      inkscape:document-units="mm"
-     inkscape:current-layer="g124426"
+     inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="3840"
      inkscape:window-height="2032"
@@ -8095,7 +8095,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
