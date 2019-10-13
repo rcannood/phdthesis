@@ -1,4 +1,5 @@
 library(tidyverse)
+library(dyno)
 
 fig_size <- 3
 
@@ -24,115 +25,101 @@ raster <- function(meltdf, legend = FALSE, palette = "RdYlBu") {
 }
 
 
-# Generate toy datasets ---------------------------------------------------
+# Preprocess dataset ------------------------------------------------------
 set.seed(1)
+dat <- dynbenchmark::load_dataset("real/silver/fibroblast-reprogramming_treutlein")
+dat$expression <- dat$expression()
+dat$counts <- dat$counts()
+expr <- dat$expression
 
-# linear
-linear <- dyntoy::generate_dataset(
-  model = "linear",
-  num_cells = 60,
-  num_features = 40,
-  dropout_probability_factor = 0
-)
+gix <- apply(expr, 2, var) %>% order(decreasing = TRUE) %>% head(100)
+exprf <- expr[, gix]
 
-expr_li <- as.matrix(linear$expression) %>% dynutils::scale_quantile() %>% t() %>% dynutils::scale_quantile()
+exprsc <- exprf %>% as.matrix() %>% dynutils::scale_quantile() %>% t() %>% dynutils::scale_quantile() %>% t()
 
-dropout_weight <- 1 / (as.vector(expr_li)+1)
-rm_ix <- sample(seq_along(dropout_weight), length(dropout_weight) * .2, prob = dropout_weight, replace = FALSE)
+hclr <- hclust(dynutils::calculate_distance(exprf, method = "spearman") %>% as.dist())
+ordr <- hclr$order
+ordc <- hclust(dynutils::calculate_distance(Matrix::t(exprf), method = "spearman") %>% as.dist())$order
 
-expr_li_nodrop <- expr_li
-expr_li[rm_ix] <- 0
-
-ordr_li <- hclust(dist(expr_li))$order
-ordc_li <- hclust(dist(t(expr_li)))$order
-
-# branching
-set.seed(2)
-branching <- dyntoy::generate_dataset(
-  model = dyntoy::model_binary_tree(num_branchpoints = 1L),
-  num_cells = 100,
-  num_features = 100,
-  allow_tented_progressions = FALSE,
-  sample_mean_count = function() rnorm(1, 1000, 100),
-  sample_dispersion_count = function(mean) map_dbl(mean, ~runif(1, ./10, ./4)),
-  dropout_probability_factor = 10
-)
-expr_br <- as.matrix(branching$expression)
-expr_br_sc <- expr_br %>% dynutils::scale_quantile() %>% t() %>% dynutils::scale_quantile()
-
-hclr_br <- hclust(dist(expr_br_sc))
-ordr_br <- hclr_br$order
-hclc_br <- hclust(dist(t(expr_br_sc)))
-ordc_br <- hclc_br$order
+dr <- dyndimred::dimred_mds(expr, ndim = 10)
+plot(dr)
 
 # Experiment --------------------------------------------------------------
 set.seed(1)
 ggsave(
-  "fig/comptools/1_experiment_expression.pdf",
-  expr_li %>% melt() %>% raster(),
+  "fig/comptools2/1_experiment_expression.pdf",
+  exprsc %>% melt() %>% raster(),
   width = fig_size,
   height = fig_size
 )
 ggsave(
-  "fig/comptools/1_legend.pdf",
-  expr_li %>% melt() %>% raster(legend = TRUE),
+  "fig/comptools2/1_legend.pdf",
+  exprsc %>% melt() %>% raster(legend = TRUE),
   width = fig_size,
   height = fig_size
 )
 
 # Imputation --------------------------------------------------------------
+knn <- RANN::nn2(dr, k = 10)
+expr_imp <- sapply(seq_len(nrow(expr)), function(i) {
+  ix <- knn$nn.idx[i,]
+  weight <- (1 - knn$nn.dists[i,]) ^ 2
+  weight <- weight / sum(weight)
+
+  exprsc[ix, ] %>% sweep(1, weight, "*") %>% colSums()
+}) %>% t()
+
 ggsave(
-  "fig/comptools/2_imputation_input.pdf",
-  expr_li[ordr_li, ordc_li] %>% melt() %>% raster(),
+  "fig/comptools2/2_imputation_input.pdf",
+  exprsc[ordr, ordc] %>% melt() %>% raster(),
+  width = fig_size,
+  height = fig_size
+)
+ggsave(
+  "fig/comptools2/2_imputation_output.pdf",
+  expr_imp[ordr, ordc] %>% melt() %>% raster(),
   width = fig_size,
   height = fig_size
 )
 
-ggsave(
-  "fig/comptools/2_imputation_output.pdf",
-  expr_li_nodrop[ordr_li, ordc_li] %>% melt() %>% raster(),
-  width = fig_size,
-  height = fig_size
-)
-
-# Integration -------------------------------------------------------------
-g1 <- expr_li[sample(ordr_li), ordc_li[1:20] %>% sample()] %>% melt() %>% raster(palette = "RdYlGn")
-g2 <- expr_li[sample(ordr_li), ordc_li[21:40] %>% sample()] %>% melt() %>% raster(palette = "RdBu")
-g3 <- expr_li[sample(ordr_li), ordc_li[41:60] %>% sample()] %>% melt() %>% raster(palette = "PiYG")
-g <- patchwork::wrap_plots(g1, g2, g3, nrow = 1)
-
-ggsave(
-  "fig/comptools/3_integration_input.pdf",
-  g,
-  width = fig_size,
-  height = fig_size
-)
-
-g1 <- expr_li[ordr_li, ordc_li[1:20]] %>% melt() %>% raster(palette = "RdYlGn")
-g2 <- expr_li[ordr_li, ordc_li[21:40]] %>% melt() %>% raster(palette = "RdBu")
-g3 <- expr_li[ordr_li, ordc_li[41:60]] %>% melt() %>% raster(palette = "PiYG")
-g <- patchwork::wrap_plots(g1, g2, g3, nrow = 1)
-
-ggsave(
-  "fig/comptools/3_integration_output.pdf",
-  g,
-  width = fig_size,
-  height = fig_size
-)
+# # Integration -------------------------------------------------------------
+# g1 <- expr_li[sample(ordr_li), ordc_li[1:20] %>% sample()] %>% melt() %>% raster(palette = "RdYlGn")
+# g2 <- expr_li[sample(ordr_li), ordc_li[21:40] %>% sample()] %>% melt() %>% raster(palette = "RdBu")
+# g3 <- expr_li[sample(ordr_li), ordc_li[41:60] %>% sample()] %>% melt() %>% raster(palette = "PiYG")
+# g <- patchwork::wrap_plots(g1, g2, g3, nrow = 1)
+#
+# ggsave(
+#   "fig/comptools2/3_integration_input.pdf",
+#   g,
+#   width = fig_size,
+#   height = fig_size
+# )
+#
+# g1 <- expr_li[ordr_li, ordc_li[1:20]] %>% melt() %>% raster(palette = "RdYlGn")
+# g2 <- expr_li[ordr_li, ordc_li[21:40]] %>% melt() %>% raster(palette = "RdBu")
+# g3 <- expr_li[ordr_li, ordc_li[41:60]] %>% melt() %>% raster(palette = "PiYG")
+# g <- patchwork::wrap_plots(g1, g2, g3, nrow = 1)
+#
+# ggsave(
+#   "fig/comptools2/3_integration_output.pdf",
+#   g,
+#   width = fig_size,
+#   height = fig_size
+# )
 
 
 # Dimensionality reduction ------------------------------------------------
 ggsave(
-  "fig/comptools/4_dimred_input.pdf",
-  expr_br_sc[ordr_br, ordc_br] %>% melt() %>% raster(),
+  "fig/comptools2/4_dimred_input.pdf",
+  exprsc[ordr, ordc] %>% melt() %>% raster(),
   width = fig_size,
   height = fig_size
 )
 
 g <-
   dynplot::plot_dimred(
-    branching,
-    dimred = dimred_br,
+    dat,
+    dimred = dr,
     color_cells = "none",
     plot_trajectory = FALSE,
     size_cells = 2
@@ -144,53 +131,101 @@ g <-
 g
 
 ggsave(
-  "fig/comptools/4_dimred_output.pdf",
+  "fig/comptools2/4_dimred_output.pdf",
   g,
   width = fig_size,
+  height = fig_size
+)
+
+ggsave(
+  "fig/comptools2/4_dimred_output2.pdf",
+  dr[ordr, 1:5] %>% melt() %>% raster(),
+  width = fig_size / 4,
   height = fig_size
 )
 
 # Clustering --------------------------------------------------------------
 ggsave(
-  "fig/comptools/5_cluster_input.pdf",
-  expr_br_sc[ordr_br, ordc_br] %>% melt() %>% raster(),
+  "fig/comptools2/5_cluster_input.pdf",
+  exprsc[ordr, ordc] %>% melt() %>% raster(),
   width = fig_size,
   height = fig_size
 )
 
-cluscut_br <- cutree(hclc_br, k = 3)
 
-clus_ord <- unique(cluscut_br[ordc_br])
+cluscut <- cutree(hclr, k = 4)
+
+clus_ord <- unique(cluscut[ordr])
 rasters <- map(clus_ord, function(cli) {
-  ix <- cluscut_br[ordc_br] == cli
-  expr_br_sc[ordr_br, ordc_br[ix]] %>% melt() %>% raster()
+  ix <- cluscut[ordr] == cli
+  exprsc[ordr[ix], ordc] %>% melt() %>% raster()
 })
-widths <- map_int(clus_ord, ~ sum(. == cluscut_br))
-g <- patchwork::wrap_plots(rasters, nrow = 1, widths = widths)
+widths <- map_int(clus_ord, ~ sum(. == cluscut))
+g <- patchwork::wrap_plots(rasters, ncol = 1, heights = widths)
 
 ggsave(
-  "fig/comptools/5_cluster_output.pdf",
+  "fig/comptools2/5_cluster_output.pdf",
+  g,
+  width = fig_size,
+  height = fig_size
+)
+dats <- dat %>% simplify_trajectory()
+# fimp <- dynfeature::calculate_milestone_feature_importance(dats)
+# fimps <- fimp %>% group_by(milestone_id) %>% arrange(desc(importance)) %>% slice(1) %>% ungroup()
+# fois <- as.character(fimps$feature_id)
+fois <- c("Tagln2", "Cdkn1c", "Myl1", "Sult4a1")
+fois <- c("Hmga2", "Cdkn1c", "Tnnc2", "Syp")
+plots <- map(fois, function(foi) {
+  dynplot::plot_dimred(
+    dat,
+    dimred = dr,
+    color_cells = "feature",
+    feature_oi = foi,
+    plot_trajectory = FALSE,
+    size_cells = 1
+  ) +
+    theme_classic() +
+    theme(axis.text = element_blank(), axis.ticks = element_blank(), legend.position = "none") +
+    labs(x = NULL, y = NULL, title = foi) +
+    coord_cartesian()
+})
+g <- patchwork::wrap_plots(plots)
+g
+ggsave(
+  "fig/comptools2/5_cluster_relabel_in.pdf",
   g,
   width = fig_size,
   height = fig_size
 )
 
+mids <- dat$cell_info$milestone_id %>% unique
+tab <- table(cluscut, factor(dat$cell_info$milestone_id, levels = mids))
+group_name <- mids[apply(tab, 1, which.max)]
+group_name[group_name == "d2_induced"] <- "Induced"
+grdf <-
+  data.frame(
+    dr,
+    group = group_name[cluscut]
+  ) %>%
+  group_by(group) %>%
+  summarise_if(is.numeric, mean)
 g <-
   dynplot::plot_dimred(
-    branching,
-    dimred = dimred_br,
+    dat,
+    dimred = dr,
     color_cells = "grouping",
+    grouping = group_name[cluscut],
     plot_trajectory = FALSE,
-    grouping = as.character(cluscut_br),
     size_cells = 2
   ) +
+  geom_text(aes(comp_1, comp_2, label = group, colour = group), grdf, nudge_y = .045) +
   theme_classic() +
-  theme(axis.text = element_blank(), axis.ticks = element_blank(), legend.position = "bottom") +
+  theme(axis.text = element_blank(), axis.ticks = element_blank(), legend.position = "none") +
   labs(x = "Comp 1", y = "Comp 2") +
   coord_cartesian()
-
+g
 ggsave(
-  "fig/comptools/5_clusterdr_output.pdf",
+  "fig/comptools2/5_cluster_relabel_out.pdf",
   g,
   width = fig_size,
   height = fig_size
@@ -198,38 +233,36 @@ ggsave(
 
 
 # Trajectory inference ----------------------------------------------------
-
+traj <- infer_trajectory(dat, ti_slingshot()) %>% simplify_trajectory()
 df <-
   tibble(
-    edge = dynwrap::group_onto_trajectory_edges(branching),
-    progression = branching$progressions %>% slice(match(colnames(expr_br_sc), cell_id)) %>% pull(percentage),
+    edge = dynwrap::group_onto_trajectory_edges(traj),
+    progression = traj$progressions %>% slice(match(rownames(expr), cell_id)) %>% pull(percentage),
     orig_index = seq_along(edge)
   ) %>%
   arrange(edge, progression)
 
-
 edge_ord <- unique(df$edge)
 rasters <- map(edge_ord, function(ed) {
   ix <- df %>% filter(edge == ed) %>% pull(orig_index)
-  expr_br_sc[ordr_br, ix] %>% melt() %>% raster()
+  exprsc[ix, ordc] %>% melt() %>% raster()
 })
 widths <- df %>% group_by(edge) %>% summarise(n = n()) %>% pull(n)
-g <- patchwork::wrap_plots(rasters, nrow = 1, widths = widths)
+g <- patchwork::wrap_plots(rasters, ncol = 1, heights = widths)
 
 ggsave(
-  "fig/comptools/6_ti_output.pdf",
+  "fig/comptools2/6_ti_output.pdf",
   g,
   width = fig_size,
   height = fig_size
 )
 
 
-dimred_br2 <- dyndimred::dimred_mds(expr_br)
 
 g <-
   dynplot::plot_dimred(
-    branching,
-    dimred = dimred_br2,
+    traj,
+    dimred = dr,
     color_cells = "none",
     plot_trajectory = FALSE,
     size_cells = 2
@@ -239,19 +272,49 @@ g <-
   labs(x = "Comp 1", y = "Comp 2") +
   coord_cartesian()
 
+fois <- c("Hmga2", "Cdkn1c", "Tnnc2", "Syp")
+plots <- map(fois, function(foi) {
+  dynplot::plot_dimred(
+    traj,
+    dimred = dr,
+    color_cells = "feature",
+    feature_oi = foi,
+    expression_source = dat$expression,
+    size_cells = 1,
+    size_transitions = .75,
+    size_milestones = 2
+  ) +
+    theme_classic() +
+    theme(axis.text = element_blank(), axis.ticks = element_blank(), legend.position = "none") +
+    labs(x = NULL, y = NULL, title = foi) +
+    coord_cartesian()
+})
+g <- patchwork::wrap_plots(plots)
+g
+
 ggsave(
-  "fig/comptools/6_tidr_input.pdf",
+  "fig/comptools2/6_tidr_input.pdf",
   g,
   width = fig_size,
   height = fig_size
 )
 
+traj2 <- traj %>% dynwrap::label_milestones_markers(
+  markers = list(
+    "MEF" = "Hmga2",
+    "Induced" = "Cdkn1c",
+    "Myocyte" = "Tnnc2",
+    "Neuron" = "Syp"
+  ),
+  expression_source = dat$expression
+)
+
 g <-
   dynplot::plot_dimred(
-    branching,
-    dimred = dimred_br2,
-    # color_cells = "none",
+    traj2,
+    dimred = dr,
     plot_trajectory = TRUE,
+    label_milestones = TRUE,
     size_cells = 2
   ) +
   theme_classic() +
@@ -260,11 +323,92 @@ g <-
   coord_cartesian()
 
 ggsave(
-  "fig/comptools/6_tidr_output.pdf",
+  "fig/comptools2/6_tidr_output.pdf",
   g,
   width = fig_size,
   height = fig_size
 )
+
+
+# Differential expression -------------------------------------------------
+traj_mil <- traj %>% dynwrap::gather_cells_at_milestones()
+fimp_clus <- dynfeature::calculate_milestone_feature_importance(
+  traj_mil,
+  expression_source = dat$expression
+)
+
+de_clus <- fimp_clus %>% group_by(milestone_id) %>% slice(1:10) %>% ungroup() %>% pull(feature_id) %>% unique()
+expr_de <-
+  expr[, de_clus] %>%
+  dynutils::scale_quantile() %>% t() %>% dynutils::scale_quantile() %>% t()
+
+ord_de <- princurve::principal_curve(t(expr_de))$ord
+
+df <-
+  tibble(
+    edge = dynwrap::group_onto_nearest_milestones(traj),
+    orig_index = seq_along(edge)
+  ) %>%
+  arrange(edge)
+
+edge_ord <- unique(df$edge)
+rasters <- map(edge_ord, function(ed) {
+  ix <- df %>% filter(edge == ed) %>% pull(orig_index)
+  expr_de[ix, ord_de] %>% melt() %>% raster()
+})
+widths <- df %>% group_by(edge) %>% summarise(n = n()) %>% pull(n)
+g <- patchwork::wrap_plots(rasters, ncol = 1, heights = widths)
+g
+
+ggsave(
+  "fig/comptools2/7_declus_output.pdf",
+  g,
+  width = fig_size,
+  height = fig_size
+)
+
+
+
+
+
+
+fimp <- dynfeature::calculate_branch_feature_importance(
+  traj,
+  expression_source = dat$expression
+)
+
+de_traj <- fimp_clus %>% group_by(from, to) %>% slice(1:10) %>% ungroup() %>% pull(feature_id) %>% unique()
+expr_de <-
+  expr[, de_traj] %>%
+  dynutils::scale_quantile() %>% t() %>% dynutils::scale_quantile() %>% t()
+
+ord_de <- princurve::principal_curve(t(expr_de))$ord
+
+df <-
+  tibble(
+    edge = dynwrap::group_onto_trajectory_edges(traj),
+    progression = traj$progressions %>% slice(match(rownames(expr), cell_id)) %>% pull(percentage),
+    orig_index = seq_along(edge)
+  ) %>%
+  arrange(edge, progression)
+
+edge_ord <- unique(df$edge)
+rasters <- map(edge_ord, function(ed) {
+  ix <- df %>% filter(edge == ed) %>% pull(orig_index)
+  expr_de[ix, ord_de] %>% melt() %>% raster()
+})
+widths <- df %>% group_by(edge) %>% summarise(n = n()) %>% pull(n)
+g <- patchwork::wrap_plots(rasters, ncol = 1, heights = widths)
+g
+
+ggsave(
+  "fig/comptools2/7_detraj_output.pdf",
+  g,
+  width = fig_size,
+  height = fig_size
+)
+
+
 
 
 # Trajectory alignment ----------------------------------------------------
@@ -410,7 +554,7 @@ g <-
 
 
 ggsave(
-  "fig/comptools/7_align_input.pdf",
+  "fig/comptools2/7_align_input.pdf",
   g,
   width = fig_size,
   height = fig_size
@@ -432,7 +576,7 @@ g <-
 
 
 ggsave(
-  "fig/comptools/7_align_output.pdf",
+  "fig/comptools2/7_align_output.pdf",
   g,
   width = fig_size,
   height = fig_size
@@ -477,7 +621,7 @@ ordr_li <- hclust(dist(expr_bifur_sc))$order
 ordc_li <- hclust(dist(t(expr_bifur_sc)))$order
 
 ggsave(
-  "fig/comptools/8_ni_input.pdf",
+  "fig/comptools2/8_ni_input.pdf",
   expr_bifur_sc[ordr_li, ordc_li] %>% melt() %>% raster(),
   width = fig_size,
   height = fig_size
@@ -596,7 +740,7 @@ g <- ggraph(gr, layout = "kk") +
   labs(edge_colour = "Interaction type")
 
 ggsave(
-  "fig/comptools/8_ni_output.pdf",
+  "fig/comptools2/8_ni_output.pdf",
   g,
   width = fig_size*1.5,
   height = fig_size*1.5
@@ -619,7 +763,7 @@ g <-
   coord_cartesian()
 
 ggsave(
-  "fig/comptools/9_rnavelocity_input.pdf",
+  "fig/comptools2/9_rnavelocity_input.pdf",
   g,
   width = fig_size,
   height = fig_size
@@ -635,7 +779,7 @@ g <-
   coord_cartesian()
 
 ggsave(
-  "fig/comptools/9_rnavelocity_output.pdf",
+  "fig/comptools2/9_rnavelocity_output.pdf",
   g,
   width = fig_size,
   height = fig_size

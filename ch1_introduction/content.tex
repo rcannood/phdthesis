@@ -121,7 +121,7 @@ Advances in microvolume sequencing allowed profiling the transcriptome at single
 	\centering
 	\includegraphics[width=.7\linewidth]{fig/scomics_2.pdf} 
 	\caption{
-		\textbf{A:} Convergence of single-cell and omics biology\cite{junker_everycellspecial_2014}.
+		\textbf{A:} Convergence of single-cell and omics biology.
 		\textbf{B:} Different approaches for sampling cells with decreasing levels of cellular heterogeneity within the different sub-populations: snapshot, time-series, sorted.
 		\textbf{C:} Two common single-cell RNA sequencing technologies. Microfluidics systems let cells travel through nanometer scale tubing, capturing individual cells at intersections. Droplet-based systems encapsulate individual cells in droplets.
 	}
@@ -140,63 +140,114 @@ The rapidly advancing field of single-cell omics harbours exceptional opportunit
 Whole-genome profiling at single-cell level allows new types of analyses with which to study cellular heterogeneity at a hitherto unseen throughput. 
 The new types of analyses permitted by single-cell omics present several computational challenges\cite{stegle_computationalanalyticalchallenges_2015, yuan_challengesemergingdirections_2017, chen_singlecellrnaseqtechnologies_2019}. This necessitates the development of novel computational tools, either because the problem statement of the performed analysis is completely novel, or to adapt existing methodology to new data characteristics -- dimensionality and noise. 
 
-scRNA-seq data is typically very sparse -- while the human genome has more than 20'000 genes, they only contain non-zero values of a few thousand genes (typically <4'000). This is partially due to cells being specialised in particular functions and thus they do not need proteins of every time, but also due to RNA transcription occurring in bursts rather than continuously\cite{nicolas_whatshapeseukaryotic_2017}.
+scRNA-seq data is typically very sparse -- while the human genome has more than 20'000 genes, they only contain non-zero values of a few thousand genes (typically <4'000). This is partially due to cells being specialised in particular functions and thus they do not need proteins of every time, but also due to RNA transcription occurring in bursts rather than continuously\cite{nicolas_whatshapeseukaryotic_2017}. This contributes to the high levels of noise seen in scRNA-seq data: no two cells have the same set of non-zero genes. 
 
-Over the past five years, already 450 new tools for analysing single-cell omics data have been developed\cite{zappia_exploringsinglecellrnaseq_2018}. These tools typically fall within one of seven categories (Figure \ref{fig:comp_tools}). We discuss each category in the following subsections.
-Whole-genome profiling at a single-cell level harbours exceptional opportunities to discover new aspects of biology and redefine existing knowledge.
+Over the past five years, already 450 new tools have been developed to perform various analyses of single-cell omics data\cite{zappia_exploringsinglecellrnaseq_2018}, taking into account the specific noise characteristics. The most frequent types of analyses are detailed in the following subsections.
+
+\subsection{Dimensionality reduction}
+Single-cell omics datasets are usually one or more high-dimensional matrices, containing between M = $10^3$ to $10^5$ cells and typically about N = $10^3$ to $10^4$ genes (Figure~\ref{fig:comp_tools_dimred}A). The dimensionality of such datasets is typically too high for humans to interpret manually and for most modelling algorithms to tackle directly. 
+Moreover, in reality, the intrinsic dimensionality of biological systems is probably much lower. For example, a differentiating hematopoietic cell could be described by just three dimensions: the first two dimensions lays out the hematopoietic lineage tree, and a third dimension allows for reprogramming between branches to occur.
+
+Dimensionality reduction (DR) methods transform high-dimensional data into a meaningful low-dimensional representation. DR methods have two main target audiences; computers -- to construct a K-dimensional (with K $\ll$ M) representation of the data such that pairwise distances between different samples are retained as well as possible (Figure~\ref{fig:comp_tools_dimred}B); and humans -- to obtain a visual overview of the data (Figure~\ref{fig:comp_tools_dimred}C).
+
+Each dimension frequently corresponds to one or more modules of co-expressed genes.  The reduced space can be interpreted in way analogous to Waddington’s epigenetic landscapes\cite{waddington_strategygenesdiscussion_1957,ferrell_bistabilitybifurcationswaddington_2012,rebhahn_animatedlandscaperepresentation_2014}, where the landscape dictates the possible states a cell can reside in, and transitions between states correspond to dynamic cellular processes, such as cell differentiation. 
 
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[width=\linewidth]{fig/comptools/comptools_4.pdf} 
+	\includegraphics[width=\linewidth]{fig/comptools2/comptool_1_dimred.pdf} 
 	\caption{
-		\textbf{Computational tools developed for processing single-cell omics data usually lie within one of seven categories.}
-		\textbf{A:} Example of a count matrix from a scRNA-seq dataset, showing only 100 genes (rows) and 100 cells (columns).
-		\textbf{B:} Dimensionality reduction, providing a visual overview of the main cellular heterogeneity in the dataset.
-		\textbf{C:} Clustering, grouping together cells with similar omics profiles.
-		\textbf{D:} Trajectory inference, identifying and characterising transitions between different cellular states.
-		\textbf{E:} Differential expression, \ldots.
-		\textbf{F:} Network inference, predicting gene regulatory interactions from cell-to-cell heterogeneity.
-		\textbf{G:} RNA velocity, inferring the directionality of trajectories by predicting the future state of each cell.
-		\textbf{H:} Trajectory alignment, aligning multiple trajectories.
+		\textbf{Dimensionality reduction for single-cell omics data.}
+		\textbf{A:} A heatmap visualisation of an scRNA-seq expression dataset of fibroblasts being reprogrammed to neuron cells\cite{treutlein_dissectingdirectreprogramming_2016}. Only the most variable 
+		\textbf{B:} The reduced space is a M$\times$K-dimensional matrix which attempts to conserve the cellular heterogeneity of the original space as well as possible.
+		\textbf{C:} A dot plot of the first two components of the reduced space provides a global overview of the cells in the dataset. Colouring the dots according to prior information (e.g. cell type) or gene expression provides insight into the cellular heterogeneity within the dataset.
 	}
-	\label{fig:comp_tools}
+	\label{fig:comp_tools_dimred}
 \end{figure}
 
+DR methods can be classified into two main categories, feature projection-based and manifold learning\cite{engel_surveydimensionreduction_2012}. 
 
-\subsection{Dimensionality reduction}
-Single-cell omics datasets typically have too many dimensions (features) in order to be easily interpretable by humans and even by most computational tools. 
-Dimensionality reduction (DR) methods transform high-dimensional data into a meaningful representation with fewer dimensions. It is important to note that its usage depends on the target audience: for humans -- to visualise data in a 2-D plane to aid with interpretation by humans, or for computers -- to construct a denser representation of the data such that it mostly contains the same information but with fewer dimensions.
+Projection-based DR methods aim to perform a transformation of the data while preserving the pairwise distances between samples as much as possible. Examples of commonly used projection-based DR methods in single-cell omics are Principal Component Analysis\cite{pearson_liiilinesplanes_1901} (PCA) and Multi-Dimensional Scaling\cite{kruskal_multidimensionalscalingoptimizing_1964} (MDS). 
 
-There are many ways of classifying DR methods\cite{engel_surveydimensionreduction_2012}, but this work will use the following main categories: feature projection-based and manifold learning. 
-Projection-based DR methods aim to perform a linear transformation of the data while preserving the pairwise distances between samples as much as possible. Examples of commonly used projection-based DR methods in single-cell omics are PCA and MDS. 
-Manifold learning methods are methods which reconstruct a higher-order structure in the original space (e.g. a graph or a grid), visualising the structure in a lower-dimensional space, and mapping the original samples to the lower-dimensional space. Manifold learning can be an iterative optimisation process using a predefined criterion. Examples of manifold learning techniques are t-SNE, Diffusion Maps and UMAP. 
+Manifold learning DR methods reconstruct a higher-order structure in the original space (e.g. a graph or a grid), visualising the structure in a lower-dimensional space, and mapping the original samples to the lower-dimensional space. Manifold learning can be an iterative optimisation process using a predefined criterion. Examples of manifold learning techniques are t-distributed Stochastic Neighbor Embedding\cite{vandermaaten_visualizingdatausing_2008} (t-SNE), Diffusion Maps\cite{nadler_diffusion_2005,coifman_diffusionmaps_2006} and Uniform Manifold Approximation and Projection\cite{mcinnes_umapuniformmanifold_2018} (UMAP). 
+
+For scalability reasons, this work mostly makes use of Landmark MDS\cite{silva_globallocalmethods_2002,lee_landmarkmdsensemble_2009} (LMDS) with a Spearman rank correlation distance metric. LMDS is an extension of classical MDS, but rather than calculating a complete distance matrix between all pairs of cells, a set of landmark cells is sampled, only the distances between a set of landmarks and the samples are calculated. 
 
 \subsection{Clustering}
-
-\subsection{Trajectory inference}
-Single-cell omics data provide new opportunities for studying cellular dynamic processes, such as the cell cycle, cell differentiation and cell activation\cite{tanay_scalingsinglecellgenomics_2017,etzrodt_quantitativesinglecellapproaches_2014}. 
-Trajectory inference (TI) is a new category of computational tools used to offer an unbiased and transcriptome-wide understanding of a dynamic process\cite{tanay_scalingsinglecellgenomics_2017,cannoodt_computationalmethodstrajectory_2016}. 
-
-Technological advancements in single-cell omics allow studying a dynamic process in a high-throughput manner. 
-This raises concerns regarding biological fundamentals, such as how to define cell types or transitions between them\cite{etzrodt_quantitativesinglecellapproaches_2014,tanay_scalingsinglecellgenomics_2017}. 
-Trajectory inference (TI) methods aim to give insight into a dynamic process by inferring a trajectory from omics profiles of cells in which the dynamic process takes place\cite{cannoodt_computationalmethodstrajectory_2016}. 
-TI has two objectives: to reconstruct the topology of the dynamic process (e.g. is it linear, cyclical, bifurcating), and to determine the position of each cell along the topology. Some TI methods assumes that the user knows the topology beforehand and only focuses on ordering the cells along a predefined topology.
-
-The dataset can be a single snapshot of a mixture of cells in different stages, or a set of samples collected at different time points (Figure \ref{fig:trajectory_inference}A). Typically, TI methods first analyse similarities between cells, optionally infer the topology of the underlying process, and finally order cells along that trajectory (Figure \ref{fig:trajectory_inference}B). The second step can be optional, as some methods assume a specific topology beforehand.
-TI methods allow the identification of new subsets of cells, delineation of a differentiation tree, and characterisation of the main driver genes along a state transition (Figure \ref{fig:trajectory_inference}C). Current applications of TI focus on specific subsets of cells, but ongoing efforts to construct transcriptomic catalogs of whole organisms\cite{regev_humancellatlas_2017,han_mappingmousecell_2018,schaum_singlecelltranscriptomics20_2018} underline the urgency for accurate, scalable\cite{aibar_scenicsinglecellregulatory_2017,angerer_singlecellsmake_2017} and user-friendly TI methods.
+To learn about the different cellular states within a population of cells, clustering methods divide up the cells into separate groups of highly similar cells (Figure~\ref{fig:comp_tools_cluster}A). 
+By visualising gene expression of known genes involved in the cell types of interest, the clusters can be annotated (Figure~\ref{fig:comp_tools_cluster}B). 
 
 \begin{figure}[htb!]
-	\centering\includegraphics[width=\Largefigure]{fig/trajectory_inference_slim} % TODO: Update figure to match text!!!!
+	\centering
+	\includegraphics[width=.6\linewidth]{fig/comptools2/comptool_2_clustering.pdf} 
 	\caption{
-		Applications of single-cell trajectory inference methods. (A) Single-cell omics data appropriate for TI can be both obtained from an unsynchronised population of single cells (snapshot data) but also from synchronised cell populations. (B) UPDATE! (C) UPDATE!
+		\textbf{Clustering for single-cell omics data.}
+		\textbf{A:} Clustering methods group cells with similar omics profiles together. 
+		\textbf{B:} By overlaying gene expression levels on a dimensionality reduction, the clusters can be annotated to allow better interpretation of the cellular heterogeneity.
 	}
-	\label{fig:trajectory_inference}
+	\label{fig:comp_tools_cluster}
 \end{figure}
 
-\mycomment{Could still expand this section with pieces from the EJI paper, though it needs to be adapted strongly.}
+
+Usually, the number of clusters is determined by the user, either as a direct parameter (e.g. $k$-means\cite{lloyd_leastsquaresquantization_1982}) or an indirect parameter (e.g. a height cutoff in hierarchical clustering). In some exceptional cases, the number of clusters is strictly determined by the data itself and cannot be altered with a parameter (e.g. Louvain clustering\cite{blondel_fastunfoldingcommunities_2008}).
+
+Clustering methods used in this work are mostly restricted to $k$-Means for clustering low-dimensional spaces and Louvain for clustering networks, since both are highly scalable with respect to the number of cells.
+
+\subsection{Trajectory inference}
+While clustering methods divide cells into distinct groups, trajectory inference (TI) methods acknowledge that cells are dynamic entities which transition from once cellular state to another via various dynamic processes. Rather than making distinct groups, TI methods allow studying dynamic processes by reconstructing the topology of a dynamic process as a trajectory, and map the cells onto that trajectory (Figure~\ref{fig:comp_tools_ti}A). Similar to clustering, by colouring the cells according to the expression of genes known to be involved in the dynamic process of interest, the milestones in the trajectory can be annotated (Figure~\ref{fig:comp_tools_cluster}B). 
+
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=.6\linewidth]{fig/comptools2/comptool_3_trajectoryinference.pdf} 
+	\caption{
+		\textbf{Trajectory inference for single-cell omics data.}
+		\textbf{A:} During a dynamic process cells pass through several transitional states, characterized by different waves of transcriptional, morphological, epigenomic and/or surface marker changes\cite{enver_stemcellstates_2009}. TI methods provide a straightforward and unbiased approach to identifying and correctly ordering different transitional stages. 
+		\textbf{B:} By overlaying gene expression levels on a dimensionality reduction, the milestones can be annotated to allow better interpretation of the cellular heterogeneity.
+	}
+	\label{fig:comp_tools_ti}
+\end{figure}
+
+TI methods typically first require some form of dimensionality reduction prior to inferring a trajectory from the dataset (Figure~\ref{fig:ti_metro}). Subsequently, a trajectory modelling step then operates in this reduced space, aiming to identify cell states, constructing a trajectory through the different states, and projecting the cells back on to the trajectory. 
+
+A common way to classify TI methods is by the types of trajectories they can infer\cite{saelens_comparisonsinglecelltrajectory_2019}. About half of TI methods specialise in inferring linear or cyclic trajectories (i.e. they order the cells). Others model the trajectory as a rooted tree, allowing for one or more bifurcations to occur. Only a few methods are able to infer more generalised trajectories containing disconnected subgraphs or cycles.
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=.9\linewidth]{fig/ti_metro} 
+	\caption{
+		\textbf{TI methods use several common building blocks and can be organized in a unifying modular framework.} Overall, TI consists of two steps. In the first step dimensionality reduction techniques such as manifold learning, clustering, or graph-based methods are used to convert the dataset to a more simplified representation. This representation of the data then allows the trajectory itself to be more easily modelled in a second step. In this step, the trajectory itself is found within the data using both graph-based and curve-based approaches, after which the cells themselves can be ordered using a variety of methods.
+	}
+	\label{fig:ti_metro}
+\end{figure}
+
+
 \subsection{Differential expression}
+Given that cells are split up into groups differential expression (DE) methods ranks genes based on whether their expression is significantly higher or lower in one group in comparison to the others. This grouping can be based on prior information or an upstream clustering method. DE methods are useful for summarising the main differences between different groups of cells more compactly (Figure~\ref{fig:comp_tools_de}A) in comparison to when groups are compared without gene prioritisation (Figure~\ref{fig:comp_tools_cluster}A). 
+
+Trajectory differential expression (TDE) is an extension of DE where instead genes are prioritised according to whether their gene expression changes smoothly but significantly along a parts of a trajectory (Figure~\ref{fig:comp_tools_de}). 
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=.6\linewidth]{fig/comptools2/comptool_4_differentialexpression.pdf} 
+	\caption{
+		\textbf{Differential expression for single-cell omics data.}
+		\textbf{A:} Differential expression methods prioritises genes that are expressed significantly higher or lower in particular given groups.
+		\textbf{B:} Trajectory differential expression prioritises genes that change smoothly but significantly along particular transitions in a trajectory.
+	}
+	\label{fig:comp_tools_de}
+\end{figure}
 
 \subsection{Network inference}
+%One of the central cellular processes underlying development is transcriptional regulation. During development, changes in transcription factor activity induce chromatin modifications, chromatin remodeling and ultimately a differential recruitment of the basal transcriptional machinery [66]. Modeling the dynamics of gene regulation is therefore essential to better understand why a cellular dynamic processes progresses through several steps, and what goes wrong in the case of disease.
+%
+%The dynamics of gene regulation has classically been studied using time series data [23]. When dynamic processes progress asynchronously, such as in hematopoiesis, time series data are usually obtained by sorting different transition states and assessing bulk gene expression and transcription factor binding within the population [67–70]. Alternatively, time series data can also be generated by synchronizing the dynamic process between cells. However, issues with time-resolution, heterogeneity and good in vivo synchronization models can often limit the predictive power of the dynamic models of gene regulation which can be constructed [23]. Combining single-cell snapshot data with trajectory inference can now in principle construct an accurate time-series dataset for every cell population both in vivo and in vitro, while avoiding issues with heterogeneity. Initially, several pioneering studies demonstrated the potential of this approach in single cells using single-cell qPCR data for selected sets of 10 to 50 transcription factors [71–75]. With the advent of genome wide single-cell technologies, the models of dynamic gene regulation can now be made even more complete while avoiding a prior bias to well studied transcription factors [17,30,76,77] and several methods have already been developed specifically tuned towards single-cell data [78–80].
+%
+%The power of a dynamic network approach in single cells is not only that it allows the identification of transcription factors specifically regulating a specific state, but also how these factors then induce sets of genes necessary for regulating the next wave of transcription changes (Figure 1B). Such a gene regulatory cascade was described during cellular reprogramming from mouse embryonic fibroblasts to induced pluripotent stem cells, where SOX2 was shown to activate a series of other transcription factors which, together with SOX2, induces pluripotency [72]. Transition states are frequently associated with particular subnetworks of transcriptional regulators, as was shown in a direct reprogramming setting from fibroblasts to neurons [77]. Several studies have highlighted how some regulatory links can be very dynamic while others show evidence of being static during consecutive developmental stages [74,75]. Regulatory network motifs can also be extracted from the regulatory network [74], some of which can have interesting properties in dynamic systems [81,82]. In branching trajectories dynamic regulatory networks can also be used to study the regulators important for a particular branch [17,75,79] (Figure 1C).
+%
+%Another advantage of using ordered datasets, either based on bulk time-series or single-cell trajectories, is the improved accuracy of inferring true causative regulatory interactions. Assume that during development the expression of regulator A increases and in turn this regulator activates the expression of regulator B and gene C. Between the upregulation of regulator A and the upregulation of B and C we expect a time delay, equal to the time it takes for regulator A to be translated, translocated to the nucleus and induce a detectable increase in the expression of B and C. On the other hand the expression of regulator B and gene C will be very strongly correlated, because they are both activated at the same time. Incorporating this time-delay into the gene regulatory network inference could therefore be used to better discern the true causative regulatory edge between A and B/C with a spurious correlative edge between B and C [83].
+
+
+
 Gene regulatory network inference, or network inference (NI) for short, is a type of computational analysis where thousands of transcriptomic profiles are analysed together in order to infer the regulatory interactions between transcription factors and genes. This topic already received much attention with the advent of bulk omics (before single-cell omics). These efforts culminated in several DREAM competitions assessing the performance of 29 different NI methods\cite{marbach_revealingstrengthsweaknesses_2010, marbach_wisdomcrowdsrobust_2012}. 
 
 After the last DREAM competition, it seemed that interest in NI methodology had declined. After all, NI on bulk omics profiles suffered from several crucial issues. As mentioned previously, bulk profiles are generated by pooling together the RNA transcripts of a supposedly homogeneous population of thousands of cells. Since the expression values are averaged over the whole population, incorrect assumptions on the homogeneity of the pooled cells may lead to the masking of relevant expression patterns in rare cell populations (Figure \ref{fig:bulk_vs_singlecell}). Besides, NI methods rely on a diverse set of time-series and perturbation experiments in order to reliably identify causal regulatory interactions. Such experiments are expensive and time-consuming, and an inaccurate selection of time points might result in crucial intermediate stages being missed.
@@ -211,6 +262,7 @@ After the last DREAM competition, it seemed that interest in NI methodology had 
 The advent of single-cell omics has made scientists wonder whether now is the time to revisit network inference\cite{stegle_computationalanalyticalchallenges_2015}. 
 One of the main advantages of single-cell omics is the ability to quantify the exact cellular state of thousands of cells per experiment. The heterogeneity between cells caused by naturally occurring biological randomness\cite{padovan-merhar_usingvariabilitygene_2013} can be exploited to infer regulatory interactions between TFs and their target genes at much lower costs (see Figure \ref{fig:bulk_vs_singlecell}).
 In this setting, heterogeneity in the cell population eases network inference, rather than mask condition-specific expression patterns in regulatory interactions.
+
 
 % mention differential networks
 
