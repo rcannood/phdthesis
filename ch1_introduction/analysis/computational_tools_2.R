@@ -377,7 +377,7 @@ fimp <- dynfeature::calculate_branch_feature_importance(
   expression_source = dat$expression
 )
 
-de_traj <- fimp_clus %>% group_by(from, to) %>% slice(1:10) %>% ungroup() %>% pull(feature_id) %>% unique()
+de_traj <- fimp %>% group_by(from, to) %>% slice(1:13) %>% ungroup() %>% pull(feature_id) %>% unique()
 expr_de <-
   expr[, de_traj] %>%
   dynutils::scale_quantile() %>% t() %>% dynutils::scale_quantile() %>% t()

@@ -321,14 +321,47 @@ if (!file.exists(paste0(data_dir, "qsub_handle.rds"))) {
     sigmoid_sd = sigmoid_sd
   )
   write_rds(qsub_handle, paste0(data_dir, "qsub_handle.rds"))
+
+  targets_filt <- targets[2001:4000]
+  expr_filt <- expr[, union(targets_filt, regulators_filt)]
+
+  x <- 1
+  qsub_handle2 <- qsub::qsub_lapply(
+    X = seq_along(targets_filt),
+    qsub_config = qsub::override_qsub_config(
+      max_wall_time = "12:00:00",
+      memory = "10G",
+      name = "bred",
+      wait = FALSE,
+      stop_on_error = FALSE,
+      remove_tmp_folder = FALSE#,
+      # execute_before = "#$ -l h=!prismcls08",
+    ),
+    qsub_packages = c("dynutils", "dplyr", "purrr", "magrittr", "tibble"),
+    qsub_environment = c("x"),
+    FUN = calculate_target_importance,
+    # pass data and other parameters
+    expr = expr_filt,
+    samples = samples_filt,
+    regulators = regulators_filt,
+    targets = targets_filt,
+    num_trees = num_trees,
+    num_variables_per_split = num_variables_per_split,
+    min_node_size = min_node_size,
+    max_depth = max_depth,
+    interaction_importance_filter = interaction_importance_filter,
+    sigmoid_mean = sigmoid_mean,
+    sigmoid_sd = sigmoid_sd
+  )
+  write_rds(qsub_handle2, paste0(data_dir, "qsub_handle2.rds"))
 }
 
 
 # if (!file.exists(paste0(data_dir, "grn.rds"))) {
-  qsub_handle <- read_rds(paste0(data_dir, "qsub_handle.rds"))
+  qsub_handle1 <- read_rds(paste0(data_dir, "qsub_handle.rds"))
 
-  grn <- qsub::qsub_retrieve(
-    qsub_handle,
+  grn1 <- qsub::qsub_retrieve(
+    qsub_handle1,
     wait = "just_do_it",
     post_fun = function(i, li) {
       li$importance <- li$importance %>% filter(importance > .01)
@@ -337,6 +370,21 @@ if (!file.exists(paste0(data_dir, "qsub_handle.rds"))) {
       li
     }
   )
+
+  qsub_handle2 <- read_rds(paste0(data_dir, "qsub_handle2.rds"))
+
+  grn2 <- qsub::qsub_retrieve(
+    qsub_handle2,
+    wait = "just_do_it",
+    post_fun = function(i, li) {
+      li$importance <- li$importance %>% filter(importance > .01)
+      li$importance_sc <- li$importance_sc %>% filter(importance_sc > .01) %>%
+        inner_join(li$importance %>% select(regulator, target), by = c("regulator", "target"))
+      li
+    }
+  )
+
+  grn <- c(grn1, grn2)
 
   write_rds(grn, paste0(data_dir, "grn.rds"))
 # }
@@ -590,35 +638,95 @@ impsc2f %>% group_by(name) %>% summarise(n = n()) %>% arrange(desc(n)) %>% print
 write_tsv(impsc2f, paste0(data_dir, "grouped_interactions.tsv"))
 
 
-
-ggplot(impsc2 %>% filter(importance > .1)) +
-  geom_histogram(aes(importance, fill = name)) +
-  scale_fill_manual(values = set_names(col_names, cell_names))
-
-
-ggplot(impsc2 %>% filter(importance > .1)) +
-  geom_histogram(aes(log10(importance), fill = name)) +
-  scale_fill_manual(values = set_names(col_names, cell_names)) + facet_wrap(~name, scale = "free_y")
-
-ggplot(impsc2) +
-  geom_histogram(aes(log10(importance), fill = name)) +
-  scale_fill_manual(values = set_names(col_names, cell_names)) + facet_wrap(~name, scale = "free_y")
-
-
-ggplot(impsc2 %>% filter(importance > .1)) +
-  geom_point(aes(effect, importance, colour = name)) +
-  scale_colour_manual(values = set_names(col_names, cell_names)) + facet_wrap(~name, scale = "free_y")
-
-
-# individual interactions
-clus_ids <- labels %>% filter(name %in% c("AML", "ALL")) %>% pull(cluster)
-sel_ids <-
-  samples[clus %in% clus_ids] %>% sample(100)
-
-sample_network <-
-  importance_sc %>%
-  filter(cell_id %in% sel_ids) %>%
-  mutate(cluster = as.vector(clus[cell_id])) %>%
-  left_join(labels %>% transmute(cluster, name = factor(name, levels = cell_names)), by = "cluster") %>%
-  filter(importance > .3)
-write_tsv(impsc2f, paste0(data_dir, "single_interactions.tsv"))
+#
+# ggplot(impsc2 %>% filter(importance > .1)) +
+#   geom_histogram(aes(importance, fill = name)) +
+#   scale_fill_manual(values = set_names(col_names, cell_names))
+#
+#
+# ggplot(impsc2 %>% filter(importance > .1)) +
+#   geom_histogram(aes(log10(importance), fill = name)) +
+#   scale_fill_manual(values = set_names(col_names, cell_names)) + facet_wrap(~name, scales = "free_y")
+#
+# ggplot(impsc2) +
+#   geom_histogram(aes(log10(importance), fill = name)) +
+#   scale_fill_manual(values = set_names(col_names, cell_names)) + facet_wrap(~name, scales = "free_y")
+#
+#
+# ggplot(impsc2 %>% filter(importance > .1)) +
+#   geom_point(aes(effect, importance, colour = name)) +
+#   scale_colour_manual(values = set_names(col_names, cell_names)) + facet_wrap(~name, scales = "free_y")
+#
+#
+# # # individual interactions
+# # clus_ids <- labels %>% filter(name %in% c("AML", "ALL")) %>% pull(cluster)
+# # sel_ids <-
+# #   samples[clus %in% clus_ids] %>% sample(100)
+# #
+# # sample_network <-
+# #   importance_sc %>%
+# #   filter(cell_id %in% sel_ids) %>%
+# #   mutate(cluster = as.vector(clus[cell_id])) %>%
+# #   filter(importance > .3) %>%
+# #   left_join(labels %>% transmute(cluster, name = factor(name, levels = cell_names), col), by = "cluster")
+# # write_tsv(sample_network, paste0(data_dir, "single_interactions.tsv"))
+# #
+# #
+# #
+# # cid <- sample_info %>% filter(project_id == "TARGET-NBL") %>% pull(id)
+# # sample_network <- importance_sc %>%
+# #   filter(cell_id %in% cid) %>%
+# #   filter(importance > .3) %>%
+# #   mutate(cluster = as.vector(clus[cell_id])) %>%
+# #   left_join(labels %>% transmute(cluster, name = factor(name, levels = cell_names), col), by = "cluster")
+# #
+# # write_tsv(sample_network, paste0(data_dir, "single_interactions.tsv"))
+#
+# impsel <- importance_sc %>%
+#   filter(i <= 100, importance > .1)
+#
+# TOT2 <- nrow(impsel)
+# imp_oneint <-
+#   impsel %>%
+#   arrange(desc(importance)) %>%
+#   left_join(sample_info %>% transmute(cell_id = factor(id, levels = samples), sample_type = factor(sample_type), project_id = factor(project_id))) %>%
+#   group_by(regulator, target) %>%
+#   mutate(CLUSPOS = n()) %>%
+#   ungroup() %>%
+#   left_join(proj_annot, by = "project_id") %>%
+#   group_by(group, value) %>%
+#   mutate(GRPOS = n()) %>%
+#   group_by(regulator, target, group, value) %>%
+#   summarise(
+#     CLUSPOS = CLUSPOS[[1]],
+#     GRPOS = GRPOS[[1]],
+#     TP = n()
+#   ) %>%
+#   ungroup() %>%
+#   mutate(
+#     FN = GRPOS - TP,
+#     FP = CLUSPOS - TP,
+#     TN = TOT2 - TP - FN - FP,
+#     TPR = TP %s/% (TP + FN),
+#     TNR = TN %s/% (TN + FP),
+#     PPV = TP %s/% (TP + FP),
+#     NPV = TN %s/% (TN + FN),
+#     FNR = FN %s/% (FN + TP),
+#     FPR = FP %s/% (FP + TN),
+#     FDR = FP %s/% (FP + TP),
+#     FOR = FN %s/% (FN + TN),
+#     F1 = (2 * PPV * TPR) %s/% (PPV + TPR)
+#   )
+#
+#
+# labels_onint <-
+#   imp_oneint %>%
+#   arrange(desc(PPV * TPR)) %>%
+#   group_by(regulator, target) %>%
+#   slice(1) %>%
+#   ungroup() %>%
+#   rename(name = value) %>%
+#   left_join(importance %>% rename(imp_name = name), by = c("regulator", "target"))
+#
+#
+#
