@@ -41,7 +41,6 @@
 % pseudocode packages
 \usepackage{algorithm}
 \usepackage{algpseudocode}
-\usepackage{fixltx2e}
 \usepackage{algpseudocode}
 \MakeRobust{\Call}
 
@@ -368,11 +367,6 @@ BoldItalicFont = *-700-Italic
 	%Recent developments in single-cell transcriptomics have opened new opportunities for studying dynamic processes in immunology in a high-throughput and unbiased manner. Starting from a mixture of cells in different stages of a developmental process, unsupervised trajectory inference algorithms aim to automatically reconstruct the underlying developmental path that cells are following. In this review, we break down the strategies used by this novel class of methods, and organize their components into a common framework, highlighting several practical advantages and disadvantages of the individual methods. We also give an overview of new insights these methods have already provided regarding the wiring and gene regulation of cell differentiation. As the trajectory inference field is still in its infancy, we propose several future developments which will ultimately lead to a global and data-driven way of studying immune cell differentiation.
 \end{quote}
 \vfill
-Partially adapted from:\\
-\textbf{Cannoodt, R.}$^*$, Saelens, W.$^*$, and Saeys, Y. Computational methods for trajectory inference from single-cell transcriptomics. \textit{European Journal of Immunology} 46, 11 (2016), 2496--2506. \doi{10.1002/eji.201646347}.\\
-Saelens, W.$^*$, \textbf{Cannoodt, R.}$^*$, Todorov, H., and Saeys, Y. A comparison of single-cell trajectory inference methods. \textit{Nature Biotechnology} 37, 5 (2019), 547--554. \doi{10.1038/s41587-019-0071-9}.\\
-Todorov, H., \textbf{Cannoodt, R.}, Saelens, W., and Saeys, Y. Network Inference from Single-Cell Transcriptomic Data. \textit{Gene Regulatory Networks} (2019), 235--249. \doi{10.1007/978-1-4939-8882-2_10}. \\
-{\footnotesize $^*$ Equal contribution}
 \newpage
 \include{ch1_introduction/content}
 
@@ -414,9 +408,7 @@ Saelens, W.$^*$, \textbf{Cannoodt, R.}$^*$, Todorov, H., and Saeys, Y. A compari
 \begin{quote}
 	\textbf{Abstract:} Recent technological advances allow unbiased investigation of cellular dynamic processes, by generating -omics profiles of thousands of single cells and computationally ordering these cells along a trajectory. Since 2014, at least 75 tools for trajectory inference have been developed. However, for end-users with a dataset of interest, these methods are difficult to execute and compare, mainly due to high variability in input/output data structures, software requirements, and programming interfaces.
 	
-	We developed dyno, a set of software tools that allow a user to easily infer, visualise and interpret single-cell trajectories. First, the user can select the most optimal set of methods based on the size of the dataset, the prior knowledge on the trajectories' topology and other user preferences. Each selected method can then be easily run within a common interface. Because the output of these methods are all converted into a common consistent format, the trajectories can be easily interpreted. For this, we provide a complete toolkit: adding a root and labelling the different cell stages, detecting genes which are differentially expressed at different stages of the trajectory, and plotting the trajectory within any dimensionality reduction or heatmap.
-	
-	We are currently extending this pipeline to include additional input data, such as RNA velocity measurements, and additional tools for interpreting the trajectories, such as alignment and differential expression.
+	We developed dyno, a set of software tools that allow a user to easily infer, visualise and interpret single-cell trajectories. First, the user can select the most optimal set of methods based on the size of the dataset, the prior knowledge on the trajectories' topology and other user preferences. Each selected method can then be easily run within a common interface. Because the outputs of these methods are all converted into a common consistent format, the trajectories can be easily interpreted. For this, we provide a complete toolkit: adding a root and labelling the different cell stages, detecting genes which are differentially expressed at different stages of the trajectory, and plotting the trajectory within any dimensionality reduction or heatmap.
 \end{quote}
 \vfill
 Adapted from:\\
@@ -459,8 +451,9 @@ Adapted from:\\
 \end{quote}
 \vfill
 Adapted from:\\
-\textbf{Cannoodt, R.}, Saelens, W., Saeys, Y, and De Preter K. Inferring Single Cell Regulatory Networks. \textit{Journal} vol, issue (2019), page--page. doi. \fbox{\color{red}order authors?}
+\textbf{Cannoodt, R.}, Saelens, W., Saeys, Y, and De Preter K. Inferring Single Cell Regulatory Networks. \textit{Journal} vol, issue (2019), page--page. doi.
 \newpage
+\graphicspath{{./ch6_bred/}}
 \include{ch6_bred/content}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -477,8 +470,7 @@ Adapted from:\\
 	Up until now, however, graphlets were not suited as a metric for performing topology optimisation; when millions of minor changes are made to the network structure it becomes computationally intractable to recalculate all the graphlet counts for each of the edge modifications. \\ IncGraph is a method for calculating the differences in graphlet counts with respect to the network in its previous state, which is much more efficient than calculating the graphlet occurrences from scratch at every edge modification made.
 	In comparison to static counting approaches, our findings show IncGraph reduces the execution time by several orders of magnitude.
 	The usefulness of this approach was demonstrated by developing a graphlet-based metric to optimise gene regulatory networks.
-	IncGraph is able to quickly quantify the topological impact of small changes to a network, which opens novel research opportunities to study changes in topologies in evolving or online networks, or develop graphlet-based criteria for topology optimisation. \\
-	IncGraph is freely available as an open-source R package on CRAN (incgraph). The development version is also available on GitHub (\href{http://www.github.com/rcannood/incgraph}{rcannood/incgraph}).
+	IncGraph is able to quickly quantify the topological impact of small changes to a network, which opens novel research opportunities to study changes in topologies in evolving or online networks, or develop graphlet-based criteria for topology optimisation.
 \end{quote}
 \vfill
 Adapted from:\\
@@ -486,15 +478,6 @@ Adapted from:\\
 \newpage
 \include{ch7_incgraph/content}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%      CH8: DISCUSSION      %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage{\thispagestyle{empty}\cleardoublepage}
-\chapter{Discussion} 
-\chaptermark{Discussion.} % short title
-\label{chap:discussion}
-\graphicspath{{./ch8_discussion/}}
-\include{ch8_discussion/content}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%   CH9: Self-assessment    %%%
@@ -536,6 +519,15 @@ Essential guidelines for computational method benchmarking. \textit{Genome Biolo
 \newpage
 \include{ch10_guidelines/content}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%      CH8: DISCUSSION      %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\thispagestyle{empty}\cleardoublepage}
+\chapter{Discussion} 
+\chaptermark{Discussion.} % short title
+\label{chap:discussion}
+\graphicspath{{./ch8_discussion/}}
+\include{ch8_discussion/content}
 
 
 \include{chX_backmatter}

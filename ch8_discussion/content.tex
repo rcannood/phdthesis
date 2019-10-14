@@ -1,49 +1,75 @@
 % DISCUSSION CONTENT
-	
-This chapter reflects on the impact of this work on the field, referring back to the research objectives that were defined in Chapter \ref{chap:introduction}. 
 
-\section{dyngen: benchmarking with \textit{in silico} single cells}
-We developed a single-cell simulator that can be used to simulate types of single-cell omics data for which the technology does not yet exist (Chapter~\ref{chap:dyngen}). The \textit{in silico} single cell data can help kick-start emerging domains with low data availability more safely by making novel computational tools more reproducible. Indeed, the simulator has already been used to evaluate trajectory inference\cite{saelens_comparisonsinglecelltrajectory_2019}, trajectory alignment\cite{vandenberge_trajectorybaseddifferentialexpression_2019}, and single cell network inference\cite{pratapa_benchmarkingalgorithmsgene_2019} methods.
 
-\section{dynbenchmark: A comparison of single-cell trajectory inference methods}
-Using this simulator and a collection of real datasets, we performed a comparison of 45 TI methods (Chapter~\ref{chap:dynbenchmark}). 
+In this work, we aimed to accelerate scientific progress in the field of single-cell omics by providing and evaluating computational tools. In section~\ref{sec:research_objectives} we proposed a concrete set of objectives this work will attempt to solve. Every chapter respectively tackles one of these research objectives, and each chapter discusses the implications of that part of our research in detail. This chapter reflects on the impact of this work on the field, going over each of the objectives and respective chapters. 
+
+\section{Benchmarking with \textit{in silico} single cells}
+
+We developed \texttt{dyngen}, a simulator of single cells to benchmark and stress-test computational tools for single-cell omics (Chapter~\ref{chap:dyngen}).
+It supports a selection of existing experimental protocols, but can also simulate experiments for permitted by current technologies, such as generating omics profiles from the same cell at multiple timepoints.
+This data can help kick-start emerging domains with low data availability more safely by allowing method developers to test their method before numerous datasets become publicly available.
+
+\texttt{dyngen} has already been used successfully to evaluate trajectory inference\cite{saelens_comparisonsinglecelltrajectory_2019}, trajectory alignment\cite{vandenberge_trajectorybaseddifferentialexpression_2019}, and network inference\cite{pratapa_benchmarkingalgorithmsgene_2019} methods. Furthermore, we showed that it can also be used to evaluate differential network inference methods, and trajectory alignment methods.
+
+
+\section{Comparing 45 trajectory inference methods}
+Using this simulator and a collection of real datasets, we performed a comparison of 45 TI methods (Chapter~\ref{chap:dynbenchmark}).
 Our contributions include writing software to run 45 different error-prone TI methods with a common interface, downloading and processing hundreds of single cell datasets, and developing novel metrics for comparing ground truth and predicted trajectories.
+With this benchmarking study, we had two clear goals in mind: to help guide users to TI methods that are suitable for their needs, and to provide developers of TI methods with the necessary tools to benchmark their own tool.
 
-We constructed a set of guidelines for end-users to help choose a TI method that is accurate, robust and fit for their application. 
-Since such guidelines were hitherto lacking, they are commonly disseminated in manuscripts \cite{lafzi_tutorialguidelinesexperimental_2018,luecken_currentbestpractices_2019}, courses \cite{kiselev_analysissinglecell_2019,martens_analysissinglecell_2019}, and slides shown during keynote caffeine refuelling sessions \cite{hemberg_coffeebreakanalysis_2019}. 
+We accomplished the first goal by constructing a set of guidelines for end-users to help choose a TI method that is accurate, robust and fit for their application. 
+Since such guidelines were hitherto lacking, they are now commonly disseminated in manuscripts \cite{lafzi_tutorialguidelinesexperimental_2018,luecken_currentbestpractices_2019}, courses \cite{kiselev_analysissinglecell_2019,martens_analysissinglecell_2019}, and slides shown during keynote caffeine refuelling sessions \cite{hemberg_coffeebreakanalysis_2019}. 
 
-We made our pipeline, datasets, metrics, and containerised wrappers of TI methods publicly available for developers to use. Despite our best efforts, we do not observe an increase in developers performing quantitative benchmarks. We hypothesise causal reasons for this phenomenon and provide solutions in order to spur TI developers to perform more self-assessments (Chapter~\ref{chap:selfassessment}).
+For our second goal, it seems too early to tell whether our research had any effect on self-assessments of TI method developers. We did made our pipeline, datasets, metrics, and containerised wrappers of TI methods publicly available for developers to use.
+However, so far we do not observe an increase in developers performing quantitative benchmarks. We hypothesise causal reasons for this phenomenon and provide solutions in order to spur TI developers to perform more self-assessments (Chapter~\ref{chap:selfassessment}).
 
-Over the course of four years, we developed a lot of practical experience in benchmarking complex computational tools. We summarise this experience in a set of essential guidelines for benchmarking computational tools (Chapter~\ref{chap:guidelines}).
+\section{A toolkit to infer, visualise and interpret single-cell trajectories}
 
-%	\item Already outdated when the manuscript was published online
-%	\item Update benchmark with more TI methods, newer (and larger) datasets, perform parameter optimisation on methods
-%	\item Include RNA velocity as inputs
+The previous two works necessitated developing a tool for visualising trajectory data. We extended this implementation into a full toolkit, named \texttt{dyno}, for inferring and analysing trajectories (Chapter~\ref{chap:dyno}). The toolkit allows performing downstream analyses such detecting differentially expressed genes along transitions in the trajectory, annotating the trajectory, and comparing multiple trajectories in a common dimensionality reduction. A major benefit of \texttt{dyno} is that it allows utilising any of the 50 TI methods we wrapped as part of the comparison, without having to install dependencies for every TI method separately.
 
-\section{dyno: A toolkit for inferring and interpreting trajectories}
-% spinoff from dynbenchmark
-% not yet published, yet a lot of activity on github
-% invest time in publishing all of the subpackages on github
-
-\section{SCORPIUS: Fast, accurate, and robust single-cell pseudotime}
-
-%\item We introduce a novel TI method specialised in inferring linear trajectories (Chapter~\ref{chap:scorpius}). Despite linear TI being the most simple but commonly used form of trajectory inference, the benchmark demonstrated that most TI methods are not capable of producing accurate models of linear datasets.
+The software packages consist of several subpackages, each with a separate functionality (e.g. \texttt{dynplot} visualises trajectories, \texttt{dynmethods} provides wrappers for the TI methods). Since most of the packages are currently only hosted on Github, only users familiar with Github have been able to use it. To make \texttt{dyno} available to a larger audience, we are publishing each of these packages and developing command-line interfaces for the most important functionalities.
 
 
-%\section{SCORPIUS discussion}
-%\begin{itemize}
-%	\item Extension to inferring non-linear trajectories, i.e. with principal graphs or GNG
-%\end{itemize}
+\section{Fast, accurate, and robust single-cell pseudotime}
+
+We developed a TI method, called \texttt{SCORPIUS}, specialised in inferring linear trajectories (Chapter~\ref{chap:scorpius}). Since our comparison of TI methods already lists 30 TI methods that can infer trajectories that are more complex than a linear ordering of cells, why would we need a linear TI method?
+
+Being able to study how cells progress over time is an analysis as fundamental as being able to cluster cells or identify differentially expressed genes between two groups. We showed that for analysing datasets containing linear trajectories, \texttt{SCORPIUS} outperforms all other TI methods tested as part of our TI benchmark. 
+
+Despite \texttt{SCORPIUS} published on bioRxiv in 2016, discussion and usage of the pre-print has largely been limited to comparing the results of a different (linear) TI methods to those of \texttt{SCORPIUS}. Since the pre-print, many improvements have been made to improve the accuracy and robustness of predicted trajectories, to allow scaling up to datasets containing 100'000s of cells, and to providing a more user-friendly interface. Since the beginning of 2019 -- before the publication of our benchmark of TI methods -- several studies have now reported using SCORPIUS as a tool for deriving primary results\cite{damond_maphumantype_2019, cheng_multifactorialheterogeneityvirusspecific_2019, tibbitt_singlecellrnasequencing_2019, hove_singlecellatlasmouse_2019, wouters_singlecellgeneregulatory_2019}.
+
 
 \section{bred: Inferring single cell regulatory networks}
+
+%	\item We develop an algorithm for  \textbf{inferring gene regulatory interactions at a single-cell level} (Chapter~\ref{chap:bred}). We demonstrate our NI methodology by inferring regulatory interactions for 25'000 hematopoietic cells, as well as for 15'000 cancer-related bulk profiles. % TODO: was this chapter written in the end?
 
 %\item We invent a new type of NI method capable of inferring the GRN of individual cells (Chapter~\ref{chap:bred}). We demonstrate this <yadeyade .. fill in when the chapter is actually written.>
 
 \section{incgraph: Optimising regulatory networks}
 
+%	\item We provide a tool for  \textbf{analysing the topological properties of large, evolving networks} and use this to iteratively optimise GRN predictions (Chapter~\ref{chap:incgraph}).
+
 %\item Every NI method has certain topological biases. We provide a tool for analysing the topological properties of large, evolving networks and use this to iteratively optimise GRN predictions (Chapter~\ref{chap:incgraph}).
 
-\section{Supervised or unsupervised?}
+
+
+
+\section{A life without Git, Travis CI, or tidyverse}
+A significant portion of this work involved developing large software libraries, in a collaborative setting, over a time span of about four years. Since the results of our comparison of 45 TI methods required three years to develop, we were happily forced to develop a system where experiments could be rerun and results could be updated on-the-fly.
+
+We summarised our experiences in the form of a set of guidelines for benchmarking computational tools (Chapter~\ref{chap:guidelines}). However, these guidelines do not touch upon many aspects of good software development practices that we learned to use in order to bring this thesis to a good end. In particular, I would like to highlight several  fundamental (open-source) projects without the likes of which our research would have been simply impossible to perform, namely Git, Travis CI, and the tidyverse.
+
+\textbf{Git}\cite{torvalds_gitfastversion_2005} is a code-revision system that allows multiple users to collaborate on developing code and keep track of what changes were made by whom. 
+Since Wouter and I were often working closely together on a specific part of our software, Git saved us a lot of time by merging together changes developed in parallel. Only in few cases did we need to intervene manually to merge our changes.
+Additionally, Github.com allowed us not only to collaborate with each-other, but also correspond and collaborate with other software developers from many different research groups, using Github Issues to discuss problems with other researchers, and Github Pull Requests to contribute code to open-source projects. 
+
+Together, we published over 20'000 code contributions (commits) across 50+ software packages\cite{cannoodt_developmentdynverse_2019}. Since many of these packages depend on one another, it is inevitable that changes made to one package would break another package. We wrote many, many unit tests (and still too few), and let these tests automatically be executed on \textbf{Travis CI}\cite{traviscigmbh_traviscitest_2011}. This way, when we pushed breaking changes to Github, Travis CI would notify that our commit has resulted in one or more unit tests failing. While sometimes it is a hassle to set up, Travis CI has prevented us countless times from generating faulty results due to a faulty underlying function.
+
+Software bugs can be introduced even by incredibly small, seemingly insignificant changes. The R programming language seems particularly susceptible towards getting trapped by its many pitfalls. However, there are many benefits of using R in bioinformatics research context, such as its extensive community of statisticians develop packages for the R ecosystem. The \textbf{tidyverse} packages\cite{wickham_tidytoolsmanifesto_2017}, developed by the RStudio team and many online contributors, completely transformed my experiences with R from tedious struggles to efficient everyday functional programming.
+
+Honourable mentions go to Linux, Fedora, \LaTeX, TeXstudio, (R)Markdown, Bash, Sed, Regular expressions, Rocket Chat, for making bioinformatics software development even more fun and enjoyable.
+
+
 
 
 \clearpage

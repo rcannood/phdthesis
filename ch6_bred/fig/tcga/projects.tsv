@@ -1,0 +1,51 @@
+project	what	where	ontology	type	name_long	name_short
+BEATAML1.0-COHORT	myeloid	blood, hematopoietic system	BTO:0000089	leukemia	Functional Genomic Landscape of Acute Myeloid Leukemia	AML
+CGCI-BLGSP	B-cell			lymphoma	Burkitt Lymphoma Genome Sequencing Project	BL
+CPTAC-3		kidney, lung, uterus		carcinoma	Clinical Proteomic Technologies for Cancer Initiative	CPTAC
+CTSP-DLBCL1	B-cell			lymphoma	CTSP Diffuse Large B-Cell Lymphoma (DLBCL) CALGB 50303	DBCL
+HCMI-CMDC		brain, colon, rectum, colorectal		glioma, carcinoma	NCI Cancer Model Development for the Human Cancer Model Initiative	NCI
+MMRF-COMMPASS	plasma cell	blood, hematopoietic system	BTO:0000089		Multiple Myeloma CoMMpass Study	MM
+NCICCR-DLBCL	B-cell			lymphoma	Genomic Variation in Diffuse Large B Cell Lymphomas	DBCL
+ORGANOID-PANCREATIC		pancreas, endocrine gland	BTO:0000988	adenoma	Pancreas Cancer Organoid Profiling	ORGA
+TARGET-ALL-P1	lymphoblast	blood, hematopoietic system	BTO:0000089	leukemia	Acute Lymphoblastic Leukemia - Phase I	ALL
+TARGET-ALL-P2	lymphoblast	blood, hematopoietic system	BTO:0000089	leukemia	Acute Lymphoblastic Leukemia - Phase II	ALL
+TARGET-ALL-P3	lymphoblast	blood, hematopoietic system	BTO:0000089	leukemia	Acute Lymphoblastic Leukemia - Phase III	ALL
+TARGET-AML	myeloid	blood, hematopoietic system	BTO:0000089	leukemia	Acute Myeloid Leukemia	AML
+TARGET-CCSK	clear cell	kidney, urinary system, excretory gland	BTO:0000671	sarcoma	Clear Cell Sarcoma of the Kidney	CCSK
+TARGET-NBL	nerve cell			blastoma	Neuroblastoma	NB
+TARGET-OS		bone, connective tissue, skeletal system	BTO:0000140	sarcoma	Osteosarcoma	OS
+TARGET-RT		kidney, urinary system, excretory gland	BTO:0000671	sarcoma	Rhabdoid Tumor	RT
+TARGET-WT		kidney, urinary system, excretory gland	BTO:0000671	blastoma	High-Risk Wilms Tumor	WT
+TCGA-ACC	adrenal cortex	kidney, urinary system, excretory gland	BTO:0000671	carcinoma	Adrenocortical Carcinoma	ACC
+TCGA-BLCA		bladder	BTO:0000123	carcinoma	Bladder Urothelial Carcinoma	BLCA
+TCGA-BRCA		breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	Breast Invasive Carcinoma	BRCA
+TCGA-CESC	squamous cell	cervix, uterus, reproductive system	BTO:0001421	carcinoma	Cervical Squamous Cell Carcinoma and Endocervical Adenocarcinoma	CESC
+TCGA-CHOL		bile duct, liver, endocrine gland	BTO:0000122	carcinoma	Cholangiocarcinoma	CHOL
+TCGA-COAD		colon, colorectum, alimentary canal	BTO:0000269	carcinoma	Colon Adenocarcinoma	COAD
+TCGA-DLBC	B-cell			lymphoma	Lymphoid Neoplasm Diffuse Large B-cell Lymphoma	DBCL
+TCGA-ESCA		esophagus, alimentary canal	BTO:0000959	carcinoma	Esophageal Carcinoma	ESCA
+TCGA-GBM	glial cell	brain, nervous system, head	BTO:0000142	glioma	Glioblastoma Multiforme	GBM
+TCGA-HNSC	squamous cell	headneck, trunk		carcinoma	Head and Neck Squamous Cell Carcinoma	HNSC
+TCGA-KICH		kidney, urinary system, excretory gland	BTO:0000671	carcinoma	Kidney Chromophobe	KICH
+TCGA-KIRC	clear cell	kidney, urinary system, excretory gland	BTO:0000671	carcinoma	Kidney Renal Clear Cell Carcinoma	KIRC
+TCGA-KIRP	papillary cell	kidney, urinary system, excretory gland	BTO:0000671	carcinoma	Kidney Renal Papillary Cell Carcinoma	KIRP
+TCGA-LAML	myeloid	blood, hematopoietic system	BTO:0000089	leukemia	Acute Myeloid Leukemia	AML
+TCGA-LGG		brain, nervous system, head	BTO:0000142	glioma	Brain Lower Grade Glioma	LLG
+TCGA-LIHC	hepatocyte	liver, endocrine gland	BTO:0000759	carcinoma	Liver Hepatocellular Carcinoma	LIHC
+TCGA-LUAD		lung, respiratory system	BTO:0000763	carcinoma	Lung Adenocarcinoma	LUAD
+TCGA-LUSC	squamous cell	lung, respiratory system	BTO:0000763	carcinoma	Lung Squamous Cell Carcinoma	LUSC
+TCGA-MESO		lung, admomen, heart, testis			Mesothelioma	MESO
+TCGA-OV		ovary, endocrine gland, reproductive system	BTO:0000975	carcinoma	Ovarian Serous Cystadenocarcinoma	OV
+TCGA-PAAD		pancreas, endocrine gland	BTO:0000988	carcinoma	Pancreatic Adenocarcinoma	PAAD
+TCGA-PCPG		headneck, trunk		glioma, cytoma	Pheochromocytoma and Paraganglioma	PCPG
+TCGA-PRAD		prostate, endocrine gland, reproductive system	BTO:0001129	carcinoma	Prostate Adenocarcinoma	PRAD
+TCGA-READ		rectum, colorectum, alimentary tract	BTO:0001158	carcinoma	Rectum Adenocarcinoma	READ
+TCGA-SARC				sarcoma	Sarcoma	SARC
+TCGA-SKCM		skin	BTO:0001253	melanoma	Skin Cutaneous Melanoma	SKCM
+TCGA-STAD		stomach, alimentary canal	BTO:0001307	carcinoma	Stomach Adenocarcinoma	STAD
+TCGA-TGCT	germ cell	testis, reproductive system, endocrine gland	BTO:0001363	tumor	Testicular Germ Cell Tumors	TGCT
+TCGA-THCA		thyroid, endocrine gland	BTO:0001379	carcinoma	Thyroid Carcinoma	THCA
+TCGA-THYM	epithelial cell	thymus, endocrine gland, hematopoietic system, immune system	BTO:0001374		Thymoma	THYM
+TCGA-UCEC		uterus, reproductive system	BTO:0001424	carcinoma	Uterine Corpus Endometrial Carcinoma	UCEC
+TCGA-UCS		uterus, reproductive system	BTO:0001424	carcinoma	Uterine Carcinosarcoma	UCS
+TCGA-UVM		eye, nervous system, head	BTO:0000439	melanoma	Uveal Melanoma	UVM

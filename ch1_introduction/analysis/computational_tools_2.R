@@ -234,6 +234,16 @@ ggsave(
 
 # Trajectory inference ----------------------------------------------------
 traj <- infer_trajectory(dat, ti_slingshot()) %>% simplify_trajectory()
+
+g <- plot_graph(traj, label_milestones = TRUE)
+
+ggsave(
+  "fig/comptools2/6_ti_graph.pdf",
+  g,
+  width = fig_size,
+  height = fig_size
+)
+
 df <-
   tibble(
     edge = dynwrap::group_onto_trajectory_edges(traj),

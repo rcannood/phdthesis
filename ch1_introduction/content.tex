@@ -36,14 +36,14 @@ The central dogma describes the general flow of genetic information in almost al
 	\label{fig:centraldogma}
 \end{figure}
 
-% KDP: je zegt niets over epigenetica, die min of meer bepaald welke gebieden in het DNA worden vertaald (dit leidt je misschien te ver...)
 During the process of \textbf{transcription} that takes place in the cell nucleus, a complementary RNA copy is transcribed from the template DNA. The initial RNA transcript is a precursor messenger RNA (pre-mRNA) that needs to undergo series of maturation steps to ultimately form the mature messenger RNA (mRNA). This maturation includes pre-mRNA \textbf{splicing} to remove non-protein coding intervening sequences (the introns) and to join the neighbouring protein-coding sequences (the exons). A single pre-mRNA can be alternatively spliced to generate multiple forms of mRNAs that will result in the production of multiple protein isoforms. This process of alternative splicing is essential to generate more than 100'000 different proteins starting from just 20'000 genes\cite{nilsen_expansioneukaryoticproteome_2010}.
 
 The mature mRNA is then transported to the cytoplasm, where it engages with ribosomes to initiate \textbf{translation}. During this highly evolutionary conserved process, a chain of amino acids, known as the protein building blocks, is being synthesised. Each amino acid is specified by three nucleotides (a codon) in the mRNA, according to a nearly universal genetic code. After being released by the ribosomes, the translation product undergoes a variety of chemical modifications to form the final folded protein, the structure of which is determined by the sequence of different amino acids in the chain. In addition, polypeptides may be cleaved to yield more than one active polypeptide product. The structure of a protein determines its functionality, which includes catalysing biochemical reactions, providing structure, and transportation of molecules.
 
 
 \subsection{Cell types}
-\textit{Homo sapiens} like to categorise everything they encounter, and so too have they conceptualised groups of cells called "cell types". The human body contains more than 200 different cell types that are classified into four groups: epithelial, connective, muscle, and nervous. This however, is a major underestimation of the real number of cell types. Neurons, for instance, that are known to be extremely diverse, are estimated to reach numbers above 10,000 different types\cite{strachan_humanmoleculargenetics_2011}.
+Ever since Robert Hook first described the different structures of cells in 1665, biologists have been classifying cells by form and function.
+The human body is said to contain more than 210 different cell types that are classified into four groups: epithelial, connective, muscle, and nervous. This however, is a major underestimation of the real number of cell types. Neurons, for instance, that are known to be extremely diverse, are estimated to reach numbers above 10,000 different types\cite{strachan_humanmoleculargenetics_2011}.
 
 The concept of cell types eases reasoning and our understanding about many aspects of biology (e.g. the process of cell differentiation, cell-cell communication, cellular response to certain stimuli). Some cells are known to be highly specialised toward performing a particular function (e.g. memory B cells accelerate immune response by remembering previously encountered pathogens), or they can maintain a strong ability to differentiate into other cell types.
 
@@ -80,7 +80,7 @@ A cell can present a particular type of protein, also called an antigen, on its 
 IHC (and many other biotechnologies) visualises antigen-antibody reactions by attaching particular molecules to the antibody, such as an enzyme that catalyses a colour-producing reaction, or a fluorescent chemical compound that can re-emit light upon excitation. The use of several colours (wavelengths) allows measuring expression levels of different antibodies simultaneously. Characterising cells in a semi-quantifiable way is labour intensive, however; since it involves acquiring an image of many cells and drawing a contour around each cell (called cell segmentation).
 Modern implementations of IHC improve the throughput drastically by using robots and computer software to provide semi-automated image acquisition and cell segmentation\cite{theodosiou_automatedanalysisfish_2007}.
 
-Flow cytometry\cite{fulwyler_electronicseparationbiological_1965} circumvents imaging and segmentation issues by running a steady stream of cells through a laser and measuring the amount of fluorescent light scattered from those cells. 
+Flow cytometry\cite{fulwyler_electronicseparationbiological_1965} circumvents imaging and segmentation issues by measuring fluorescently labelled proteins as cells pass through a fluidic system.
 Since cells need to be suspended in a buffer, flow cytometry is particularly useful for analysing non-adherent cells such as the many different immune cells in blood. However, many protocols already exist to extract viable single cells from tissues and tumours\cite{leelatian_preparingviablesingle_2017}.
 Conventional flow cytometry devices enable to measure protein expression levels of millions of cells using up to eight different antibody fluorochromes simultaneously, while state-of-the-art instrumentation allows detection of up to 27 biomarkers simultaneously\cite{cossarizza_guidelinesuseflow_2017}.
 
@@ -88,7 +88,7 @@ Besides IHC and flow cytometry, many new technologies have been developed which 
 
 \subsubsection{Omics}
 On the other side of the spectrum are the so-called "omics" technologies. "Omics"\footnote{The etymology of "omics" is quite interesting\cite{yadav_wholenesssuffixomics_2007}.} is a collective term for profiling all molecules of a particular type in a high-throughput manner.
-There are many types of "omics", such as genomics, transcriptomics and proteomics. Genomics studies the complete DNA sequence of an organism's genome, while transcriptomics and proteomics study the RNA transcripts and proteins, respectively.
+There are at least ten types of "omics". In this work, we mostly consider genomics, transcriptomics, proteomics, and regulomics. Genomics studies the complete DNA sequence of an organism's genome, while transcriptomics and proteomics study the RNA transcripts and proteins, respectively. Regulomics studies the regulatory molecules (e.g. genes, RNAs, proteins) which play a role in determining gene regulation.
 
 Specific examples of omics technologies are whole genome sequencing to determine the DNA sequence of an organism, and RNA sequencing to profiles the sequence of RNA transcripts, both using next-generation sequencing technologies. A gene expression profile can be obtained by mapping the sequences of RNA transcripts to the genome.
 
@@ -134,7 +134,7 @@ Advances in microvolume sequencing allowed profiling the transcriptome at single
 
 In this work, unless noted otherwise, we will be working with transcriptomics data resulting from a single-cell RNA-sequencing experiment (scRNA-seq). The workflow of generating scRNA-seq profiles is as follows. Same as other single-cell (non-omics) profiling methods, cells first need to be isolated (Figure~\ref{fig:profiling_convergence}B). Different sampling techniques yield different levels of information about cellular state. By now, many protocols for extracting and tagging RNA from single cells have been developed\cite{svensson_exponentialscalingsinglecell_2018}, the most popular of which are based on microfluidics or droplets (Figure~\ref{fig:profiling_convergence}C). By sequencing the trancripts and the attached unique cell identifier tags, each read can be mapped and tallied up. scRNA-seq data can thus be summarised in a matrix, where each column represent a single cell, each row a gene, and each value represents the number of transcripts that were sequenced for that gene and cell.
 
-The rapidly advancing field of single-cell omics harbours exceptional opportunities to discover new aspects of biology and redefine existing knowledge. Some of these opportunities lie in efforts like the HCA consortium. They have set out to redefine all human cell types in both terms of their gene expression and location, and as well as the developmental trajectories connecting the different cell types. As part of this endeavour, the consortium will likely profile the whole transcriptomes of tens or even hundreds of millions of cells. 
+The rapidly advancing field of single-cell omics harbours exceptional opportunities to discover new aspects of biology and redefine existing knowledge. Some of these opportunities lie in efforts like the HCA consortium\cite{regev_humancellatlas_2018}. They have set out to redefine all human cell types in both terms of their gene expression and location, and as well as the developmental trajectories connecting the different cell types. As part of this endeavour, the consortium will likely profile the whole transcriptomes of tens or even hundreds of millions of cells\cite{humancellatlasconsortium_humancellatlas_2018}. 
 
 \section{Computational tools}
 Whole-genome profiling at single-cell level allows new types of analyses with which to study cellular heterogeneity at a hitherto unseen throughput. 
@@ -193,29 +193,33 @@ Usually, the number of clusters is determined by the user, either as a direct pa
 Clustering methods used in this work are mostly restricted to $k$-Means for clustering low-dimensional spaces and Louvain for clustering networks, since both are highly scalable with respect to the number of cells.
 
 \subsection{Trajectory inference}
-While clustering methods divide cells into distinct groups, trajectory inference (TI) methods acknowledge that cells are dynamic entities which transition from once cellular state to another via various dynamic processes. Rather than making distinct groups, TI methods allow studying dynamic processes by reconstructing the topology of a dynamic process as a trajectory, and map the cells onto that trajectory (Figure~\ref{fig:comp_tools_ti}A). Similar to clustering, by colouring the cells according to the expression of genes known to be involved in the dynamic process of interest, the milestones in the trajectory can be annotated (Figure~\ref{fig:comp_tools_cluster}B). 
+While clustering methods divide cells into distinct groups, trajectory inference (TI) methods acknowledge that cells are dynamic entities which transition from once cellular state to another via various dynamic processes. Rather than making distinct groups, TI methods allow studying dynamic processes by reconstructing the topology of a dynamic process as a trajectory, and map the cells onto that trajectory. A trajectory is a graph where the nodes represent noteworthy cellular states, and each cell is predicted to be progressing along transitions between the different states (Figure~\ref{fig:comp_tools_ti}A).
 
+A trajectory can be visualised as a graph to better highlight the topology of the trajectory(Figure~\ref{fig:comp_tools_ti}A middle), as a heatmap to better depict the changes in gene expression along the different transitions (Figure~\ref{fig:comp_tools_ti}A right), or may be embedded in a dimensionality reduction of the cells to better demonstrate cellular heterogeneity along the trajectory (Figure~\ref{fig:comp_tools_ti}B right). Similar to clustering, by colouring the cells according to the expression of genes known to be involved in the dynamic process of interest, the milestones in the trajectory can be annotated (Figure~\ref{fig:comp_tools_cluster}B). 
 
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[width=.6\linewidth]{fig/comptools2/comptool_3_trajectoryinference.pdf} 
+	\includegraphics[width=.9\linewidth]{fig/comptools2/comptool_3_trajectoryinference.pdf} 
 	\caption{
 		\textbf{Trajectory inference for single-cell omics data.}
-		\textbf{A:} During a dynamic process cells pass through several transitional states, characterized by different waves of transcriptional, morphological, epigenomic and/or surface marker changes\cite{enver_stemcellstates_2009}. TI methods provide a straightforward and unbiased approach to identifying and correctly ordering different transitional stages. 
+		\textbf{A:} During a dynamic process cells pass through several transitional states, characterized by different waves of transcriptional, morphological, epigenomic and/or surface marker changes\cite{enver_stemcellstates_2009}. TI methods provide an unbiased approach to identifying and correctly ordering different transitional stages. 
 		\textbf{B:} By overlaying gene expression levels on a dimensionality reduction, the milestones can be annotated to allow better interpretation of the cellular heterogeneity.
 	}
 	\label{fig:comp_tools_ti}
 \end{figure}
 
-TI methods typically first require some form of dimensionality reduction prior to inferring a trajectory from the dataset (Figure~\ref{fig:ti_metro}). Subsequently, a trajectory modelling step then operates in this reduced space, aiming to identify cell states, constructing a trajectory through the different states, and projecting the cells back on to the trajectory. 
+A lot of TI methods use similar algorithms to be able to infer a trajectory. By breaking down each method into its set of core algorithms, we can create a map of TI methodology\cite{cannoodt_computationalmethodstrajectory_2016} (Figure~\ref{fig:ti_metro}A), which is divided into two major classes.
+In the first step, dimensionality reduction techniques such as manifold learning, clustering, or graph-based methods are used to convert the dataset to a more simplified representation. This representation of the data then allows the trajectory itself to be more easily modelled in a second step. In this second step, the trajectory is modelled within the data using graph-based or curve-based approaches, after which the cells themselves can be ordered using a variety of methods.
 
-A common way to classify TI methods is by the types of trajectories they can infer\cite{saelens_comparisonsinglecelltrajectory_2019}. About half of TI methods specialise in inferring linear or cyclic trajectories (i.e. they order the cells). Others model the trajectory as a rooted tree, allowing for one or more bifurcations to occur. Only a few methods are able to infer more generalised trajectories containing disconnected subgraphs or cycles.
+A common way to classify TI methods is by the types of trajectories they can infer\cite{saelens_comparisonsinglecelltrajectory_2019} (Figure~\ref{fig:ti_metro}B). About half of TI methods specialise in inferring linear or cyclic trajectories (i.e. they order the cells). Others model the trajectory as a rooted tree, allowing for one or more bifurcations to occur. Only a few methods are able to infer more generalised trajectories containing disconnected subgraphs or cycles.
 
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[width=.9\linewidth]{fig/ti_metro} 
 	\caption{
-		\textbf{TI methods use several common building blocks and can be organized in a unifying modular framework.} Overall, TI consists of two steps. In the first step dimensionality reduction techniques such as manifold learning, clustering, or graph-based methods are used to convert the dataset to a more simplified representation. This representation of the data then allows the trajectory itself to be more easily modelled in a second step. In this step, the trajectory itself is found within the data using both graph-based and curve-based approaches, after which the cells themselves can be ordered using a variety of methods.
+		\textbf{TI methods use several common building blocks and can be organized in a unifying modular framework.} 
+		\textbf{A:} Most TI methods consist of two major steps, dimensionality reduction and trajectory modelling. TI methods   require some form of dimensionality reduction in order to summarise cell heterogeneity in a lower dimensional space. Subsequently, a trajectory modelling step then operates in this reduced space, aiming to identify cell states, constructing a trajectory through the different states, and projecting the cells back on to the trajectory. 
+		\textbf{B:} TI methods can be classified according to the trajectory topologies they can infer.
 	}
 	\label{fig:ti_metro}
 \end{figure}
@@ -241,9 +245,9 @@ Trajectory differential expression (TDE) is an extension of DE where instead gen
 One of the central cellular processes underlying development is transcriptional regulation. 	
 Modeling the dynamics of gene regulation is therefore essential to better understand why a cellular dynamic processes progresses through several steps, and what goes wrong in the case of disease.
 
-Network inference (NI) methods predict which genes are regulated by which transcription factors (Figure~\ref{fig:comp_tools_ni}). Before single-cell omics, these methods rely on multiple experiments, amongst which perturbation and time-series experiments, to predict the effect each transcription factor has on the up- or downregulation of a gene. 
+Network inference (NI) methods predict which genes are regulated by which transcription factors (Figure~\ref{fig:comp_tools_ni}). The output of a network inference is thus a graph, where nodes represent genes and edges denote a regulatory interaction between a regulator and a target gene. Interactions typically have two properties: its regulatory strength (a positive real value) and its effect (promoting or repressing).
 
-One of the main advantages of single-cell omics is the heterogeneity between cells caused by naturally occurring biological randomness\cite{padovan-merhar_usingvariabilitygene_2013} can be exploited to infer regulatory interactions between TFs and their target genes at much lower costs. 
+Before single-cell omics, these methods rely on multiple experiments, amongst which perturbation and time-series experiments, to predict the effect each transcription factor has on the up- or downregulation of a gene. One of the main advantages of single-cell omics is the heterogeneity between cells caused by naturally occurring biological randomness\cite{padovan-merhar_usingvariabilitygene_2013} can be exploited to infer regulatory interactions between TFs and their target genes at much lower costs. 
 
 \begin{figure}[htb!]
 	\centering
@@ -256,28 +260,28 @@ One of the main advantages of single-cell omics is the heterogeneity between cel
 
 
 
-\section{Research context and objectives}
+\section{Research context and objectives} \label{sec:research_objectives}
 Recent technological advancements in profiling single cells are having significant repercussions in many fields of biology. Profiling thousands of individual cells in a genome-wide manner provides opportunities to study cell heterogeneity and dynamics, for example inferring mechanisms for cellular development or intercellular communication. 
 Hundreds of new software tools were developed\cite{zappia_exploringsinglecellrnaseq_2018} to perform these new types of analyses, or to fit existing analytical tools to deal with new data characteristics (e.g. differential expression, dimensionality reduction, normalisation). 
 
-One major shortcoming during the advent of single-cell omics was that majority of the newly developed computational tools were not quantitatively and comparatively evaluated. Rather, they relied on anecdotal evidence to demonstrate its usefulness. This issue is not the result of the tool developer's malevolence, but instead of the lack of data required to perform such comprehensive benchmarks.
+One major shortcoming during the advent of single-cell omics was that the majority of newly developed computational tools were not quantitatively and comparatively evaluated. Rather, they relied on anecdotal evidence to demonstrate its usefulness. This issue is not the result of the tool developer's malevolence, but instead of the lack of data required to perform such comprehensive benchmarks.
 %TODO: also mention guidelines for users.
 
 Uncontrolled development of software tools without comprehensive benchmarking poses serious problems. 
 For one, it slows down scientific progress. Every end-user needs to make a large commitment researching the domain in order to make an informed decision of which tool to use, or risk a higher incidence of false positive discoveries (either way, valuable resources are being wasted). In addition, it also negatively impacts the credibility of the field, thus discouraging potential users or researchers from entering.
 
-In this work, we aim to speed up scientific progress in single-cell omics by providing tools both for end-users and developers alike. For developers of computational approaches, we provide tools and guidelines for benchmarking their method on real and synthetic data. For end-users we develop new tools and guidelines for analysing dynamic processes by inferring trajectories and gene regulatory networks. These contributions are discussed in the following chapters:
+In this work, we aim to speed up scientific progress in single-cell omics by providing tools both for end-users and developers alike. For developers of computational approaches, we provide tools and guidelines for benchmarking their method on real and synthetic data. For end-users we develop new tools and guidelines for analysing dynamic processes by inferring trajectories and gene regulatory networks. Our specific scientific objectives are discussed in the following chapters.
 
 \begin{itemize}
-	\item We develop benchmarking strategies for assessing the performance of computational tools constrained by low availability of novel types of real single-cell data (Chapter~\ref{chap:dyngen}). \textit{In silico} simulations of individual cells are used to help kick-start emerging domains much more safely and allow anticipation of future technological developments by already developing computational tools.
-	\item We apply this strategy to perform a comparison of TI methods (Chapter~\ref{chap:dynbenchmark}). Trajectory inference is one of the largest categories of all the novel single-cell omics tools, yet a comprehensive and quantitative study of the advantages and disadvantages of the numerous tools was hitherto lacking. We provide a set of guidelines for end-users wishing to infer trajectories. We also make our pipeline, datasets, metrics, and containerised wrappers of TI methods publicly available for developers to use.
-	\item We developed dyno, a toolkit to easily infer, visualise and interpret single-cell trajectories using more than 50 different TI methods (Chapter~\ref{chap:dyno}). dyno provides downstream analysis such as: visualising a trajectory in a low-dimensional space or a heatmap, detecting genes differentially expressed at different stages of the tragectory, comparing multiple trajectories in a common dimensionality reduction, and manipulating the trajectory (e.g. adding directionality or adding annotation).
-	\item We introduce a novel TI method specialised in inferring linear trajectories (Chapter~\ref{chap:scorpius}). Despite linear TI being the most simple but commonly used form of trajectory inference, the benchmark demonstrated that most TI methods are not capable of producing accurate models of linear datasets.
-	\item We invent a new type of NI method capable of inferring the GRN of individual cells (Chapter~\ref{chap:bred}). We demonstrate this <yadeyade .. fill in when the chapter is actually written.>
-	% TODO: fill this part in!!!
-	\item Every NI method has certain topological biases. We provide a tool for analysing the topological properties of large, evolving networks and use this to iteratively optimise GRN predictions (Chapter~\ref{chap:incgraph}).
-	\item We discuss reproducibility problems of TI methods due to low rates of quantitative self-assessment (Chapter~\ref{chap:selfassessment}). We provide solutions for different causal reasons for this phenomenon in order to spur developers to perform more self-assessments.
-	\item Finally, we summarise our experience in benchmarking computational methods in a list of essential guidelines (Chapter~\ref{chap:guidelines}).
+	\item We \textbf{develop benchmarking strategies} for assessing the performance of computational tools constrained by low availability of novel types of real single-cell data (Chapter~\ref{chap:dyngen}). \textit{In silico} simulations of individual cells are used to help kick-start emerging domains much more safely and allow anticipation of future technological developments by already developing computational tools.
+	\item We apply this strategy to \textbf{perform a comparison of TI methods} (Chapter~\ref{chap:dynbenchmark}). Trajectory inference is one of the largest categories of all the novel single-cell omics tools, yet a comprehensive and quantitative study of the advantages and disadvantages of the numerous tools was hitherto lacking. We provide a set of guidelines for end-users wishing to infer trajectories. Our pipeline, datasets, metrics, and containerised wrappers of TI methods are made publicly available for developers to use.
+	\item We develop \textbf{a toolkit to infer, visualise and interpret single-cell trajectories} using more than 50 different TI methods (Chapter~\ref{chap:dyno}). dyno provides downstream analysis such as: visualising a trajectory in a low-dimensional space or a heatmap, detecting genes differentially expressed at different stages of the tragectory, comparing multiple trajectories in a common dimensionality reduction, and manipulating the trajectory (e.g. adding directionality or adding annotation).
+	\item We introduce a TI method specialised in \textbf{inferring linear trajectories} (Chapter~\ref{chap:scorpius}). Despite linear TI being the most simple but commonly used form of trajectory inference, the benchmark demonstrated that most TI methods are not capable of producing accurate models of linear datasets.
+	\item We develop an algorithm for  \textbf{inferring gene regulatory interactions at a single-cell level} (Chapter~\ref{chap:bred}). We demonstrate our NI methodology by inferring regulatory interactions for 25'000 hematopoietic cells, as well as for 15'000 cancer-related bulk profiles. % TODO: was this chapter written in the end?
+	\item We provide a tool for  \textbf{analysing the topological properties of large, evolving networks} and use this to iteratively optimise GRN predictions (Chapter~\ref{chap:incgraph}).
+	\item We reflect on \textbf{challenges in performing self-assessments of TI methods} (Chapter~\ref{chap:selfassessment}).
+	Reproducability problems of TI methods are partially due to low rates of quantitative self-assessment. We look at 75 manuscripts of TI methods and identify key challenges the authors had in benchmarking their tool. For each of these challenges, we provide a summary of how we and others have successfully tackled these challenges, in order to spur developers to perform more self-assessments.
+	\item Finally, we \textbf{summarise our experience in benchmarking computational methods} by providing a list of essential guidelines in benchmarking computational tools (Chapter~\ref{chap:guidelines}).
 \end{itemize}
 
 
@@ -286,13 +290,14 @@ In this work, we aim to speed up scientific progress in single-cell omics by pro
 \subsection{First-author publications}
 
 \begin{itemize}
+  \item \textbf{Cannoodt R}, Saelens W, Sichien D, Tavernier S, Janssens S, Guilliams M, Lambrecht B, De Preter K, Saeys Y. SCORPIUS improves trajectory inference and identifies novel modules in dendritic cell development. bioRxiv 079509. 2016 Oct.
 	\item \textbf{Cannoodt R} *, Saelens W *, Saeys Y. Computational methods for trajectory inference from single-cell transcriptomics. European journal of immunology. 2016 Nov;46(11):2496-506.
 	\item \textbf{Cannoodt R}, Ruyssinck J, Ramon J, De Preter K, Saeys Y. IncGraph: Incremental graphlet counting for topology optimisation. PloS one. 2018 Apr 26;13(4):e0195997.
 	\item Saelens W *, \textbf{Cannoodt R} *, Todorov H, Saeys Y. A comparison of single-cell trajectory inference methods. Nature biotechnology. 2019 May;37(5):547.
 	\item \textbf{Cannoodt R}, Saelens W, Sichien D, Tavernier S, Janssens S, Guilliams M, Lambrecht B, De Preter K, Saeys Y. SCORPIUS: Fast, accurate, and robust single-cell pseudotime. In preparation.
 	\item \textbf{Cannoodt R} *, Saelens W *, Saeys Y. dyngen: Simulating developing single cells. In preparation.
 	\item \textbf{Cannoodt R} *, Saelens W *, Saeys Y. dyno: A toolkit for inferring, visualising, and interpreting trajectories. In preparation.
-	\item \textbf{Cannoodt R}, Saelens W, Saeys Y, De Preter K. bred: Inferring single cell regulatory networks. In preparation. \fbox{\color{red}order authors?}
+	\item \textbf{Cannoodt R}, Saelens W, Saeys Y, De Preter K. bred: Inferring single cell regulatory networks. In preparation. 
 	\item \textbf{Cannoodt R}, Saelens W, Saeys Y. Self-assessment in trajectory inference. In preparation.
 \end{itemize}
 
@@ -317,7 +322,7 @@ In this work, we aim to speed up scientific progress in single-cell omics by pro
 \subsection{Open-source software}
 As part of this work, many open-source software packages were created and many others were contributed to (Table \ref{tab:packages}). 
 
-Packages that were created as part of this work are hosted on Github under the username rcannood\footnote{\url{https://github.com/rcannood?tab=repositories}} or the dynverse organisation\footnote{\url{https://github.com/dynverse?tab=repositories}}. As part of our standard development practices, we automate execution of unit tests and writing extensive documentation to ensure the code complies with CRAN policy before submission. We aim to submit all other packages to CRAN as well.
+Packages that were created as part of this work are hosted on Github under the username rcannood\footnote{\url{https://github.com/rcannood?tab=repositories}} or the dynverse organisation\footnote{\url{https://github.com/dynverse?tab=repositories}}. As part of our standard development practices, we automate execution of unit tests and write extensive documentation to ensure the code complies with CRAN policy before submission. We aim to submit all other packages to CRAN as well.
 
 We also helped maintain or extend other packages on Github, CRAN or Bioconductor on which our software depends. This includes speeding up parts of the dependency (slingshot), adding new functionality (devtools, ParamHelpers), fixing bugs (proxyC, rlang, monocle, splatter, slingshot), becoming a maintainer of orphaned packages (diffusionMap, princurve, GillespieSSA), and extending the documentation (devtools, mlr, remotes). Several of these package receive millions of downloads per year (devtools, remotes, rlang).
 
