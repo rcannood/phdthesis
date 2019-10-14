@@ -245,7 +245,7 @@ We found that the performance of a method can be very variable between datasets,
 
 \subsection{Trajectory inference methods}
 
-We gathered a list of 71 trajectory inference tools (Supplementary Table 1) by searching the literature for ‘trajectory inference’ and ‘pseudotemporal ordering’, and based on two existing lists found online: \href{https://github.com/seandavi/awesome-single-cell}{https://github.com/seandavi/awesome-single-cell} \cite{davis_awesomesinglecell_2018} and \href{https://github.com/agitter/single-cell-pseudotime}{https://github.com/agitter/single-cell-pseudotime} \cite{gitter_singlecellrnaseqpseudotime_2018}. We welcome any contributions by creating an issue at https://methods.dynverse.org.
+We gathered a list of 71 trajectory inference tools (Supplementary Table 1) by searching the literature for ‘trajectory inference’ and ‘pseudotemporal ordering’, and based on two existing lists found online: \href{https://github.com/seandavi/awesome-single-cell}{awesome-single-cell} \cite{davis_awesomesinglecell_2018} and \href{https://github.com/agitter/single-cell-pseudotime}{single-cell-pseudotime} \cite{gitter_singlecellrnaseqpseudotime_2018}. We welcome any contributions by creating an issue at \href{https://methods.dynverse.org}{https://methods.dynverse.org}.
 
 Methods were excluded from the evaluation based on several criteria: (1) not freely available; (2) no code available; (3) superseded by another method; (4) requires data types other than expression; (5) no programming interface; (6) unresolved errors during wrapping; (7) too slow (requires more than 1 h on a 100 $\times$ 100 dataset); (8) does not return an ordering; and (9) requires additional user input during the algorithm (other than prior information). The discussions on why these methods were excluded can be found at \href{https://github.com/dynverse/dynmethods/issues?q=label:unwrappable}{https://github.com/dynverse/dynmethods/issues?q=label:unwrappable}. In the end, we included 45 methods in the evaluation.
 
@@ -465,19 +465,23 @@ For more simplistic data generation ("toy" datasets), we created the dyntoy work
 
 We created a set of topology generators, were $B(n, p)$ denotes a binomial distribution, and $U(a, b)$ denotes a uniform distribution:
 
-* Linear and cyclic, with number of milestones $\sim B(10, 0.25)$
-* Bifurcating and converging, with four milestones
-* Binary tree, with number of branching points $\sim U(3, 6)$
-* Tree, with number of branching points $\sim U(3, 6)$ and maximal degree $\sim U(3, 6)$
+\begin{itemize}
+	\item Linear and cyclic, with number of milestones $\sim B(10, 0.25)$
+	\item Bifurcating and converging, with four milestones
+	\item Binary tree, with number of branching points $\sim U(3, 6)$
+	\item Tree, with number of branching points $\sim U(3, 6)$ and maximal degree $\sim U(3, 6)$
+\end{itemize} 
 
 For more complex topologies we first calculated a random number of "modifications" $\sim U(3, 6)$ and a $\textit{deg}_{\textit{max}} \sim B(10, 0.25) + 1$. For each type of topology, we defined what kind of modifications are possible: divergences, loops, convergences and divergence-convergence. We then iteratively constructed the topology by uniformly sampling from the set of possible modifications, and adding this modification to the existing topology. For a divergence, we connected an existing milestone to a number of a new milestones. Conversely, for a convergence we connected a number of new nodes to an existing node. For a loop, we connected two existing milestones with a number of milestones in between. Finally for a divergence-convergence we connected an existing milestone to several new milestones which again converged on a new milestone. The number of nodes was sampled from $\sim B(\textit{deg}_{\textit{max}} - 3, 0.25) + 2$
 
-* Looping, allowed loop modifications
-* Diverging-converging, allowed divergence and converging modifications
-* Diverging with loops, allowed divergence and loop modifications
-* Multiple looping, allowed looping modifications
-* Connected, allowed looping, divergence and convergence modifications
-* Disconnected, number of components sampled from $\sim B(5, 0.25) + 2$, for each component we randomly chose a topology from the ones listed above
+\begin{itemize}
+	\item Looping, allowed loop modifications
+	\item Diverging-converging, allowed divergence and converging modifications
+	\item Diverging with loops, allowed divergence and loop modifications
+	\item Multiple looping, allowed looping modifications
+	\item Connected, allowed looping, divergence and convergence modifications
+	\item Disconnected, number of components sampled from $\sim B(5, 0.25) + 2$, for each component we randomly chose a topology from the ones listed above
+\end{itemize}
 
 After generating the topology, we sampled the length of each edge $\sim U(0.5, 1)$. We added regions of delayed commitment to a divergence in a random half of the cases. We then placed the number of cells (same number as from the reference real dataset), on this topology uniformly, based on the length of the edges in the milestone network.
 
