@@ -36,22 +36,23 @@ We developed a TI method, called \texttt{SCORPIUS}, specialised in inferring lin
 
 Being able to study how cells progress over time is an analysis as fundamental as being able to cluster cells or identify differentially expressed genes between two groups. We showed that for analysing datasets containing linear trajectories, \texttt{SCORPIUS} outperforms all other TI methods tested as part of our TI benchmark. 
 
-Despite \texttt{SCORPIUS} published on bioRxiv in 2016, discussion and usage of the pre-print has largely been limited to comparing the results of a different (linear) TI methods to those of \texttt{SCORPIUS}. Since the pre-print, many improvements have been made to improve the accuracy and robustness of predicted trajectories, to allow scaling up to datasets containing 100'000s of cells, and to providing a more user-friendly interface. Since the beginning of 2019 -- before the publication of our benchmark of TI methods -- several studies have now reported using SCORPIUS as a tool for deriving primary results\cite{damond_maphumantype_2019, cheng_multifactorialheterogeneityvirusspecific_2019, tibbitt_singlecellrnasequencing_2019, hove_singlecellatlasmouse_2019, wouters_singlecellgeneregulatory_2019}.
+Despite \texttt{SCORPIUS} published on bioRxiv in 2016, discussion and usage of the pre-print has largely been limited to comparing the results of a different (linear) TI methods to those of \texttt{SCORPIUS}. Since the pre-print, many improvements have been made to improve the accuracy and robustness of predicted trajectories, to allow scaling up to datasets containing 100'000s of cells, and to providing a more user-friendly interface. Since the beginning of 2019 -- before the publication of our benchmark of TI methods -- several studies have now reported using \texttt{SCORPIUS} as a tool for deriving primary results\cite{damond_maphumantype_2019, cheng_multifactorialheterogeneityvirusspecific_2019, tibbitt_singlecellrnasequencing_2019, hove_singlecellatlasmouse_2019, wouters_singlecellgeneregulatory_2019}.
 
 
-\section{bred: Inferring single cell regulatory networks}
-
+\section{Inferring single cell regulatory networks}
+\mycomment{TODO: fill in when chapter has been written.}
 %	\item We develop an algorithm for  \textbf{inferring gene regulatory interactions at a single-cell level} (Chapter~\ref{chap:bred}). We demonstrate our NI methodology by inferring regulatory interactions for 25'000 hematopoietic cells, as well as for 15'000 cancer-related bulk profiles. % TODO: was this chapter written in the end?
 
-%\item We invent a new type of NI method capable of inferring the GRN of individual cells (Chapter~\ref{chap:bred}). We demonstrate this <yadeyade .. fill in when the chapter is actually written.>
+%\item We invent a new type of NI method capable of inferring the GRN of individual cells (Chapter~\ref{chap:bred}). We demonstrate this <yadeyade .. fill in when the chapter is actually written.>^
 
-\section{incgraph: Optimising regulatory networks}
+\section{Optimising regulatory networks}
+This project was a spin-off of Netter\cite{ruyssinck_netterrerankinggene_2016}, a tool for reranking GRN predictions using structural network properties. 
+Predicted GRNs often are topologically dissimilar to real networks, and as such, Netter quantifies the topological properties of a network and makes incremental changes in order to arrive at a network with a 'better' topological profile.
 
-%	\item We provide a tool for  \textbf{analysing the topological properties of large, evolving networks} and use this to iteratively optimise GRN predictions (Chapter~\ref{chap:incgraph}).
+The topological 'profile' of a network was defined as the frequencies of particular topological patterns called 'graphlets'. Keeping track of the frequencies of graphlets during an iterative process proved difficult at first. 
+\texttt{incgraph} provides a solution to this problem (Chapter~\ref{chap:incgraph}) by making assuming that the incremental changes between two different networks are relatively small (less than 100 edge additions/removals)). Under this assumption, it is possible to calculate the differences in topological patterns significantly faster in comparison to recomputing the graphlet frequencies from scratch at every iteration.
 
-%\item Every NI method has certain topological biases. We provide a tool for analysing the topological properties of large, evolving networks and use this to iteratively optimise GRN predictions (Chapter~\ref{chap:incgraph}).
-
-
+While \texttt{incgraph} solved a very specific and interesting problem, and was eventually was published as a peer-reviewed article, it has not succeeded in making a direct impact on scientific research as of yet. Perhaps, at some point, a researcher will come across \texttt{incgraph} and find that it exactly solves his or her problem.
 
 
 \section{A life without Git, Travis CI, or tidyverse}
