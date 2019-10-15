@@ -286,3 +286,101 @@ In this work, we aim to speed up scientific progress in single-cell omics by pro
 	\item Finally, we \textbf{summarise our experience in benchmarking computational methods} by providing a list of essential guidelines in benchmarking computational tools (Chapter~\ref{chap:guidelines}).
 \end{itemize}
 
+
+\section{List of contributions}
+\subsection{First-author publications}
+
+\begin{itemize}
+	\item \textbf{Cannoodt R}, Saelens W, Sichien D, Tavernier S, Janssens S, Guilliams M, Lambrecht B, De Preter K, Saeys Y. SCORPIUS improves trajectory inference and identifies novel modules in dendritic cell development. bioRxiv 079509. 2016 Oct.
+	\item \textbf{Cannoodt R} *, Saelens W *, Saeys Y. Computational methods for trajectory inference from single-cell transcriptomics. European journal of immunology. 2016 Nov;46(11):2496-506.
+	\item \textbf{Cannoodt R}, Ruyssinck J, Ramon J, De Preter K, Saeys Y. IncGraph: Incremental graphlet counting for topology optimisation. PloS one. 2018 Apr 26;13(4):e0195997.
+	\item Saelens W *, \textbf{Cannoodt R} *, Todorov H, Saeys Y. A comparison of single-cell trajectory inference methods. Nature biotechnology. 2019 May;37(5):547.
+	\item \textbf{Cannoodt R}, Saelens W, Sichien D, Tavernier S, Janssens S, Guilliams M, Lambrecht B, De Preter K, Saeys Y. SCORPIUS: Fast, accurate, and robust single-cell pseudotime. In preparation.
+	\item \textbf{Cannoodt R} *, Saelens W *, Saeys Y. dyngen: Simulating developing single cells. In preparation.
+	\item \textbf{Cannoodt R} *, Saelens W *, Saeys Y. dyno: A toolkit for inferring, visualising, and interpreting trajectories. In preparation.
+	\item \textbf{Cannoodt R}, Saelens W, Saeys Y, De Preter K. bred: Inferring single cell regulatory networks. In preparation. 
+	\item \textbf{Cannoodt R}, Saelens W, Saeys Y. Self-assessment in trajectory inference. In preparation.
+\end{itemize}
+
+*: Equal contribution.
+
+\subsection{Co-author publications}
+\begin{itemize}
+	\item Decock A, Ongenaert M, \textbf{Cannoodt R}, Verniers K, De Wilde B, Laureys G, Van Roy N, Berbegall AP, Bienertova-Vasku J, Bown N, Clément N. Methyl-CpG-binding domain sequencing reveals a prognostic methylation signature in neuroblastoma. Oncotarget. 2016 Jan 12;7(2):1960.
+	\item Van Cauwenbergh C, Van Schil K, \textbf{Cannoodt R}, Bauwens M, Van Laethem T, De Jaegere S, Steyaert W, Sante T, Menten B, Leroy BP, Coppieters F. arrEYE: a customized platform for high-resolution copy number analysis of coding and noncoding regions of known and candidate retinal dystrophy genes and retinal noncoding RNAs. Genetics in Medicine. 2017 Apr;19(4):457.
+	\item Claeys S, Denecker G, \textbf{Cannoodt R}, Kumps C, Durinck K, Speleman F, De Preter K. Early and late effects of pharmacological ALK inhibition on the neuroblastoma transcriptome. Oncotarget. 2017 Dec 5;8(63):106820.
+	\item Depuydt P, Boeva V, Hocking TD, \textbf{Cannoodt R}, Ambros IM, Ambros PF, Asgharzadeh S, Attiyeh EF, Combaret V, Defferrari R, Fischer M. Genomic amplifications and distal 6q loss: novel markers for poor survival in high-risk neuroblastoma patients. JNCI: Journal of the National Cancer Institute. 2018 Mar 5;110(10):1084-93.
+	\item Scott CL, T'Jonck W, \ldots, \textbf{Cannoodt R}, Saelens W \ldots, Guilliams M. The transcription factor ZEB2 is required to maintain the tissue-specific identities of macrophages. Immunity. 2018 Aug 21;49(2):312-25.
+	\item Saelens W, \textbf{Cannoodt R}, Saeys Y. A comprehensive evaluation of module detection methods for gene expression data. Nature communications. 2018 Mar 15;9(1):1090.
+	\item Todorov H, \textbf{Cannoodt R}, Saelens W, Saeys Y. Network Inference from Single-Cell Transcriptomic Data. In Gene Regulatory Networks 2019 (pp. 235-249). Humana Press, New York, NY..
+	\item Van den Berge K, De Bezieux HR, Street K, Saelens W, \textbf{Cannoodt R}, Saeys Y, Dudoit S, Clement L. Trajectory-based differential expression analysis for single-cell sequencing data. BioRxiv. 2019 Jan 1:623397.
+	\item Weber LM, Saelens W, \textbf{Cannoodt R}, Soneson C, Hapfelmeier A, Gardner PP, Boulesteix AL, Saeys Y, Robinson MD. Essential guidelines for computational method benchmarking. Genome biology. 2019 Dec;20(1):125.
+	\item Lorenzi L, \ldots, \textbf{Cannoodt R}, \ldots, Mestdagh P. The RNA-Atlas, a single nucleotide resolution map of the human transcriptome. In preparation.
+	\item Van den Berge K, Roux de Bézieux H, Street K, Saelens W, \textbf{Cannoodt R}, Saeys Y, Dudoit S. Trajectory-based differential expression analysis. Submitted to Nature Communications.
+	\item Van de Sande Bram, \ldots, \textbf{Cannoodt R}, \ldots, Saeys Y, Aerts S. A scalable SCENIC workflow for single-cell gene regulatory network analysis. Submitted to Nature Protocols.
+\end{itemize}
+
+\subsection{Open-source software}
+As part of this work, many open-source software packages were created and many others were contributed to (Table \ref{tab:packages}). 
+
+Packages that were created as part of this work are hosted on Github under the username rcannood\footnote{\url{https://github.com/rcannood?tab=repositories}} or the dynverse organisation\footnote{\url{https://github.com/dynverse?tab=repositories}}. As part of our standard development practices, we automate execution of unit tests and write extensive documentation to ensure the code complies with CRAN policy before submission. We aim to submit all other packages to CRAN as well.
+
+We also helped maintain or extend other packages on Github, CRAN or Bioconductor on which our software depends. This includes speeding up parts of the dependency (slingshot), adding new functionality (devtools, ParamHelpers), fixing bugs (proxyC, rlang, monocle, splatter, slingshot), becoming a maintainer of orphaned packages (diffusionMap, princurve, GillespieSSA), and extending the documentation (devtools, mlr, remotes). Several of these package receive millions of downloads per year (devtools, remotes, rlang).
+
+\newcommand{\cranpkg}[1]{\href{https://cran.r-project.org/package=#1}{#1}}
+\newcommand{\biocpkg}[1]{\href{https://bioconductor.org/packages/#1}{#1}}
+\newcommand{\biocpkgl}[2]{\href{https://bioconductor.org/packages/#1}{#2}}
+\newcommand{\githubpkg}[2]{\href{https://github.com/#1/#2}{#2}}
+\newcommand{\notavailable}{}
+
+\begin{table}[ht!]
+	\caption{\textbf{Contibutions to open-source software.} Following abbreviations denote the relation with respect to the package: \textit{aut} Author, \textit{ctb} Contributor. Yearly download statistics are based on the number of downloads between 2019-08-01 and 2019-09-10. CRAN download statistics are retrieved from the Rstudio CRAN mirror only; other CRAN mirrors do not track download statistics. In addition, many of the dynverse packages have only recently been published on CRAN. For Github repositories, no download statistics could be retrieved. } \label{tab:packages}
+	
+	\centering\fontsize{9}{11}\selectfont
+	\begin{tabularx}{\linewidth}{|p{2cm}llp{1.5cm}X|}
+		\hline
+		Name & Role & Host & Downloads per year & Description \\ \hline\hline
+		\cranpkg{babelwhale} & aut & CRAN & 5810 & Interacting with Docker and Singularity containers \\
+		\cranpkg{diffusionMap} & aut & CRAN & 30'450 & Implements diffusion map method of data parameterization, including creation and visualization of diffusion map \\
+		\githubpkg{dynverse}{dynbenchmark} & aut & Github & \notavailable & Pipeline for benchmarking trajectory inference methods \\
+		\cranpkg{dyndimred} & aut & CRAN & 5535 & Applying dimensionality reduction methods \\
+		\githubpkg{dynverse}{dyneval} & aut & Github & \notavailable & Evaluating trajectory inference methods \\
+		\githubpkg{dynverse}{dynfeature} & aut & Github & \notavailable & Calculating feature importance scores from trajectories \\
+		\githubpkg{dynverse}{dyngen} & aut & Github & \notavailable & Simulating single-cell data using gene regulatory networks \\
+		\githubpkg{dynverse}{dynguidelines} & aut & Github & \notavailable & User guidelines for trajectory inference \\
+		\githubpkg{dynverse}{dynmethods} & aut & Github & \notavailable & A collection of wrappers for trajectory inference methods \\
+		\githubpkg{dynverse}{dyno} & aut & Github & \notavailable & A pipeline for inferring, visualising and interpreting trajectories \\
+		\cranpkg{dynparam} & aut & CRAN & 3265 & Creating meta-information for parameters \\
+		\githubpkg{dynverse}{dynplot} & aut & Github & \notavailable & A simple visualisation library for trajectories \\
+		\githubpkg{dynverse}{dynplot2} & aut & Github & \notavailable & A fully customisable visualisation library for trajectories \\
+		\githubpkg{dynverse}{dyntoy} & aut & Github & \notavailable & Generating simple toy data of cellular differentiation \\
+		\cranpkg{dynutils} & aut & CRAN & 13'13' & Common functionality for the dynverse packages \\
+		\cranpkg{dynwrap} & aut & CRAN & 990 & A common format for trajectories \\
+		\cranpkg{GillespieSSA} & aut & CRAN & 7880 & Gillespie's Stochastic Simulation Algorithm (SSA) \\
+		\cranpkg{GillespieSSA2} & aut & CRAN & 4950 & Gillespie's Stochastic Simulation Algorithm for Impatient People \\
+		\githubpkg{dynverse}{gng} & aut & Github & \notavailable & An Rcpp implementation of the Growing Neural Gas algorithm \\
+		\cranpkg{incgraph} & aut & CRAN & 3565 & Incremental graphlet counting for network optimisation \\
+		\cranpkg{lmds} & aut & CRAN & 815 & Landmark Multi-Dimensional Scaling \\
+		\cranpkg{princurve} & aut & CRAN & 29'100 & Fits a principal curve in arbitrary dimension \\
+		\cranpkg{proxyC} & aut & CRAN & 117'480 & Computes proximity in large sparse matrices \\
+		\cranpkg{qsub} & aut & CRAN & 3585 & Running commands remotely on gridengine clusters \\
+		\cranpkg{SCORPIUS} & aut & CRAN & 4520 & Inferring developmental chronologies from single-cell RNA sequencing data \\ \hline\hline
+		
+		\cranpkg{badger} & ctb & CRAN & 6240 & Query information and generate badge for using in README and GitHub Pages \\
+		\biocpkgl{ClusterSignificance}{Clus\-ter\-Sig\-nif\-i\-cance} &  & Bioc & 935 & Assess if class clusters in dimensionality reduced data representations have a separation different from permuted data \\
+		\cranpkg{devtools} & ctb & CRAN & 5'918'700 & Tools to make developing R packages easier \\
+		\githubpkg{soedinglab}{merlot} & ctb & Github & \notavailable & A method for reconstructing lineage-tree topologies from scRNA-seq data \\
+		\cranpkg{mlr} & ctb & CRAN & 176'330 & Machine Learning in R \\
+		\biocpkg{monocle} & ctb & Bioc & 34'360 & Clustering, differential expression, and trajectory analysis for single-cell RNA-Seq \\
+		\cranpkg{ParamHelpers} & ctb & CRAN & 150'775 & Helpers for Parameters in Black-Box Optimization, Tuning and Machine Learning \\
+		\githubpkg{kieranrcampbell}{pseudogp} & ctb & Github & \notavailable & Probabilistic pseudotime for single-cell RNA-seq \\
+		\cranpkg{Rdimtools} & ctb & CRAN & 7367 & Dimension Reduction and Estimation Methods \\
+		\cranpkg{remotes} & ctb & CRAN & 3'944'090 & R package installation from remote repositories, including GitHub \\
+		\cranpkg{rlang} & ctb & CRAN & 13'269'115 & Functions for base types and core R and tidyverse features \\
+		\githubpkg{aertslab}{SCope} & ctb & Github & \notavailable & Visualization of large-scale and high dimensional single cell data \\
+		\biocpkg{slingshot} & ctb & Bioc & 12'085 & Tools for ordering single-cell sequencing \\
+		\biocpkg{splatter} & ctb & Bioc & 5015 & Simple simulation of single-cell RNA sequencing data \\
+		\githubpkg{farrelja}{URD} & ctb & Github & \notavailable & URD reconstructs transcriptional trajectories underlying specification or differentiation processes in the form of a branching tree from single-cell RNAseq data \\
+		\githubpkg{ManuSetty}{wishbone} & ctb & Github & \notavailable & Identify bifurcating developmental trajectories from single-cell data \\\hline
+	\end{tabularx}
+\end{table}
