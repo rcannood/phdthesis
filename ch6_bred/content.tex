@@ -19,8 +19,7 @@ Another case-wise NI method, SCENIC\cite{aibar_scenicsinglecellregulatory_2017} 
 In short, while several case-wise NI methods thus already exist, their implementation consisted of post-processing a static GRN to arrive at a case-wise GRN. 
 
 In this work, we introduce \texttt{bred}, the first 'true' case-wise NI method. 
-
-\texttt{bred} is an extension of GENIE3\cite{huynh-thu_inferringregulatorynetworks_2010} in that it uses the case-wise feature importance\cite{xu_casespecificrandomforests_2016} score rather than the regular Random Forest feature importance scores. In addition to predicting regulatory strength of an interaction, \texttt{bred} also predicts the regulatory effect of an interaction -- that is, whether a regulator activates or represses the target.
+\texttt{bred} uses case-wise feature importance\cite{xu_casespecificrandomforests_2016} score rather than the regular Random Forest feature importance scores. In addition to predicting regulatory strength of an interaction, \texttt{bred} also predicts the regulatory effect of an interaction -- that is, whether a regulator activates or represses the target.
 We demonstrate \texttt{bred} by applying it on a single-cell dataset of 25'000 hematopoietic cells from the Tabula Muris project\cite{schaum_singlecelltranscriptomics20_2018}, and to a collection of 15'000 bulk omics samples from The Cancer Genome Atlas project\cite{weinstein_cancergenomeatlas_2013}.
 
 
@@ -52,7 +51,7 @@ We demonstrate \texttt{bred} by applying it on a single-cell dataset of 25'000 h
 	{\raggedright\textbf{A}}
 	\begin{center}\includegraphics[width=.85\linewidth]{fig/tcga/grouped_interactions.pdf}\end{center}
 	{\raggedright\textbf{B}}
-	\begin{center}\includegraphics[width=.6\linewidth]{fig/tcga/plot_fr_cropped.png}\end{center}
+	\begin{center}\includegraphics[width=.8\linewidth]{fig/tcga/plot_fr_cropped.png}\end{center}
 	\caption{
 		\textbf{The Cancer Genome Atlas.}
 	}
@@ -65,7 +64,8 @@ We demonstrate \texttt{bred} by applying it on a single-cell dataset of 25'000 h
 \section{Methods}
 
 \subsection{Building the case-wise GRNs}
-Having to infer a static GRN (Figure~\ref{fig:simplify}A) can be reduced to a simpler problem, namely for every target $T$, predict which of the potential regulators regulate $T$ (Figure~\ref{fig:simplify}B). This simplification allowed GENIE3\cite{huynh-thu_inferringregulatorynetworks_2010} to use Random Forest's\cite{breiman_randomforests_2001} feature importance scores for inferring GRNs. Namely, a Random Forest is trained to predict the expression of a target gene of interest from the expression of potential regulators. The resulting Random Forest inherently allows to extract a feature importance score by observing the effect of each regulator in making a good prediction for the target expression.
+Having to infer a static GRN (Figure~\ref{fig:simplify}A) can be reduced to a simpler problem, namely for every target $T$, predict which of the potential regulators regulate $T$ (Figure~\ref{fig:simplify}B). This simplification allowed GENIE3\cite{huynh-thu_inferringregulatorynetworks_2010} to use Random Forest's\cite{breiman_randomforests_2001} feature importance scores for inferring GRNs. Namely, a Random Forest is trained to predict the expression of a target gene of interest from the expression of potential regulators. The resulting Random Forest inherently allows to extract a feature importance score by observing the effect of each regulator in making a good prediction for the target expression. As in GENIE3, the target expression is first scaled to normalise feature importance scores across different targets.
+
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[width=.6\linewidth]{fig/methodology/simplify.pdf} 
@@ -87,7 +87,6 @@ Steps F-G are repeated for every potential regulator $R_i$. By aggregating all o
 
 A moderately-sized dataset could contain $M=10'000$ samples, $N=2'000$ regulators, and $P=10'000$ target genes. Due to memory constrains, only interactions with an average importance value (across all samples) higher than a minimum threshold are retained.
 
-
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[width=.9\linewidth]{fig/methodology/fimp.pdf} 
@@ -105,9 +104,58 @@ A moderately-sized dataset could contain $M=10'000$ samples, $N=2'000$ regulator
 	\label{fig:fimp}
 \end{figure}
 
-\subsection{Clustering of case-wise GRNs}
+To compute the case-wise GRNs, we implemented the abovementioned methodology in C++ in a modified version of the \texttt{ranger} R/C++ package\cite{wright_rangerfastimplementation_2017}.
 
-%LMDS -> KNN -> FR \& Louvain clustering
+\subsection{Predicting the effect of an interaction}
+To predict the effect of a potential regulator $R_i$ on a target gene $T$ for a given tree, the Pearson correlation is calculated between the difference in regulator expression (before and after shuffling the values), and the difference in target expression prediction. 
+
+\begin{align*}
+  \text{effect}(R_i \rightarrow T) & = \text{cor}(x, y), \\
+  \text{with } x & = \text{expr\_shuffled}[:,R_i] - \text{expr}[:,R_i], \\
+  \text{and } y & = \text{predict}(\text{tree}, \text{expr\_shuffled}) - \text{predict}(\text{tree}, \text{expr}).
+\end{align*}
+
+The Pearson correlation between two variables $x$ and $y$ is usually defined as shown in Equation~\ref{eqn:pearson1}. Computing $r_{xy}$ for each (regulator, target) pairs, across all trees, would require storing large amounts of data.
+
+\begin{equation}\label{eqn:pearson1}
+	r_{xy} = \frac{\sum^n_{i=1} (x_i - \bar{x}) \times (y_i - \bar{y})}{\sqrt{\sum^n_{i=1}(x_i - \bar{x})^2}\times\sqrt{\sum^n_{i=1}(y_i - \bar{y})^2}}
+\end{equation} 
+
+However, by rearranging the formula, it can be defined as Equation~\ref{eqn:pearson2}.
+
+\begin{equation}\label{eqn:pearson2}
+r_{xy} = \frac{\sum(x_i \times y_i) - \sum x \times \sum y / n}{\sqrt{(\sum x_i^2 - (\sum x)^2 / n)} \times \sqrt{(\sum y_i^2 - (\sum y)^2 / n)}}
+\end{equation}
+
+For every regulator $R_i$ during a perturbation in a given tree, only 6 values need to be stored, namely $A = \sum x_i$, $B = \sum y_i$, $C = n$, $D = \sum{x_i \times y_i}$, $E = \sum{x_i \times x_i}$, and $F = \sum{y_i \times y_i}$.
+
+For every (regulator, target) pair, these values are summed, and the $r_{xy}$ is calculated as shown in Equation~\ref{eqn:pearson3}.
+
+\begin{equation}\label{eqn:pearson3}
+r_{xy} = \frac{D - A \times B / C}{\sqrt{(E - A^2 / C)} \times \sqrt{(F - B^2 / C)}}
+\end{equation}
+
+The following cutoffs were used to determine the effect. 
+
+\begin{itemize}
+	\item Strong negative: $r_{xy} < -0.4$
+  \item Weak negative: $-0.4 \leq r_{xy} < -0.2$
+  \item Unclear: $-0.2 \leq r_{xy} \leq 0.2$
+  \item Weak positive: $0.2 < r_{xy} \leq 0.4$
+  \item Strong positive: $0.4 < r_{xy}$
+\end{itemize} 
+
+\subsection{Clustering of case-wise GRNs}
+To perform downstream analysis on the cases, first a $k$-nearest neighbour ($k$NN) graph of the cases is computed.
+In order for the $k$NN graph to better emphasise similarities in GRNs rather than absolute euclidean distances, we first reduce the dimensionality of the case-by-interaction matrix to case-by-20 matrix using Landmark Multi-Dimensional Scaling\cite{lee_landmarkmdsensemble_2009} with a Spearman rank distance metric.  
+
+Next, KD-trees are used to calculate the $k$NN graph efficiently. The cases in the dataset are visualised and clusted using the Fruchterman-Reingold\cite{fruchterman_graphdrawingforcedirected_1991} and Louvain clustering\cite{blondel_fastunfoldingcommunities_2008}, respectively.
+
+The following R packages provided implementations for each of these algorithms: lmds, RANN, igraph\cite{csardi_igraphsoftwarepackage_2006}.
+
+\subsection{Data from the Tabula Muris project}
+
+\subsection{Data from The Canger Genome Atlas project}
 
 \clearpage
 \section{References}
