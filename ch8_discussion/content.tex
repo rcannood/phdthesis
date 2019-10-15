@@ -52,10 +52,10 @@ Despite \texttt{SCORPIUS} published on bioRxiv in 2016, discussion and usage of 
 
 
 \section{Inferring single cell regulatory networks}
-\mycomment{TODO: fill in when chapter has been written.}
-%	\item We develop an algorithm for  \textbf{inferring gene regulatory interactions at a single-cell level} (Chapter~\ref{chap:bred}). We demonstrate our NI methodology by inferring regulatory interactions for 25'000 hematopoietic cells, as well as for 15'000 cancer-related bulk profiles. % TODO: was this chapter written in the end?
 
-%\item We invent a new type of NI method capable of inferring the GRN of individual cells (Chapter~\ref{chap:bred}). We demonstrate this <yadeyade .. fill in when the chapter is actually written.>^
+We proposed a novel algorithm for inferring case-wise gene regulatory interactions. While we demonstrated the methodology by inferring 22'122 cell-specific GRNs and 14'963 sample-specific GRNs from the Tabula Muris and TCGA projects respectively, further interpretation of these results needs to be perform to further validate the usefulness of the method.
+
+Additional avenues for exploration could involve applying trajectory inference on the case-wise regulome data, and quantitatively evaluating the performance of the algorithm using the \texttt{dyngen} simulations.
 
 \section{Optimising regulatory networks}
 This project was a spin-off of Netter\cite{ruyssinck_netterrerankinggene_2016}, a tool for reranking GRN predictions using structural network properties. 
@@ -75,9 +75,9 @@ A significant portion of this work involved developing large software libraries,
 We summarised our experiences in the form of a set of guidelines for benchmarking computational tools (Chapter~\ref{chap:guidelines}). However, these guidelines do not touch upon many aspects of good software development practices that we learned to use in order to bring this thesis to a good end. In particular, I would like to highlight several  fundamental (open-source) projects without the likes of which our research would have been simply impossible to perform, namely Git, Travis CI, and the tidyverse.
 
 \textbf{Git}\cite{torvalds_gitfastversion_2005} is a code-revision system that allows multiple users to collaborate on developing code and keep track of what changes were made by whom. 
-Since Wouter and I were often working closely together on a specific part of our software, Git saved us a lot of time by merging together changes developed in parallel. Only in few cases did we need to intervene manually to merge our changes.
+Since Wouter Saelens and I were often working closely together on a specific part of our software, Git saved us a lot of time by merging together changes developed in parallel. Only in few cases did we need to intervene manually to merge our changes.
 Additionally, Github.com allowed us not only to collaborate with each-other, but also correspond and collaborate with other software developers from many different research groups, using Github Issues to discuss problems with other researchers, and Github Pull Requests to contribute code to open-source projects. 
-% Misschien ook Wouter zijn achternaam gebruiken. Klinkt wat professioneler :-p
+
 Together, we published over 20'000 code contributions (commits) across 50+ software packages\cite{cannoodt_developmentdynverse_2019}. Since many of these packages depend on one another, it is inevitable that changes made to one package would break another package. We wrote many, many unit tests (and still too few), and we let these tests automatically be executed on \textbf{Travis CI}\cite{traviscigmbh_traviscitest_2011}. This way, when we pushed breaking changes to Github, Travis CI would notify that our commit has resulted in one or more unit tests failing. While sometimes it is a hassle to set up, Travis CI has prevented us countless times from generating faulty results due to a faulty underlying function.
 
 Software bugs can be introduced even by incredibly small, seemingly insignificant changes. The R programming language seems particularly susceptible towards getting trapped by its many pitfalls. However, there are many benefits of using R in bioinformatics research context, such as its extensive community of statisticians develop packages for the R ecosystem. The \textbf{tidyverse} packages\cite{wickham_tidytoolsmanifesto_2017}, developed by the RStudio team and many online contributors, completely transformed my experiences with R from tedious struggles to efficient everyday functional programming.

@@ -17,10 +17,9 @@ Life (or cells) did not originate from DNA, however. A widely-accepted hypothesi
 
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[width=.8\linewidth]{fig/rnaworld} % TODO: change image
+	\includegraphics[width=.8\linewidth]{fig/rnaworld}
 	\caption{
-		\textbf{RNA world.} The postulated rise and fall of the RNA world during the evolution of life, from early self-replicating RNA to complex, RNA-controlled metabolism, to the invention of translation, followed by diversification of all modern branches of life. Image from Horning (2011)\cite{horning_rnaworld_2011}.
-%		\fbox{\color{red} TODO: combine images, rewrite the description.}
+		\textbf{RNA world.} The postulated rise and fall of the RNA world during the evolution of life, from early self-replicating RNA to complex, RNA-controlled metabolism, to the invention of translation, followed by diversification of all modern branches of life. Adapted from Horning (2011)\cite{horning_rnaworld_2011}.
 	}
 	\label{fig:rnaworld}
 \end{figure}
@@ -30,10 +29,9 @@ The central dogma describes the general flow of genetic information in almost al
 
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[width=.7\linewidth]{fig/central_dogma} % TODO: change image
-	\caption{
-		\textbf{Central Dogma.}
-%		\fbox{\color{red} TODO: combine images, rewrite the description.}
+	\includegraphics[width=.8\linewidth]{fig/central_dogma.pdf}
+	\caption{	
+		\textbf{The central dogma of molecular biology explains the flow of genetic information, from DNA to RNA, to protein.}
 	}
 	\label{fig:centraldogma}
 \end{figure}
@@ -54,10 +52,11 @@ One common approach for understanding the functionality of a particular cell is 
 \subsection{Cell dynamics and gene regulation}
 Cells are dynamic entities that can gradually produce the molecules needed to acquire new functionality. The naturally occurring cell-to-cell variability happens at the level of gene expression. Gene expression itself can be controlled at different levels (Figure~\ref{fig:controlexpression}), one of which is gene regulation by transcription.
 
-\begin{figure}[htb!]
-	\centering\includegraphics[width=.8\linewidth]{fig/control_gene_expression} % TODO: change image
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=\linewidth]{fig/control_gene_expression}
 	\caption{
-		\textbf{Levels of controlling gene expression} can happen at the level of transcription, RNA processing (i.e. splicing), RNA transport and localization, mRNA translation, mRNA degradation and protein activity \cite{alberts_overviewgenecontrol_2002}.
+		\textbf{Levels of controlling gene expression} can happen at the level of transcription, RNA processing (i.e. splicing), RNA transport and localization, mRNA translation, mRNA degradation and protein activity\cite{alberts_overviewgenecontrol_2002}.
 	}
 	\label{fig:controlexpression}
 \end{figure}
@@ -279,8 +278,8 @@ In this work, we aim to speed up scientific progress in single-cell omics by pro
 	\item We apply this strategy to \textbf{perform a comparison of TI methods} (Chapter~\ref{chap:dynbenchmark}). Trajectory inference is one of the largest categories of all the novel single-cell omics tools, yet a comprehensive and quantitative study of the advantages and disadvantages of the numerous tools was hitherto lacking. We provide a set of guidelines for end-users wishing to infer trajectories. Our pipeline, datasets, metrics, and containerised wrappers of TI methods are made publicly available for developers to use.
 	\item We develop \textbf{a toolkit to infer, visualise and interpret single-cell trajectories} using more than 50 different TI methods (Chapter~\ref{chap:dyno}). dyno provides downstream analysis such as: visualising a trajectory in a low-dimensional space or a heatmap, detecting genes differentially expressed at different stages of the tragectory, comparing multiple trajectories in a common dimensionality reduction, and manipulating the trajectory (e.g. adding directionality or adding annotation).
 	\item We introduce a TI method specialised in \textbf{inferring linear trajectories} (Chapter~\ref{chap:scorpius}). Despite linear TI being the most simple but commonly used form of trajectory inference, the benchmark demonstrated that most TI methods are not capable of producing accurate models of linear datasets.
-	\item We develop an algorithm for  \textbf{inferring gene regulatory interactions at a single-cell level} (Chapter~\ref{chap:bred}). We demonstrate our NI methodology by inferring regulatory interactions for 22'122 hematopoietic cells, as well as for 14'963 bulk profiles of cancer tumours.
-	\item We provide a tool for  \textbf{analysing the topological properties of large, evolving networks} and use this to iteratively optimise GRN predictions (Chapter~\ref{chap:incgraph}).
+	\item We explore a novel algorithm for \textbf{inferring gene regulatory interactions at a single-cell level} (Chapter~\ref{chap:bred}). We demonstrate our NI methodology by inferring regulatory interactions for 22'122 hematopoietic cells, as well as for 14'963 bulk profiles of cancer tumours.
+	\item We provide a tool for \textbf{analysing the topological properties of large, evolving networks} and use this to iteratively optimise GRN predictions (Chapter~\ref{chap:incgraph}).
 	\item We reflect on \textbf{challenges in performing self-assessments of TI methods} (Chapter~\ref{chap:selfassessment}).
 	Reproducability problems of TI methods are partially due to low rates of quantitative self-assessment. We look at 75 manuscripts of TI methods and identify key challenges the authors had in benchmarking their tool. For each of these challenges, we provide a summary of how we and others have successfully tackled these challenges, in order to spur developers to perform more self-assessments.
 	\item Finally, we \textbf{summarise our experience in benchmarking computational methods} by providing a list of essential guidelines in benchmarking computational tools (Chapter~\ref{chap:guidelines}).
@@ -334,7 +333,7 @@ We also helped maintain or extend other packages on Github, CRAN or Bioconductor
 \newcommand{\notavailable}{}
 
 \begin{table}[ht!]
-	\caption{\textbf{Contibutions to open-source software.} Following abbreviations denote the relation with respect to the package: \textit{aut} Author, \textit{ctb} Contributor. Yearly download statistics are based on the number of downloads between 2019-08-01 and 2019-09-10. CRAN download statistics are retrieved from the Rstudio CRAN mirror only; other CRAN mirrors do not track download statistics. In addition, many of the dynverse packages have only recently been published on CRAN. For Github repositories, no download statistics could be retrieved. } \label{tab:packages}
+	\caption{\textbf{Contibutions to open-source software.} Following abbreviations denote the relation with respect to the package: \textit{aut} Author, \textit{ctb} Contributor. Yearly download statistics are based on the number of downloads between 2019-08-01 and 2019-10-14. CRAN download statistics are retrieved from the Rstudio CRAN mirror only; other CRAN mirrors do not track download statistics. In addition, many of the dynverse packages have only recently been published on CRAN. For Github repositories, no download statistics could be retrieved. } \label{tab:packages}
 	
 	\centering\fontsize{9}{11}\selectfont
 	\begin{tabularx}{\linewidth}{|p{2cm}llp{1.5cm}X|}

@@ -343,8 +343,8 @@ For each dataset, we extracted a reference trajectory, consisting of two parts: 
 To generate synthetic datasets, we used four different synthetic data simulators:
 
 \begin{itemize}
-	\item \textbf{dyngen}: simulations of gene regulatory networks, available at \href{https://github.com/dynverse/dyngen}{https://github.com/dynverse/dyngen}
-	\item \textbf{dyntoy}: random gradients of expression in the reduced space, available at \href{https://github.com/dynverse/dyntoy}{https://github.com/dynverse/dyntoy}
+	\item \textbf{dyngen}: simulations of gene regulatory networks, available at \url{https://github.com/dynverse/dyngen}
+	\item \textbf{dyntoy}: random gradients of expression in the reduced space, available at \url{https://github.com/dynverse/dyntoy}
 	\item \textbf{PROSSTT}: expression is sampled from a linear model that depends on pseudotime \cite{papadopoulos_prossttprobabilisticsimulation_2018}
 	\item \textbf{Splatter}: simulations of non-linear paths between different expression states \cite{zappia_splattersimulationsinglecell_2017}
 \end{itemize}
@@ -461,7 +461,7 @@ Because each cellular simulation follows the trajectory at its own speed, knowin
 
 \subsubsection{dyntoy}
 
-For more simplistic data generation ("toy" datasets), we created the dyntoy workflow (\url{https://github.com/dynverse/dyntoy}{https://github.com/dynverse/dyntoy}) . We created 12 topology generators (described below), and with 10 datasets per generator, this lead to a total of 120 datasets.
+For more simplistic data generation ("toy" datasets), we created the dyntoy workflow (\url{https://github.com/dynverse/dyntoy}). We created 12 topology generators (described below), and with 10 datasets per generator, this lead to a total of 120 datasets.
 
 We created a set of topology generators, were $B(n, p)$ denotes a binomial distribution, and $U(a, b)$ denotes a uniform distribution:
 
@@ -612,7 +612,7 @@ Given the multilayered complexity of a trajectory model, it is not trivial to co
 
 Here, we first describe and illustrate several possible specific, application and overall metrics. Next, we test these metrics on several test cases, to make sure they robustly identify "wrong" trajectory predictions.
 
-All metrics described here were implemented within the \href{https://github.com/dynverse/dyneval}{dyneval R package (https://github.com/dynverse/dyneval)}.
+All metrics described here were implemented within the dyneval R package (\url{https://github.com/dynverse/dyneval}).
 
 \subsection{Metric characterisation and testing}
 
