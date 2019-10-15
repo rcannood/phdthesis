@@ -11,32 +11,50 @@ One of the main advantages of single-cell transcriptomics is the ability to quan
 
 Several studies have highlighted how some regulatory interactions can be very dynamic while others show evidence of being static during consecutive developmental stages\cite{moignard_characterizationtranscriptionalnetworks_2013, pina_singlecellnetworkanalysis_2015}. 
 Since regulatory interactions are context-dependent\cite{papp_genomewideanalysiscontextdependence_2005}, attempting to create an accurate model of those processes by inferring a static regulatory network may have limited relevance.
+Case-wise NI methods\footnote{Case-wise NI is sometimes also called sample-specific NI or case-specific NI.} avoid predicting a static GRN and instead infer one GRN per cell (or per sample, for bulk omics data).
+The case-wise GRNs -- or 'case-wise regulomes' -- are analysed similarly to single-cell transcriptomics data; for example by clustering, inferring trajectories, or finding differentially activated interactions. 
 
-Case-specific NI (CSNI) methods avoid predicting a global GRN and instead produce one GRN per case in the dataset.
-The sample-specific GRNs -- or 'sample-specific regulomes' -- can be used in much the same way as single-cell transcriptomi
+In order to compute a case-wise GRN for a single sample, Kuijjer et al.\cite{kuijjer_estimatingsamplespecificregulatory_2019} and Liu et al.\cite{liu_personalizedcharacterizationdiseases_2016} employ similar strategies, namely by computing the difference of computing a static GRN for all the cases, and computing a static GRN for all the cases minus one. Since this procedure needs to be repeated for every case in the dataset, and because NI methods are already amongst the most computationally intensive analyses to perform on omics data, this methodology is not applicable for large omics datasets.
+Another case-wise NI method, SCENIC\cite{aibar_scenicsinglecellregulatory_2017} infers case-wise GRNs by first inferring a static GRN using GENIE3\cite{huynh-thu_inferringregulatorynetworks_2010}. GENIE3 is a static NI method which uses Random Forests\cite{breiman_randomforests_2001} feature importance scores to prioritise candidate regulators for a particular target gene. SCENIC then post-processes the static GRN to determine whether an interaction is enriched for particular cases, resulting in a case-wise GRN. 
+In short, while several case-wise NI methods thus already exist, their implementation consisted of post-processing a static GRN to arrive at a case-wise GRN. 
 
- Kuijjer et al.\cite{kuijjer_estimatingsamplespecificregulatory_2019} LOO. Liu et al. \cite{personalizedcharacterizationdiseases}. Aibar et al. SCENIC \cite{aibar_scenicsinglecellregulatory_2017} use global method and post-process.
+In this work, we introduce \texttt{bred}, the first 'true' case-wise NI method. 
 
-
-
-
-NI methods that take into account the dynamic aspect of gene regulation instead produce network models with variable regulatory activity.
-
- To this end, several approaches have been proposed, which can be broadly classified in three different classes, depending on the output structure they produce: differential NI, dynamic NI, and profile-specific NI (Figure \ref{fig:ni_types}). 
-
-With each of these methodologies, it should be noted that while they produce networks specific for only certain subsets of the cell's profiles, they still use the information from all available profiles. 
-If a method is to infer a network from cells in only a certain condition, it will infer interactions from noise in the data, rather than the changes that separate that condition from any other.
-As such, a context-dependent network inferred from only a subset of the profiles is likely to be less accurate than a static network trained on all profiles.
-
+\texttt{bred} is an extension of GENIE3\cite{huynh-thu_inferringregulatorynetworks_2010} in that it uses the case-wise feature importance\cite{xu_casespecificrandomforests_2016} score rather than the regular Random Forest feature importance scores. In addition to predicting regulatory strength of an interaction, \texttt{bred} also predicts the regulatory effect of an interaction -- that is, whether a regulator activates or represses the target.
+We demonstrate \texttt{bred} by applying it on a single-cell dataset of 25'000 hematopoietic cells from the Tabula Muris project\cite{schaum_singlecelltranscriptomics20_2018}, and to a collection of 15'000 bulk omics samples from The Cancer Genome Atlas project\cite{weinstein_cancergenomeatlas_2013}.
 
 
 \section{Results}
 
+
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[width=\linewidth]{fig/tcga/grouped_interactions.pdf} 
+	\includegraphics[width=\linewidth]{fig/example.pdf} 
 	\caption{
-		A
+		\textbf{A schematic overview of the workings of the \texttt{bred} algorithm.}
+	}
+	\label{fig:example_cni}
+\end{figure}
+
+\begin{figure}[htb!]
+	{\raggedright\textbf{A}}
+	\begin{center}\includegraphics[width=.9\linewidth]{fig/tabula_muris_hema/grouped_interactions.pdf}\end{center}
+	{\raggedright\textbf{B}}
+	\begin{center}\includegraphics[width=\linewidth]{fig/tabula_muris_hema/plot_fr_cropped.png}\end{center}
+	\caption{
+		\textbf{Hematopoietic cells from the Tabula Muris project.}
+	}
+	\label{fig:tabmur}
+\end{figure}
+
+
+\begin{figure}[htb!]
+	{\raggedright\textbf{A}}
+	\begin{center}\includegraphics[width=.85\linewidth]{fig/tcga/grouped_interactions.pdf}\end{center}
+	{\raggedright\textbf{B}}
+	\begin{center}\includegraphics[width=.6\linewidth]{fig/tcga/plot_fr_cropped.png}\end{center}
+	\caption{
+		\textbf{The Cancer Genome Atlas.}
 	}
 	\label{fig:tcga}
 \end{figure}
@@ -45,6 +63,51 @@ As such, a context-dependent network inferred from only a subset of the profiles
 \section{Discussion}
 
 \section{Methods}
+
+\subsection{Building the case-wise GRNs}
+Having to infer a static GRN (Figure~\ref{fig:simplify}A) can be reduced to a simpler problem, namely for every target $T$, predict which of the potential regulators regulate $T$ (Figure~\ref{fig:simplify}B). This simplification allowed GENIE3\cite{huynh-thu_inferringregulatorynetworks_2010} to use Random Forest's\cite{breiman_randomforests_2001} feature importance scores for inferring GRNs. Namely, a Random Forest is trained to predict the expression of a target gene of interest from the expression of potential regulators. The resulting Random Forest inherently allows to extract a feature importance score by observing the effect of each regulator in making a good prediction for the target expression.
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=.6\linewidth]{fig/methodology/simplify.pdf} 
+	\caption{
+		\textbf{A:} Inferring a gene regulatory network from an omics dataset can be reduced to a simpler problem. 
+		\textbf{B:} Given the expression of a target of interest and a set of potential regulators, predict which regulators regulate the target gene.
+	}
+	\label{fig:simplify}
+\end{figure}
+
+We make the same simplification in order to build case-wise GRNs, also using Random Forests to compute the feature importance scores. A Random Forest consists of $K$ trees, each of which produces feature importance scores, and the feature importance scores of a forest is simply the mean feature importance scores of each of the trees. 
+
+Computing the case-wise feature importances of a tree consists of the following 8 steps (Figure~\ref{fig:fimp}).
+The 'randomness' of a Random Forest is due to only using a subset of the samples in the dataset in order to build a single decision tree. The samples are split into two groups, the 'in-bag' data and the 'out-of-bag' data (Figure~\ref{fig:fimp}A). A decision tree\cite{breiman_classificationregressiontrees_1984} is trained on the in-bag expression of the potential regulators in trying to predict the in-bag target gene expression (Figure~\ref{fig:fimp}B). The target expression of the out-of-bag samples is predicted using the decision tree (Figure~\ref{fig:fimp}C), and the squared error between the real and target expression is computed (Figure~\ref{fig:fimp}D). For each sample in the out-of-bag set, this vector represents how well the decision tree was able to predict the expression of the target gene.
+
+The next few steps are repeated for every potential regulator $R_i$. Within the out-of-bag samples, the expression of $R_i$ is randomly shuffled. The target expression of the out-of-bag samples is again calculated (Figure~\ref{fig:fimp}F), as well as the squared error between the real target expression and the predicted expression is calculated (Figure~\ref{fig:fimp}G). The importance of regulator $R_i$ for an out-of-bag sample $S_j$ is defined as the increase in squared error between the predicted target expression and the real target expression, after perturbing the expression of $R_i$ (Figure~\ref{fig:fimp}H). 
+
+Steps F-G are repeated for every potential regulator $R_i$. By aggregating all of the feature importance scores over all the samples, regulators and targets, we obtain an $M$-by-$N$-by-$P$ tensor\footnote{This is the origin of the name of the method, "\texttt{bred}".}. 
+
+A moderately-sized dataset could contain $M=10'000$ samples, $N=2'000$ regulators, and $P=10'000$ target genes. Due to memory constrains, only interactions with an average importance value (across all samples) higher than a minimum threshold are retained.
+
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=.9\linewidth]{fig/methodology/fimp.pdf} 
+	\caption{
+		\textbf{Calculating the feature importance score for one decision tree and one target consists of 8 distinct steps.}
+		\textbf{A:} Randomly split the data into two groups, the in-bag data and the out-of-bag data.
+		\textbf{B:} The in-bag data is used to train a decision tree to try to predict the expression of the target gene from the expression values of the regulators.
+		\textbf{C:} The decision tree is used to predict the gene expression of the target gene of the out-of-bag samples.
+		\textbf{D:} Sample-specific squared error values are computed.
+		\textbf{E:} Repeat steps E-H for every regulator $R_i$. Perturb the expression of regulator $R_i$ in the out-of-bag samples.
+		\textbf{F:} Again predict the gene expression of the target gene with the perturbed expression values.
+		\textbf{G:} Again compute the sample-specific squared error values.
+		\textbf{H:} The difference between the prediction error on the perturbed dataset versus the prediction error on the unperturbed is the importance in $R_i$ in predicting $T$ 
+	}
+	\label{fig:fimp}
+\end{figure}
+
+\subsection{Clustering of case-wise GRNs}
+
+%LMDS -> KNN -> FR \& Louvain clustering
 
 \clearpage
 \section{References}
