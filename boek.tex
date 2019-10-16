@@ -364,15 +364,15 @@ BoldItalicFont = *-700-Italic
 
 \lettergroup{\thechapter}
 
-{\large \textbf{Abstract}}
+%{\large \textbf{Abstract}}
 \begin{quote}
 	%Recent developments in single-cell transcriptomics have opened new opportunities for studying dynamic processes in a high-throughput and unbiased manner. Starting from a mixture of cells in different stages of a developmental process, unsupervised trajectory inference algorithms aim to automatically reconstruct the underlying developmental path that cells are following. In this review, we break down the strategies used by this novel class of methods, and organize their components into a common framework, highlighting several practical advantages and disadvantages of the individual methods. We also give an overview of new insights these methods have already provided regarding the wiring and gene regulation of cell differentiation. As the trajectory inference field is still in its infancy, we propose several future developments which will ultimately lead to a global and data-driven way of studying immune cell differentiation.
 \end{quote}
 
 \vfill
-%\newpage
-%\graphicspath{{./ch1_introduction/}}
-%\include{ch1_introduction/content}
+\newpage
+\graphicspath{{./ch1_introduction/}}
+\include{ch1_introduction/content}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%        CH2: DYNGEN        %%%
@@ -412,9 +412,9 @@ BoldItalicFont = *-700-Italic
 
 \vfill
 
-%\newpage
-%\graphicspath{{./ch2_dyngen/}}
-%\include{ch2_dyngen/content}
+\newpage
+\graphicspath{{./ch2_dyngen/}}
+\include{ch2_dyngen/content}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%     CH3: DYNBENCHMARK     %%%
@@ -454,9 +454,9 @@ BoldItalicFont = *-700-Italic
 \vfill
 
 
-%\newpage
-%\graphicspath{{./ch3_dynbenchmark/}}
-%\include{ch3_dynbenchmark/content}
+\newpage
+\graphicspath{{./ch3_dynbenchmark/}}
+\include{ch3_dynbenchmark/content}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%         CH4: DYNO         %%%
@@ -492,13 +492,13 @@ BoldItalicFont = *-700-Italic
 
 \vfill
 
-%\newpage
-%\graphicspath{{./ch4_dyno/}}
-%\include{ch4_dyno/content}
-%
-%\clearpage
-%\section{References}
-%\printbibliography[heading=none]
+\newpage
+\graphicspath{{./ch4_dyno/}}
+\include{ch4_dyno/content}
+
+\clearpage
+\section{References}
+\printbibliography[heading=none]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%       CH5: SCORPIUS       %%%
@@ -539,9 +539,9 @@ BoldItalicFont = *-700-Italic
 
 \vfill
 
-%\newpage
-%\graphicspath{{./ch5_scorpius/}}
-%\include{ch5_scorpius/content}
+\newpage
+\graphicspath{{./ch5_scorpius/}}
+\include{ch5_scorpius/content}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%         CH6: BRED         %%%
@@ -579,9 +579,9 @@ BoldItalicFont = *-700-Italic
 
 \vfill
 
-%\newpage
-%\graphicspath{{./ch6_bred/}}
-%\include{ch6_bred/content}
+\newpage
+\graphicspath{{./ch6_bred/}}
+\include{ch6_bred/content}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%       CH7: INCGRAPH       %%%
@@ -622,9 +622,9 @@ BoldItalicFont = *-700-Italic
 
 \vfill
 
-%\newpage
-%\graphicspath{{./ch7_incgraph/}}
-%\include{ch7_incgraph/content}
+\newpage
+\graphicspath{{./ch7_incgraph/}}
+\include{ch7_incgraph/content}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -638,9 +638,21 @@ BoldItalicFont = *-700-Italic
 
 {\large \textbf{Abstract}}
 \begin{quote}
-	\textbf{Purpose:} \ldots \\
-	\textbf{Results:} \ldots \\
-	\textbf{Conclusion:} \ldots
+	\textbf{Purpose:} A brief of 75 articles of trajectory tools reveals 
+	that only 37\% of works contain a quantitative self-assessment. 
+	While self-assessments are universally biased in favour of the
+	authors, it is dangerous to publish a computational tool
+	without quantitatively demonstrating its performance compared to
+	state-of-the-art methods. \\
+	\textbf{Results:} We hypothesise that low self-assessment rates are
+	primarily caused by a lack of a standardised problem definition, readily
+	available benchmarking datasets, and suitable metrics. We elaborate on
+	these causal reasons and provide viable solutions for 
+	performing benchmarks more easily.\\
+	\textbf{Conclusion:} With this perspective, we hope to address the
+	elephant in the room, and provide 
+	developers of trajectory inference methods with the necessary 
+	tools for performing benchmarking software quantitatively. 
 \end{quote}
 
 \vfill
@@ -660,12 +672,12 @@ BoldItalicFont = *-700-Italic
 
 \vfill
 
-%\newpage
-%\graphicspath{{./ch9_selfassessment/}}
-%\include{ch9_selfassessment/content}
-%\clearpage
-%\section{References}
-%\printbibliography[heading=none]
+\newpage
+\graphicspath{{./ch9_selfassessment/}}
+\include{ch9_selfassessment/content}
+\clearpage
+\section{References}
+\printbibliography[heading=none]
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -681,31 +693,30 @@ BoldItalicFont = *-700-Italic
 {\large \textbf{Abstract}}
 \begin{quote}
 	\textbf{Purpose:} In computational biology and other sciences, researchers are frequently faced with a choice between several computational methods for performing data analyses. Benchmarking studies aim to rigorously compare the performance of different methods using well-characterized benchmark datasets, to determine the strengths of each method or to provide recommendations regarding suitable choices of methods for an analysis. However, benchmarking studies must be carefully designed and implemented to provide accurate, unbiased, and informative results. \\
-	\textbf{Results:}  Here, we summarize key practical guidelines and recommendations for performing high-quality benchmarking analyses, based on our experiences in computational biology. \\
-	\textbf{Conclusion:} \ldots
+	\textbf{Results:}  Here, we summarise key practical guidelines and recommendations for performing high-quality benchmarking analyses, based on our experiences in computational biology. Our review spans the full pipeline of benchmarking, from defining the scope to best practices for reproducibility. This includes crucial questions regarding design and evaluation principles. \\
+	\textbf{Conclusion:} With this review, we aim to guide computational researchers in avoiding common pitfalls in designing, performing, and interpreting benchmarks.
 \end{quote}
 
 \vfill
 {\large \textbf{Publication status}}
 \begin{quote}
-	Manuscript published in Genome Biology 20, 125 (2019). \doi{10.1186/s13059-019-1738-8}. \\
+  Published in Genome Biology 20, 125 (2019). \doi{10.1186/s13059-019-1738-8}. \\
 	Weber LM, Saelens W, \textbf{Cannoodt R}, Soneson C, Hapfelmeier A, Gardner PP, Boulesteix A, Saeys Y, and Robinson MD 
 \end{quote}
 
 \vfill
 {\large \textbf{Author contributions}}
 \begin{quote}
-	$\bullet$ \textbf{R.C.} designed the study.\\
-	$\bullet$ \textbf{R.C.} surveyed 75 manuscripts from literature and analysed the data.\\
-	$\bullet$ \textbf{R.C.} wrote the original manuscript.\\
-	$\bullet$ Y.S. supervised the project.
+	$\bullet$ L.M.W. proposed the project and drafted the manuscript.\\
+	$\bullet$ W.S., \textbf{R.C.}, C.S., A.H., P.P.G., A.L.B., Y.S., and M.D.R. contributed ideas and references and contributed to drafting of the manuscript.\\
+	$\bullet$ Y.S. and M.D.R. supervised the project.
 \end{quote}
 
 \vfill
 
-%\newpage
-%\graphicspath{{./ch10_guidelines/}}
-%\include{ch10_guidelines/content}
+\newpage
+\graphicspath{{./ch10_guidelines/}}
+\include{ch10_guidelines/content}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -716,9 +727,9 @@ BoldItalicFont = *-700-Italic
 \chaptermark{Discussion.} % short title
 \label{chap:discussion}
 
-%\newpage
-%\graphicspath{{./ch8_discussion/}}
-%\include{ch8_discussion/content}
+\newpage
+\graphicspath{{./ch8_discussion/}}
+\include{ch8_discussion/content}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%        BACKMATTER         %%%
