@@ -32,12 +32,12 @@
 \usepackage[indention=0.5cm,labelsep=colon,font={sf,small},labelfont={bf,sf}]{caption}
 \usepackage[indention=0.5cm,font={sf,small},labelfont={bf,sf}]{subcaption}
 \usepackage{float}
-\usepackage{multirow}
 \usepackage{import}
 \usepackage{xcolor}
 \usepackage{colortbl}
 \usepackage{tcolorbox}
-\usepackage[export]{adjustbox}
+\usepackage[export]{adjustbox} % for top alignment
+\usepackage{afterpage} % for figure placement
 
 % pseudocode packages
 \usepackage{algorithm}
@@ -50,6 +50,7 @@
 \usepackage{amsmath}
 
 % table packages
+\usepackage{multirow}
 \usepackage{tabularx}
 \usepackage{tabulary}
 \usepackage{booktabs}
@@ -328,6 +329,11 @@ BoldItalicFont = *-700-Italic
 % command for adding comments
 \newcommand{\mycomment}[1]{\noindent\fbox{\parbox{\textwidth}{\color{red}#1}}}
 
+% if switching for quick renders
+\newif\ifrenderall
+
+\renderalltrue
+
 \begin{document}
 
 % thesis obligatory content: 
@@ -350,9 +356,6 @@ BoldItalicFont = *-700-Italic
 \mainmatter
 \pagestyle{mainmatter}
 
-
-
-% TIP FROM WOUTER: Per chapter, write 'update' reflecting on what came out of the paper
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%     CH1: INTRODUCTION     %%%
@@ -412,10 +415,11 @@ BoldItalicFont = *-700-Italic
 
 \vfill
 
+\ifrenderall
 \newpage
 \graphicspath{{./ch2_dyngen/}}
 \include{ch2_dyngen/content}
-
+\fi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%     CH3: DYNBENCHMARK     %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -453,11 +457,11 @@ BoldItalicFont = *-700-Italic
 
 \vfill
 
-
+\ifrenderall
 \newpage
 \graphicspath{{./ch3_dynbenchmark/}}
 \include{ch3_dynbenchmark/content}
-
+\fi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%         CH4: DYNO         %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -492,6 +496,7 @@ BoldItalicFont = *-700-Italic
 
 \vfill
 
+\ifrenderall
 \newpage
 \graphicspath{{./ch4_dyno/}}
 \include{ch4_dyno/content}
@@ -499,6 +504,7 @@ BoldItalicFont = *-700-Italic
 \clearpage
 \section{References}
 \printbibliography[heading=none]
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%       CH5: SCORPIUS       %%%
@@ -539,9 +545,11 @@ BoldItalicFont = *-700-Italic
 
 \vfill
 
+\ifrenderall
 \newpage
 \graphicspath{{./ch5_scorpius/}}
 \include{ch5_scorpius/content}
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%         CH6: BRED         %%%
@@ -579,10 +587,11 @@ BoldItalicFont = *-700-Italic
 
 \vfill
 
+\ifrenderall
 \newpage
 \graphicspath{{./ch6_bred/}}
 \include{ch6_bred/content}
-
+\fi 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%       CH7: INCGRAPH       %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -622,10 +631,11 @@ BoldItalicFont = *-700-Italic
 
 \vfill
 
+\ifrenderall
 \newpage
 \graphicspath{{./ch7_incgraph/}}
 \include{ch7_incgraph/content}
-
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%   CH9: Self-assessment    %%%
@@ -672,13 +682,14 @@ BoldItalicFont = *-700-Italic
 
 \vfill
 
+\ifrenderall
 \newpage
 \graphicspath{{./ch9_selfassessment/}}
 \include{ch9_selfassessment/content}
 \clearpage
 \section{References}
 \printbibliography[heading=none]
-
+\fi 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%       CH10: Guidelines    %%%
@@ -714,10 +725,11 @@ BoldItalicFont = *-700-Italic
 
 \vfill
 
+\ifrenderall
 \newpage
 \graphicspath{{./ch10_guidelines/}}
 \include{ch10_guidelines/content}
-
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      CH8: DISCUSSION      %%%
@@ -727,10 +739,11 @@ BoldItalicFont = *-700-Italic
 \chaptermark{Discussion.} % short title
 \label{chap:discussion}
 
+\ifrenderall
 \newpage
 \graphicspath{{./ch8_discussion/}}
 \include{ch8_discussion/content}
-
+\fi 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%        BACKMATTER         %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
