@@ -1,31 +1,31 @@
 % INTRODUCTION CONTENT
 
 \section{The cell}
-The cell is the smallest unit of life, of which all known living organisms are composed. Every cell houses a plethora of biomolecular processes that allows it to continuously adapt to changes in its environment. Due to the dynamic nature of these processes, it can be very challenging to comprehend the cellular response to a signal. A reductionist approach to understanding a complex biological system is to study the biochemical components of which it is comprised\cite{brigandt_reductionismbiology_2017}.
+The cell is the smallest unit of life, of which all known living organisms are composed. Every cell houses a plethora of biomolecular processes that allows it to continuously adapt to changes in its environment. Due to the dynamic nature of these processes, it can be very challenging to comprehend the cellular response to a signal. A reductionist approach to understanding a complex biological system is to study the biochemical components of which it is comprised \cite{brigandt_reductionismbiology_2017}.
 
-Recent advances in experimental technologies are playing a crucial role in reductionist biology, allowing to measure the abundance of thousands of different biochemical molecules in tens of thousands of individual cells. With it comes the challenge of analysing large amounts of data that are not easily interpretable by hand. The sheer volume of the data generated from such highly-integrative and high-throughput experiments are not the only reason why they are so challenging to interpret. For instance, the generated data contains high levels of noise arising from inherent biomolecular stochasticity in the cells and from the experimental profiling techniques used, as well as batch effects arising from differences between donors and labs\cite{hon_humancellatlas_2018}. Biologists thus turn to computer scientists
+Recent advances in experimental technologies are playing a crucial role in reductionist biology, allowing to measure the abundance of thousands of different biochemical molecules in tens of thousands of individual cells. With it comes the challenge of analysing large amounts of data that are not easily interpretable by hand. The sheer volume of the data generated from such highly-integrative and high-throughput experiments are not the only reason why they are so challenging to interpret. For instance, the generated data contains high levels of noise arising from inherent biomolecular stochasticity in the cells and from the experimental profiling techniques used, as well as batch effects arising from differences between donors and labs \cite{hon_humancellatlas_2018}. Biologists thus turn to computer scientists
 to develop new tools to tackle these problems and help them to extract meaningful biological insights from the data. In this work, incremental contributions were made to the field in order to be able to address the aforementioned problems in a more comprehensive context.
 
-Observing the biomolecular insides of cells can ultimately provide fundamental understanding into the processes that govern these cells and help uncover novel approaches for disease diagnosis, prognosis, and treatment. For example, the Human Cell Atlas (HCA) consortium\cite{regev_humancellatlas_2018} has set out to develop a comprehensive reference map of all the different types of cells in the human body. Experts in the field often metaphorically describe the HCA initiative as aiming to develop a 'Google Maps' of the human body. Even in its infancy, the HCA has profiled 3.8 million cells from 248 donors across 42 labs\cite{humancellatlasconsortium_humancellatlas_2018}, and this number is likely to increase well above one hundred million.
+Observing the biomolecular insides of cells can ultimately provide fundamental understanding into the processes that govern these cells and help uncover novel approaches for disease diagnosis, prognosis, and treatment. For example, the Human Cell Atlas (HCA) consortium \cite{regev_humancellatlas_2018} has set out to develop a comprehensive reference map of all the different types of cells in the human body. Experts in the field often metaphorically describe the HCA initiative as aiming to develop a 'Google Maps' of the human body. Even in its infancy, the HCA has profiled 3.8 million cells from 248 donors across 42 labs \cite{humancellatlasconsortium_humancellatlas_2018}, and this number is likely to increase well above one hundred million.
 
 The next part of the chapter highlights several key concepts in both cell biology and computer science, upon which the remainder of this work relies.
 
 \subsection{The origin of life and the RNA world}
-The discovery of the double helix shape of deoxyribonucleic acid (DNA)\cite{watson_molecularstructurenucleic_1953} is often considered the pivot point in our understanding of the origin of life and evolution. By now, it is well known that DNA serves as a medium for storing the genetic information required to reproduce a whole organism. With other words, the DNA of an organism contains the complete set of instructions required to build all of the biomolecular machinery present in its body. 
+The discovery of the double helix shape of deoxyribonucleic acid (DNA) \cite{watson_molecularstructurenucleic_1953} is often considered the pivot point in our understanding of the origin of life and evolution. By now, it is well known that DNA serves as a medium for storing the genetic information required to reproduce a whole organism. With other words, the DNA of an organism contains the complete set of instructions required to build all of the biomolecular machinery present in its body. 
 
-Life (or cells) did not originate from DNA, however. A widely-accepted hypothesis states that life originates from its lesser-known cousin, ribonucleic acid (RNA). According to the RNA world hypothesis\cite{alberts_rnaworldorigins_2002}, the very first primitive cells used RNA both to store genetic information and to perform the chemical reactions required to sustain themselves (Figure \ref{fig:rnaworld}). Only later did cells develop the ability to use the more chemically stable DNA molecules to self-sustain in a process commonly referred to as the central dogma.
+Life (or cells) did not originate from DNA, however. A widely-accepted hypothesis states that life originates from its lesser-known cousin, ribonucleic acid (RNA). According to the RNA world hypothesis \cite{alberts_rnaworldorigins_2002}, the very first primitive cells used RNA both to store genetic information and to perform the chemical reactions required to sustain themselves (Figure \ref{fig:rnaworld}). Only later did cells develop the ability to use the more chemically stable DNA molecules to self-sustain in a process commonly referred to as the central dogma.
 
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[width=.8\linewidth]{fig/rnaworld}
 	\caption{
-		\textbf{RNA world.} The postulated rise and fall of the RNA world during the evolution of life, from early self-replicating RNA to complex, RNA-controlled metabolism, to the invention of translation, followed by diversification of all modern branches of life. Adapted from Horning (2011)\cite{horning_rnaworld_2011}.
+		\textbf{RNA world.} The postulated rise and fall of the RNA world during the evolution of life, from early self-replicating RNA to complex, RNA-controlled metabolism, to the invention of translation, followed by diversification of all modern branches of life. Adapted from Horning (2011) \cite{horning_rnaworld_2011}.
 	}
 	\label{fig:rnaworld}
 \end{figure}
 
 \subsection{Central dogma}
-The central dogma describes the general flow of genetic information in almost all existing living cells: DNA is decoded to RNA, which in turn encodes proteins\cite{strachan_humanmoleculargenetics_2011}. Main processes involved in the central dogma are \textbf{transcription}, \textbf{splicing}, and \textbf{translation} (Figure \ref{fig:centraldogma}). 
+The central dogma describes the general flow of genetic information in almost all existing living cells: DNA is decoded to RNA, which in turn encodes proteins \cite{strachan_humanmoleculargenetics_2011}. Main processes involved in the central dogma are \textbf{transcription}, \textbf{splicing}, and \textbf{translation} (Figure \ref{fig:centraldogma}). 
 
 \begin{figure}[htb!]
 	\centering
@@ -36,14 +36,14 @@ The central dogma describes the general flow of genetic information in almost al
 	\label{fig:centraldogma}
 \end{figure}
 
-During the process of \textbf{transcription} that takes place in the cell nucleus, a complementary RNA copy is transcribed from the template DNA. The initial RNA transcript is a precursor messenger RNA (pre-mRNA) that needs to undergo series of maturation steps to ultimately form the mature messenger RNA (mRNA). This maturation includes pre-mRNA \textbf{splicing} to remove non-protein coding intervening sequences (the introns) and to join the neighbouring protein-coding sequences (the exons). A single pre-mRNA can be alternatively spliced to generate multiple forms of mRNAs that will result in the production of multiple protein isoforms. This process of alternative splicing is essential to generate more than 100'000 different proteins starting from just 20'000 genes\cite{nilsen_expansioneukaryoticproteome_2010}.
+During the process of \textbf{transcription} that takes place in the cell nucleus, a complementary RNA copy is transcribed from the template DNA. The initial RNA transcript is a precursor messenger RNA (pre-mRNA) that needs to undergo series of maturation steps to ultimately form the mature messenger RNA (mRNA). This maturation includes pre-mRNA \textbf{splicing} to remove non-protein coding intervening sequences (the introns) and to join the neighbouring protein-coding sequences (the exons). A single pre-mRNA can be alternatively spliced to generate multiple forms of mRNAs that will result in the production of multiple protein isoforms. This process of alternative splicing is essential to generate more than 100'000 different proteins starting from just 20'000 genes \cite{nilsen_expansioneukaryoticproteome_2010}.
 
 The mature mRNA is then transported to the cytoplasm, where it engages with ribosomes to initiate \textbf{translation}. During this highly evolutionary conserved process, a chain of amino acids, known as the protein building blocks, is being synthesised. Each amino acid is specified by three nucleotides (a codon) in the mRNA, according to a nearly universal genetic code. After being released by the ribosomes, the translation product undergoes a variety of chemical modifications to form the final folded protein, the structure of which is determined by the sequence of different amino acids in the chain. In addition, polypeptides may be cleaved to yield more than one active polypeptide product. The structure of a protein determines its functionality, which includes catalysing biochemical reactions, providing structure, and transportation of molecules.
 
 
 \subsection{Cell types}
 Ever since Robert Hook first described the different structures of cells in 1665, biologists have been classifying cells by form and function.
-The human body is said to contain more than 210 different cell types that are classified into four groups: epithelial, connective, muscle, and nervous. This however, is a major underestimation of the real number of cell types. Neurons, for instance, that are known to be extremely diverse, are estimated to reach numbers above 10,000 different types\cite{strachan_humanmoleculargenetics_2011}.
+The human body is said to contain more than 210 different cell types that are classified into four groups: epithelial, connective, muscle, and nervous. This however, is a major underestimation of the real number of cell types. Neurons, for instance, that are known to be extremely diverse, are estimated to reach numbers above 10,000 different types \cite{strachan_humanmoleculargenetics_2011}.
 
 The concept of cell types eases reasoning and our understanding about many aspects of biology (e.g. the process of cell differentiation, cell-cell communication, cellular response to certain stimuli). Some cells are known to be highly specialised toward performing a particular function (e.g. memory B cells accelerate immune response by remembering previously encountered pathogens), or they can maintain a strong ability to differentiate into other cell types.
 
@@ -56,17 +56,17 @@ Cells are dynamic entities that can gradually produce the molecules needed to ac
 	\centering
 	\includegraphics[width=\linewidth]{fig/control_gene_expression}
 	\caption{
-		\textbf{Levels of controlling gene expression} can happen at the level of transcription, RNA processing (i.e. splicing), RNA transport and localization, mRNA translation, mRNA degradation and protein activity\cite{alberts_overviewgenecontrol_2002}.
+		\textbf{Levels of controlling gene expression} can happen at the level of transcription, RNA processing (i.e. splicing), RNA transport and localization, mRNA translation, mRNA degradation and protein activity \cite{alberts_overviewgenecontrol_2002}.
 	}
 	\label{fig:controlexpression}
 \end{figure}
 
-According to the needs of a cell, different genes are being transcribed. Housekeeping genes are being expressed in essentially every cell, while other genes are cell type or tissue specific or may be expressed in response to developmental and environmental signals\cite{strachan_humanmoleculargenetics_2011}. 
+According to the needs of a cell, different genes are being transcribed. Housekeeping genes are being expressed in essentially every cell, while other genes are cell type or tissue specific or may be expressed in response to developmental and environmental signals \cite{strachan_humanmoleculargenetics_2011}. 
 
 Transcription factors (TFs) modulate the rate of gene transcription by binding and recruiting the transcriptional machinery to \emph{cis}-regulatory regions (enhancers, and silencers) that are typically located in the promotor region of target genes. These bindings may result in increased or decreased gene expression. 
 There are several TF families of which members share structural characteristics (e.g. zinc finger, helix-loop-helix).
 
-Many TFs are commonly present in virtually all cell types (e.g. NF-$\kappa$B), while others are specific for cells and developmental stages\cite{lambert_humantranscriptionfactors_2018}. Typically, the same TF can regulate the rate of transcription of many target genes in different cell types, indicating that these gene regulatory networks (GRNs) are dynamic. Moreover, the production of a specific molecule might require several gene regulatory cascades. Studying the active parts of a cell's GRN can thus reveal which dynamic processes are taking place within a cell.
+Many TFs are commonly present in virtually all cell types (e.g. NF-$\kappa$B), while others are specific for cells and developmental stages \cite{lambert_humantranscriptionfactors_2018}. Typically, the same TF can regulate the rate of transcription of many target genes in different cell types, indicating that these gene regulatory networks (GRNs) are dynamic. Moreover, the production of a specific molecule might require several gene regulatory cascades. Studying the active parts of a cell's GRN can thus reveal which dynamic processes are taking place within a cell.
 
 % KDP: misschien interessant om over tumor heterogeniteit te spreken: waarvan we vroeger dachten dat homogene massa van cellen was, blijkt toch veel complexer te zijn --> nu mogelijk om met sc technieken te bestuderen?
 
@@ -75,20 +75,20 @@ Several technologies are now available to profile (i.e. observe) biomolecular co
 
 \subsubsection{Single-cell}
 The earliest approach for measuring the abundance of a particular molecule in \emph{single cells} is the microscope.
-Since its development by Coons et al. (1941), immunohistochemistry (IHC) has been instrumental in visualising proteins.\cite{coons_immunologicalpropertiesantibody_1941}. 
+Since its development by Coons et al. (1941), immunohistochemistry (IHC) has been instrumental in visualising proteins. \cite{coons_immunologicalpropertiesantibody_1941}. 
 A cell can present a particular type of protein, also called an antigen, on its cell surface. In many multicellular organisms, antigens can stimulate the immune system to produce antibodies. IHC realises the visualisation of proteins by exploiting the principle of antibodies binding to specific antigens.
 
 IHC (and many other biotechnologies) visualises antigen-antibody reactions by attaching particular molecules to the antibody, such as an enzyme that catalyses a colour-producing reaction, or a fluorescent chemical compound that can re-emit light upon excitation. The use of several colours (wavelengths) allows measuring expression levels of different antibodies simultaneously. Characterising cells in a semi-quantifiable way is labour intensive, however; since it involves acquiring an image of many cells and drawing a contour around each cell (called cell segmentation).
-Modern implementations of IHC improve the throughput drastically by using robots and computer software to provide semi-automated image acquisition and cell segmentation\cite{theodosiou_automatedanalysisfish_2007}.
+Modern implementations of IHC improve the throughput drastically by using robots and computer software to provide semi-automated image acquisition and cell segmentation \cite{theodosiou_automatedanalysisfish_2007}.
 
-Flow cytometry\cite{fulwyler_electronicseparationbiological_1965} circumvents imaging and segmentation issues by measuring fluorescently labelled proteins as cells pass through a fluidic system.
-Since cells need to be suspended in a buffer, flow cytometry is particularly useful for analysing non-adherent cells such as the many different immune cells in blood. However, many protocols already exist to extract viable single cells from tissues and tumours\cite{leelatian_preparingviablesingle_2017}.
-Conventional flow cytometry devices enable to measure protein expression levels of millions of cells using up to eight different antibody fluorochromes simultaneously, while state-of-the-art instrumentation allows detection of up to 27 biomarkers simultaneously\cite{cossarizza_guidelinesuseflow_2017}.
+Flow cytometry \cite{fulwyler_electronicseparationbiological_1965} circumvents imaging and segmentation issues by measuring fluorescently labelled proteins as cells pass through a fluidic system.
+Since cells need to be suspended in a buffer, flow cytometry is particularly useful for analysing non-adherent cells such as the many different immune cells in blood. However, many protocols already exist to extract viable single cells from tissues and tumours \cite{leelatian_preparingviablesingle_2017}.
+Conventional flow cytometry devices enable to measure protein expression levels of millions of cells using up to eight different antibody fluorochromes simultaneously, while state-of-the-art instrumentation allows detection of up to 27 biomarkers simultaneously \cite{cossarizza_guidelinesuseflow_2017}.
 
 Besides IHC and flow cytometry, many new technologies have been developed which allow quantifying expression levels of molecules in single cells (e.g. mass cytometry, single-cell quantitative polymerase chain reaction, fluorescence \emph{in situ} hybridization). All of these single-cell (non-omics) technologies are limited by the number of different molecules they measure, however. Selecting molecules of interest prior to analysis, makes the experiment biased towards the preconceptions of the experimenter.
 
 \subsubsection{Omics}
-On the other side of the spectrum are the so-called "omics" technologies. "Omics"\footnote{The etymology of "omics" is quite interesting\cite{yadav_wholenesssuffixomics_2007}.} is a collective term for profiling all molecules of a particular type in a high-throughput manner.
+On the other side of the spectrum are the so-called "omics" technologies. "Omics"\footnote{The etymology of "omics" is quite interesting \cite{yadav_wholenesssuffixomics_2007}.} is a collective term for profiling all molecules of a particular type in a high-throughput manner.
 There are at least ten types of "omics". In this work, we mostly consider genomics, transcriptomics, proteomics, and regulomics. Genomics studies the complete DNA sequence of an organism's genome, while transcriptomics and proteomics study the RNA transcripts and proteins, respectively. Regulomics studies the regulatory molecules (e.g. genes, RNAs, proteins) which play a role in determining gene regulation.
 
 Specific examples of omics technologies are whole genome sequencing to determine the DNA sequence of an organism, and RNA sequencing to profiles the sequence of RNA transcripts, both using next-generation sequencing technologies. A gene expression profile can be obtained by mapping the sequences of RNA transcripts to the genome.
@@ -100,7 +100,7 @@ Several high-throughput technologies have been developed to investigate proteome
 Typically for these methods, to capture enough material to generate a profile, numerous cells need to be pooled and lysed together, thereby granting the technology's name "bulk" omics.
 Bulk omics is a major workhorse in molecular genetics and has applications in cancer research and in diagnostic screening of inheritable disorders.
 
-Increasing evidence shows that cells are biomoleculary heterogeneous, even in very similar cell types\cite{hwang_singlecellrnasequencing_2018} (Figure~\ref{fig:bulk_vs_sc}A). Since a bulk profile is a population average (or rather, a summation), important cell-to-cell variability is not discernible (Figure~\ref{fig:bulk_vs_sc}B). 
+Increasing evidence shows that cells are biomoleculary heterogeneous, even in very similar cell types \cite{hwang_singlecellrnasequencing_2018} (Figure~\ref{fig:bulk_vs_sc}A). Since a bulk profile is a population average (or rather, a summation), important cell-to-cell variability is not discernible (Figure~\ref{fig:bulk_vs_sc}B). 
 
 \begin{figure}[htb!]
 	\centering
@@ -116,7 +116,7 @@ Increasing evidence shows that cells are biomoleculary heterogeneous, even in ve
 \subsubsection{Single-cell omics}
 Comparing single-cell technologies with omics technologies shows that they have both clear advantages but also significant drawbacks (Figure \ref{fig:profiling_convergence}A). Single-cell biology allows profiling thousands or even millions of cells, but only for a select number of genes. On the other hand, omics biology provides a broader view -- since genes do not need to be selected beforehand -- but is a profile of ensemble of cells and thus masks important cellular heterogeneity.
 
-Advances in microvolume sequencing allowed profiling the transcriptome at single-cell resolution, thereby bringing single-cell biology and omics together to create single-cell omics. During the decade that followed, the number of single-cell omics technologies has sky-rocketed, allowing to profile >100'000 cells\cite{svensson_exponentialscalingsinglecell_2018} and measuring other levels of information (e.g. protein abundance and spatial location) \cite{moudgil_multimodalscrnaseq_2019}.
+Advances in microvolume sequencing allowed profiling the transcriptome at single-cell resolution, thereby bringing single-cell biology and omics together to create single-cell omics. During the decade that followed, the number of single-cell omics technologies has sky-rocketed, allowing to profile >100'000 cells \cite{svensson_exponentialscalingsinglecell_2018} and measuring other levels of information (e.g. protein abundance and spatial location) \cite{moudgil_multimodalscrnaseq_2019}.
 
 \begin{figure}[htb!]
 	\centering
@@ -133,17 +133,17 @@ Advances in microvolume sequencing allowed profiling the transcriptome at single
 % see https://www.nature.com/articles/s12276-018-0071-8
 % seems interesting as well: 10.1146/annurev-biodatasci-080917-013452
 
-In this work, unless noted otherwise, we will be working with transcriptomics data resulting from a single-cell RNA-sequencing experiment (scRNA-seq). The workflow of generating scRNA-seq profiles is as follows. Same as other single-cell (non-omics) profiling methods, cells first need to be isolated (Figure~\ref{fig:profiling_convergence}B). Different sampling techniques yield different levels of information about cellular state. By now, many protocols for extracting and tagging RNA from single cells have been developed\cite{svensson_exponentialscalingsinglecell_2018}, the most popular of which are based on microfluidics or droplets (Figure~\ref{fig:profiling_convergence}C). By sequencing the trancripts and the attached unique cell identifier tags, each read can be mapped and tallied up. scRNA-seq data can thus be summarised in a matrix, where each column represent a single cell, each row a gene, and each value represents the number of transcripts that were sequenced for that gene and cell.
+In this work, unless noted otherwise, we will be working with transcriptomics data resulting from a single-cell RNA-sequencing experiment (scRNA-seq). The workflow of generating scRNA-seq profiles is as follows. Same as other single-cell (non-omics) profiling methods, cells first need to be isolated (Figure~\ref{fig:profiling_convergence}B). Different sampling techniques yield different levels of information about cellular state. By now, many protocols for extracting and tagging RNA from single cells have been developed \cite{svensson_exponentialscalingsinglecell_2018}, the most popular of which are based on microfluidics or droplets (Figure~\ref{fig:profiling_convergence}C). By sequencing the trancripts and the attached unique cell identifier tags, each read can be mapped and tallied up. scRNA-seq data can thus be summarised in a matrix, where each column represent a single cell, each row a gene, and each value represents the number of transcripts that were sequenced for that gene and cell.
 
-The rapidly advancing field of single-cell omics harbours exceptional opportunities to discover new aspects of biology and redefine existing knowledge. Some of these opportunities lie in efforts like the HCA consortium\cite{regev_humancellatlas_2018}. They have set out to redefine all human cell types in both terms of their gene expression and location, and as well as the developmental trajectories connecting the different cell types. As part of this endeavour, the consortium will likely profile the whole transcriptomes of tens or even hundreds of millions of cells\cite{humancellatlasconsortium_humancellatlas_2018}. 
+The rapidly advancing field of single-cell omics harbours exceptional opportunities to discover new aspects of biology and redefine existing knowledge. Some of these opportunities lie in efforts like the HCA consortium \cite{regev_humancellatlas_2018}. They have set out to redefine all human cell types in both terms of their gene expression and location, and as well as the developmental trajectories connecting the different cell types. As part of this endeavour, the consortium will likely profile the whole transcriptomes of tens or even hundreds of millions of cells \cite{humancellatlasconsortium_humancellatlas_2018}. 
 
 \section{Computational tools}
 Whole-genome profiling at single-cell level allows new types of analyses with which to study cellular heterogeneity at a hitherto unseen throughput. 
-The new types of analyses permitted by single-cell omics present several computational challenges\cite{stegle_computationalanalyticalchallenges_2015, yuan_challengesemergingdirections_2017, chen_singlecellrnaseqtechnologies_2019}. This necessitates the development of novel computational tools, either because the problem statement of the performed analysis is completely novel, or to adapt existing methodology to new data characteristics -- dimensionality and noise. 
+The new types of analyses permitted by single-cell omics present several computational challenges \cite{stegle_computationalanalyticalchallenges_2015, yuan_challengesemergingdirections_2017, chen_singlecellrnaseqtechnologies_2019}. This necessitates the development of novel computational tools, either because the problem statement of the performed analysis is completely novel, or to adapt existing methodology to new data characteristics -- dimensionality and noise. 
 
-scRNA-seq data is typically very sparse -- while the human genome has more than 20'000 genes, they only contain non-zero values of a few thousand genes (typically <4'000). This is partially due to cells being specialised in particular functions and thus they do not need proteins of every time, but also due to RNA transcription occurring in bursts rather than continuously\cite{nicolas_whatshapeseukaryotic_2017}. This contributes to the high levels of noise seen in scRNA-seq data: no two cells have the same set of non-zero genes. 
+scRNA-seq data is typically very sparse -- while the human genome has more than 20'000 genes, they only contain non-zero values of a few thousand genes (typically <4'000). This is partially due to cells being specialised in particular functions and thus they do not need proteins of every time, but also due to RNA transcription occurring in bursts rather than continuously \cite{nicolas_whatshapeseukaryotic_2017}. This contributes to the high levels of noise seen in scRNA-seq data: no two cells have the same set of non-zero genes. 
 
-Over the past five years, already 450 new tools have been developed to perform various analyses of single-cell omics data\cite{zappia_exploringsinglecellrnaseq_2018}, taking into account the specific noise characteristics. The most frequent types of analyses are detailed in the following subsections.
+Over the past five years, already 450 new tools have been developed to perform various analyses of single-cell omics data \cite{zappia_exploringsinglecellrnaseq_2018}, taking into account the specific noise characteristics. The most frequent types of analyses are detailed in the following subsections.
 
 \subsection{Dimensionality reduction}
 Single-cell omics datasets are usually one or more high-dimensional matrices, containing between M = $10^3$ to $10^5$ cells and typically about N = $10^3$ to $10^4$ genes (Figure~\ref{fig:comp_tools_dimred}A). The dimensionality of such datasets is typically too high for humans to interpret manually and for most modelling algorithms to tackle directly. 
@@ -151,27 +151,27 @@ Moreover, in reality, the intrinsic dimensionality of biological systems is prob
 
 Dimensionality reduction (DR) methods transform high-dimensional data into a meaningful low-dimensional representation. DR methods have two main target audiences; computers -- to construct a K-dimensional (with K $\ll$ M) representation of the data such that pairwise distances between different samples are retained as well as possible (Figure~\ref{fig:comp_tools_dimred}B); and humans -- to obtain a visual overview of the data (Figure~\ref{fig:comp_tools_dimred}C).
 
-Each dimension frequently corresponds to one or more modules of co-expressed genes.  The reduced space can be interpreted in way analogous to Waddington’s epigenetic landscapes\cite{waddington_strategygenesdiscussion_1957,ferrell_bistabilitybifurcationswaddington_2012,rebhahn_animatedlandscaperepresentation_2014}, where the landscape dictates the possible states a cell can reside in, and transitions between states correspond to dynamic cellular processes, such as cell differentiation. 
+Each dimension frequently corresponds to one or more modules of co-expressed genes.  The reduced space can be interpreted in way analogous to Waddington’s epigenetic landscapes \cite{waddington_strategygenesdiscussion_1957,ferrell_bistabilitybifurcationswaddington_2012,rebhahn_animatedlandscaperepresentation_2014}, where the landscape dictates the possible states a cell can reside in, and transitions between states correspond to dynamic cellular processes, such as cell differentiation. 
 
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[width=\linewidth]{fig/comptools2/comptool_1_dimred.pdf} 
 	\caption{
 		\textbf{Dimensionality reduction for single-cell omics data.}
-		\textbf{A:} A heatmap visualisation of an scRNA-seq expression dataset of fibroblasts being reprogrammed to neuron cells\cite{treutlein_dissectingdirectreprogramming_2016}. Only the most variable 
+		\textbf{A:} A heatmap visualisation of an scRNA-seq expression dataset of fibroblasts being reprogrammed to neuron cells \cite{treutlein_dissectingdirectreprogramming_2016}. Only the most variable 
 		\textbf{B:} The reduced space is a M$\times$K-dimensional matrix which attempts to conserve the cellular heterogeneity of the original space as well as possible.
 		\textbf{C:} A dot plot of the first two components of the reduced space provides a global overview of the cells in the dataset. Colouring the dots according to prior information (e.g. cell type) or gene expression provides insight into the cellular heterogeneity within the dataset.
 	}
 	\label{fig:comp_tools_dimred}
 \end{figure}
 
-DR methods can be classified into two main categories, feature projection-based and manifold learning\cite{engel_surveydimensionreduction_2012}. 
+DR methods can be classified into two main categories, feature projection-based and manifold learning \cite{engel_surveydimensionreduction_2012}. 
 
-Projection-based DR methods aim to perform a transformation of the data while preserving the pairwise distances between samples as much as possible. Examples of commonly used projection-based DR methods in single-cell omics are Principal Component Analysis\cite{pearson_liiilinesplanes_1901} (PCA) and Multi-Dimensional Scaling\cite{kruskal_multidimensionalscalingoptimizing_1964} (MDS). 
+Projection-based DR methods aim to perform a transformation of the data while preserving the pairwise distances between samples as much as possible. Examples of commonly used projection-based DR methods in single-cell omics are Principal Component Analysis \cite{pearson_liiilinesplanes_1901} (PCA) and Multi-Dimensional Scaling \cite{kruskal_multidimensionalscalingoptimizing_1964} (MDS). 
 
-Manifold learning DR methods reconstruct a higher-order structure in the original space (e.g. a graph or a grid), visualising the structure in a lower-dimensional space, and mapping the original samples to the lower-dimensional space. Manifold learning can be an iterative optimisation process using a predefined criterion. Examples of manifold learning techniques are t-distributed Stochastic Neighbor Embedding\cite{vandermaaten_visualizingdatausing_2008} (t-SNE), Diffusion Maps\cite{nadler_diffusion_2005,coifman_diffusionmaps_2006} and Uniform Manifold Approximation and Projection\cite{mcinnes_umapuniformmanifold_2018} (UMAP). 
+Manifold learning DR methods reconstruct a higher-order structure in the original space (e.g. a graph or a grid), visualising the structure in a lower-dimensional space, and mapping the original samples to the lower-dimensional space. Manifold learning can be an iterative optimisation process using a predefined criterion. Examples of manifold learning techniques are t-distributed Stochastic Neighbor Embedding \cite{vandermaaten_visualizingdatausing_2008} (t-SNE), Diffusion Maps \cite{nadler_diffusion_2005,coifman_diffusionmaps_2006} and Uniform Manifold Approximation and Projection \cite{mcinnes_umapuniformmanifold_2018} (UMAP). 
 
-For scalability reasons, this work mostly makes use of Landmark MDS\cite{silva_globallocalmethods_2002,lee_landmarkmdsensemble_2009} (LMDS) with a Spearman rank correlation distance metric. LMDS is an extension of classical MDS, but rather than calculating a complete distance matrix between all pairs of cells, a set of landmark cells is sampled, only the distances between a set of landmarks and the samples are calculated. 
+For scalability reasons, this work mostly makes use of Landmark MDS \cite{silva_globallocalmethods_2002,lee_landmarkmdsensemble_2009} (LMDS) with a Spearman rank correlation distance metric. LMDS is an extension of classical MDS, but rather than calculating a complete distance matrix between all pairs of cells, a set of landmark cells is sampled, only the distances between a set of landmarks and the samples are calculated. 
 
 \subsection{Clustering}
 To learn about the different cellular states within a population of cells, clustering methods divide up the cells into separate groups of highly similar cells (Figure~\ref{fig:comp_tools_cluster}A). 
@@ -189,7 +189,7 @@ By visualising gene expression of known genes involved in the cell types of inte
 \end{figure}
 
 
-Usually, the number of clusters is determined by the user, either as a direct parameter (e.g. $k$-means\cite{lloyd_leastsquaresquantization_1982}) or an indirect parameter (e.g. a height cutoff in hierarchical clustering). In some exceptional cases, the number of clusters is strictly determined by the data itself and cannot be altered with a parameter (e.g. Louvain clustering\cite{blondel_fastunfoldingcommunities_2008}).
+Usually, the number of clusters is determined by the user, either as a direct parameter (e.g. $k$-means \cite{lloyd_leastsquaresquantization_1982}) or an indirect parameter (e.g. a height cutoff in hierarchical clustering). In some exceptional cases, the number of clusters is strictly determined by the data itself and cannot be altered with a parameter (e.g. Louvain clustering \cite{blondel_fastunfoldingcommunities_2008}).
 
 Clustering methods used in this work are mostly restricted to $k$-Means for clustering low-dimensional spaces and Louvain for clustering networks, since both are highly scalable with respect to the number of cells.
 
@@ -203,16 +203,16 @@ A trajectory can be visualised as a graph to better highlight the topology of th
 	\includegraphics[width=.9\linewidth]{fig/comptools2/comptool_3_trajectoryinference.pdf} 
 	\caption{
 		\textbf{Trajectory inference for single-cell omics data.}
-		\textbf{A:} During a dynamic process cells pass through several transitional states, characterized by different waves of transcriptional, morphological, epigenomic and/or surface marker changes\cite{enver_stemcellstates_2009}. TI methods provide an unbiased approach to identifying and correctly ordering different transitional stages. 
+		\textbf{A:} During a dynamic process cells pass through several transitional states, characterized by different waves of transcriptional, morphological, epigenomic and/or surface marker changes \cite{enver_stemcellstates_2009}. TI methods provide an unbiased approach to identifying and correctly ordering different transitional stages. 
 		\textbf{B:} By overlaying gene expression levels on a dimensionality reduction, the milestones can be annotated to allow better interpretation of the cellular heterogeneity.
 	}
 	\label{fig:comp_tools_ti}
 \end{figure}
 
-A lot of TI methods use similar algorithms to be able to infer a trajectory. By breaking down each method into its set of core algorithms, we can create a map of TI methodology\cite{cannoodt_computationalmethodstrajectory_2016} (Figure~\ref{fig:ti_metro}A), which is divided into two major classes.
+A lot of TI methods use similar algorithms to be able to infer a trajectory. By breaking down each method into its set of core algorithms, we can create a map of TI methodology \cite{cannoodt_computationalmethodstrajectory_2016} (Figure~\ref{fig:ti_metro}A), which is divided into two major classes.
 In the first step, dimensionality reduction techniques such as manifold learning, clustering, or graph-based methods are used to convert the dataset to a more simplified representation. This representation of the data then allows the trajectory itself to be more easily modelled in a second step. In this second step, the trajectory is modelled within the data using graph-based or curve-based approaches, after which the cells themselves can be ordered using a variety of methods.
 
-A common way to classify TI methods is by the types of trajectories they can infer\cite{saelens_comparisonsinglecelltrajectory_2019} (Figure~\ref{fig:ti_metro}B). About half of TI methods specialise in inferring linear or cyclic trajectories (i.e. they order the cells). Others model the trajectory as a rooted tree, allowing for one or more bifurcations to occur. Only a few methods are able to infer more generalised trajectories containing disconnected subgraphs or cycles.
+A common way to classify TI methods is by the types of trajectories they can infer \cite{saelens_comparisonsinglecelltrajectory_2019} (Figure~\ref{fig:ti_metro}B). About half of TI methods specialise in inferring linear or cyclic trajectories (i.e. they order the cells). Others model the trajectory as a rooted tree, allowing for one or more bifurcations to occur. Only a few methods are able to infer more generalised trajectories containing disconnected subgraphs or cycles.
 
 \begin{figure}[htb!]
 	\centering
@@ -248,7 +248,7 @@ Modeling the dynamics of gene regulation is therefore essential to better unders
 
 Network inference (NI) methods predict which genes are regulated by which transcription factors (Figure~\ref{fig:comp_tools_ni}). The output of a network inference is thus a graph, where nodes represent genes and edges denote a regulatory interaction between a regulator and a target gene. Interactions typically have two properties: its regulatory strength (a positive real value) and its effect (promoting or repressing).
 
-Before single-cell omics, these methods rely on multiple experiments, amongst which perturbation and time-series experiments, to predict the effect each transcription factor has on the up- or downregulation of a gene. One of the main advantages of single-cell omics is the heterogeneity between cells caused by naturally occurring biological randomness\cite{padovan-merhar_usingvariabilitygene_2013} can be exploited to infer regulatory interactions between TFs and their target genes at much lower costs. 
+Before single-cell omics, these methods rely on multiple experiments, amongst which perturbation and time-series experiments, to predict the effect each transcription factor has on the up- or downregulation of a gene. One of the main advantages of single-cell omics is the heterogeneity between cells caused by naturally occurring biological randomness \cite{padovan-merhar_usingvariabilitygene_2013} can be exploited to infer regulatory interactions between TFs and their target genes at much lower costs. 
 
 \begin{figure}[htb!]
 	\centering
@@ -263,7 +263,7 @@ Before single-cell omics, these methods rely on multiple experiments, amongst wh
 
 \section{Research context and objectives} \label{sec:research_objectives}
 Recent technological advancements in profiling single cells are having significant repercussions in many fields of biology. Profiling thousands of individual cells in a genome-wide manner provides opportunities to study cell heterogeneity and dynamics, for example inferring mechanisms for cellular development or intercellular communication. 
-Hundreds of new software tools were developed\cite{zappia_exploringsinglecellrnaseq_2018} to perform these new types of analyses, or to fit existing analytical tools to deal with new data characteristics (e.g. differential expression, dimensionality reduction, normalisation). 
+Hundreds of new software tools were developed \cite{zappia_exploringsinglecellrnaseq_2018} to perform these new types of analyses, or to fit existing analytical tools to deal with new data characteristics (e.g. differential expression, dimensionality reduction, normalisation). 
 
 One major shortcoming during the advent of single-cell omics was that the majority of newly developed computational tools were not quantitatively and comparatively evaluated. Rather, they relied on anecdotal evidence to demonstrate its usefulness. This issue is not the result of the tool developer's malevolence, but instead of the lack of data required to perform such comprehensive benchmarks.
 %TODO: also mention guidelines for users.
