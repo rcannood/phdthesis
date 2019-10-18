@@ -2,6 +2,9 @@ library(tidyverse)
 library(ontologyIndex)
 
 
+# Cell ontology -----------------------------------------------------------
+
+
 cellontf <- "derived_files/cl.obo"
 
 if (!file.exists(cellontf)) download.file("https://raw.githubusercontent.com/obophenotype/cell-ontology/master/cl.obo", cellontf)
@@ -35,3 +38,25 @@ ciddr <- stats::cmdscale(as.dist(ciddis), k = 10)
 
 out <- "derived_files/cell_ontology.rds"
 write_rds(lst(cell_ont, cell_ont_up, ciddr), out, compress = "gz")
+
+
+
+# NCI ---------------------------------------------------------------------
+
+ncif <- "derived_files/nci.obo"
+
+if (!file.exists(ncif)) download.file("http://purl.obolibrary.org/obo/ncit.obo", ncif)
+
+nci_ont <-
+  get_ontology(ncif) %>%
+  with(tibble(id, name, parents, children, ancestors, obsolete)) %>%
+  filter(!obsolete, grepl("NCIT:", id))
+
+
+out <- "derived_files/nci_ontology.rds"
+write_rds(nci_ont, out, compress = "gz")
+
+
+
+ncio <- read_tsv("/home/rcannood/Workspace/tcga/maps/map_out.csv")$nci_ont %>% na.omit %>% unique()
+ncio[!ncio %in% nci_ont$id]

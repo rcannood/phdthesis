@@ -8,14 +8,14 @@ tcga_data_file <- paste0(tcga_folder, "data.rds")
 data_file <- paste0(data_dir, "data.rds")
 
 if (!file.exists(tcga_data_file)) {
-  sample_info <- read_tsv(paste0(tcga_folder, "sample_sheet.tsv"))
-  colnames(sample_info) <- colnames(sample_info) %>% tolower() %>% gsub(" ", "_", .)
+  sample_sheet <- read_tsv(paste0(tcga_folder, "sample_sheet.tsv"))
+  colnames(sample_sheet) <- colnames(sample_sheet) %>% tolower() %>% gsub(" ", "_", .)
 
   # preproc metadata
-  sample_info$project_id <- gsub(",.*", "", sample_info$project_id)
-  sample_info$sample_type <- gsub(",.*", "", sample_info$sample_type)
-  sample_info$sample_id <- gsub(",.*", "", sample_info$sample_id)
-  sample_info <- sample_info %>%
+  sample_sheet$project_id <- gsub(",.*", "", sample_sheet$project_id)
+  sample_sheet$sample_type <- gsub(",.*", "", sample_sheet$sample_type)
+  sample_sheet$sample_id <- gsub(",.*", "", sample_sheet$sample_id)
+  sample_sheet <- sample_sheet %>%
     filter(!sample_type %in% c("Control Analyte", "Additional Metastatic", "FFPE Scrolls", "Slides")) %>%
     mutate(
       sample_group = case_when(
@@ -31,16 +31,102 @@ if (!file.exists(tcga_data_file)) {
     ) %>%
     group_by(project_id, sample_group) %>%
     mutate(
-      id = paste0(project_id, "_", tolower(gsub(" ", "-", sample_group)), "_sample", seq_len(n()))
+      old_id = paste0(project_id, "_", tolower(gsub(" ", "-", sample_group)), "_sample", seq_len(n()))
     ) %>%
     ungroup() %>%
-    select(id, project_id, sample_group, everything())
+    filter(!duplicated(file_id))
 
-  # check classes
-  table(sample_info$project_id) %>% sort
-  table(sample_info$sample_type) %>% sort
-  table(sample_info$sample_group) %>% sort
-  table(sample_info$sample_type, sample_info$sample_group)
+  assertthat::assert_that(!any(duplicated(sample_sheet$file_id)))
+
+  # add clinical case id
+  mjs <- c(
+    jsonlite::read_json("/home/rcannood/Workspace/tcga/raw/F_metadata.cart.2019-10-08.json"),
+    jsonlite::read_json("/home/rcannood/Workspace/tcga/raw/M_metadata.cart.2019-10-08.json")
+  )
+
+  meta <- pbapply::pblapply(mjs, function(mji) {
+    if (length(mji$associated_entities) > 0) {
+      tibble(
+        file_id = mji$file_id,
+        file_name = mji$file_name,
+        clinical.case_id = mji$associated_entities[[1]]$case_id
+      )
+    } else {
+      NULL
+    }
+  }) %>% bind_rows() %>% unique()
+  sample_sheet2 <- sample_sheet %>%
+    left_join(meta, by = c("file_id", "file_name"))
+  assertthat::assert_that(!any(duplicated(sample_sheet2$file_id)))
+
+  # add clinical data
+  cjs <- c(
+    jsonlite::read_json("/home/rcannood/Workspace/tcga/raw/F_clinical/clinical.json"),
+    jsonlite::read_json("/home/rcannood/Workspace/tcga/raw/M_clinical/clinical.json")
+  )
+
+  clinical <- pbapply::pblapply(seq_along(cjs), cl = 8, function(i) {
+    jsi <- cjs[[i]]
+    if (length(jsi$diagnoses) > 0) {
+      jsi$diagnosis <- jsi$diagnoses[[1]]
+      jsi$diagnosis$treatments <- NULL
+    }
+
+    if (length(jsi$exposures) > 0) {
+      jsi$exposure <- jsi$exposures[[1]]
+    }
+
+    li <- list(case_id = jsi$case_id)
+    for (n in intersect(c("diagnosis", "demographic", "exposure"), names(jsi))) {
+      vals <- jsi[[n]]
+      li[paste0(n, ".", names(vals))] <- map(vals, ~ . %||% NA)
+    }
+    as_tibble(li)
+  }) %>% bind_rows()
+
+  clinical2 <- clinical %>%
+    transmute(
+      clinical.case_id = case_id,
+      gender = demographic.gender,
+      race = demographic.race,
+      ethnicity = demographic.ethnicity,
+      vital_status = demographic.vital_status,
+      last_known_disease_status = diagnosis.last_known_disease_status,
+      days_to_birth = demographic.days_to_birth,
+      days_to_diagnosis = diagnosis.days_to_diagnosis,
+      days_to_last_follow_up = diagnosis.days_to_last_follow_up,
+      primary_diagnosis = tolower(diagnosis.primary_diagnosis),
+      tissue_or_organ = tolower(diagnosis.tissue_or_organ_of_origin)
+    )
+
+  sample_sheet3 <-
+    sample_sheet2 %>%
+    left_join(clinical2, by = "clinical.case_id")
+
+  assertthat::assert_that(!any(duplicated(sample_sheet3$file_id)))
+
+  if (!file.exists(paste0(tcga_folder, "/maps/map_out.tsv"))) {
+    proj_meta <- read_tsv(paste0(tcga_folder, "/raw/project_meta.tsv"))
+    tabn <-
+      clinical %>%
+      transmute(case_id, primary_diagnosis = tolower(diagnosis.primary_diagnosis), tissue_or_organ = tolower(diagnosis.tissue_or_organ_of_origin)) %>%
+      left_join(meta, by = "case_id") %>%
+      left_join(sample_sheet %>% select(project_id, file_id, file_name) %>% unique(), by = c("file_id", "file_name")) %>%
+      group_by(primary_diagnosis, tissue_or_organ, project_id) %>%
+      summarise(n = n()) %>%
+      ungroup() %>%
+      left_join(proj_meta, by = "project_id") %>%
+      mutate_all(~ ifelse(is.na(.), "", .))
+    write_tsv(tabn, paste0(tcga_folder, "/maps/map_in.tsv"))
+    # process manually <scream>
+  }
+  nciont <- read_tsv(paste0(tcga_folder, "/maps/map_out.tsv")) %>% select(primary_diagnosis, tissue_or_organ, nci_ont) %>% unique()
+
+  sample_info <-
+    sample_sheet3 %>%
+    left_join(nciont, by = c("primary_diagnosis", "tissue_or_organ")) %>%
+    select(-file_name, -data_category, -data_type, -case_id, -sample_id, -sample_type) %>%
+    rename(id = file_id)
 
   # check genes and rename genes^
   feature_info <-
@@ -84,6 +170,8 @@ if (!file.exists(tcga_data_file)) {
     ungroup() %>%
     select(id, ensembl_gene_id, symbol, everything())
 
+  rm(sample_sheet, sample_sheet2, sample_sheet3, mjs, cjs, clinical, clinical2, ensembl, gene_symbols_gath)
+
   # load in all files
   tmp_dir <- "~/tcga_tmp/"
   dir.create(tmp_dir, showWarnings = FALSE, recursive = TRUE)
@@ -98,7 +186,7 @@ if (!file.exists(tcga_data_file)) {
     !any(duplicated(feature_info$id))
   )
 
-  rm <- pbapply::pblapply(which(!exists), cl = 8, function(i) {
+  rm <- pbapply::pblapply(which(!exists), cl = 1, function(i) {
     mat_file <- mat_files[[i]]
     if (!file.exists(mat_file)) {
       cat("Progress ", i, "/", length(start_ix), "\n", sep = "")
@@ -184,385 +272,125 @@ if (!file.exists(data_file)) {
 }
 
 
-
-
-
 # SUBMIT BRED -------------------------------------------------------------
+list2env(read_rds(data_file), .GlobalEnv)
+
 if (!file.exists(paste0(data_dir, "qsub_handle.rds"))) {
-  list2env(read_rds(data_file), .GlobalEnv)
-
-  calculate_target_importance <- function(
-    target_ix,
-    expr,
-    samples,
-    regulators,
-    targets,
-    num_trees = 10000,
-    num_variables_per_split = 100,
-    min_node_size = 10,
-    max_depth = NULL,
-    interaction_importance_filter = .01,
-    sigmoid_mean = mean(expr[expr != 0]),
-    sigmoid_sd = sd(expr[expr != 0])
-  ) {
-
-    target <- targets[[target_ix]]
-    regs <- setdiff(regulators, target)
-    target_expr <- scale(expr[,target])[,1]
-
-    data <- data.frame(
-      PREDICT = target_expr,
-      as.matrix(expr[,regs]),
-      check.names = FALSE,
-      stringsAsFactors = FALSE
-    )
-
-    rm(expr)
-
-    rf2 <- rangercase::ranger(
-      data = data,
-      dependent.variable.name = "PREDICT",
-      verbose = TRUE,
-      num.threads = 1,
-      importance = "permutation",
-      # mtry = num_variables_per_split,
-      num.trees = num_trees,
-      min.node.size = min_node_size,
-      # sample.fraction = .5,
-      # max.depth = max_depth,
-      local.importance = TRUE
-    )
-
-    cat("Selecting most important regulators\n")
-
-    imp <- tibble(
-      feature_id = names(rf2$variable.importance),
-      importance = rf2$variable.importance,
-      effect = ifelse(importance == 0, 0, rf2$variable.importance.cor),
-      ix = seq_along(feature_id)
-    ) %>%
-      arrange(desc(importance))
-
-    impf <- imp %>% filter(importance >= interaction_importance_filter)
-
-    limp <- Matrix::t(rf2$variable.importance.casewise[impf$feature_id, , drop = FALSE])
-
-    # downscale importance if regulator is not expressed
-    # ... it can't be regulating anything if it is not expressed ...
-    expr_reg_sc <- stats::pnorm(as.matrix(data[rownames(limp),colnames(limp)]), mean = sigmoid_mean, sd = sigmoid_sd)
-    limp_sc <- limp * expr_reg_sc
-
-    limp_df <-
-      left_join(
-        limp %>%
-          reshape2::melt(varnames = c("cell_id", "regulator"), value.name = "importance"),
-        limp_sc %>%
-          reshape2::melt(varnames = c("cell_id", "regulator"), value.name = "importance_sc"),
-        by = c("cell_id", "regulator")
-      ) %>%
-      as_tibble()
-
-    lst(
-      importance = imp %>% transmute(
-        regulator = factor(feature_id, levels = regulators),
-        target = factor(target, levels = targets),
-        importance,
-        effect
-      ),
-      importance_sc = limp_df %>% transmute(
-        cell_id = factor(as.character(cell_id), levels = samples),
-        regulator = factor(as.character(regulator), levels = regulators),
-        target = factor(target, levels = targets),
-        importance,
-        importance_sc
-      )
-    )
-  }
-
-  num_trees = 1000
-  num_variables_per_split = 100
-  max_depth = 20
-  min_node_size = 20
-  interaction_importance_filter = .01
-  sigmoid_mean = mean(expr)
-  sigmoid_sd = sd(expr)
-
   regulators_filt <- regulators
-  targets_filt <- targets[1:2000]
+  targets_filt <- targets[1:5000]
   expr_filt <- expr[, union(targets_filt, regulators_filt)]
   samples_filt <- rownames(expr_filt)
 
-  x <- 1
-  qsub_handle <- qsub::qsub_lapply(
-    X = seq_along(targets_filt),
-    qsub_config = qsub::override_qsub_config(
-      max_wall_time = "12:00:00",
-      memory = "10G",
-      name = "bred",
-      wait = FALSE,
-      stop_on_error = FALSE,
-      remove_tmp_folder = FALSE,
-      execute_before = "#$ -l h=!prismcls08",
-    ),
-    qsub_packages = c("dynutils", "dplyr", "purrr", "magrittr", "tibble"),
-    qsub_environment = c("x"),
-    FUN = calculate_target_importance,
-    # pass data and other parameters
-    expr = expr_filt,
+  qsub_handle <- bred::qsub_submit_bred(
+    expr_filt,
     samples = samples_filt,
     regulators = regulators_filt,
     targets = targets_filt,
-    num_trees = num_trees,
-    num_variables_per_split = num_variables_per_split,
-    min_node_size = min_node_size,
-    max_depth = max_depth,
-    interaction_importance_filter = interaction_importance_filter,
-    sigmoid_mean = sigmoid_mean,
-    sigmoid_sd = sigmoid_sd
+    num_trees = 1000,
+    min_node_size = 10,
+    sigmoid_mean = mean(expr),
+    sigmoid_sd = sd(expr)
   )
   write_rds(qsub_handle, paste0(data_dir, "qsub_handle.rds"))
-
-  targets_filt <- targets[2001:4000]
-  expr_filt <- expr[, union(targets_filt, regulators_filt)]
-
-  x <- 1
-  qsub_handle2 <- qsub::qsub_lapply(
-    X = seq_along(targets_filt),
-    qsub_config = qsub::override_qsub_config(
-      max_wall_time = "12:00:00",
-      memory = "10G",
-      name = "bred",
-      wait = FALSE,
-      stop_on_error = FALSE,
-      remove_tmp_folder = FALSE#,
-      # execute_before = "#$ -l h=!prismcls08",
-    ),
-    qsub_packages = c("dynutils", "dplyr", "purrr", "magrittr", "tibble"),
-    qsub_environment = c("x"),
-    FUN = calculate_target_importance,
-    # pass data and other parameters
-    expr = expr_filt,
-    samples = samples_filt,
-    regulators = regulators_filt,
-    targets = targets_filt,
-    num_trees = num_trees,
-    num_variables_per_split = num_variables_per_split,
-    min_node_size = min_node_size,
-    max_depth = max_depth,
-    interaction_importance_filter = interaction_importance_filter,
-    sigmoid_mean = sigmoid_mean,
-    sigmoid_sd = sigmoid_sd
-  )
-  write_rds(qsub_handle2, paste0(data_dir, "qsub_handle2.rds"))
 }
-
-
-if (!file.exists(paste0(data_dir, "grn.rds"))) {
-  qsub_handle1 <- read_rds(paste0(data_dir, "qsub_handle.rds"))
-
-  grn1 <- qsub::qsub_retrieve(
-    qsub_handle1,
-    wait = "just_do_it",
-    post_fun = function(i, li) {
-      li$importance <- li$importance %>% filter(importance > .01)
-      li$importance_sc <- li$importance_sc %>% filter(importance_sc > .01) %>%
-        inner_join(li$importance %>% select(regulator, target), by = c("regulator", "target"))
-      li
-    }
-  )
-
-  qsub_handle2 <- read_rds(paste0(data_dir, "qsub_handle2.rds"))
-
-  grn2 <- qsub::qsub_retrieve(
-    qsub_handle2,
-    wait = "just_do_it",
-    post_fun = function(i, li) {
-      li$importance <- li$importance %>% filter(importance > .01)
-      li$importance_sc <- li$importance_sc %>% filter(importance_sc > .01) %>%
-        inner_join(li$importance %>% select(regulator, target), by = c("regulator", "target"))
-      li
-    }
-  )
-
-  grn <- c(grn1, grn2)
-  rm(grn1, grn2, qsub_handle1, qsub_handle2)
-
-  write_rds(grn, paste0(data_dir, "grn.rds"))
-}
-
-list2env(read_rds(data_file), .GlobalEnv)
 
 if (!file.exists(paste0(data_dir, "importances.rds"))) {
-  grn <- read_rds(paste0(data_dir, "grn.rds"))
+  qsub_handle <- read_rds(paste0(data_dir, "qsub_handle.rds"))
 
-  # remove unfinished executions
-  grn[map_lgl(grn, ~ length(.) == 1 && is.na(.))] <- NULL
+  out <- qsub::qsub_retrieve(
+    qsub_handle,
+    wait = "just_do_it",
+    post_fun = function(i, li) {
+      li$importance <- li$importance %>% filter(importance > .01)
+      li$importance_sc <- li$importance_sc %>% filter(importance_sc > .01) %>%
+        inner_join(li$importance %>% select(regulator, target), by = c("regulator", "target"))
+      li
+    }
+  )
 
-  # return combined results
-  importance <-
-    grn %>%
-    map_df(function(li) {
-      li$importance %>% mutate(
-        regulator = factor(regulator, levels = colnames(expr)),
-        target = factor(target, levels = colnames(expr))
-      )
-    }) %>%
-    arrange(desc(importance)) %>%
-    mutate(
-      i = row_number(),
-      name = forcats::fct_inorder(paste0(regulator, "->", target)),
-    )
-  ggplot(importance) +
-    geom_point(aes(effect, importance))
-
-  write_tsv(importance %>% slice(1:850), paste0(data_dir, "interactions.tsv"))
-
-  importance_sc <-
-    grn %>%
-    map_df(function(li) {
-      li$importance_sc %>% mutate(
-        regulator = factor(regulator, levels = colnames(expr)),
-        target = factor(target, levels = colnames(expr))
-      )
-    }) %>%
-    inner_join(importance %>% select(-importance, -name), by = c("regulator", "target")) %>%
-    arrange(desc(importance))
-
-  rm(grn)
-  gc()
-
-  write_rds(lst(importance, importance_sc), paste0(data_dir, "importances.rds"))
+  write_rds(out, paste0(data_dir, "importances.rds"))
 }
-
 
 list2env(read_rds(paste0(data_dir, "importances.rds")), .GlobalEnv)
 
+# fixes for old results
+assertthat::assert_that(all(levels(importance_sc$cell_id) %in% sample_info$old_id))
+
+importance <- importance %>% select(-i) %>% rename(interaction_id = name)
+importance_sc <-
+  importance_sc %>%
+  rename(old_id = cell_id) %>%
+  left_join(sample_info %>% transmute(sample_id = factor(id), old_id = factor(old_id, levels = levels(importance_sc$cell_id))), "old_id") %>%
+  filter(!is.na(sample_id)) %>%
+  select(-i) %>%
+  left_join(importance %>% select(regulator, target, interaction_id), by = c("regulator", "target"))
+
 if (!file.exists(paste0(data_dir, "dimred_and_clustering.rds"))) {
-  # calculate LMDS dimred
-  samples <- levels(importance_sc$cell_id)
-  imp_sc_mat <- Matrix::sparseMatrix(
-    i = importance_sc$cell_id %>% as.integer,
-    j = importance_sc$i,
-    x = importance_sc$importance,
-    dims = c(length(samples), nrow(importance)),
-    dimnames = list(samples, importance$name)
-  )
-
-  dimred <- dyndimred::dimred_landmark_mds(imp_sc_mat, ndim = 20, distance_method = "spearman")
-  rm(imp_sc_mat)
-  gc()
-
-  # compute knn
-  knn <- RANN::nn2(dimred, k = 101)
-  knn$nn.dists <- knn$nn.dists[,-1]
-  knn$nn.idx <- knn$nn.idx[,-1]
-
-  # perform louvain clustering and FR dimred
-  knndf <-
-    inner_join(
-      reshape2::melt(knn$nn.idx, varnames = c("i", "nn"), value.name = "j"),
-      reshape2::melt(knn$nn.dists, varnames = c("i", "nn"), value.name = "dist"),
-      by = c("i", "nn")
-    ) %>%
-    as_tibble() %>%
-    mutate(i2 = pmin(i, j), j2 = pmax(i, j)) %>%
-    select(i = i2, j = j2, dist) %>%
-    unique() %>%
-    arrange(dist) %>%
-    mutate(weight = 1 / dist)
-
-  gr <- igraph::graph_from_data_frame(knndf %>% select(i, j, dist), vertices = seq_len(nrow(dimred)), directed = FALSE)
-  cl <- igraph::cluster_louvain(gr)
-  clus <- cl$membership
-  dimred_fr <- igraph::layout_with_fr(gr)
-
-
-  return_rotation_mat <- function(theta) {
-    theta <- theta / 180 * pi
-    matrix(c(cos(theta), sin(theta), -sin(theta), cos(theta)), nrow = 2)
-  }
-  rot_mat <- return_rotation_mat(-90)
-  colnames(rot_mat) <- colnames(dimred_fr)
-  plot(dimred_fr %*% rot_mat)
-
-  dimred_fr <- dimred_fr %*% rot_mat
-
-  rownames(dimred_fr) <- rownames(dimred)
-  colnames(dimred_fr) <- paste0("comp_", seq_len(ncol(dimred_fr)))
+  dimred_out <- bred::dimred_and_cluster(importance_sc)
 
   # annotate the clusters
-  proj_annot <-
-    read_tsv(paste0(data_dir, "projects.tsv")) %>%
-    mutate(
-      wheretype = ifelse(!is.na(ontology) & !is.na(type), paste0(gsub(",.*", "", where), " ", type), NA_character_)
-    ) %>%
-    select(-ontology, -name_long) %>%
-    rename(project_id = project) %>%
-    gather(group, value, -project_id) %>%
-    na.omit() %>%
-    mutate(value = strsplit(value, ", ")) %>%
-    unnest(value)
-
-  samdf <-
+  nciont <- read_rds("derived_files/nci_ontology.rds")
+  sample_groupings_nci <-
     sample_info %>%
-    transmute(id, project_id, cluster = clus)
-
-  TOT <- nrow(samdf)
-
-  `%s/%` <- function(x, y) ifelse(y == 0, 1, x / y)
-  test <-
-    samdf %>%
-    group_by(cluster) %>%
-    mutate(CLUSPOS = n()) %>%
-    ungroup() %>%
-    left_join(proj_annot, by = "project_id") %>%
-    group_by(group, value) %>%
-    mutate(GRPOS = n()) %>%
-    group_by(cluster, group, value) %>%
-    summarise(
-      CLUSPOS = CLUSPOS[[1]],
-      GRPOS = GRPOS[[1]],
-      TP = n()
+    select(sample_id = id, nci_ont) %>%
+    left_join(
+      nciont %>% select(nci_ont = id, nci_anc = ancestors) %>% filter(nci_ont %in% unique(sample_info$nci_ont)) %>% unnest(nci_anc),
+      by = "nci_ont"
     ) %>%
-    ungroup() %>%
-    mutate(
-      FN = GRPOS - TP,
-      FP = CLUSPOS - TP,
-      TN = TOT - TP - FN - FP,
-      TPR = TP %s/% (TP + FN),
-      TNR = TN %s/% (TN + FP),
-      PPV = TP %s/% (TP + FP),
-      NPV = TN %s/% (TN + FN),
-      FNR = FN %s/% (FN + TP),
-      FPR = FP %s/% (FP + TN),
-      FDR = FP %s/% (FP + TP),
-      FOR = FN %s/% (FN + TN),
-      F1 = (2 * PPV * TPR) %s/% (PPV + TPR)
-    )
+    select(-nci_ont) %>%
+    left_join(nciont %>% select(nci_anc = id, group_id = name), by = "nci_anc") %>%
+    transmute(sample_id, group_type = "nci_ontology", group_id)
 
-  labels <-
-    test %>%
-    arrange(desc(PPV * TPR)) %>%
-    group_by(cluster) %>%
-    slice(1) %>%
-    ungroup() %>%
-    rename(name = value) %>%
-    group_by(name) %>%
-    mutate(name2 = factor(if (n() == 1) name else paste0(name, " #", row_number()))) %>%
-    ungroup() %>%
-    select(-name) %>%
-    rename(name = name2) %>%
-    arrange(name) %>%
-    mutate(col = grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, "Accent"))(n())) %>%
-    arrange(cluster)
+  sample_groupings_clin <-
+    sample_info %>%
+    left_join(read_tsv(paste0(data_dir, "projects.tsv")) %>% select(project_id = project, project_tag = name_short), by = "project_id") %>%
+    select(sample_id = id, project_tag, sample_group, gender, ethnicity, vital_status, last_known_disease_status) %>%
+    gather(group_type, group_id, -sample_id)
 
-  palette <- labels %>% select(name, col) %>% deframe()
+  sample_groupings <- bind_rows(
+    sample_groupings_nci,
+    sample_groupings_clin
+  ) %>%
+    filter(!is.na(group_id), !tolower(group_id) %in% c("not reported", "unknown"))
+  # relabel_out <- label_clusters(sample_groupings, dimred_out$cluster, arrange_fun = function(df) filter(PPV > .2) %>% arrange(desc(TPR)))
+  relabel_out <- bred::label_clusters(sample_groupings, dimred_out$cluster, arrange_fun = function(df) df %>% arrange(desc(F1)))
+  relabel_out$labels %>% print(n = 30)
 
   # look at cluster annotation
-  clus <- cl$membership
+
+  group_type_palette <-
+    unique(sample_groupings$group_type) %>%
+    {setNames(RColorBrewer::brewer.pal(length(.), "Dark2"), .)}
+  pdf(paste0(data_dir, "cluster_labelling.pdf"), width = 12, height = 6)
+  tryCatch({
+    for (cli in relabel_out$labels$cluster) {
+      test1c <- relabel_out$test %>%
+        filter(cluster == cli) %>%
+        mutate(x = forcats::fct_reorder(paste0(group_type, ": ", group_id), F1)) %>%
+        arrange(x) %>%
+        top_n(30, F1) %>%
+        gather(metric, value, PPV, TPR, F1)
+      g <- ggplot(test1c, aes(x, value, fill = group_type)) +
+        geom_bar(stat = "identity") +
+        theme_bw() +
+        coord_flip() +
+        labs(x = NULL, title = paste0("Cluster ", cli, ", ", relabel_out$labels$name[[cli]])) +
+        theme(legend.position = "bottom") +
+        scale_fill_manual(values = group_type_palette) +
+        scale_x_discrete(labels = test1c$group_id) +
+        facet_wrap(~metric, scales = "free_x", nrow = 1)
+
+      print(g)
+    }
+  }, finally = {
+    dev.off()
+  })
+
+
+  clus <- dimred_out$cluster
   tab <- as.matrix(table(
-    paste0(clus, " ", labels$name[clus]),
-    sample_info$project_id
+    paste0(clus, " ", relabel_out$labels$name[clus]),
+    sample_info %>% slice(match(names(clus), id)) %>% pull(project_id)
   ))
   tab <- sweep(tab, 1, rowSums(tab), "/")
   tab <- tab[order(apply(tab, 1, max), decreasing = TRUE), ]
@@ -570,7 +398,7 @@ if (!file.exists(paste0(data_dir, "dimred_and_clustering.rds"))) {
   pheatmap::pheatmap(tab, angle_col = 315, cluster_rows = FALSE, cluster_cols = FALSE, filename = paste0(data_dir, "cluster_heatmap.pdf"), width = 16, height = 8)
 
   # save dimred and clustering
-  write_rds(lst(knn, dimred_fr, clus, labels, palette), paste0(data_dir, "dimred_and_clustering.rds"))
+  write_rds(c(dimred_out, relabel_out, list(sample_groupings)), paste0(data_dir, "dimred_and_clustering.rds"))
 }
 
 list2env(read_rds(paste0(data_dir, "dimred_and_clustering.rds")), .GlobalEnv)
@@ -579,7 +407,7 @@ list2env(read_rds(paste0(data_dir, "dimred_and_clustering.rds")), .GlobalEnv)
 df <- data.frame(
   dimred_fr,
   sample_info,
-  cluster = clus
+  cluster = cluster
 ) %>%
   left_join(labels, by = "cluster")
 labeldf <- df %>% group_by(name) %>% summarise(comp_1 = mean(comp_1), comp_2 = mean(comp_2))
@@ -588,9 +416,10 @@ g <-
   ggplot(df, aes(comp_1, comp_2, col = name)) +
   geom_point(size = .5) +
   shadowtext::geom_shadowtext(aes(label = name), labeldf, bg.colour = "white", size = 5) +
-  theme_bw() +
+  dynplot::theme_graph() +
   coord_equal() +
-  scale_colour_manual(values = palette)
+  scale_colour_manual(values = palette) +
+  theme(legend.position = "none")
 g
 ggsave(paste0(data_dir, "plot_fr.pdf"), g, width = 15, height = 13)
 
@@ -600,16 +429,22 @@ g <-
   geom_segment(aes(x = 1, xend = 2, y = name, yend = name, col = name), labeldf, size = 2) +
   theme_bw() +
   scale_colour_manual(values = palette) +
-  labs(colour = "Group")
+  labs(colour = "Group") +
+  theme(legend.position = "bottom") +
+  guides(
+    colour = guide_legend(nrow = 6)
+  )
 g
-ggsave(paste0(data_dir, "legend.pdf"), g, width = 6, height = 6)
+ggsave(paste0(data_dir, "legend.pdf"), g, width = 15, height = 6)
 
+rm(expr)
+gc()
 
 imp_grouped <-
   importance_sc %>%
-  mutate(cluster = as.vector(clus[cell_id])) %>%
+  mutate(cluster = as.vector(cluster[sample_id])) %>%
   left_join(labels %>% select(cluster, name), by = "cluster") %>%
-  group_by(name, i, regulator, target) %>%
+  group_by(name, interaction_id, regulator, target) %>%
   summarise(
     importance = mean(importance),
     importance_sc = mean(importance_sc),
@@ -617,24 +452,62 @@ imp_grouped <-
   ) %>%
   ungroup() %>%
   left_join(labels %>% select(name, col), by = "name") %>%
-  select(regulator, name, target, everything()) %>%
+  select(source = regulator, name, target, everything()) %>%
   arrange(desc(importance))
 
 imp_grouped_f <- imp_grouped %>% group_by(name) %>% slice(1:50) %>% ungroup() %>% filter(importance > .15)
 imp_grouped_f %>% group_by(name) %>% summarise(n = n()) %>% arrange(desc(n)) %>% print(n = Inf)
 write_tsv(imp_grouped_f, paste0(data_dir, "grouped_interactions.tsv"))
 
+gc()
 
-# grpdm <- Matrix::sparseMatrix(
-#   i = as.integer(imp_grouped$name),
-#   j = imp_grouped$i,
-#   x = imp_grouped$importance,
-#   dims = c(nrow(labels), nrow(importance)),
-#   dimnames = list(
-#     labels$name,
-#     importance$name
-#   )
+
+
+# sample_ids <- levels(importance_sc$sample_id)
+# interaction_ids <- levels(importance_sc$interaction_id)
+# use_scaled_imp <- FALSE
+# imp_sc_mat <- Matrix::sparseMatrix(
+#   i = importance_sc$sample_id %>% as.integer,
+#   j = importance_sc$interaction_id %>% as.integer,
+#   x = importance_sc[[if (use_scaled_imp) "importance_sc" else "importance"]],
+#   dims = c(length(sample_ids), length(interaction_ids)),
+#   dimnames = list(sample_ids, interaction_ids)
 # )
-# sim <- dynutils::calculate_similarity(grpdm, method = "spearman")
-# diag(sim) <- NA
-# pheatmap::pheatmap(sim, cutree_rows = 4, cutree_cols = 4)
+# impannot <- pbapply::pblapply(seq_len(500), cl = 1, function(rowi) {
+#   intid <- importance$interaction_id[rowi]
+#   x <- imp_sc_mat[,intid]
+#   test <-
+#     sample_groupings %>%
+#     group_by(group_type, group_id) %>%
+#     summarise(
+#       samples = list(match(sample_id, rownames(imp_sc_mat))),
+#       pct = length(sample_id) / nrow(imp_sc_mat)
+#     ) %>%
+#     rowwise() %>%
+#     filter(pct > .01, pct < .99) %>%
+#     mutate(
+#       test = list(t.test(
+#         x[samples],
+#         x[-samples],
+#         alternative = "greater"
+#       )),
+#       statistic = test$statistic,
+#       p_value = test$p.value
+#     ) %>%
+#     ungroup() %>%
+#     arrange(desc(statistic))
+#   labels <-
+#     test %>%
+#     slice(1) %>%
+#     mutate(interaction_id = intid) %>%
+#     select(-samples, -pct, -test) %>%
+#     left_join(importance %>% slice(rowi), by = "interaction_id")
+#   lst(test, labels)
+# })
+# implabels <- impannot %>% map_df("labels")
+# write_tsv(implabels, paste0(data_dir, "annotated_interactions.tsv"))
+
+nb_term <- nciont %>% filter(name == "Neuroblastoma") %>% pull(id)
+nciont %>% slice(match(nb_ids, id)) %>% print(n = 30)
+derp <- sample_info %>% filter(!nci_ont %in% nb_ids, project_id == "TARGET-NBL") %>% pull(nci_ont) %>% unique()
+nciont %>% slice(match(derp, id))
