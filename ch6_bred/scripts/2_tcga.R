@@ -316,58 +316,10 @@ importance_sc <-
   select(-i) %>%
   left_join(importance %>% select(regulator, target, interaction_id), by = c("regulator", "target"))
 
-sample_ids <- levels(importance_sc$sample_id)
-interaction_ids <- levels(importance_sc$interaction_id)
-use_scaled_imp <- FALSE
-imp_sc_mat <- Matrix::sparseMatrix(
-  i = importance_sc$sample_id %>% as.integer,
-  j = importance_sc$interaction_id %>% as.integer,
-  x = importance_sc[[if (use_scaled_imp) "importance_sc" else "importance"]],
-  dims = c(length(sample_ids), length(interaction_ids)),
-  dimnames = list(sample_ids, interaction_ids)
-)
-rm(importance_sc)
-gc()
-
 if (!file.exists(paste0(data_dir, "dimred_and_clustering.rds"))) {
-  # dimred_out <- bred::dimred_and_cluster(importance_sc)
-  # dimred_out <- bred::dimred_and_cluster(importance_sc, knn = 11, use_scaled_imp = FALSE)
-  # dimred_out <- bred::dimred_and_cluster(expr, knn = 11, use_scaled_imp = FALSE)
-  dimred_lmds <- lmds::lmds(imp_sc_mat, distance_method = "spearman")
-  # dimred_lmds <- lmds::lmds(expr, distance_method = "spearman")
-  gng_out <- gng::gng(dimred_lmds, max_iter = 100000, max_nodes = 50)
+  dimred_out <- bred:::dimred_and_cluster(importance_sc, knn = 100, use_scaled_imp = FALSE)
 
-  eucl_dist <- as.matrix(stats::dist(gng_out$node_space))
-  pts <-
-    gng_out$edges %>%
-    rowwise() %>%
-    mutate(pct = list(seq(0, 1, length.out = 21))) %>%
-    ungroup() %>%
-    unnest(pct)
-  pts_space <- (1 - pts$pct) * gng_out$node_space[pts$i, ] + pts$pct * gng_out$node_space[pts$j, ]
-  pts$dist <- rowMeans(RANN::nn2(dimred_lmds, pts_space, k = 10)$nn.dist)
-  dendis <-
-    pts %>%
-    group_by(i, j) %>%
-    summarise(den_dist = mean(dist)) %>%
-    ungroup() %>%
-    mutate(
-      eucl_dist = eucl_dist[cbind(i, j)],
-      weight = den_dist * eucl_dist
-    )
-
-  gr <- igraph::graph_from_data_frame(
-    dendis,
-    directed = FALSE,
-    vertices = gng_out$nodes
-  )
-  mst <- igraph::minimum.spanning.tree(gr)
-  edges2 <-
-    igraph::as_data_frame(mst)
-  gng_out$edges <- edges2 %>% transmute(i = from, j = to)
-
-  cluster <- match(gng_out$clustering, gng_out$nodes$name) %>% set_names(names(gng_out$clustering))
-  gng:::autoplot.gng(gng_out)
+  cluster <- dimred_out$cluster
 
   # annotate the clusters
   nciont <- read_rds("derived_files/nci_ontology.rds")
@@ -393,32 +345,11 @@ if (!file.exists(paste0(data_dir, "dimred_and_clustering.rds"))) {
     sample_groupings_clin
   ) %>%
     filter(!is.na(group_id), !tolower(group_id) %in% c("not reported", "unknown"))
-  # relabel_out <- label_clusters(sample_groupings, dimred_out$cluster, arrange_fun = function(df) filter(PPV > .2) %>% arrange(desc(TPR)))
   relabel_out <- bred::label_clusters(sample_groupings, cluster, arrange_fun = function(df) df %>% arrange(desc(F1)))
+
+  relabel_out$labels <- relabel_out$labels %>% mutate(name = paste0(name, ifelse(PPV < .5, " *", "")))
+
   relabel_out$labels %>% print(n = 100)
-
-  rownames(gng_out$node_space) <- rownames(gng_out$node_proj) <- igraph::V(mst)$name <- as.character(relabel_out$labels$name)
-
-  traj <-
-    dynwrap::wrap_data(
-    # dynwrap::wrap_expression(
-      cell_ids = rownames(gng_out$space_proj)
-      # counts = trajcounts,
-      # expression = trajexpr
-    ) %>%
-    dynwrap::add_dimred_projection(
-      milestone_network = igraph::as_data_frame(mst) %>% transmute(from, to, length = weight, directed = FALSE),
-      # milestone_network = igraph::as_data_frame(mst) %>% transmute(from, to, length = 1, directed = FALSE),
-      # dimred_milestones = gng_out$node_space,
-      # dimred = dimred_out$dimred_lmds
-      dimred_milestones = gng_out$node_proj,
-      dimred = gng_out$space_proj
-    )
-  g1 <- dynplot::plot_graph(traj, label_milestones = TRUE, adjust_weights = TRUE) + coord_equal()
-  g2 <- dynplot::plot_dimred(traj, label_milestones = TRUE) + coord_equal()
-  ggsave(paste0(data_dir, "plot_graph.pdf"), g1, width = 15, height = 15)
-  ggsave(paste0(data_dir, "plot_dimred.pdf"), g2, width = 15, height = 15)
-
 
   # look at cluster annotation
   group_type_palette <-
@@ -455,6 +386,7 @@ if (!file.exists(paste0(data_dir, "dimred_and_clustering.rds"))) {
 # list2env(c(dimred_out, relabel_out), .GlobalEnv)
 list2env(read_rds(paste0(data_dir, "dimred_and_clustering.rds")), .GlobalEnv)
 
+palette <- labels %>% select(name, col) %>% deframe()
 
 sample_info_df <- data.frame(
   dimred_fr[sample_info$id,],
@@ -489,177 +421,283 @@ g <-
   theme(legend.position = "none")
 g
 ggsave(paste0(data_dir, "plot_fr.pdf"), g, width = 10, height = 10)
-#
-# g <-
-#   ggplot() +
-#   # geom_point(size = .5) +
-#   geom_segment(aes(x = 1, xend = 2, y = name, yend = name, col = name), labeldf, size = 2) +
-#   theme_bw() +
-#   scale_colour_manual(values = palette) +
-#   labs(colour = "Group") +
-#   theme(legend.position = "bottom") +
-#   guides(
-#     colour = guide_legend(nrow = 6)
-#   )
-# g
-# ggsave(paste0(data_dir, "legend.pdf"), g, width = 15, height = 6)
 
-# rm(expr)
-# gc()
-#
-# imp_grouped <-
-#   importance_sc %>%
-#   mutate(cluster = as.vector(cluster[sample_id])) %>%
-#   left_join(labels %>% select(cluster, name), by = "cluster") %>%
-#   group_by(name, interaction_id, regulator, target) %>%
-#   summarise(
-#     importance = mean(importance),
-#     importance_sc = mean(importance_sc),
-#     effect = effect[[1]]
-#   ) %>%
-#   ungroup() %>%
-#   left_join(labels %>% select(name, col), by = "name") %>%
-#   select(source = regulator, name, target, everything()) %>%
-#   arrange(desc(importance))
-#
-# imp_grouped_f <- imp_grouped %>% group_by(name) %>% slice(1:50) %>% ungroup() %>% filter(importance > .15)
-# imp_grouped_f %>% group_by(name) %>% summarise(n = n()) %>% arrange(desc(n)) %>% print(n = Inf)
-# write_tsv(imp_grouped_f, paste0(data_dir, "grouped_interactions.tsv"))
-#
-# gc()
-
-
-sample_ids <- levels(importance_sc$sample_id)
-interaction_ids <- levels(importance_sc$interaction_id)
-use_scaled_imp <- FALSE
-imp_sc_mat <- Matrix::sparseMatrix(
-  i = importance_sc$sample_id %>% as.integer,
-  j = importance_sc$interaction_id %>% as.integer,
-  x = importance_sc[[if (use_scaled_imp) "importance_sc" else "importance"]],
-  dims = c(length(sample_ids), length(interaction_ids)),
-  dimnames = list(sample_ids, interaction_ids)
-)
-
-co <- imp_sc_mat
-co@x <- 10^co@x - 1
-dat <- dynwrap::wrap_expression(counts = co, expression = imp_sc_mat)
-rm(co)
-traj <- dynwrap::infer_trajectory(
-  dat,
-  dynmethods::ti_projected_paga()
-)
-
-
-dim(imp_sc_mat)
-
-# look at certain samples
-nciont <- read_rds("derived_files/nci_ontology.rds")
-# nb_term <- nciont %>% filter(name == "Neuroblastoma") %>% pull(id)
-nb_term <- nciont %>% filter(name == "Neuroblastic Tumor") %>% pull(id)
-# # nciont %>% filter(grepl("thym", tolower(name)), id %in% sample_info$nci_ont)
-# # nb_term <- nciont %>% filter(name == "Thymus Neoplasm") %>% pull(id)
-nb_terms <- nciont %>% filter(id == nb_term | map_lgl(ancestors, ~ nb_term %in% .)) %>% pull(id)
-
-samp_sel <- sample_info_df %>% filter(nci_ont %in% nb_terms)
-# samp_sel <- sample_info_df %>% filter(name == "Peripheral Nervous System Disorder")
-
-rm(importance_sc)
-gc()
-testdf <-
-  data.frame(
-    group = sample_info_df$name,
-    as.matrix(imp_sc_mat)
+g <-
+  ggplot() +
+  # geom_point(size = .5) +
+  geom_segment(aes(x = 1, xend = 2, y = name, yend = name, col = name), labeldf, size = 2) +
+  theme_bw() +
+  scale_colour_manual(values = palette) +
+  labs(colour = "Group") +
+  theme(legend.position = "bottom") +
+  guides(
+    colour = guide_legend(nrow = 6)
   )
-rf <- ranger::ranger(
-  data = rangerdf,
-  num.trees = 10000,
-  # importance = "impurity_corrected",
-  importance = "impurity",
-  dependent.variable.name = "survtime",
-  status.variable.name = "event"
-)
-vimp <-
-  rf$variable.importance %>%
-  enframe("variable", "importance") %>%
+g
+ggsave(paste0(data_dir, "legend.pdf"), g, width = 15, height = 6)
+
+rm(expr)
+gc()
+#
+clusn <- table(cluster)
+imp_grouped <-
+  importance_sc %>%
+  mutate(cluster = as.vector(cluster[sample_id])) %>%
+  left_join(labels %>% select(cluster, name), by = "cluster") %>%
+  group_by(name, interaction_id, regulator, target) %>%
+  summarise(
+    importance = sum(importance) / clusn[[cluster[[1]]]],
+    importance_sc = sum(importance_sc) / clusn[[cluster[[1]]]],
+    effect = effect[[1]]
+  ) %>%
+  ungroup() %>%
+  left_join(labels %>% select(name, col), by = "name") %>%
+  select(source = regulator, name, target, everything()) %>%
   arrange(desc(importance))
 
+imp_grouped_f <- imp_grouped %>% group_by(name) %>% slice(1:100) %>% ungroup()
+imp_grouped_f %>% group_by(name) %>% summarise(n = n()) %>% arrange(desc(n)) %>% print(n = Inf)
+write_tsv(imp_grouped_f, paste0(data_dir, "grouped_interactions.tsv"))
 
-imp_sel <- imp_sc_mat[samp_sel$id, ]
-# imp_sel <- expr[samp_sel$id, ]
+gc()
 
 
-dr <- lmds::lmds(imp_sel)
-seldf <- data.frame(
-  dr,
-  samp_sel %>% dplyr::select(-starts_with("comp_"))
+
+# PERIPHERAL NERVOUS SYSTEM DISORDER --------------------------------------
+group <- "Peripheral Nervous System Disorder"
+
+samp_sel <-
+  sample_info_df %>%
+  filter(name == group)
+
+# gene_sel <-
+#   imp_grouped %>%
+#   filter(name == group) %>%
+#   arrange(desc(importance)) %>%
+#   head(120)
+#
+# imp_sel <-
+#   importance_sc %>%
+#   filter(sample_id %in% samp_sel$id, interaction_id %in% gene_sel$interaction_id)
+#
+# imp_sel_m <- reshape2::acast(imp_sel, sample_id ~ interaction_id, value.var = "importance", fill = 0)
+
+
+imp_sel_m <-
+  importance_sc %>%
+  filter(sample_id %in% samp_sel$id) %>%
+  reshape2::acast(sample_id ~ interaction_id, value.var = "importance", fill = 0) %>%
+  .[samp_sel$id, ]
+
+dr <- lmds::lmds(imp_sel_m, distance_method = "spearman")
+traj <- SCORPIUS::infer_trajectory(dr, k = 0)
+
+SCORPIUS::draw_trajectory_plot(dr, progression_group = samp_sel$project_id %>% factor, path = traj$path)
+gimp <- SCORPIUS::gene_importances(imp_sel_m, traj$time, num_threads = 8)
+
+gene_sel <- gimp %>% rename(interaction_id = gene) %>% head(120)
+
+annotation_col <- samp_sel %>% transmute(id, project_id, vital_status, sample_group) %>% column_to_rownames("id")
+annotation_row <- gene_sel %>% select(interaction_id, effect) %>% column_to_rownames("interaction_id")
+anns <- c(as.list(annotation_col), as.list(annotation_row))
+annotation_colours <-
+  map(seq_along(anns), function(i) {
+    x <- anns[[i]]
+    if (is.numeric(x)) {
+      # viridis::viridis_pal(opCtion = i)(100)
+      pal <- RColorBrewer::brewer.pal.info %>% rownames_to_column("palette") %>% filter(category == "div") %>% slice(i)
+      RColorBrewer::brewer.pal(pal$maxcolors, pal$palette)
+    } else {
+      paln <- RColorBrewer::brewer.pal.info %>% rownames_to_column("palette") %>% filter(category == "qual") %>% slice(i) %>% pull(palette)
+      nam <- unique(x)
+      setNames(RColorBrewer::brewer.pal(length(nam), paln), nam)
+    }
+  }) %>% set_names(names(anns))
+heatmat <-
+  t(imp_sel_m[order(traj$time), gene_sel$interaction_id] %>% dynutils::scale_quantile())
+pheatmap::pheatmap(
+  heatmat,
+  t(imp_sel_m %>% dynutils::scale_quantile()), show_colnames = FALSE,
+  annotation_col = annotation_col,
+  annotation_row = annotation_row,
+  annotation_colors = annotation_colours,
+  clustering_distance_cols = "correlation",
+  clustering_distance_rows = "correlation",
+  clustering_method = "ward.D2",
+  cutree_rows = 3L,
+  cutree_cols = 2L,
+  filename = paste0(data_dir, "/zoom_", gsub(" ", "-", tolower(group)), "_heatmap.pdf"),
+  width = 12,
+  height = 8,
+  fontsize_row = 5,
+  border_color = NA
 )
-ggplot(seldf) + geom_point(aes(comp_1, comp_2, col = inss_stage))
 
-# traj <- list(path = NULL, time = atan2(dr[,1], -dr[,2]) / 2 / pi + .5)
-traj <- SCORPIUS::infer_trajectory(dr, k = 3)
-SCORPIUS::draw_trajectory_plot(dr, path = traj$path, progression_group = factor(seldf$inss_stage))
-SCORPIUS::draw_trajectory_plot(dr, path = traj$path, progression_group = traj$time)
 
-gimp <- SCORPIUS::gene_importances(imp_sel %>% as.matrix, traj$time)
-# model <-
-#   dynwrap::wrap_expression(
-#     expression = imp_sel,
-#     counts = imp_sel
-#   ) %>%
-#   dynwrap::add_cyclic_trajectory(
-#     pseudotime = traj$time
-#   )
-# fimp <- dynfeature::calculate_overall_feature_importance(model)
 
-imp_sel_sc <- dynutils::scale_quantile(as.matrix(imp_sel[,gimp$gene[1:200]]))
-# imp_sel_sc <- dynutils::scale_quantile(as.matrix(imp_sel[,fimp$feature_id[1:200]]))
-modules <- SCORPIUS::extract_modules(imp_sel_sc, traj$time)
-SCORPIUS::draw_trajectory_heatmap(imp_sel_sc, traj$time, progression_group = factor(seldf$inss_stage), show_labels_row = TRUE, modules = modules, scale_features = FALSE)
 
-rangerdf <-
-  seldf %>%
-  transmute(
-    survtime = age_at_diagnosis + (days_to_last_follow_up %|% 0),
-    event = ifelse(vital_status == "Dead", 1L, 0L)
-  ) %>%
-  data.frame(as.matrix(imp_sel), as.matrix(expr[seldf$id,]), check.names = FALSE)
-rf <- ranger::ranger(
-  data = rangerdf,
-  num.trees = 10000,
-  # importance = "impurity_corrected",
-  importance = "impurity",
-  dependent.variable.name = "survtime",
-  status.variable.name = "event"
+# KIDNEY CARCINOMA --------------------------------------------------------
+group <- "Kidney Carcinoma"
+
+samp_sel <-
+  sample_info_df %>%
+  filter(name == group)
+
+# gene_sel <-
+#   imp_grouped %>%
+#   filter(name == group) %>%
+#   arrange(desc(importance)) %>%
+#   head(120)
+
+imp_sel_m <-
+  importance_sc %>%
+  # filter(sample_id %in% samp_sel$id, interaction_id %in% gene_sel$interaction_id) %>%
+  filter(sample_id %in% samp_sel$id) %>%
+  reshape2::acast(sample_id ~ interaction_id, value.var = "importance", fill = 0) %>%
+  .[samp_sel$id, ]
+
+dr <- lmds::lmds(imp_sel_m, distance_method = "spearman")
+traj <- SCORPIUS::infer_trajectory(dr, k = 5)
+
+SCORPIUS::draw_trajectory_plot(dr, progression_group = samp_sel$sample_group %>% factor, path = traj$path)
+gimp <- SCORPIUS::gene_importances(imp_sel_m, traj$time, num_threads = 8)
+
+gene_sel <- gimp %>% rename(interaction_id = gene) %>% head(120)
+
+annotation_col <- samp_sel %>% transmute(id, project_id, vital_status, sample_group) %>% column_to_rownames("id")
+annotation_row <- NULL
+anns <- c(as.list(annotation_col), as.list(annotation_row))
+annotation_colours <-
+  map(seq_along(anns), function(i) {
+    x <- anns[[i]]
+    if (is.numeric(x)) {
+      # viridis::viridis_pal(opCtion = i)(100)
+      pal <- RColorBrewer::brewer.pal.info %>% rownames_to_column("palette") %>% filter(category == "div") %>% slice(i)
+      RColorBrewer::brewer.pal(pal$maxcolors, pal$palette)
+    } else {
+      paln <- RColorBrewer::brewer.pal.info %>% rownames_to_column("palette") %>% filter(category == "qual") %>% slice(i) %>% pull(palette)
+      nam <- unique(x)
+      setNames(RColorBrewer::brewer.pal(length(nam), paln), nam)
+    }
+  }) %>% set_names(names(anns))
+heatmat <-
+  t(imp_sel_m[order(traj$time), gene_sel$interaction_id] %>% dynutils::scale_quantile())
+pheatmap::pheatmap(
+  heatmat,
+  cluster_cols = FALSE,
+  show_colnames = FALSE,
+  annotation_col = annotation_col,
+  annotation_row = annotation_row,
+  annotation_colors = annotation_colours,
+  clustering_distance_cols = "correlation",
+  clustering_distance_rows = "correlation",
+  clustering_method = "ward.D2",
+  cutree_rows = 3L,
+  cutree_cols = 2L,
+  filename = paste0(data_dir, "/zoom_", gsub(" ", "-", tolower(group)), "_heatmap.pdf"),
+  width = 12,
+  height = 8,
+  fontsize_row = 5,
+  border_color = NA
 )
-vimp <-
-  rf$variable.importance %>%
-  enframe("variable", "importance") %>%
-  arrange(desc(importance))
 
 
 
+# all groups --------------------------------------------------------------
 
-# check smaller traj
-labs <- dynwrap::group_onto_nearest_milestones(traj)
-mids <- c("LLG", "High Grade Astrocytic Tumor", "Neuroblastic Tumor", "Autonomic Nervous System Neoplasm", "Wilms Tumor", "Melanocytic Neoplasm")
-ix <- which(labs %in% mids)
 
-labsix <- labs[ix]
-cids <- traj$cell_ids[ix]
-trajsub <-
-  dynwrap::wrap_expression(
-    counts = cbind(imp_sc_mat[ix,] %>% as.matrix, expr[ix,]),
-    expression = cbind(imp_sc_mat[ix,] %>% as.matrix, expr[ix,])
-    # counts = imp_sc_mat[ix,],
-    # expression = imp_sc_mat[ix,]
-  ) %>%
-  dynwrap::add_trajectory(
-    milestone_ids = mids,
-    milestone_network = traj$milestone_network %>% filter(from %in% mids, to %in% mids),
-    milestone_percentages = traj$milestone_percentages %>% filter(cell_id %in% cids, milestone_id %in% mids) %>% group_by(cell_id) %>% mutate(percentage = percentage / sum(percentage))
-  ) %>%
-  dynwrap::add_root(root_milestone_id = "LLG")
-dynplot::plot_graph(trajsub, label_milestones = TRUE)
-fimp <- dynfeature::calculate_milestone_feature_importance(trajectory = trajsub)
+# PERIPHERAL NERVOUS SYSTEM DISORDER --------------------------------------
+for (i in seq_len(nrow(labels))) {
+  tryCatch({
+    group <- labels$name[[i]]
+    tag <-
+      group %>% gsub(" \\*", "", .) %>% sub(" ", "-", .) %>% gsub("#", "", .) %>% tolower()
 
-dynplot::plot_heatmap(trajsub, features_oi = fimp %>% group_by(milestone_id) %>% slice(1:20) %>% pull(feature_id) %>% as.character %>% unique())
+    if (!file.exists(paste0(data_dir, "/zoom_cluster", i, "_", tag, "_heatmap.pdf"))) {
+      samp_sel <-
+        sample_info_df %>%
+        filter(name == group)
+
+      annotation_col <- samp_sel %>% transmute(id, project_id, vital_status, sample_group, gender) %>% mutate_all(~ . %|% "NA") %>% column_to_rownames("id")
+
+      annotation_colours <-
+        map(seq_along(annotation_col), function(j) {
+          x <- annotation_col[[j]]
+          if (is.numeric(x)) {
+            pal <- RColorBrewer::brewer.pal.info %>% rownames_to_column("palette") %>% filter(category == "div") %>% slice(j)
+            RColorBrewer::brewer.pal(pal$maxcolors, pal$palette)
+          } else {
+            nam <- unique(x)
+            pal <- RColorBrewer::brewer.pal.info %>% rownames_to_column("palette") %>% filter(category == "qual") %>% slice(j)
+            cols <- RColorBrewer::brewer.pal(min(length(nam), pal$maxcolors), pal$palette)
+            if (length(cols) != length(nam)) {
+              cols <- grDevices::colorRampPalette(cols)(length(nam))
+            }
+            setNames(cols, nam)
+          }
+        }) %>% set_names(names(annotation_col))
+
+      cat("Cluster ", i, ": getting imps\n", sep = "")
+
+      imp_sel_m <-
+        importance_sc %>%
+        filter(sample_id %in% samp_sel$id) %>%
+        reshape2::acast(sample_id ~ interaction_id, value.var = "importance", fill = 0) %>%
+        .[samp_sel$id, ]
+
+      cat("Cluster ", i, ": performing dimred\n", sep = "")
+      dr <- lmds::lmds(imp_sel_m, distance_method = "spearman", ndim = 2)
+      traj <- SCORPIUS::infer_trajectory(dr, k = 0)
+
+      g <- patchwork::wrap_plots(
+        SCORPIUS::draw_trajectory_plot(dr, progression_group = annotation_col$project_id %>% factor, path = traj$path) + dynplot::theme_graph() + scale_colour_manual(values = annotation_colours$project_id),
+        SCORPIUS::draw_trajectory_plot(dr, progression_group = annotation_col$vital_status %>% factor, path = traj$path) + dynplot::theme_graph() + scale_colour_manual(values = annotation_colours$vital_status),
+        SCORPIUS::draw_trajectory_plot(dr, progression_group = annotation_col$sample_group %>% factor, path = traj$path) + dynplot::theme_graph() + scale_colour_manual(values = annotation_colours$sample_group),
+        SCORPIUS::draw_trajectory_plot(dr, progression_group = annotation_col$gender %>% factor, path = traj$path) + dynplot::theme_graph() + scale_colour_manual(values = annotation_colours$gender)
+      )
+      ggsave(paste0(data_dir, "/zoom_cluster", i, "_", tag, "_plot.pdf"), g, width = 10, height = 7.5)
+
+      cat("Cluster ", i, ": performing gimp\n", sep = "")
+      gimp <- SCORPIUS::gene_importances(imp_sel_m, traj$time, num_threads = 6)
+
+      gene_sel <-
+        inner_join(
+          imp_grouped %>%
+            filter(name == group) %>%
+            select(interaction_id, impg = importance),
+          gimp %>%
+            select(interaction_id = gene, gimp = importance),
+          by = "interaction_id"
+        ) %>%
+        mutate(comb = dynutils::calculate_geometric_mean(impg, gimp)) %>%
+        arrange(desc(comb)) %>%
+        head(120)
+
+      cat("Cluster ", i, ": drawing heatmap\n", sep = "")
+
+      heatmat <-
+        t(imp_sel_m[order(traj$time), gene_sel$interaction_id] %>% dynutils::scale_quantile())
+
+      pheatmap::pheatmap(
+        heatmat,
+        cluster_cols = FALSE,
+        show_colnames = FALSE,
+        annotation_col = annotation_col,
+        annotation_row = annotation_row,
+        annotation_colors = annotation_colours,
+        clustering_distance_cols = "correlation",
+        clustering_distance_rows = "correlation",
+        clustering_method = "ward.D2",
+        cutree_rows = 3L,
+        cutree_cols = 2L,
+        filename = paste0(data_dir, "/zoom_cluster", i, "_", tag, "_heatmap.pdf"),
+        width = 12,
+        height = 8,
+        fontsize_row = 5,
+        border_color = NA
+      )
+    }
+  }, finally = {
+    if (dev.cur() != 1) dev.off()
+  })
+}
