@@ -266,6 +266,7 @@ if (!file.exists(data_file)) {
 
 # SUBMIT BRED -------------------------------------------------------------
 list2env(read_rds(data_file), .GlobalEnv)
+write_lines(colnames(expr), paste0(data_dir, "genes.txt"))
 
 if (!file.exists(paste0(data_dir, "qsub_handle.rds"))) {
   regulators_filt <- regulators
@@ -386,227 +387,165 @@ if (!file.exists(paste0(data_dir, "dimred_and_clustering.rds"))) {
 # list2env(c(dimred_out, relabel_out), .GlobalEnv)
 list2env(read_rds(paste0(data_dir, "dimred_and_clustering.rds")), .GlobalEnv)
 
-palette <- labels %>% select(name, col) %>% deframe()
+if (!file.exists(paste0(data_dir, "grouped_interactions.rds"))) {
+  palette <- labels %>% select(name, col) %>% deframe()
 
-sample_info_df <- data.frame(
-  dimred_fr[sample_info$id,],
-  sample_info,
-  cluster = cluster[sample_info$id],
-  check.names = FALSE,
-  stringsAsFactors = FALSE
-) %>%
-  left_join(labels, by = "cluster") %>%
-  as_tibble()
-labeldf <- sample_info_df %>% group_by(name) %>% summarise(comp_1 = mean(comp_1), comp_2 = mean(comp_2))
-
-# make heatmap
-tab <- sample_info_df %>%
-  group_by(project_id, name) %>%
-  summarise(n = n()) %>%
-  mutate(pct = n / sum(n)) %>%
-  ungroup() %>%
-  reshape2::acast(name~project_id, value.var = "pct", fill = 0)
-tab <- tab[, order(apply(tab, 2, which.max))]
-gaps_col <- which(diff(apply(tab, 2, which.max)) != 0)
-pheatmap::pheatmap(tab, gaps_col = gaps_col, angle_col = 315, cluster_rows = FALSE, cluster_cols = FALSE, filename = paste0(data_dir, "cluster_heatmap.pdf"), width = 16, height = 8)
-
-# save visualisation
-g <-
-  ggplot(sample_info_df, aes(comp_1, comp_2, col = name)) +
-  geom_point(size = .5) +
-  shadowtext::geom_shadowtext(aes(label = name), labeldf, bg.colour = "white", size = 5) +
-  dynplot::theme_graph() +
-  coord_equal() +
-  scale_colour_manual(values = palette) +
-  theme(legend.position = "none")
-g
-ggsave(paste0(data_dir, "plot_fr.pdf"), g, width = 10, height = 10)
-
-g <-
-  ggplot() +
-  # geom_point(size = .5) +
-  geom_segment(aes(x = 1, xend = 2, y = name, yend = name, col = name), labeldf, size = 2) +
-  theme_bw() +
-  scale_colour_manual(values = palette) +
-  labs(colour = "Group") +
-  theme(legend.position = "bottom") +
-  guides(
-    colour = guide_legend(nrow = 6)
-  )
-g
-ggsave(paste0(data_dir, "legend.pdf"), g, width = 15, height = 6)
-
-rm(expr)
-gc()
-#
-clusn <- table(cluster)
-imp_grouped <-
-  importance_sc %>%
-  mutate(cluster = as.vector(cluster[sample_id])) %>%
-  left_join(labels %>% select(cluster, name), by = "cluster") %>%
-  group_by(name, interaction_id, regulator, target) %>%
-  summarise(
-    importance = sum(importance) / clusn[[cluster[[1]]]],
-    importance_sc = sum(importance_sc) / clusn[[cluster[[1]]]],
-    effect = effect[[1]]
+  sample_info_df <- data.frame(
+    dimred_fr[sample_info$id,],
+    sample_info,
+    cluster = cluster[sample_info$id],
+    check.names = FALSE,
+    stringsAsFactors = FALSE
   ) %>%
-  ungroup() %>%
-  left_join(labels %>% select(name, col), by = "name") %>%
-  select(source = regulator, name, target, everything()) %>%
-  arrange(desc(importance))
+    left_join(labels, by = "cluster") %>%
+    as_tibble()
+  labeldf <- sample_info_df %>% group_by(name) %>% summarise(comp_1 = mean(comp_1), comp_2 = mean(comp_2))
 
-imp_grouped_f <- imp_grouped %>% group_by(name) %>% slice(1:100) %>% ungroup()
-imp_grouped_f %>% group_by(name) %>% summarise(n = n()) %>% arrange(desc(n)) %>% print(n = Inf)
-write_tsv(imp_grouped_f, paste0(data_dir, "grouped_interactions.tsv"))
+  # make heatmap
+  tab <- sample_info_df %>%
+    group_by(project_id, name) %>%
+    summarise(n = n()) %>%
+    mutate(pct = n / sum(n)) %>%
+    ungroup() %>%
+    reshape2::acast(name~project_id, value.var = "pct", fill = 0)
+  tab <- tab[, order(apply(tab, 2, which.max))]
+  gaps_col <- which(diff(apply(tab, 2, which.max)) != 0)
+  pheatmap::pheatmap(tab, gaps_col = gaps_col, angle_col = 315, cluster_rows = FALSE, cluster_cols = FALSE, filename = paste0(data_dir, "cluster_heatmap.pdf"), width = 16, height = 8)
 
-gc()
+  # save visualisation
+  g <-
+    ggplot(sample_info_df, aes(comp_1, comp_2, col = name)) +
+    geom_point(size = .5) +
+    shadowtext::geom_shadowtext(aes(label = name), labeldf, bg.colour = "white", size = 5) +
+    dynplot::theme_graph() +
+    coord_equal() +
+    scale_colour_manual(values = palette) +
+    theme(legend.position = "none")
+  g
+  ggsave(paste0(data_dir, "plot_fr.pdf"), g, width = 10, height = 10)
 
+  g <-
+    ggplot() +
+    # geom_point(size = .5) +
+    geom_segment(aes(x = 1, xend = 2, y = name, yend = name, col = name), labeldf, size = 2) +
+    theme_bw() +
+    scale_colour_manual(values = palette) +
+    labs(colour = "Group") +
+    theme(legend.position = "bottom") +
+    guides(
+      colour = guide_legend(nrow = 6)
+    )
+  g
+  ggsave(paste0(data_dir, "legend.pdf"), g, width = 15, height = 6)
 
+  rm(expr)
+  gc()
+  #
+  clusn <- table(cluster)
+  imp_grouped <-
+    importance_sc %>%
+    mutate(cluster = as.vector(cluster[sample_id])) %>%
+    left_join(labels %>% select(cluster, name), by = "cluster") %>%
+    group_by(name, interaction_id, regulator, target) %>%
+    summarise(
+      importance = sum(importance) / clusn[[cluster[[1]]]],
+      importance_sc = sum(importance_sc) / clusn[[cluster[[1]]]],
+      effect = effect[[1]]
+    ) %>%
+    ungroup() %>%
+    left_join(labels %>% select(name, col), by = "name") %>%
+    select(source = regulator, name, target, everything()) %>%
+    arrange(desc(importance))
 
-# PERIPHERAL NERVOUS SYSTEM DISORDER --------------------------------------
-group <- "Peripheral Nervous System Disorder"
+  imp_grouped_f <- imp_grouped %>% group_by(name) %>% slice(1:100) %>% ungroup()
+  imp_grouped_f %>% group_by(name) %>% summarise(n = n()) %>% arrange(desc(n)) %>% print(n = Inf)
+  write_tsv(imp_grouped_f, paste0(data_dir, "grouped_interactions.tsv"))
 
-samp_sel <-
-  sample_info_df %>%
-  filter(name == group)
+  gc()
 
-# gene_sel <-
-#   imp_grouped %>%
-#   filter(name == group) %>%
-#   arrange(desc(importance)) %>%
-#   head(120)
+  write_rds(lst(imp_grouped, sample_info_df, palette), paste0(data_dir, "grouped_interactions.rds"))
+}
+list2env(read_rds(paste0(data_dir, "grouped_interactions.rds")), .GlobalEnv)
+
+degrees <- map_df(labels$name, function(name) {
+  gr <- igraph::graph_from_data_frame(
+    imp_grouped_f %>% filter(name == !!name) %>% select(source, target, name, weight = importance, effect, col),
+    directed = TRUE,
+    vertices = feature_info %>% select(id)
+  )
+  tibble(
+    name = name,
+    gene = feature_info$id,
+    degree = igraph::degree(gr),
+    in_degree = igraph::degree(gr, mode = "in"),
+    out_degree = igraph::degree(gr, mode = "out"),
+    alpha_centrality = igraph::alpha_centrality(gr),
+    hub_score = igraph::hub_score(gr)$vector,
+    page_rank = igraph::page_rank(gr)$vector
+  )
+})
+degrees %>%
+  group_by(name) %>%
+  arrange(page_rank) %>%
+  slice(1:4) %>%
+  summarise(genes = paste0(gene, collapse = ", ")) %>%
+  write_tsv(paste0(data_dir, "top_genes_pagerank.tsv"))
+#   summarise(
+#     regulators = paste(gene[out_degree > 5], collapse = ", "),
+#     targets = paste(gene[in_degree > 5], collapse = ", ")
+#   ) %>%
+#   write_tsv(paste0(data_dir, "degrees.tsv"))
+
+degrees %>% arrange(degree) %>% filter(degree >= 6) %>%
+  group_by(name) %>% summarise(genes = paste(gene, collapse = ", ")) %>%
+  write_tsv(paste0(data_dir, "degrees.tsv"))
+
+# genesets <- read_rds("derived_files/data_genesets_human.rds")
 #
-# imp_sel <-
-#   importance_sc %>%
-#   filter(sample_id %in% samp_sel$id, interaction_id %in% gene_sel$interaction_id)
+# imp_grouped_f <- imp_grouped %>% group_by(name) %>% slice(1:100) %>% ungroup()
+# imp_genes_grouped <-
+#   imp_grouped_f %>%
+#   group_by(name) %>%
+#   do({
+#     name <- .$name[[1]]
+#     entrezs <- c(feature_info$entrezgene[.$source], feature_info$entrezgene[.$target]) %>% unlist() %>% unique()
+#     gene <- c(as.character(.$source), as.character(.$target)) %>% unique()
+#     tibble(
+#       name,
+#       entrez = list(entrezs),
+#       gene = list(gene)
+#     )
+#   }) %>%
+#   ungroup()
 #
-# imp_sel_m <- reshape2::acast(imp_sel, sample_id ~ interaction_id, value.var = "importance", fill = 0)
-
-
-imp_sel_m <-
-  importance_sc %>%
-  filter(sample_id %in% samp_sel$id) %>%
-  reshape2::acast(sample_id ~ interaction_id, value.var = "importance", fill = 0) %>%
-  .[samp_sel$id, ]
-
-dr <- lmds::lmds(imp_sel_m, distance_method = "spearman")
-traj <- SCORPIUS::infer_trajectory(dr, k = 0)
-
-SCORPIUS::draw_trajectory_plot(dr, progression_group = samp_sel$project_id %>% factor, path = traj$path)
-gimp <- SCORPIUS::gene_importances(imp_sel_m, traj$time, num_threads = 8)
-
-gene_sel <- gimp %>% rename(interaction_id = gene) %>% head(120)
-
-annotation_col <- samp_sel %>% transmute(id, project_id, vital_status, sample_group) %>% column_to_rownames("id")
-annotation_row <- gene_sel %>% select(interaction_id, effect) %>% column_to_rownames("interaction_id")
-anns <- c(as.list(annotation_col), as.list(annotation_row))
-annotation_colours <-
-  map(seq_along(anns), function(i) {
-    x <- anns[[i]]
-    if (is.numeric(x)) {
-      # viridis::viridis_pal(opCtion = i)(100)
-      pal <- RColorBrewer::brewer.pal.info %>% rownames_to_column("palette") %>% filter(category == "div") %>% slice(i)
-      RColorBrewer::brewer.pal(pal$maxcolors, pal$palette)
-    } else {
-      paln <- RColorBrewer::brewer.pal.info %>% rownames_to_column("palette") %>% filter(category == "qual") %>% slice(i) %>% pull(palette)
-      nam <- unique(x)
-      setNames(RColorBrewer::brewer.pal(length(nam), paln), nam)
-    }
-  }) %>% set_names(names(anns))
-heatmat <-
-  t(imp_sel_m[order(traj$time), gene_sel$interaction_id] %>% dynutils::scale_quantile())
-pheatmap::pheatmap(
-  heatmat,
-  t(imp_sel_m %>% dynutils::scale_quantile()), show_colnames = FALSE,
-  annotation_col = annotation_col,
-  annotation_row = annotation_row,
-  annotation_colors = annotation_colours,
-  clustering_distance_cols = "correlation",
-  clustering_distance_rows = "correlation",
-  clustering_method = "ward.D2",
-  cutree_rows = 3L,
-  cutree_cols = 2L,
-  filename = paste0(data_dir, "/zoom_", gsub(" ", "-", tolower(group)), "_heatmap.pdf"),
-  width = 12,
-  height = 8,
-  fontsize_row = 5,
-  border_color = NA
-)
-
-
-
-
-# KIDNEY CARCINOMA --------------------------------------------------------
-group <- "Kidney Carcinoma"
-
-samp_sel <-
-  sample_info_df %>%
-  filter(name == group)
-
-# gene_sel <-
-#   imp_grouped %>%
-#   filter(name == group) %>%
-#   arrange(desc(importance)) %>%
-#   head(120)
-
-imp_sel_m <-
-  importance_sc %>%
-  # filter(sample_id %in% samp_sel$id, interaction_id %in% gene_sel$interaction_id) %>%
-  filter(sample_id %in% samp_sel$id) %>%
-  reshape2::acast(sample_id ~ interaction_id, value.var = "importance", fill = 0) %>%
-  .[samp_sel$id, ]
-
-dr <- lmds::lmds(imp_sel_m, distance_method = "spearman")
-traj <- SCORPIUS::infer_trajectory(dr, k = 5)
-
-SCORPIUS::draw_trajectory_plot(dr, progression_group = samp_sel$sample_group %>% factor, path = traj$path)
-gimp <- SCORPIUS::gene_importances(imp_sel_m, traj$time, num_threads = 8)
-
-gene_sel <- gimp %>% rename(interaction_id = gene) %>% head(120)
-
-annotation_col <- samp_sel %>% transmute(id, project_id, vital_status, sample_group) %>% column_to_rownames("id")
-annotation_row <- NULL
-anns <- c(as.list(annotation_col), as.list(annotation_row))
-annotation_colours <-
-  map(seq_along(anns), function(i) {
-    x <- anns[[i]]
-    if (is.numeric(x)) {
-      # viridis::viridis_pal(opCtion = i)(100)
-      pal <- RColorBrewer::brewer.pal.info %>% rownames_to_column("palette") %>% filter(category == "div") %>% slice(i)
-      RColorBrewer::brewer.pal(pal$maxcolors, pal$palette)
-    } else {
-      paln <- RColorBrewer::brewer.pal.info %>% rownames_to_column("palette") %>% filter(category == "qual") %>% slice(i) %>% pull(palette)
-      nam <- unique(x)
-      setNames(RColorBrewer::brewer.pal(length(nam), paln), nam)
-    }
-  }) %>% set_names(names(anns))
-heatmat <-
-  t(imp_sel_m[order(traj$time), gene_sel$interaction_id] %>% dynutils::scale_quantile())
-pheatmap::pheatmap(
-  heatmat,
-  cluster_cols = FALSE,
-  show_colnames = FALSE,
-  annotation_col = annotation_col,
-  annotation_row = annotation_row,
-  annotation_colors = annotation_colours,
-  clustering_distance_cols = "correlation",
-  clustering_distance_rows = "correlation",
-  clustering_method = "ward.D2",
-  cutree_rows = 3L,
-  cutree_cols = 2L,
-  filename = paste0(data_dir, "/zoom_", gsub(" ", "-", tolower(group)), "_heatmap.pdf"),
-  width = 12,
-  height = 8,
-  fontsize_row = 5,
-  border_color = NA
-)
-
+# background <- feature_info$entrezgene %>% unlist() %>% unique()
+# gsets <- genesets %>% select(id, entrezs) %>% deframe() %>% map(~ match(., background) %>% na.omit)
+# gois <- map(imp_genes_grouped$entrez, ~ match(., background) %>% na.omit)
+#
+#
+# enrichment <- bind_rows(pbapply::pblapply(
+#   seq_len(nrow(imp_genes_grouped)),
+#   cl = 8,
+#   function(i) {
+#     triwise::testEnrichment(
+#       Goi = gois[[i]],
+#       gsets = gsets,
+#       background = seq_along(background),
+#       maxknown = Inf
+#     ) %>%
+#       rename(gset_id = gsetid) %>%
+#       mutate(
+#         name = imp_genes_grouped$name[[i]]
+#       ) %>%
+#       left_join(genesets %>% select(gset_database = database, gset_id = id, gset_name = description), by = "gset_id")
+#   }
+# )) %>% as_tibble()
+#
+# enrichment %>% filter(found > 10) %>% group_by(name) %>% arrange(qval) %>% slice(1:3) %>% ungroup() %>% arrange(name, qval) %>% as.data.frame
 
 
 # all groups --------------------------------------------------------------
 
-
-# PERIPHERAL NERVOUS SYSTEM DISORDER --------------------------------------
 for (i in seq_len(nrow(labels))) {
   tryCatch({
     group <- labels$name[[i]]

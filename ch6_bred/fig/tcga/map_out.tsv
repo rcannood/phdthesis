@@ -1,0 +1,577 @@
+primary_diagnosis	tissue_or_organ	project_id	n	cell	cell_ontology	location	location_ont	disorder	nci_ont	project_short	project_long
+abdominal fibromatosis	retroperitoneum	TCGA-SARC	1	fibroblast	CL:0000057	abdomen, trunk	BTO:0000020	fibroblastic neoplasm, mesenchymal neoplasm, neoplasm	NCIT:C3741	SARC	Sarcoma
+acinar cell carcinoma	lower lobe, lung	TCGA-LUAD	8	acinar cell	CL:0000622	lung lower lobe, lung, respiratory system	BTO:0000763	adenocarcinoma, carcinoma	NCIT:C3768	LUAD	Lung Adenocarcinoma
+acinar cell carcinoma	upper lobe, lung	TCGA-LUAD	14	acinar cell	CL:0000622	lung upper lobe, lung, respiratory system	BTO:0000763	adenocarcinoma, carcinoma	NCIT:C3768	LUAD	Lung Adenocarcinoma
+acral lentiginous melanoma, malignant	skin, nos	TCGA-SKCM	3			skin	BTO:0001253	cutaneous melanoma	NCIT:C4022	SKCM	Skin Cutaneous Melanoma
+acute erythroid leukaemia	bone marrow	BEATAML1.0-COHORT	1	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C8923	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+acute megakaryoblastic leukaemia	bone marrow	BEATAML1.0-COHORT	1	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C3170	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+acute monoblastic and monocytic leukemia	bone marrow	BEATAML1.0-COHORT	15	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C7318	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+acute myeloid leukemia with inv(3)(q21q26.2) or t(3;3)(q21;q26.2); rpn1-evi1	bone marrow	BEATAML1.0-COHORT	9	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C82426	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+acute myeloid leukemia with maturation	bone marrow	BEATAML1.0-COHORT	5	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C3250	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+acute myeloid leukemia with mutated cebpa	bone marrow	BEATAML1.0-COHORT	28	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C82433	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+acute myeloid leukemia with mutated npm1	bone marrow	BEATAML1.0-COHORT	108	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C82431	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+acute myeloid leukemia with myelodysplasia-related changes	bone marrow	BEATAML1.0-COHORT	96	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C7600	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+acute myeloid leukemia with t(6;9)(p23;q34); dek-nup214	bone marrow	BEATAML1.0-COHORT	4	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C82423	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+acute myeloid leukemia with t(8;21)(q22;q22); runx1-runx1t1	bone marrow	BEATAML1.0-COHORT	11	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C9288	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+acute myeloid leukemia with t(9;11)(p22;q23); mllt3-mll	bone marrow	BEATAML1.0-COHORT	10	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C82403	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+acute myeloid leukemia without maturation	bone marrow	BEATAML1.0-COHORT	4	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C3249	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+acute myeloid leukemia, cbf-beta/myh11	bone marrow	BEATAML1.0-COHORT	27	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C9287	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+acute myeloid leukemia, minimal differentiation	bone marrow	BEATAML1.0-COHORT	9	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C8460	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+acute myeloid leukemia, nos	bone marrow	TARGET-ALL-P3	18	lymphoblast		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C27753	ALL	Acute Lymphoblastic Leukemia - Phase III
+acute myeloid leukemia, nos	bone marrow	BEATAML1.0-COHORT	52	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C27753	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+acute myeloid leukemia, nos	bone marrow	TARGET-AML	187	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C27753	AML	Acute Myeloid Leukemia
+acute myeloid leukemia, nos	bone marrow	TCGA-LAML	151	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C27753	AML	Acute Myeloid Leukemia
+acute myelomonocytic leukemia	bone marrow	BEATAML1.0-COHORT	20	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C7463	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+acute promyelocytic leukaemia, pml-rar-alpha	bone marrow	BEATAML1.0-COHORT	17	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C3182	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+adenocarcinoma in tubolovillous adenoma	rectum, nos	TCGA-READ	8			rectum, colorectum, alimentary tract	BTO:0001158	carcinoma	NCIT:C4145	READ	Rectum Adenocarcinoma
+adenocarcinoma with mixed subtypes	colon, nos	TCGA-COAD	1			colon, colorectum, alimentary canal	BTO:0000269	carcinoma	NCIT:C4349	COAD	Colon Adenocarcinoma
+adenocarcinoma with mixed subtypes	lower lobe, lung	TCGA-LUAD	40			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C3512	LUAD	Lung Adenocarcinoma
+adenocarcinoma with mixed subtypes	lung, nos	TCGA-LUAD	4			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C3512	LUAD	Lung Adenocarcinoma
+adenocarcinoma with mixed subtypes	middle lobe, lung	TCGA-LUAD	7			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C3512	LUAD	Lung Adenocarcinoma
+adenocarcinoma with mixed subtypes	overlapping lesion of lung	TCGA-LUAD	2			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C3512	LUAD	Lung Adenocarcinoma
+adenocarcinoma with mixed subtypes	upper lobe, lung	TCGA-LUAD	60			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C3512	LUAD	Lung Adenocarcinoma
+adenocarcinoma with mixed subtypes	head of pancreas	TCGA-PAAD	1			pancreas, endocrine gland	BTO:0000988	carcinoma	NCIT:C8294	PAAD	Pancreatic Adenocarcinoma
+adenocarcinoma with mixed subtypes	prostate gland	TCGA-PRAD	3			prostate, endocrine gland, reproductive system	BTO:0001129	carcinoma	NCIT:C2919	PRAD	Prostate Adenocarcinoma
+adenocarcinoma with mixed subtypes	rectum, nos	TCGA-READ	2			rectum, colorectum, alimentary tract	BTO:0001158	carcinoma	NCIT:C9383	READ	Rectum Adenocarcinoma
+adenocarcinoma with mixed subtypes	stomach, nos	TCGA-STAD	1			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C4004	STAD	Stomach Adenocarcinoma
+adenocarcinoma with neuroendocrine differentiation	colon, nos	TCGA-COAD	1			colon, colorectum, alimentary canal	BTO:0000269	carcinoma	NCIT:C66745	COAD	Colon Adenocarcinoma
+adenocarcinoma, endocervical type	cervix uteri	TCGA-CESC	21	squamous cell		cervix, uterus, reproductive system	BTO:0001421	carcinoma	NCIT:C66951	CESC	Cervical Squamous Cell Carcinoma and Endocervical Adenocarcinoma
+adenocarcinoma, intestinal type	body of stomach	TCGA-STAD	27			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C4004	STAD	Stomach Adenocarcinoma
+adenocarcinoma, intestinal type	cardia, nos	TCGA-STAD	17			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C5247	STAD	Stomach Adenocarcinoma
+adenocarcinoma, intestinal type	fundus of stomach	TCGA-STAD	9			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C4004	STAD	Stomach Adenocarcinoma
+adenocarcinoma, intestinal type	gastric antrum	TCGA-STAD	25			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C4004	STAD	Stomach Adenocarcinoma
+adenocarcinoma, intestinal type	stomach, nos	TCGA-STAD	4			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C4004	STAD	Stomach Adenocarcinoma
+adenocarcinoma, nos	cervix uteri	TCGA-CESC	8	squamous cell		cervix, uterus, reproductive system	BTO:0001421	carcinoma	NCIT:C4029	CESC	Cervical Squamous Cell Carcinoma and Endocervical Adenocarcinoma
+adenocarcinoma, nos	ascending colon	TCGA-COAD	85			colon, colorectum, alimentary canal	BTO:0000269	carcinoma	NCIT:C4349	COAD	Colon Adenocarcinoma
+adenocarcinoma, nos	cecum	TCGA-COAD	77			colon, colorectum, alimentary canal	BTO:0000269	carcinoma	NCIT:C5543	COAD	Colon Adenocarcinoma
+adenocarcinoma, nos	colon, nos	TCGA-COAD	109			colon, colorectum, alimentary canal	BTO:0000269	carcinoma	NCIT:C4349	COAD	Colon Adenocarcinoma
+adenocarcinoma, nos	descending colon	TCGA-COAD	13			colon, colorectum, alimentary canal	BTO:0000269	carcinoma	NCIT:C4349	COAD	Colon Adenocarcinoma
+adenocarcinoma, nos	hepatic flexure of colon	TCGA-COAD	10			colon, colorectum, alimentary canal	BTO:0000269	carcinoma	NCIT:C4349	COAD	Colon Adenocarcinoma
+adenocarcinoma, nos	rectosigmoid junction	TCGA-COAD	6			colon, colorectum, alimentary canal	BTO:0000269	carcinoma	NCIT:C9383	COAD	Colon Adenocarcinoma
+adenocarcinoma, nos	sigmoid colon	TCGA-COAD	116			colon, colorectum, alimentary canal	BTO:0000269	carcinoma	NCIT:C4349	COAD	Colon Adenocarcinoma
+adenocarcinoma, nos	splenic flexure of colon	TCGA-COAD	5			colon, colorectum, alimentary canal	BTO:0000269	carcinoma	NCIT:C4349	COAD	Colon Adenocarcinoma
+adenocarcinoma, nos	transverse colon	TCGA-COAD	17			colon, colorectum, alimentary canal	BTO:0000269	carcinoma	NCIT:C4349	COAD	Colon Adenocarcinoma
+adenocarcinoma, nos	lower lobe, lung	CPTAC-3	55			kidney, lung, uterus		carcinoma	NCIT:C3512	CPTAC	Clinical Proteomic Technologies for Cancer Initiative
+adenocarcinoma, nos	lung, nos	CPTAC-3	70			kidney, lung, uterus		carcinoma	NCIT:C3512	CPTAC	Clinical Proteomic Technologies for Cancer Initiative
+adenocarcinoma, nos	middle lobe, lung	CPTAC-3	4			kidney, lung, uterus		carcinoma	NCIT:C3512	CPTAC	Clinical Proteomic Technologies for Cancer Initiative
+adenocarcinoma, nos	upper lobe, lung	CPTAC-3	85			kidney, lung, uterus		carcinoma	NCIT:C3512	CPTAC	Clinical Proteomic Technologies for Cancer Initiative
+adenocarcinoma, nos	cardia, nos	TCGA-ESCA	1			esophagus, alimentary canal	BTO:0000959	carcinoma	NCIT:C5247	ESCA	Esophageal Carcinoma
+adenocarcinoma, nos	esophagus, nos	TCGA-ESCA	1			esophagus, alimentary canal	BTO:0000959	carcinoma	NCIT:C4025	ESCA	Esophageal Carcinoma
+adenocarcinoma, nos	lower third of esophagus	TCGA-ESCA	80			esophagus, alimentary canal	BTO:0000959	carcinoma	NCIT:C4025	ESCA	Esophageal Carcinoma
+adenocarcinoma, nos	middle third of esophagus	TCGA-ESCA	4			esophagus, alimentary canal	BTO:0000959	carcinoma	NCIT:C4025	ESCA	Esophageal Carcinoma
+adenocarcinoma, nos	thoracic esophagus	TCGA-ESCA	1			esophagus, alimentary canal	BTO:0000959	carcinoma	NCIT:C4025	ESCA	Esophageal Carcinoma
+adenocarcinoma, nos	lower lobe, lung	TCGA-LUAD	107			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C3512	LUAD	Lung Adenocarcinoma
+adenocarcinoma, nos	lung, nos	TCGA-LUAD	10			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C3512	LUAD	Lung Adenocarcinoma
+adenocarcinoma, nos	main bronchus	TCGA-LUAD	2			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C3512	LUAD	Lung Adenocarcinoma
+adenocarcinoma, nos	middle lobe, lung	TCGA-LUAD	16			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C3512	LUAD	Lung Adenocarcinoma
+adenocarcinoma, nos	upper lobe, lung	TCGA-LUAD	237			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C3512	LUAD	Lung Adenocarcinoma
+adenocarcinoma, nos	colon, nos	HCMI-CMDC	8			brain, colon, rectum, colorectal		glioma, carcinoma	NCIT:C4349	NCI	NCI Cancer Model Development for the Human Cancer Model Initiative
+adenocarcinoma, nos	rectum, nos	HCMI-CMDC	2			brain, colon, rectum, colorectal		glioma, carcinoma	NCIT:C9383	NCI	NCI Cancer Model Development for the Human Cancer Model Initiative
+adenocarcinoma, nos	pancreas, nos	ORGANOID-PANCREATIC	44			pancreas, endocrine gland	BTO:0000988	adenoma	NCIT:C8294	ORGA	Pancreas Cancer Organoid Profiling
+adenocarcinoma, nos	body of pancreas	TCGA-PAAD	1			pancreas, endocrine gland	BTO:0000988	carcinoma	NCIT:C8294	PAAD	Pancreatic Adenocarcinoma
+adenocarcinoma, nos	head of pancreas	TCGA-PAAD	15			pancreas, endocrine gland	BTO:0000988	carcinoma	NCIT:C8294	PAAD	Pancreatic Adenocarcinoma
+adenocarcinoma, nos	overlapping lesion of pancreas	TCGA-PAAD	1			pancreas, endocrine gland	BTO:0000988	carcinoma	NCIT:C8294	PAAD	Pancreatic Adenocarcinoma
+adenocarcinoma, nos	pancreas, nos	TCGA-PAAD	2			pancreas, endocrine gland	BTO:0000988	carcinoma	NCIT:C8294	PAAD	Pancreatic Adenocarcinoma
+adenocarcinoma, nos	tail of pancreas	TCGA-PAAD	4			pancreas, endocrine gland	BTO:0000988	carcinoma	NCIT:C8294	PAAD	Pancreatic Adenocarcinoma
+adenocarcinoma, nos	prostate gland	TCGA-PRAD	537			prostate, endocrine gland, reproductive system	BTO:0001129	carcinoma	NCIT:C2919	PRAD	Prostate Adenocarcinoma
+adenocarcinoma, nos	colon, nos	TCGA-READ	7			rectum, colorectum, alimentary tract	BTO:0001158	carcinoma	NCIT:C4349	READ	Rectum Adenocarcinoma
+adenocarcinoma, nos	connective, subcutaneous and other soft tissues of abdomen	TCGA-READ	2			rectum, colorectum, alimentary tract	BTO:0001158	carcinoma	NCIT:C2852	READ	Rectum Adenocarcinoma
+adenocarcinoma, nos	rectosigmoid junction	TCGA-READ	66			rectum, colorectum, alimentary tract	BTO:0001158	carcinoma	NCIT:C9383	READ	Rectum Adenocarcinoma
+adenocarcinoma, nos	rectum, nos	TCGA-READ	70			rectum, colorectum, alimentary tract	BTO:0001158	carcinoma	NCIT:C9383	READ	Rectum Adenocarcinoma
+adenocarcinoma, nos	body of stomach	TCGA-STAD	30			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C4004	STAD	Stomach Adenocarcinoma
+adenocarcinoma, nos	cardia, nos	TCGA-STAD	54			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C5247	STAD	Stomach Adenocarcinoma
+adenocarcinoma, nos	fundus of stomach	TCGA-STAD	19			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C4004	STAD	Stomach Adenocarcinoma
+adenocarcinoma, nos	gastric antrum	TCGA-STAD	38			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C4004	STAD	Stomach Adenocarcinoma
+adenocarcinoma, nos	lesser curvature of stomach, nos	TCGA-STAD	1			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C4004	STAD	Stomach Adenocarcinoma
+adenocarcinoma, nos	pylorus	TCGA-STAD	1			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C4004	STAD	Stomach Adenocarcinoma
+adenocarcinoma, nos	stomach, nos	TCGA-STAD	8			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C4004	STAD	Stomach Adenocarcinoma
+adenoid cystic carcinoma	breast, nos	TCGA-BRCA	1			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C5130	BRCA	Breast Invasive Carcinoma
+adenosquamous carcinoma	cervix uteri	TCGA-CESC	5	squamous cell		cervix, uterus, reproductive system	BTO:0001421	carcinoma	NCIT:C4519	CESC	Cervical Squamous Cell Carcinoma and Endocervical Adenocarcinoma
+adenosquamous carcinoma	ascending colon	TCGA-COAD	1			colon, colorectum, alimentary canal	BTO:0000269	carcinoma	NCIT:C5491	COAD	Colon Adenocarcinoma
+adrenal cortical carcinoma	cortex of adrenal gland	TCGA-ACC	79	adrenal cortex		kidney, urinary system, excretory gland	BTO:0000671	carcinoma	NCIT:C9325	ACC	Adrenocortical Carcinoma
+aggressive fibromatosis	connective, subcutaneous and other soft tissues of thorax	TCGA-SARC	1					sarcoma	NCIT:C9182	SARC	Sarcoma
+amelanotic melanoma	skin, nos	TCGA-SKCM	7			skin	BTO:0001253	melanoma	NCIT:C4633	SKCM	Skin Cutaneous Melanoma
+apocrine adenocarcinoma	breast, nos	TCGA-BRCA	1			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C5457	BRCA	Breast Invasive Carcinoma
+astrocytoma, anaplastic	brain, nos	TCGA-LGG	19			brain, nervous system, head	BTO:0000142	glioma	NCIT:C9477	LLG	Brain Lower Grade Glioma
+astrocytoma, anaplastic	cerebrum	TCGA-LGG	107			brain, nervous system, head	BTO:0000142	glioma	NCIT:C9477	LLG	Brain Lower Grade Glioma
+astrocytoma, anaplastic	frontal lobe	TCGA-LGG	1			brain, nervous system, head	BTO:0000142	glioma	NCIT:C9477	LLG	Brain Lower Grade Glioma
+astrocytoma, anaplastic	occipital lobe	TCGA-LGG	1			brain, nervous system, head	BTO:0000142	glioma	NCIT:C9477	LLG	Brain Lower Grade Glioma
+astrocytoma, anaplastic	temporal lobe	TCGA-LGG	1			brain, nervous system, head	BTO:0000142	glioma	NCIT:C9477	LLG	Brain Lower Grade Glioma
+astrocytoma, nos	brain, nos	TCGA-LGG	7			brain, nervous system, head	BTO:0000142	glioma	NCIT:C60781	LLG	Brain Lower Grade Glioma
+astrocytoma, nos	cerebrum	TCGA-LGG	58			brain, nervous system, head	BTO:0000142	glioma	NCIT:C60781	LLG	Brain Lower Grade Glioma
+astrocytoma, nos	frontal lobe	TCGA-LGG	1			brain, nervous system, head	BTO:0000142	glioma	NCIT:C60781	LLG	Brain Lower Grade Glioma
+atypical chronic myeloid leukemia, bcr/abl negative	bone marrow	BEATAML1.0-COHORT	1	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C3519	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+b lymphoblastic leukemia/lymphoma, nos	bone marrow	TARGET-ALL-P3	3	lymphoblast		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C80326	ALL	Acute Lymphoblastic Leukemia - Phase III
+basal cell carcinoma, nos	breast, nos	TCGA-BRCA	1			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C53558	BRCA	Breast Invasive Carcinoma
+basaloid squamous cell carcinoma	cervix uteri	TCGA-CESC	1	squamous cell		cervix, uterus, reproductive system	BTO:0001421	carcinoma	NCIT:C40189	CESC	Cervical Squamous Cell Carcinoma and Endocervical Adenocarcinoma
+basaloid squamous cell carcinoma	lower third of esophagus	TCGA-ESCA	1			esophagus, alimentary canal	BTO:0000959	carcinoma	NCIT:C7032	ESCA	Esophageal Carcinoma
+basaloid squamous cell carcinoma	base of tongue, nos	TCGA-HNSC	2	squamous cell		headneck, trunk		carcinoma	NCIT:C37290	HNSC	Head and Neck Squamous Cell Carcinoma
+basaloid squamous cell carcinoma	cheek mucosa	TCGA-HNSC	1	squamous cell		headneck, trunk		carcinoma	NCIT:C37290	HNSC	Head and Neck Squamous Cell Carcinoma
+basaloid squamous cell carcinoma	floor of mouth, nos	TCGA-HNSC	2	squamous cell		headneck, trunk		carcinoma	NCIT:C37290	HNSC	Head and Neck Squamous Cell Carcinoma
+basaloid squamous cell carcinoma	larynx, nos	TCGA-HNSC	2	squamous cell		headneck, trunk		carcinoma	NCIT:C37290	HNSC	Head and Neck Squamous Cell Carcinoma
+basaloid squamous cell carcinoma	tonsil, nos	TCGA-HNSC	3	squamous cell		headneck, trunk		carcinoma	NCIT:C37290	HNSC	Head and Neck Squamous Cell Carcinoma
+basaloid squamous cell carcinoma	lower lobe, lung	TCGA-LUSC	8	squamous cell		lung, respiratory system	BTO:0000763	carcinoma	NCIT:C45507	LUSC	Lung Squamous Cell Carcinoma
+basaloid squamous cell carcinoma	upper lobe, lung	TCGA-LUSC	7	squamous cell		lung, respiratory system	BTO:0000763	carcinoma	NCIT:C45507	LUSC	Lung Squamous Cell Carcinoma
+bronchio-alveolar carcinoma, mucinous	lower lobe, lung	TCGA-LUAD	3			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C136709	LUAD	Lung Adenocarcinoma
+bronchio-alveolar carcinoma, mucinous	upper lobe, lung	TCGA-LUAD	2			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C136709	LUAD	Lung Adenocarcinoma
+bronchiolo-alveolar adenocarcinoma, nos	lower lobe, lung	TCGA-LUAD	1			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C3512	LUAD	Lung Adenocarcinoma
+bronchiolo-alveolar adenocarcinoma, nos	upper lobe, lung	TCGA-LUAD	2			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C3512	LUAD	Lung Adenocarcinoma
+bronchiolo-alveolar carcinoma, non-mucinous	lower lobe, lung	TCGA-LUAD	14			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C7269	LUAD	Lung Adenocarcinoma
+bronchiolo-alveolar carcinoma, non-mucinous	overlapping lesion of lung	TCGA-LUAD	1			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C7269	LUAD	Lung Adenocarcinoma
+bronchiolo-alveolar carcinoma, non-mucinous	upper lobe, lung	TCGA-LUAD	7			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C7269	LUAD	Lung Adenocarcinoma
+burkitt lymphoma, nos (includes all variants)	hematopoietic system, nos	CGCI-BLGSP	39	B-cell				lymphoma	NCIT:C2912	BL	Burkitt Lymphoma Genome Sequencing Project
+burkitt lymphoma, nos (includes all variants)	hematopoietic system, nos		51						NCIT:C2912		
+burkitt-like lymphoma	hematopoietic system, nos	CGCI-BLGSP	6	B-cell				lymphoma	NCIT:C2912	BL	Burkitt Lymphoma Genome Sequencing Project
+burkitt-like lymphoma	hematopoietic system, nos		16						NCIT:C2912		
+carcinoma, diffuse type	body of stomach	TCGA-STAD	13			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C9159	STAD	Stomach Adenocarcinoma
+carcinoma, diffuse type	cardia, nos	TCGA-STAD	12			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C9159	STAD	Stomach Adenocarcinoma
+carcinoma, diffuse type	fundus of stomach	TCGA-STAD	9			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C9159	STAD	Stomach Adenocarcinoma
+carcinoma, diffuse type	gastric antrum	TCGA-STAD	30			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C9159	STAD	Stomach Adenocarcinoma
+carcinoma, diffuse type	stomach, nos	TCGA-STAD	2			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C9159	STAD	Stomach Adenocarcinoma
+carcinoma, nos	bladder, nos	TCGA-BLCA	1			bladder	BTO:0000123	carcinoma	NCIT:C4912	BLCA	Bladder Urothelial Carcinoma
+carcinoma, nos	breast, nos	TCGA-BRCA	1			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C4872	BRCA	Breast Invasive Carcinoma
+carcinoma, nos	sigmoid colon	TCGA-COAD	1			colon, colorectum, alimentary canal	BTO:0000269	carcinoma	NCIT:C4910	COAD	Colon Adenocarcinoma
+carcinoma, nos	thyroid gland	TCGA-THCA	1			thyroid, endocrine gland	BTO:0001379	carcinoma	NCIT:C4815	THCA	Thyroid Carcinoma
+carcinoma, undifferentiated, nos	tail of pancreas	TCGA-PAAD	1			pancreas, endocrine gland	BTO:0000988	carcinoma	NCIT:C5722	PAAD	Pancreatic Adenocarcinoma
+carcinosarcoma, nos	corpus uteri	TCGA-UCS	7			uterus, reproductive system	BTO:0001424	carcinoma	NCIT:C9180	UCS	Uterine Carcinosarcoma
+carcinosarcoma, nos	uterus, nos	TCGA-UCS	4			uterus, reproductive system	BTO:0001424	carcinoma	NCIT:C42700	UCS	Uterine Carcinosarcoma
+cholangiocarcinoma	extrahepatic bile duct	TCGA-CHOL	3			bile duct, liver, endocrine gland	BTO:0000122	carcinoma	NCIT:C35417	CHOL	Cholangiocarcinoma
+cholangiocarcinoma	gallbladder	TCGA-CHOL	1			bile duct, liver, endocrine gland	BTO:0000122	carcinoma	NCIT:C35417	CHOL	Cholangiocarcinoma
+cholangiocarcinoma	intrahepatic bile duct	TCGA-CHOL	40			bile duct, liver, endocrine gland	BTO:0000122	carcinoma	NCIT:C35417	CHOL	Cholangiocarcinoma
+cholangiocarcinoma	liver	TCGA-CHOL	1			bile duct, liver, endocrine gland	BTO:0000122	carcinoma	NCIT:C35417	CHOL	Cholangiocarcinoma
+chronic myelomonocytic leukemia, nos	bone marrow	BEATAML1.0-COHORT	2	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C3178	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+clear cell adenocarcinoma, nos	kidney, nos	TCGA-KIRC	597	clear cell		kidney, urinary system, excretory gland	BTO:0000671	carcinoma	NCIT:C4033	KIRC	Kidney Renal Clear Cell Carcinoma
+clear cell adenocarcinoma, nos	liver	TCGA-LIHC	1	hepatocyte		liver, endocrine gland	BTO:0000759	carcinoma	NCIT:C3766	LIHC	Liver Hepatocellular Carcinoma
+clear cell adenocarcinoma, nos	upper lobe, lung	TCGA-LUAD	2			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C45516	LUAD	Lung Adenocarcinoma
+clear cell sarcoma of kidney	kidney, nos	TARGET-CCSK	13	clear cell		kidney, urinary system, excretory gland	BTO:0000671	sarcoma	NCIT:C4264	CCSK	Clear Cell Sarcoma of the Kidney
+combined hepatocellular carcinoma and cholangiocarcinoma	liver	TCGA-LIHC	8	hepatocyte		liver, endocrine gland	BTO:0000759	carcinoma	NCIT:C3828	LIHC	Liver Hepatocellular Carcinoma
+cribriform carcinoma, nos	breast, nos	TCGA-BRCA	1			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C5142	BRCA	Breast Invasive Carcinoma
+dedifferentiated liposarcoma	connective, subcutaneous and other soft tissues of lower limb and hip	TCGA-SARC	2					sarcoma	NCIT:C3704	SARC	Sarcoma
+dedifferentiated liposarcoma	connective, subcutaneous and other soft tissues of pelvis	TCGA-SARC	2					sarcoma	NCIT:C3704	SARC	Sarcoma
+dedifferentiated liposarcoma	connective, subcutaneous and other soft tissues of thorax	TCGA-SARC	1					sarcoma	NCIT:C3704	SARC	Sarcoma
+dedifferentiated liposarcoma	connective, subcutaneous and other soft tissues of upper limb and shoulder	TCGA-SARC	2					sarcoma	NCIT:C3704	SARC	Sarcoma
+dedifferentiated liposarcoma	descending colon	TCGA-SARC	1					sarcoma	NCIT:C3704	SARC	Sarcoma
+dedifferentiated liposarcoma	retroperitoneum	TCGA-SARC	47					sarcoma	NCIT:C3704	SARC	Sarcoma
+dedifferentiated liposarcoma	specified parts of peritoneum	TCGA-SARC	1					sarcoma	NCIT:C3704	SARC	Sarcoma
+dedifferentiated liposarcoma	spermatic cord	TCGA-SARC	1					sarcoma	NCIT:C3704	SARC	Sarcoma
+dedifferentiated liposarcoma	stomach, nos	TCGA-SARC	1					sarcoma	NCIT:C3704	SARC	Sarcoma
+desmoplastic melanoma, malignant	skin, nos	TCGA-SKCM	1			skin	BTO:0001253	melanoma	NCIT:C3704	SKCM	Skin Cutaneous Melanoma
+diffuse large b-cell lymphoma, nos	lymph node, nos	CTSP-DLBCL1	31	B-cell				lymphoma	NCIT:C8851	DBCL	CTSP Diffuse Large B-Cell Lymphoma (DLBCL) CALGB 50303
+diffuse large b-cell lymphoma, nos	lymph node, nos	NCICCR-DLBCL	481	B-cell				lymphoma	NCIT:C8851	DBCL	Genomic Variation in Diffuse Large B Cell Lymphomas
+diffuse large b-cell lymphoma, nos	not reported	CTSP-DLBCL1	10	B-cell				lymphoma	NCIT:C8851	DBCL	CTSP Diffuse Large B-Cell Lymphoma (DLBCL) CALGB 50303
+embryonal carcinoma, nos	testis, nos	TCGA-TGCT	26	germ cell		testis, reproductive system, endocrine gland	BTO:0001363	tumor	NCIT:C6341	TGCT	Testicular Germ Cell Tumors
+endometrioid adenocarcinoma, nos	cervix uteri	TCGA-CESC	3	squamous cell		cervix, uterus, reproductive system	BTO:0001421	carcinoma	NCIT:C6343	CESC	Cervical Squamous Cell Carcinoma and Endocervical Adenocarcinoma
+endometrioid adenocarcinoma, nos	corpus uteri	CPTAC-3	80			kidney, lung, uterus		carcinoma	NCIT:C6287	CPTAC	Clinical Proteomic Technologies for Cancer Initiative
+endometrioid adenocarcinoma, nos	endometrium	CPTAC-3	37			kidney, lung, uterus		carcinoma	NCIT:C6287	CPTAC	Clinical Proteomic Technologies for Cancer Initiative
+epithelioid cell melanoma	skin, nos	TCGA-SKCM	8			skin	BTO:0001253	melanoma	NCIT:C36872	SKCM	Skin Cutaneous Melanoma
+epithelioid cell melanoma	choroid	TCGA-UVM	11			eye, nervous system, head	BTO:0000439	melanoma	NCIT:C6102	UVM	Uveal Melanoma
+epithelioid cell melanoma	ciliary body	TCGA-UVM	1			eye, nervous system, head	BTO:0000439	melanoma	NCIT:C6119	UVM	Uveal Melanoma
+epithelioid mesothelioma, malignant	pleura, nos	TCGA-MESO	58			lung, admomen, heart, testis			NCIT:C45662	MESO	Mesothelioma
+essential thrombocythemia	bone marrow	BEATAML1.0-COHORT	1	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C3407	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+extra-adrenal paraganglioma, malignant	head, face or neck, nos	TCGA-PCPG	2			headneck, trunk		glioma, cytoma	NCIT:C5327	PCPG	Pheochromocytoma and Paraganglioma
+extra-adrenal paraganglioma, malignant	mediastinum, nos	TCGA-PCPG	1			headneck, trunk		glioma, cytoma	NCIT:C45743	PCPG	Pheochromocytoma and Paraganglioma
+extra-adrenal paraganglioma, malignant	retroperitoneum	TCGA-PCPG	3			headneck, trunk		glioma, cytoma	NCIT:C5328	PCPG	Pheochromocytoma and Paraganglioma
+extra-adrenal paraganglioma, nos	connective, subcutaneous and other soft tissues of abdomen	TCGA-PCPG	1			headneck, trunk		glioma, cytoma	NCIT:C5326	PCPG	Pheochromocytoma and Paraganglioma
+extra-adrenal paraganglioma, nos	connective, subcutaneous and other soft tissues of pelvis	TCGA-PCPG	1			headneck, trunk		glioma, cytoma	NCIT:C5326	PCPG	Pheochromocytoma and Paraganglioma
+extra-adrenal paraganglioma, nos	connective, subcutaneous and other soft tissues of thorax	TCGA-PCPG	1			headneck, trunk		glioma, cytoma	NCIT:C5326	PCPG	Pheochromocytoma and Paraganglioma
+extra-adrenal paraganglioma, nos	connective, subcutaneous and other soft tissues of trunk, nos	TCGA-PCPG	1			headneck, trunk		glioma, cytoma	NCIT:C5326	PCPG	Pheochromocytoma and Paraganglioma
+extra-adrenal paraganglioma, nos	heart	TCGA-PCPG	1			headneck, trunk		glioma, cytoma	NCIT:C6410	PCPG	Pheochromocytoma and Paraganglioma
+extra-adrenal paraganglioma, nos	retroperitoneum	TCGA-PCPG	11			headneck, trunk		glioma, cytoma	NCIT:C5328	PCPG	Pheochromocytoma and Paraganglioma
+extra-adrenal paraganglioma, nos	thorax, nos	TCGA-PCPG	2			headneck, trunk		glioma, cytoma	NCIT:C3309	PCPG	Pheochromocytoma and Paraganglioma
+fibromyxosarcoma	connective, subcutaneous and other soft tissues of lower limb and hip	TCGA-SARC	14					sarcoma	NCIT:C6496	SARC	Sarcoma
+fibromyxosarcoma	connective, subcutaneous and other soft tissues of pelvis	TCGA-SARC	3					sarcoma	NCIT:C6496	SARC	Sarcoma
+fibromyxosarcoma	connective, subcutaneous and other soft tissues of thorax	TCGA-SARC	4					sarcoma	NCIT:C6496	SARC	Sarcoma
+fibromyxosarcoma	connective, subcutaneous and other soft tissues of trunk, nos	TCGA-SARC	2					sarcoma	NCIT:C6496	SARC	Sarcoma
+fibromyxosarcoma	retroperitoneum	TCGA-SARC	2					sarcoma	NCIT:C6496	SARC	Sarcoma
+fibrous mesothelioma, malignant	pleura, nos	TCGA-MESO	1			lung, admomen, heart, testis			NCIT:C4456	MESO	Mesothelioma
+follicular adenocarcinoma, nos	thyroid gland	TCGA-THCA	1			thyroid, endocrine gland	BTO:0001379	carcinoma	NCIT:C8054	THCA	Thyroid Carcinoma
+follicular carcinoma, minimally invasive	thyroid gland	TCGA-THCA	1			thyroid, endocrine gland	BTO:0001379	carcinoma	NCIT:C65200	THCA	Thyroid Carcinoma
+ganglioneuroblastoma	abdomen, nos	TARGET-NBL	2	nerve cell				blastoma	NCIT:C3790	NB	Neuroblastoma
+ganglioneuroblastoma	adrenal gland, nos	TARGET-NBL	14	nerve cell				blastoma	NCIT:C7646	NB	Neuroblastoma
+ganglioneuroblastoma	connective, subcutaneous and other soft tissues of abdomen	TARGET-NBL	1	nerve cell				blastoma	NCIT:C3790	NB	Neuroblastoma
+ganglioneuroblastoma	kidney, nos	TARGET-NBL	1	nerve cell				blastoma	NCIT:C3790	NB	Neuroblastoma
+ganglioneuroblastoma	mediastinum, nos	TARGET-NBL	1	nerve cell				blastoma	NCIT:C6627	NB	Neuroblastoma
+ganglioneuroblastoma	medulla of adrenal gland	TARGET-NBL	1	nerve cell				blastoma	NCIT:C7646	NB	Neuroblastoma
+ganglioneuroblastoma	pelvic lymph nodes	TARGET-NBL	1	nerve cell				blastoma	NCIT:C3790	NB	Neuroblastoma
+ganglioneuroblastoma	peripheral nerves and autonomic nervous system of thorax	TARGET-NBL	1	nerve cell				blastoma	NCIT:C3790	NB	Neuroblastoma
+ganglioneuroblastoma	peripheral nerves and autonomic nervous system of trunk, nos	TARGET-NBL	1	nerve cell				blastoma	NCIT:C3790	NB	Neuroblastoma
+ganglioneuroblastoma	posterior mediastinum	TARGET-NBL	1	nerve cell				blastoma	NCIT:C3790	NB	Neuroblastoma
+ganglioneuroblastoma	retroperitoneum	TARGET-NBL	1	nerve cell				blastoma	NCIT:C3790	NB	Neuroblastoma
+ganglioneuroblastoma	unknown		1						NCIT:C3790		
+giant cell sarcoma	connective, subcutaneous and other soft tissues of lower limb and hip	TCGA-SARC	1					sarcoma	NCIT:C66759	SARC	Sarcoma
+giant cell sarcoma	kidney, nos	TCGA-SARC	1					sarcoma	NCIT:C66759	SARC	Sarcoma
+giant cell sarcoma	retroperitoneum	TCGA-SARC	1					sarcoma	NCIT:C66759	SARC	Sarcoma
+glioblastoma	brain, nos	TCGA-GBM	168	glial cell		brain, nervous system, head	BTO:0000142	glioma	NCIT:C3058	GBM	Glioblastoma Multiforme
+glioblastoma	brain, nos	HCMI-CMDC	4			brain, colon, rectum, colorectal		glioma, carcinoma	NCIT:C3058	NCI	NCI Cancer Model Development for the Human Cancer Model Initiative
+hepatocellular carcinoma, clear cell type	liver	TCGA-LIHC	4	hepatocyte		liver, endocrine gland	BTO:0000759	carcinoma	NCIT:C5754	LIHC	Liver Hepatocellular Carcinoma
+hepatocellular carcinoma, fibrolamellar	liver	TCGA-LIHC	3	hepatocyte		liver, endocrine gland	BTO:0000759	carcinoma	NCIT:C4131	LIHC	Liver Hepatocellular Carcinoma
+hepatocellular carcinoma, nos	liver	TCGA-LIHC	407	hepatocyte		liver, endocrine gland	BTO:0000759	carcinoma	NCIT:C4131	LIHC	Liver Hepatocellular Carcinoma
+hepatocellular carcinoma, spindle cell variant	liver	TCGA-LIHC	1	hepatocyte		liver, endocrine gland	BTO:0000759	carcinoma	NCIT:C4131	LIHC	Liver Hepatocellular Carcinoma
+infiltrating duct and lobular carcinoma	breast, nos	TCGA-BRCA	37			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C40347	BRCA	Breast Invasive Carcinoma
+infiltrating duct carcinoma, nos	breast, nos	TCGA-BRCA	865			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C6393	BRCA	Breast Invasive Carcinoma
+infiltrating duct carcinoma, nos	lower-inner quadrant of breast	TCGA-BRCA	4			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C6393	BRCA	Breast Invasive Carcinoma
+infiltrating duct carcinoma, nos	lower-outer quadrant of breast	TCGA-BRCA	1			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C6393	BRCA	Breast Invasive Carcinoma
+infiltrating duct carcinoma, nos	overlapping lesion of breast	TCGA-BRCA	2			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C6393	BRCA	Breast Invasive Carcinoma
+infiltrating duct carcinoma, nos	upper-inner quadrant of breast	TCGA-BRCA	1			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C6393	BRCA	Breast Invasive Carcinoma
+infiltrating duct carcinoma, nos	upper-outer quadrant of breast	TCGA-BRCA	5			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C6393	BRCA	Breast Invasive Carcinoma
+infiltrating duct carcinoma, nos	body of pancreas	TCGA-PAAD	12			pancreas, endocrine gland	BTO:0000988	carcinoma	NCIT:C9120	PAAD	Pancreatic Adenocarcinoma
+infiltrating duct carcinoma, nos	head of pancreas	TCGA-PAAD	108			pancreas, endocrine gland	BTO:0000988	carcinoma	NCIT:C9120	PAAD	Pancreatic Adenocarcinoma
+infiltrating duct carcinoma, nos	overlapping lesion of pancreas	TCGA-PAAD	1			pancreas, endocrine gland	BTO:0000988	carcinoma	NCIT:C9120	PAAD	Pancreatic Adenocarcinoma
+infiltrating duct carcinoma, nos	pancreas, nos	TCGA-PAAD	14			pancreas, endocrine gland	BTO:0000988	carcinoma	NCIT:C9120	PAAD	Pancreatic Adenocarcinoma
+infiltrating duct carcinoma, nos	tail of pancreas	TCGA-PAAD	9			pancreas, endocrine gland	BTO:0000988	carcinoma	NCIT:C9120	PAAD	Pancreatic Adenocarcinoma
+infiltrating duct carcinoma, nos	prostate gland	TCGA-PRAD	10			prostate, endocrine gland, reproductive system	BTO:0001129	carcinoma	NCIT:C48596	PRAD	Prostate Adenocarcinoma
+infiltrating duct mixed with other types of carcinoma	breast, nos	TCGA-BRCA	19			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C6393	BRCA	Breast Invasive Carcinoma
+infiltrating duct mixed with other types of carcinoma	lower-inner quadrant of breast	TCGA-BRCA	2			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C6393	BRCA	Breast Invasive Carcinoma
+infiltrating lobular mixed with other types of carcinoma	breast, nos	TCGA-BRCA	6			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C7950	BRCA	Breast Invasive Carcinoma
+infiltrating lobular mixed with other types of carcinoma	upper-inner quadrant of breast	TCGA-BRCA	1			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C7950	BRCA	Breast Invasive Carcinoma
+intraductal micropapillary carcinoma	breast, nos	TCGA-BRCA	4			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C5139	BRCA	Breast Invasive Carcinoma
+intraductal papillary adenocarcinoma with invasion	breast, nos	TCGA-BRCA	6			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C7439	BRCA	Breast Invasive Carcinoma
+juvenile myelomonocytic leukemia	bone marrow	TARGET-ALL-P3	1	lymphoblast		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C9233	ALL	Acute Lymphoblastic Leukemia - Phase III
+large cell neuroendocrine carcinoma	breast, nos	TCGA-BRCA	1			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C40356	BRCA	Breast Invasive Carcinoma
+leiomyosarcoma, nos	connective, subcutaneous and other soft tissues of abdomen	TCGA-SARC	1					sarcoma	NCIT:C3158	SARC	Sarcoma
+leiomyosarcoma, nos	connective, subcutaneous and other soft tissues of lower limb and hip	TCGA-SARC	13					sarcoma	NCIT:C3158	SARC	Sarcoma
+leiomyosarcoma, nos	connective, subcutaneous and other soft tissues of pelvis	TCGA-SARC	3					sarcoma	NCIT:C3158	SARC	Sarcoma
+leiomyosarcoma, nos	connective, subcutaneous and other soft tissues of thorax	TCGA-SARC	3					sarcoma	NCIT:C3158	SARC	Sarcoma
+leiomyosarcoma, nos	connective, subcutaneous and other soft tissues of trunk, nos	TCGA-SARC	1					sarcoma	NCIT:C3158	SARC	Sarcoma
+leiomyosarcoma, nos	connective, subcutaneous and other soft tissues of upper limb and shoulder	TCGA-SARC	1					sarcoma	NCIT:C3158	SARC	Sarcoma
+leiomyosarcoma, nos	connective, subcutaneous and other soft tissues, nos	TCGA-SARC	5					sarcoma	NCIT:C3158	SARC	Sarcoma
+leiomyosarcoma, nos	corpus uteri	TCGA-SARC	1					sarcoma	NCIT:C6340	SARC	Sarcoma
+leiomyosarcoma, nos	long bones of lower limb and associated joints	TCGA-SARC	1					sarcoma	NCIT:C7154	SARC	Sarcoma
+leiomyosarcoma, nos	myometrium	TCGA-SARC	2					sarcoma	NCIT:C6340	SARC	Sarcoma
+leiomyosarcoma, nos	ovary	TCGA-SARC	1					sarcoma	NCIT:C5234	SARC	Sarcoma
+leiomyosarcoma, nos	overlapping lesion of connective, subcutaneous and other soft tissues	TCGA-SARC	1					sarcoma	NCIT:C3158	SARC	Sarcoma
+leiomyosarcoma, nos	retroperitoneum	TCGA-SARC	40					sarcoma	NCIT:C27904	SARC	Sarcoma
+leiomyosarcoma, nos	short bones of lower limb and associated joints	TCGA-SARC	1					sarcoma	NCIT:C7154	SARC	Sarcoma
+leiomyosarcoma, nos	stomach, nos	TCGA-SARC	1					sarcoma	NCIT:C27200	SARC	Sarcoma
+leiomyosarcoma, nos	tongue, nos	TCGA-SARC	1					sarcoma	NCIT:C3158	SARC	Sarcoma
+leiomyosarcoma, nos	uterus, nos	TCGA-SARC	28					sarcoma	NCIT:C6340	SARC	Sarcoma
+lentigo maligna melanoma	skin, nos	TCGA-SKCM	2			skin	BTO:0001253	melanoma	NCIT:C3158	SKCM	Skin Cutaneous Melanoma
+leukemia, nos	bone marrow	TARGET-ALL-P3	12	lymphoblast		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C3167	ALL	Acute Lymphoblastic Leukemia - Phase III
+liposarcoma, well differentiated	retroperitoneum	TCGA-SARC	1					sarcoma	NCIT:C4250	SARC	Sarcoma
+lobular carcinoma, nos	breast, nos	TCGA-BRCA	211			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C3771	BRCA	Breast Invasive Carcinoma
+malignant fibrous histiocytoma	connective, subcutaneous and other soft tissues of lower limb and hip	TCGA-SARC	8					sarcoma	NCIT:C6492	SARC	Sarcoma
+malignant fibrous histiocytoma	connective, subcutaneous and other soft tissues of pelvis	TCGA-SARC	1					sarcoma	NCIT:C6492	SARC	Sarcoma
+malignant fibrous histiocytoma	connective, subcutaneous and other soft tissues of thorax	TCGA-SARC	2					sarcoma	NCIT:C6492	SARC	Sarcoma
+malignant fibrous histiocytoma	connective, subcutaneous and other soft tissues of trunk, nos	TCGA-SARC	1					sarcoma	NCIT:C6492	SARC	Sarcoma
+malignant lymphoma, large b-cell, diffuse, nos	anterior mediastinum	TCGA-DLBC	1	B-cell				lymphoma	NCIT:C9280	DBCL	Lymphoid Neoplasm Diffuse Large B-cell Lymphoma
+malignant lymphoma, large b-cell, diffuse, nos	bones of skull and face and associated joints	TCGA-DLBC	1	B-cell				lymphoma	NCIT:C8851	DBCL	Lymphoid Neoplasm Diffuse Large B-cell Lymphoma
+malignant lymphoma, large b-cell, diffuse, nos	brain stem	TCGA-DLBC	1	B-cell				lymphoma	NCIT:C8851	DBCL	Lymphoid Neoplasm Diffuse Large B-cell Lymphoma
+malignant lymphoma, large b-cell, diffuse, nos	breast, nos	TCGA-DLBC	1	B-cell				lymphoma	NCIT:C40375	DBCL	Lymphoid Neoplasm Diffuse Large B-cell Lymphoma
+malignant lymphoma, large b-cell, diffuse, nos	cerebellum, nos	TCGA-DLBC	1	B-cell				lymphoma	NCIT:C8851	DBCL	Lymphoid Neoplasm Diffuse Large B-cell Lymphoma
+malignant lymphoma, large b-cell, diffuse, nos	colon, nos	TCGA-DLBC	2	B-cell				lymphoma	NCIT:C96504	DBCL	Lymphoid Neoplasm Diffuse Large B-cell Lymphoma
+malignant lymphoma, large b-cell, diffuse, nos	connective, subcutaneous and other soft tissues of head, face, and neck	TCGA-DLBC	1	B-cell				lymphoma	NCIT:C8851	DBCL	Lymphoid Neoplasm Diffuse Large B-cell Lymphoma
+malignant lymphoma, large b-cell, diffuse, nos	connective, subcutaneous and other soft tissues, nos	TCGA-DLBC	1	B-cell				lymphoma	NCIT:C8851	DBCL	Lymphoid Neoplasm Diffuse Large B-cell Lymphoma
+malignant lymphoma, large b-cell, diffuse, nos	intra-abdominal lymph nodes	TCGA-DLBC	4	B-cell				lymphoma	NCIT:C8851	DBCL	Lymphoid Neoplasm Diffuse Large B-cell Lymphoma
+malignant lymphoma, large b-cell, diffuse, nos	intrathoracic lymph nodes	TCGA-DLBC	1	B-cell				lymphoma	NCIT:C8851	DBCL	Lymphoid Neoplasm Diffuse Large B-cell Lymphoma
+malignant lymphoma, large b-cell, diffuse, nos	jejunum	TCGA-DLBC	1	B-cell				lymphoma	NCIT:C8851	DBCL	Lymphoid Neoplasm Diffuse Large B-cell Lymphoma
+malignant lymphoma, large b-cell, diffuse, nos	lymph nodes of axilla or arm	TCGA-DLBC	4	B-cell				lymphoma	NCIT:C8851	DBCL	Lymphoid Neoplasm Diffuse Large B-cell Lymphoma
+malignant lymphoma, large b-cell, diffuse, nos	lymph nodes of head, face and neck	TCGA-DLBC	16	B-cell				lymphoma	NCIT:C8851	DBCL	Lymphoid Neoplasm Diffuse Large B-cell Lymphoma
+malignant lymphoma, large b-cell, diffuse, nos	lymph nodes of inguinal region or leg	TCGA-DLBC	4	B-cell				lymphoma	NCIT:C8851	DBCL	Lymphoid Neoplasm Diffuse Large B-cell Lymphoma
+malignant lymphoma, large b-cell, diffuse, nos	small intestine, nos	TCGA-DLBC	2	B-cell				lymphoma	NCIT:C96055	DBCL	Lymphoid Neoplasm Diffuse Large B-cell Lymphoma
+malignant lymphoma, large b-cell, diffuse, nos	specified parts of peritoneum	TCGA-DLBC	1	B-cell				lymphoma	NCIT:C8851	DBCL	Lymphoid Neoplasm Diffuse Large B-cell Lymphoma
+malignant lymphoma, large b-cell, diffuse, nos	stomach, nos	TCGA-DLBC	2	B-cell				lymphoma	NCIT:C5253	DBCL	Lymphoid Neoplasm Diffuse Large B-cell Lymphoma
+malignant lymphoma, large b-cell, diffuse, nos	submandibular gland	TCGA-DLBC	1	B-cell				lymphoma	NCIT:C8851	DBCL	Lymphoid Neoplasm Diffuse Large B-cell Lymphoma
+malignant lymphoma, large b-cell, diffuse, nos	testis, nos	TCGA-DLBC	1	B-cell				lymphoma	NCIT:C162467	DBCL	Lymphoid Neoplasm Diffuse Large B-cell Lymphoma
+malignant lymphoma, large b-cell, diffuse, nos	thyroid gland	TCGA-DLBC	2	B-cell				lymphoma	NCIT:C6046	DBCL	Lymphoid Neoplasm Diffuse Large B-cell Lymphoma
+malignant melanoma, nos	skin, nos	TCGA-SKCM	420			skin	BTO:0001253	melanoma	NCIT:C3510	SKCM	Skin Cutaneous Melanoma
+malignant melanoma, nos	choroid	TCGA-UVM	1			eye, nervous system, head	BTO:0000439	melanoma	NCIT:C4561	UVM	Uveal Melanoma
+malignant melanoma, nos	skin, nos		1						NCIT:C3510		
+malignant peripheral nerve sheath tumor	connective, subcutaneous and other soft tissues of head, face, and neck	TCGA-SARC	1					sarcoma	NCIT:C3798	SARC	Sarcoma
+malignant peripheral nerve sheath tumor	connective, subcutaneous and other soft tissues of lower limb and hip	TCGA-SARC	3					sarcoma	NCIT:C3798	SARC	Sarcoma
+malignant peripheral nerve sheath tumor	connective, subcutaneous and other soft tissues of thorax	TCGA-SARC	1					sarcoma	NCIT:C3798	SARC	Sarcoma
+malignant peripheral nerve sheath tumor	connective, subcutaneous and other soft tissues of trunk, nos	TCGA-SARC	2					sarcoma	NCIT:C3798	SARC	Sarcoma
+malignant peripheral nerve sheath tumor	peripheral nerves and autonomic nervous system of upper limb and shoulder	TCGA-SARC	1					sarcoma	NCIT:C3798	SARC	Sarcoma
+malignant peripheral nerve sheath tumor	retroperitoneum	TCGA-SARC	1					sarcoma	NCIT:C3798	SARC	Sarcoma
+malignant peripheral nerve sheath tumor	spinal meninges	TCGA-SARC	1					sarcoma	NCIT:C3798	SARC	Sarcoma
+malignant rhabdoid tumor	external upper lip	TARGET-RT	5			kidney, urinary system, excretory gland	BTO:0000671	sarcoma	NCIT:C6586	RT	Rhabdoid Tumor
+malignant rhabdoid tumor	kidney, nos	TARGET-RT	63			kidney, urinary system, excretory gland	BTO:0000671	sarcoma	NCIT:C8715	RT	Rhabdoid Tumor
+malignant rhabdoid tumor	liver	TARGET-RT	2			kidney, urinary system, excretory gland	BTO:0000671	sarcoma	NCIT:C6586	RT	Rhabdoid Tumor
+medullary carcinoma, nos	breast, nos	TCGA-BRCA	8			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C9119	BRCA	Breast Invasive Carcinoma
+mesodermal mixed tumor	uterus, nos	TCGA-UCS	1			uterus, reproductive system	BTO:0001424	carcinoma	NCIT:C3730	UCS	Uterine Carcinosarcoma
+mesothelioma, biphasic, malignant	pleura, nos	TCGA-MESO	21			lung, admomen, heart, testis			NCIT:C45665	MESO	Mesothelioma
+mesothelioma, malignant	pleura, nos	TCGA-MESO	6			lung, admomen, heart, testis			NCIT:C7376	MESO	Mesothelioma
+metaplastic carcinoma, nos	breast, nos	TCGA-BRCA	15			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C5164	BRCA	Breast Invasive Carcinoma
+micropapillary carcinoma, nos	lower lobe, lung	TCGA-LUAD	1			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C128847	LUAD	Lung Adenocarcinoma
+micropapillary carcinoma, nos	upper lobe, lung	TCGA-LUAD	2			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C128847	LUAD	Lung Adenocarcinoma
+mixed epithelioid and spindle cell melanoma	skin, nos	TCGA-SKCM	1			skin	BTO:0001253	melanoma	NCIT:C66756	SKCM	Skin Cutaneous Melanoma
+mixed epithelioid and spindle cell melanoma	choroid	TCGA-UVM	33			eye, nervous system, head	BTO:0000439	melanoma	NCIT:C66756	UVM	Uveal Melanoma
+mixed epithelioid and spindle cell melanoma	ciliary body	TCGA-UVM	2			eye, nervous system, head	BTO:0000439	melanoma	NCIT:C66756	UVM	Uveal Melanoma
+mixed epithelioid and spindle cell melanoma	overlapping lesion of eye and adnexa	TCGA-UVM	4			eye, nervous system, head	BTO:0000439	melanoma	NCIT:C66756	UVM	Uveal Melanoma
+mixed germ cell tumor	testis, nos	TCGA-TGCT	30	germ cell		testis, reproductive system, endocrine gland	BTO:0001363	tumor	NCIT:C6347	TGCT	Testicular Germ Cell Tumors
+mixed glioma	brain, nos	TCGA-LGG	13			brain, nervous system, head	BTO:0000142	glioma	NCIT:C3903	LLG	Brain Lower Grade Glioma
+mixed glioma	cerebrum	TCGA-LGG	113			brain, nervous system, head	BTO:0000142	glioma	NCIT:C3903	LLG	Brain Lower Grade Glioma
+mixed glioma	frontal lobe	TCGA-LGG	2			brain, nervous system, head	BTO:0000142	glioma	NCIT:C3903	LLG	Brain Lower Grade Glioma
+mixed glioma	parietal lobe	TCGA-LGG	1			brain, nervous system, head	BTO:0000142	glioma	NCIT:C3903	LLG	Brain Lower Grade Glioma
+mixed glioma	temporal lobe	TCGA-LGG	4			brain, nervous system, head	BTO:0000142	glioma	NCIT:C3903	LLG	Brain Lower Grade Glioma
+mixed phenotype acute leukemia with t(9;22)(q34;q11.2); bcr-abl1	bone marrow	TARGET-ALL-P3	2	lymphoblast		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C82192	ALL	Acute Lymphoblastic Leukemia - Phase III
+mixed phenotype acute leukemia with t(v;11q23); mll rearranged	bone marrow	TARGET-ALL-P3	9	lymphoblast		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C82203	ALL	Acute Lymphoblastic Leukemia - Phase III
+mixed phenotype acute leukemia, b/myeloid, nos	bone marrow	TARGET-ALL-P1	1	lymphoblast		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C82212	ALL	Acute Lymphoblastic Leukemia - Phase I
+mixed phenotype acute leukemia, b/myeloid, nos	bone marrow	TARGET-ALL-P3	34	lymphoblast		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C82212	ALL	Acute Lymphoblastic Leukemia - Phase III
+mixed phenotype acute leukemia, t/myeloid, nos	bone marrow	TARGET-ALL-P3	43	lymphoblast		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C82213	ALL	Acute Lymphoblastic Leukemia - Phase III
+mixed phenotype acute leukemia, t/myeloid, nos	bone marrow	BEATAML1.0-COHORT	2	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C82213	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+mucinous adenocarcinoma	breast, nos	TCGA-BRCA	16			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C40354	BRCA	Breast Invasive Carcinoma
+mucinous adenocarcinoma	ascending colon	TCGA-COAD	20			colon, colorectum, alimentary canal	BTO:0000269	carcinoma	NCIT:C7966	COAD	Colon Adenocarcinoma
+mucinous adenocarcinoma	cecum	TCGA-COAD	14			colon, colorectum, alimentary canal	BTO:0000269	carcinoma	NCIT:C43536	COAD	Colon Adenocarcinoma
+mucinous adenocarcinoma	colon, nos	TCGA-COAD	18			colon, colorectum, alimentary canal	BTO:0000269	carcinoma	NCIT:C7966	COAD	Colon Adenocarcinoma
+mucinous adenocarcinoma	descending colon	TCGA-COAD	5			colon, colorectum, alimentary canal	BTO:0000269	carcinoma	NCIT:C7966	COAD	Colon Adenocarcinoma
+mucinous adenocarcinoma	hepatic flexure of colon	TCGA-COAD	3			colon, colorectum, alimentary canal	BTO:0000269	carcinoma	NCIT:C7966	COAD	Colon Adenocarcinoma
+mucinous adenocarcinoma	rectosigmoid junction	TCGA-COAD	1			colon, colorectum, alimentary canal	BTO:0000269	carcinoma	NCIT:C26712	COAD	Colon Adenocarcinoma
+mucinous adenocarcinoma	sigmoid colon	TCGA-COAD	8			colon, colorectum, alimentary canal	BTO:0000269	carcinoma	NCIT:C7966	COAD	Colon Adenocarcinoma
+mucinous adenocarcinoma	splenic flexure of colon	TCGA-COAD	1			colon, colorectum, alimentary canal	BTO:0000269	carcinoma	NCIT:C7966	COAD	Colon Adenocarcinoma
+mucinous adenocarcinoma	transverse colon	TCGA-COAD	5			colon, colorectum, alimentary canal	BTO:0000269	carcinoma	NCIT:C7966	COAD	Colon Adenocarcinoma
+mucinous adenocarcinoma	lower third of esophagus	TCGA-ESCA	2			esophagus, alimentary canal	BTO:0000959	carcinoma	NCIT:C26712	ESCA	Esophageal Carcinoma
+mucinous adenocarcinoma	lower lobe, lung	TCGA-LUAD	15			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C136709	LUAD	Lung Adenocarcinoma
+mucinous adenocarcinoma	upper lobe, lung	TCGA-LUAD	5			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C136709	LUAD	Lung Adenocarcinoma
+mucinous adenocarcinoma	head of pancreas	TCGA-PAAD	5			pancreas, endocrine gland	BTO:0000988	carcinoma	NCIT:C26712	PAAD	Pancreatic Adenocarcinoma
+mucinous adenocarcinoma	prostate gland	TCGA-PRAD	1			prostate, endocrine gland, reproductive system	BTO:0001129	carcinoma	NCIT:C26712	PRAD	Prostate Adenocarcinoma
+mucinous adenocarcinoma	rectosigmoid junction	TCGA-READ	10			rectum, colorectum, alimentary tract	BTO:0001158	carcinoma	NCIT:C26712	READ	Rectum Adenocarcinoma
+mucinous adenocarcinoma	rectum, nos	TCGA-READ	5			rectum, colorectum, alimentary tract	BTO:0001158	carcinoma	NCIT:C7973	READ	Rectum Adenocarcinoma
+mucinous adenocarcinoma	unknown primary site	TCGA-READ	1			rectum, colorectum, alimentary tract	BTO:0001158	carcinoma	NCIT:C26712	READ	Rectum Adenocarcinoma
+mucinous adenocarcinoma	body of stomach	TCGA-STAD	4			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C5248	STAD	Stomach Adenocarcinoma
+mucinous adenocarcinoma	cardia, nos	TCGA-STAD	3			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C5248	STAD	Stomach Adenocarcinoma
+mucinous adenocarcinoma	fundus of stomach	TCGA-STAD	1			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C5248	STAD	Stomach Adenocarcinoma
+mucinous adenocarcinoma	gastric antrum	TCGA-STAD	11			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C5248	STAD	Stomach Adenocarcinoma
+mucinous adenocarcinoma	stomach, nos	TCGA-STAD	1			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C5248	STAD	Stomach Adenocarcinoma
+mucinous adenocarcinoma, endocervical type	cervix uteri	TCGA-CESC	17	squamous cell		cervix, uterus, reproductive system	BTO:0001421	carcinoma	NCIT:C66953	CESC	Cervical Squamous Cell Carcinoma and Endocervical Adenocarcinoma
+mullerian mixed tumor	corpus uteri	TCGA-UCS	29			uterus, reproductive system	BTO:0001424	carcinoma	NCIT:C3730	UCS	Uterine Carcinosarcoma
+mullerian mixed tumor	uterus, nos	TCGA-UCS	15			uterus, reproductive system	BTO:0001424	carcinoma	NCIT:C3730	UCS	Uterine Carcinosarcoma
+multiple myeloma	bone marrow	MMRF-COMMPASS	859	plasma cell		blood, hematopoietic system	BTO:0000089		NCIT:C3242	MM	Multiple Myeloma CoMMpass Study
+myelodysplastic syndrome, unclassifiable	bone marrow	BEATAML1.0-COHORT	3	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C8648	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+myeloid leukemia associated with down syndrome	bone marrow	BEATAML1.0-COHORT	1	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C43223	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+myeloid sarcoma	bone marrow	BEATAML1.0-COHORT	3	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C3520	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+myxoid leiomyosarcoma	isthmus uteri	TCGA-SARC	1					sarcoma	NCIT:C40175	SARC	Sarcoma
+myxoid leiomyosarcoma	retroperitoneum	TCGA-SARC	1					sarcoma	NCIT:C3701	SARC	Sarcoma
+myxoid leiomyosarcoma	uterus, nos	TCGA-SARC	1					sarcoma	NCIT:C40175	SARC	Sarcoma
+neuroblastoma, nos	abdomen, nos	TARGET-NBL	35	nerve cell				blastoma	NCIT:C3270	NB	Neuroblastoma
+neuroblastoma, nos	adrenal gland, nos	TARGET-NBL	39	nerve cell				blastoma	NCIT:C4827	NB	Neuroblastoma
+neuroblastoma, nos	aortic body and other paraganglia	TARGET-NBL	1	nerve cell				blastoma	NCIT:C3270	NB	Neuroblastoma
+neuroblastoma, nos	bone marrow	TARGET-NBL	1	nerve cell				blastoma	NCIT:C3270	NB	Neuroblastoma
+neuroblastoma, nos	cortex of adrenal gland	TARGET-NBL	1	nerve cell				blastoma	NCIT:C3270	NB	Neuroblastoma
+neuroblastoma, nos	head, face or neck, nos	TARGET-NBL	2	nerve cell				blastoma	NCIT:C3270	NB	Neuroblastoma
+neuroblastoma, nos	intra-abdominal lymph nodes	TARGET-NBL	1	nerve cell				blastoma	NCIT:C3270	NB	Neuroblastoma
+neuroblastoma, nos	kidney, nos	TARGET-NBL	5	nerve cell				blastoma	NCIT:C3270	NB	Neuroblastoma
+neuroblastoma, nos	liver	TARGET-NBL	2	nerve cell				blastoma	NCIT:C3270	NB	Neuroblastoma
+neuroblastoma, nos	mediastinum, nos	TARGET-NBL	1	nerve cell				blastoma	NCIT:C3270	NB	Neuroblastoma
+neuroblastoma, nos	medulla of adrenal gland	TARGET-NBL	10	nerve cell				blastoma	NCIT:C3270	NB	Neuroblastoma
+neuroblastoma, nos	other ill-defined sites	TARGET-NBL	2	nerve cell				blastoma	NCIT:C3270	NB	Neuroblastoma
+neuroblastoma, nos	overlapping lesion of retroperitoneum and peritoneum	TARGET-NBL	2	nerve cell				blastoma	NCIT:C3270	NB	Neuroblastoma
+neuroblastoma, nos	pelvis, nos	TARGET-NBL	5	nerve cell				blastoma	NCIT:C3270	NB	Neuroblastoma
+neuroblastoma, nos	peripheral nerves and autonomic nervous system of thorax	TARGET-NBL	1	nerve cell				blastoma	NCIT:C6591	NB	Neuroblastoma
+neuroblastoma, nos	peripheral nerves and autonomic nervous system of trunk, nos	TARGET-NBL	1	nerve cell				blastoma	NCIT:C6591	NB	Neuroblastoma
+neuroblastoma, nos	posterior mediastinum	TARGET-NBL	2	nerve cell				blastoma	NCIT:C3270	NB	Neuroblastoma
+neuroblastoma, nos	retroperitoneum	TARGET-NBL	17	nerve cell				blastoma	NCIT:C3270	NB	Neuroblastoma
+neuroblastoma, nos	skin of lower limb and hip	TARGET-NBL	1	nerve cell				blastoma	NCIT:C3270	NB	Neuroblastoma
+neuroblastoma, nos	thorax, nos	TARGET-NBL	3	nerve cell				blastoma	NCIT:C3270	NB	Neuroblastoma
+neuroblastoma, nos	unknown	TARGET-NBL	6	nerve cell				blastoma	NCIT:C3270	NB	Neuroblastoma
+neuroendocrine carcinoma, nos	body of pancreas	TCGA-PAAD	4			pancreas, endocrine gland	BTO:0000988	carcinoma	NCIT:C3770	PAAD	Pancreatic Adenocarcinoma
+neuroendocrine carcinoma, nos	head of pancreas	TCGA-PAAD	1			pancreas, endocrine gland	BTO:0000988	carcinoma	NCIT:C3770	PAAD	Pancreatic Adenocarcinoma
+neuroendocrine carcinoma, nos	pancreas, nos	TCGA-PAAD	1			pancreas, endocrine gland	BTO:0000988	carcinoma	NCIT:C3770	PAAD	Pancreatic Adenocarcinoma
+neuroendocrine carcinoma, nos	tail of pancreas	TCGA-PAAD	2			pancreas, endocrine gland	BTO:0000988	carcinoma	NCIT:C3770	PAAD	Pancreatic Adenocarcinoma
+nodular melanoma	skin, nos	TCGA-SKCM	22			skin	BTO:0001253	melanoma	NCIT:C4225	SKCM	Skin Cutaneous Melanoma
+nonencapsulated sclerosing carcinoma	thyroid gland	TCGA-THCA	4			thyroid, endocrine gland	BTO:0001379	carcinoma	NCIT:C7427	THCA	Thyroid Carcinoma
+not reported	bone marrow	TARGET-ALL-P3	6	lymphoblast		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C17998	ALL	Acute Lymphoblastic Leukemia - Phase III
+not reported	not reported	TCGA-UCEC	575			uterus, reproductive system	BTO:0001424	carcinoma	NCIT:C17998	UCEC	Uterine Corpus Endometrial Carcinoma
+oligodendroglioma, anaplastic	brain, nos	TCGA-LGG	8			brain, nervous system, head	BTO:0000142	glioma	NCIT:C4326	LLG	Brain Lower Grade Glioma
+oligodendroglioma, anaplastic	cerebrum	TCGA-LGG	73			brain, nervous system, head	BTO:0000142	glioma	NCIT:C4326	LLG	Brain Lower Grade Glioma
+oligodendroglioma, anaplastic	frontal lobe	TCGA-LGG	1			brain, nervous system, head	BTO:0000142	glioma	NCIT:C156120	LLG	Brain Lower Grade Glioma
+oligodendroglioma, nos	brain, nos	TCGA-LGG	16			brain, nervous system, head	BTO:0000142	glioma	NCIT:C9377	LLG	Brain Lower Grade Glioma
+oligodendroglioma, nos	cerebrum	TCGA-LGG	100			brain, nervous system, head	BTO:0000142	glioma	NCIT:C9377	LLG	Brain Lower Grade Glioma
+oligodendroglioma, nos	temporal lobe	TCGA-LGG	2			brain, nervous system, head	BTO:0000142	glioma	NCIT:C9377	LLG	Brain Lower Grade Glioma
+osteosarcoma, nos	bone, nos	TARGET-OS	88			bone, connective tissue, skeletal system	BTO:0000140	sarcoma	NCIT:C9145	OS	Osteosarcoma
+oxyphilic adenocarcinoma	thyroid gland	TCGA-THCA	1			thyroid, endocrine gland	BTO:0001379	carcinoma	NCIT:C27380	THCA	Thyroid Carcinoma
+paget disease and infiltrating duct carcinoma of breast	breast, nos	TCGA-BRCA	4			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C7951	BRCA	Breast Invasive Carcinoma
+papillary adenocarcinoma, nos	dome of bladder	TCGA-BLCA	1			bladder	BTO:0000123	carcinoma	NCIT:C2853	BLCA	Bladder Urothelial Carcinoma
+papillary adenocarcinoma, nos	ascending colon	TCGA-COAD	1			colon, colorectum, alimentary canal	BTO:0000269	carcinoma	NCIT:C2853	COAD	Colon Adenocarcinoma
+papillary adenocarcinoma, nos	sigmoid colon	TCGA-COAD	1			colon, colorectum, alimentary canal	BTO:0000269	carcinoma	NCIT:C2853	COAD	Colon Adenocarcinoma
+papillary adenocarcinoma, nos	kidney, nos	TCGA-KIRP	321	papillary cell		kidney, urinary system, excretory gland	BTO:0000671	carcinoma	NCIT:C6975	KIRP	Kidney Renal Papillary Cell Carcinoma
+papillary adenocarcinoma, nos	lower lobe, lung	TCGA-LUAD	4			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C5650	LUAD	Lung Adenocarcinoma
+papillary adenocarcinoma, nos	lung, nos	TCGA-LUAD	1			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C5650	LUAD	Lung Adenocarcinoma
+papillary adenocarcinoma, nos	middle lobe, lung	TCGA-LUAD	1			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C5650	LUAD	Lung Adenocarcinoma
+papillary adenocarcinoma, nos	overlapping lesion of lung	TCGA-LUAD	1			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C5650	LUAD	Lung Adenocarcinoma
+papillary adenocarcinoma, nos	upper lobe, lung	TCGA-LUAD	18			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C5650	LUAD	Lung Adenocarcinoma
+papillary adenocarcinoma, nos	body of stomach	TCGA-STAD	2			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C5472	STAD	Stomach Adenocarcinoma
+papillary adenocarcinoma, nos	cardia, nos	TCGA-STAD	1			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C5472	STAD	Stomach Adenocarcinoma
+papillary adenocarcinoma, nos	fundus of stomach	TCGA-STAD	1			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C5472	STAD	Stomach Adenocarcinoma
+papillary adenocarcinoma, nos	gastric antrum	TCGA-STAD	2			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C5472	STAD	Stomach Adenocarcinoma
+papillary adenocarcinoma, nos	thyroid gland	TCGA-THCA	409			thyroid, endocrine gland	BTO:0001379	carcinoma	NCIT:C40354	THCA	Thyroid Carcinoma
+papillary carcinoma, columnar cell	thyroid gland	TCGA-THCA	40			thyroid, endocrine gland	BTO:0001379	carcinoma	NCIT:C35830	THCA	Thyroid Carcinoma
+papillary carcinoma, follicular variant	thyroid gland	TCGA-THCA	111			thyroid, endocrine gland	BTO:0001379	carcinoma	NCIT:C126594	THCA	Thyroid Carcinoma
+papillary carcinoma, nos	breast, nos	TCGA-BRCA	2			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C9134	BRCA	Breast Invasive Carcinoma
+papillary serous cystadenocarcinoma	ovary	TCGA-OV	3			ovary, endocrine gland, reproductive system	BTO:0000975	carcinoma	NCIT:C8377	OV	Ovarian Serous Cystadenocarcinoma
+papillary squamous cell carcinoma	cervix uteri	TCGA-CESC	1	squamous cell		cervix, uterus, reproductive system	BTO:0001421	carcinoma	NCIT:C40192	CESC	Cervical Squamous Cell Carcinoma and Endocervical Adenocarcinoma
+papillary squamous cell carcinoma	lower lobe, lung	TCGA-LUSC	1	squamous cell		lung, respiratory system	BTO:0000763	carcinoma	NCIT:C3493	LUSC	Lung Squamous Cell Carcinoma
+papillary squamous cell carcinoma	upper lobe, lung	TCGA-LUSC	3	squamous cell		lung, respiratory system	BTO:0000763	carcinoma	NCIT:C3493	LUSC	Lung Squamous Cell Carcinoma
+papillary transitional cell carcinoma	anterior wall of bladder	TCGA-BLCA	1			bladder	BTO:0000123	carcinoma	NCIT:C4122	BLCA	Bladder Urothelial Carcinoma
+papillary transitional cell carcinoma	bladder, nos	TCGA-BLCA	47			bladder	BTO:0000123	carcinoma	NCIT:C4122	BLCA	Bladder Urothelial Carcinoma
+papillary transitional cell carcinoma	lateral wall of bladder	TCGA-BLCA	10			bladder	BTO:0000123	carcinoma	NCIT:C4122	BLCA	Bladder Urothelial Carcinoma
+papillary transitional cell carcinoma	posterior wall of bladder	TCGA-BLCA	5			bladder	BTO:0000123	carcinoma	NCIT:C4122	BLCA	Bladder Urothelial Carcinoma
+papillary transitional cell carcinoma	trigone of bladder	TCGA-BLCA	3			bladder	BTO:0000123	carcinoma	NCIT:C4122	BLCA	Bladder Urothelial Carcinoma
+paraganglioma, malignant	adrenal gland, nos	TCGA-PCPG	1			headneck, trunk		glioma, cytoma	NCIT:C4220	PCPG	Pheochromocytoma and Paraganglioma
+paraganglioma, malignant	nervous system, nos	TCGA-PCPG	3			headneck, trunk		glioma, cytoma	NCIT:C5466	PCPG	Pheochromocytoma and Paraganglioma
+paraganglioma, nos	connective, subcutaneous and other soft tissues of abdomen	TCGA-PCPG	1			headneck, trunk		glioma, cytoma	NCIT:C3308	PCPG	Pheochromocytoma and Paraganglioma
+paraganglioma, nos	connective, subcutaneous and other soft tissues of thorax	TCGA-PCPG	2			headneck, trunk		glioma, cytoma	NCIT:C3308	PCPG	Pheochromocytoma and Paraganglioma
+paraganglioma, nos	retroperitoneum	TCGA-PCPG	1			headneck, trunk		glioma, cytoma	NCIT:C5328	PCPG	Pheochromocytoma and Paraganglioma
+pheochromocytoma, malignant	adrenal gland, nos	TCGA-PCPG	39			headneck, trunk		glioma, cytoma	NCIT:C4220	PCPG	Pheochromocytoma and Paraganglioma
+pheochromocytoma, malignant	aortic body and other paraganglia	TCGA-PCPG	1			headneck, trunk		glioma, cytoma	NCIT:C8046	PCPG	Pheochromocytoma and Paraganglioma
+pheochromocytoma, malignant	medulla of adrenal gland	TCGA-PCPG	1			headneck, trunk		glioma, cytoma	NCIT:C4220	PCPG	Pheochromocytoma and Paraganglioma
+pheochromocytoma, nos	adrenal gland, nos	TCGA-PCPG	111			headneck, trunk		glioma, cytoma	NCIT:C3326	PCPG	Pheochromocytoma and Paraganglioma
+pheochromocytoma, nos	cortex of adrenal gland	TCGA-PCPG	1			headneck, trunk		glioma, cytoma	NCIT:C3326	PCPG	Pheochromocytoma and Paraganglioma
+pheochromocytoma, nos	retroperitoneum	TCGA-PCPG	1			headneck, trunk		glioma, cytoma	NCIT:C8046	PCPG	Pheochromocytoma and Paraganglioma
+phyllodes tumor, malignant	breast, nos	TCGA-BRCA	1			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C4504	BRCA	Breast Invasive Carcinoma
+plasma cell myeloma	bone marrow	BEATAML1.0-COHORT	1	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C3242	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+pleomorphic carcinoma	breast, nos	TCGA-BRCA	2			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C5161	BRCA	Breast Invasive Carcinoma
+pleomorphic carcinoma	overlapping lesion of breast	TCGA-BRCA	1			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C5161	BRCA	Breast Invasive Carcinoma
+pleomorphic liposarcoma	connective, subcutaneous and other soft tissues of head, face, and neck	TCGA-SARC	1					sarcoma	NCIT:C3705	SARC	Sarcoma
+pleomorphic liposarcoma	connective, subcutaneous and other soft tissues of lower limb and hip	TCGA-SARC	1					sarcoma	NCIT:C3705	SARC	Sarcoma
+precursor b-cell lymphoblastic leukemia	bone marrow	TARGET-ALL-P1	10	lymphoblast		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C8644	ALL	Acute Lymphoblastic Leukemia - Phase I
+precursor b-cell lymphoblastic leukemia	bone marrow	TARGET-ALL-P2	267	lymphoblast		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C8644	ALL	Acute Lymphoblastic Leukemia - Phase II
+refractory anemia with excess blasts	bone marrow	BEATAML1.0-COHORT	3	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C27080	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+refractory cytopenia with multilineage dysplasia	bone marrow	BEATAML1.0-COHORT	1	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C8574	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+renal cell carcinoma, chromophobe type	kidney, nos	TCGA-KICH	89			kidney, urinary system, excretory gland	BTO:0000671	carcinoma	NCIT:C4146	KICH	Kidney Chromophobe
+renal cell carcinoma, nos	kidney, nos	CPTAC-3	186			kidney, lung, uterus		carcinoma	NCIT:C9385	CPTAC	Clinical Proteomic Technologies for Cancer Initiative
+renal cell carcinoma, nos	kidney, nos	TCGA-KIRC	14	clear cell		kidney, urinary system, excretory gland	BTO:0000671	carcinoma	NCIT:C9385	KIRC	Kidney Renal Clear Cell Carcinoma
+secretory carcinoma of breast	breast, nos	TCGA-BRCA	1			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C4189	BRCA	Breast Invasive Carcinoma
+seminoma, nos	testis, nos	TCGA-TGCT	68	germ cell		testis, reproductive system, endocrine gland	BTO:0001363	tumor	NCIT:C7328	TGCT	Testicular Germ Cell Tumors
+serous cystadenocarcinoma, nos	ovary	TCGA-OV	376			ovary, endocrine gland, reproductive system	BTO:0000975	carcinoma	NCIT:C3778	OV	Ovarian Serous Cystadenocarcinoma
+signet ring cell carcinoma	upper lobe, lung	TCGA-LUAD	1			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C45514	LUAD	Lung Adenocarcinoma
+signet ring cell carcinoma	body of stomach	TCGA-STAD	3			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C5250	STAD	Stomach Adenocarcinoma
+signet ring cell carcinoma	cardia, nos	TCGA-STAD	4			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C5250	STAD	Stomach Adenocarcinoma
+signet ring cell carcinoma	gastric antrum	TCGA-STAD	5			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C5250	STAD	Stomach Adenocarcinoma
+solid carcinoma, nos	lower lobe, lung	TCGA-LUAD	1			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C45514	LUAD	Lung Adenocarcinoma
+solid carcinoma, nos	upper lobe, lung	TCGA-LUAD	5			lung, respiratory system	BTO:0000763	carcinoma	NCIT:C45514	LUAD	Lung Adenocarcinoma
+spindle cell melanoma, nos	skin, nos	TCGA-SKCM	3			skin	BTO:0001253	melanoma	NCIT:C4237	SKCM	Skin Cutaneous Melanoma
+spindle cell melanoma, nos	choroid	TCGA-UVM	14			eye, nervous system, head	BTO:0000439	melanoma	NCIT:C6099	UVM	Uveal Melanoma
+spindle cell melanoma, nos	ciliary body	TCGA-UVM	2			eye, nervous system, head	BTO:0000439	melanoma	NCIT:C6117	UVM	Uveal Melanoma
+spindle cell melanoma, nos	overlapping lesion of eye and adnexa	TCGA-UVM	3			eye, nervous system, head	BTO:0000439	melanoma	NCIT:C7986	UVM	Uveal Melanoma
+spindle cell melanoma, type b	choroid	TCGA-UVM	8			eye, nervous system, head	BTO:0000439	melanoma	NCIT:C7988	UVM	Uveal Melanoma
+spindle cell melanoma, type b	overlapping lesion of eye and adnexa	TCGA-UVM	1			eye, nervous system, head	BTO:0000439	melanoma	NCIT:C7988	UVM	Uveal Melanoma
+squamous cell carcinoma, keratinizing, nos	cervix uteri	TCGA-CESC	31	squamous cell		cervix, uterus, reproductive system	BTO:0001421	carcinoma	NCIT:C40187	CESC	Cervical Squamous Cell Carcinoma and Endocervical Adenocarcinoma
+squamous cell carcinoma, keratinizing, nos	esophagus, nos	TCGA-ESCA	2			esophagus, alimentary canal	BTO:0000959	carcinoma	NCIT:C54283	ESCA	Esophageal Carcinoma
+squamous cell carcinoma, keratinizing, nos	lower third of esophagus	TCGA-ESCA	2			esophagus, alimentary canal	BTO:0000959	carcinoma	NCIT:C54283	ESCA	Esophageal Carcinoma
+squamous cell carcinoma, keratinizing, nos	anterior floor of mouth	TCGA-HNSC	1	squamous cell		headneck, trunk		carcinoma	NCIT:C54283	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, keratinizing, nos	base of tongue, nos	TCGA-HNSC	1	squamous cell		headneck, trunk		carcinoma	NCIT:C54283	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, keratinizing, nos	cheek mucosa	TCGA-HNSC	1	squamous cell		headneck, trunk		carcinoma	NCIT:C54283	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, keratinizing, nos	floor of mouth, nos	TCGA-HNSC	9	squamous cell		headneck, trunk		carcinoma	NCIT:C54283	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, keratinizing, nos	gum, nos	TCGA-HNSC	2	squamous cell		headneck, trunk		carcinoma	NCIT:C54283	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, keratinizing, nos	larynx, nos	TCGA-HNSC	11	squamous cell		headneck, trunk		carcinoma	NCIT:C54283	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, keratinizing, nos	lip, nos	TCGA-HNSC	1	squamous cell		headneck, trunk		carcinoma	NCIT:C54283	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, keratinizing, nos	mouth, nos	TCGA-HNSC	6	squamous cell		headneck, trunk		carcinoma	NCIT:C54283	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, keratinizing, nos	oropharynx, nos	TCGA-HNSC	1	squamous cell		headneck, trunk		carcinoma	NCIT:C54283	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, keratinizing, nos	palate, nos	TCGA-HNSC	1	squamous cell		headneck, trunk		carcinoma	NCIT:C54283	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, keratinizing, nos	posterior wall of oropharynx	TCGA-HNSC	1	squamous cell		headneck, trunk		carcinoma	NCIT:C54283	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, keratinizing, nos	retromolar area	TCGA-HNSC	1	squamous cell		headneck, trunk		carcinoma	NCIT:C54283	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, keratinizing, nos	tongue, nos	TCGA-HNSC	20	squamous cell		headneck, trunk		carcinoma	NCIT:C54283	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, keratinizing, nos	tonsil, nos	TCGA-HNSC	1	squamous cell		headneck, trunk		carcinoma	NCIT:C54283	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, keratinizing, nos	lower lobe, lung	TCGA-LUSC	5	squamous cell		lung, respiratory system	BTO:0000763	carcinoma	NCIT:C136713	LUSC	Lung Squamous Cell Carcinoma
+squamous cell carcinoma, keratinizing, nos	lung, nos	TCGA-LUSC	2	squamous cell		lung, respiratory system	BTO:0000763	carcinoma	NCIT:C136713	LUSC	Lung Squamous Cell Carcinoma
+squamous cell carcinoma, keratinizing, nos	middle lobe, lung	TCGA-LUSC	1	squamous cell		lung, respiratory system	BTO:0000763	carcinoma	NCIT:C136713	LUSC	Lung Squamous Cell Carcinoma
+squamous cell carcinoma, keratinizing, nos	upper lobe, lung	TCGA-LUSC	7	squamous cell		lung, respiratory system	BTO:0000763	carcinoma	NCIT:C136713	LUSC	Lung Squamous Cell Carcinoma
+squamous cell carcinoma, large cell, nonkeratinizing, nos	cervix uteri	TCGA-CESC	50	squamous cell		cervix, uterus, reproductive system	BTO:0001421	carcinoma	NCIT:C40188	CESC	Cervical Squamous Cell Carcinoma and Endocervical Adenocarcinoma
+squamous cell carcinoma, large cell, nonkeratinizing, nos	base of tongue, nos	TCGA-HNSC	2	squamous cell		headneck, trunk		carcinoma	NCIT:C65173	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, large cell, nonkeratinizing, nos	hypopharynx, nos	TCGA-HNSC	1	squamous cell		headneck, trunk		carcinoma	NCIT:C65173	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, large cell, nonkeratinizing, nos	larynx, nos	TCGA-HNSC	1	squamous cell		headneck, trunk		carcinoma	NCIT:C65173	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, large cell, nonkeratinizing, nos	tonsil, nos	TCGA-HNSC	7	squamous cell		headneck, trunk		carcinoma	NCIT:C65173	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, large cell, nonkeratinizing, nos	lower lobe, lung	TCGA-LUSC	2	squamous cell		lung, respiratory system	BTO:0000763	carcinoma	NCIT:C136714	LUSC	Lung Squamous Cell Carcinoma
+squamous cell carcinoma, large cell, nonkeratinizing, nos	upper lobe, lung	TCGA-LUSC	1	squamous cell		lung, respiratory system	BTO:0000763	carcinoma	NCIT:C136714	LUSC	Lung Squamous Cell Carcinoma
+squamous cell carcinoma, nos	bladder, nos	TCGA-BLCA	1			bladder	BTO:0000123	carcinoma	NCIT:C4031	BLCA	Bladder Urothelial Carcinoma
+squamous cell carcinoma, nos	cervix uteri	TCGA-CESC	172	squamous cell		cervix, uterus, reproductive system	BTO:0001421	carcinoma	NCIT:C4028	CESC	Cervical Squamous Cell Carcinoma and Endocervical Adenocarcinoma
+squamous cell carcinoma, nos	cardia, nos	TCGA-ESCA	1			esophagus, alimentary canal	BTO:0000959	carcinoma	NCIT:C150034	ESCA	Esophageal Carcinoma
+squamous cell carcinoma, nos	esophagus, nos	TCGA-ESCA	5			esophagus, alimentary canal	BTO:0000959	carcinoma	NCIT:C4024	ESCA	Esophageal Carcinoma
+squamous cell carcinoma, nos	lower third of esophagus	TCGA-ESCA	33			esophagus, alimentary canal	BTO:0000959	carcinoma	NCIT:C4024	ESCA	Esophageal Carcinoma
+squamous cell carcinoma, nos	middle third of esophagus	TCGA-ESCA	34			esophagus, alimentary canal	BTO:0000959	carcinoma	NCIT:C4024	ESCA	Esophageal Carcinoma
+squamous cell carcinoma, nos	upper third of esophagus	TCGA-ESCA	5			esophagus, alimentary canal	BTO:0000959	carcinoma	NCIT:C4024	ESCA	Esophageal Carcinoma
+squamous cell carcinoma, nos	anterior floor of mouth	TCGA-HNSC	1	squamous cell		headneck, trunk		carcinoma	NCIT:C4833	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, nos	base of tongue, nos	TCGA-HNSC	17	squamous cell		headneck, trunk		carcinoma	NCIT:C4648	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, nos	border of tongue	TCGA-HNSC	1	squamous cell		headneck, trunk		carcinoma	NCIT:C4648	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, nos	cheek mucosa	TCGA-HNSC	17	squamous cell		headneck, trunk		carcinoma	NCIT:C4833	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, nos	floor of mouth, nos	TCGA-HNSC	44	squamous cell		headneck, trunk		carcinoma	NCIT:C4833	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, nos	gum, nos	TCGA-HNSC	6	squamous cell		headneck, trunk		carcinoma	NCIT:C129857	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, nos	hard palate	TCGA-HNSC	4	squamous cell		headneck, trunk		carcinoma	NCIT:C8170	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, nos	hypopharynx, nos	TCGA-HNSC	8	squamous cell		headneck, trunk		carcinoma	NCIT:C4043	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, nos	larynx, nos	TCGA-HNSC	108	squamous cell		headneck, trunk		carcinoma	NCIT:C4044	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, nos	lip, nos	TCGA-HNSC	2	squamous cell		headneck, trunk		carcinoma	NCIT:C4042	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, nos	lower gum	TCGA-HNSC	2	squamous cell		headneck, trunk		carcinoma	NCIT:C8171	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, nos	mandible	TCGA-HNSC	1	squamous cell		headneck, trunk		carcinoma	NCIT:C2929	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, nos	mouth, nos	TCGA-HNSC	15	squamous cell		headneck, trunk		carcinoma	NCIT:C4833	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, nos	oropharynx, nos	TCGA-HNSC	7	squamous cell		headneck, trunk		carcinoma	NCIT:C102872	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, nos	overlapping lesion of lip, oral cavity and pharynx	TCGA-HNSC	82	squamous cell		headneck, trunk		carcinoma	NCIT:C4042	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, nos	pharynx, nos	TCGA-HNSC	1	squamous cell		headneck, trunk		carcinoma	NCIT:C102872	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, nos	supraglottis	TCGA-HNSC	1	squamous cell		headneck, trunk		carcinoma	NCIT:C4945	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, nos	tongue, nos	TCGA-HNSC	118	squamous cell		headneck, trunk		carcinoma	NCIT:C4648	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, nos	tonsil, nos	TCGA-HNSC	30	squamous cell		headneck, trunk		carcinoma	NCIT:C8183	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, nos	upper gum	TCGA-HNSC	1	squamous cell		headneck, trunk		carcinoma	NCIT:C8173	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, nos	ventral surface of tongue, nos	TCGA-HNSC	1	squamous cell		headneck, trunk		carcinoma	NCIT:C4648	HNSC	Head and Neck Squamous Cell Carcinoma
+squamous cell carcinoma, nos	lower lobe, lung	TCGA-LUSC	175	squamous cell		lung, respiratory system	BTO:0000763	carcinoma	NCIT:C3493	LUSC	Lung Squamous Cell Carcinoma
+squamous cell carcinoma, nos	lung, nos	TCGA-LUSC	37	squamous cell		lung, respiratory system	BTO:0000763	carcinoma	NCIT:C3493	LUSC	Lung Squamous Cell Carcinoma
+squamous cell carcinoma, nos	main bronchus	TCGA-LUSC	7	squamous cell		lung, respiratory system	BTO:0000763	carcinoma	NCIT:C3493	LUSC	Lung Squamous Cell Carcinoma
+squamous cell carcinoma, nos	middle lobe, lung	TCGA-LUSC	15	squamous cell		lung, respiratory system	BTO:0000763	carcinoma	NCIT:C3493	LUSC	Lung Squamous Cell Carcinoma
+squamous cell carcinoma, nos	overlapping lesion of lung	TCGA-LUSC	9	squamous cell		lung, respiratory system	BTO:0000763	carcinoma	NCIT:C3493	LUSC	Lung Squamous Cell Carcinoma
+squamous cell carcinoma, nos	upper lobe, lung	TCGA-LUSC	269	squamous cell		lung, respiratory system	BTO:0000763	carcinoma	NCIT:C3493	LUSC	Lung Squamous Cell Carcinoma
+squamous cell carcinoma, small cell, nonkeratinizing	middle lobe, lung	TCGA-LUSC	2	squamous cell		lung, respiratory system	BTO:0000763	carcinoma	NCIT:C3493	LUSC	Lung Squamous Cell Carcinoma
+squamous cell carcinoma, spindle cell	oropharynx, nos	TCGA-HNSC	1	squamous cell		headneck, trunk		carcinoma	NCIT:C8181	HNSC	Head and Neck Squamous Cell Carcinoma
+superficial spreading melanoma	skin, nos	TCGA-SKCM	4			skin	BTO:0001253	melanoma	NCIT:C9152	SKCM	Skin Cutaneous Melanoma
+synovial sarcoma, biphasic	connective, subcutaneous and other soft tissues of lower limb and hip	TCGA-SARC	1					sarcoma	NCIT:C4279	SARC	Sarcoma
+synovial sarcoma, biphasic	connective, subcutaneous and other soft tissues of trunk, nos	TCGA-SARC	1					sarcoma	NCIT:C4279	SARC	Sarcoma
+synovial sarcoma, nos	connective, subcutaneous and other soft tissues of thorax	TCGA-SARC	1					sarcoma	NCIT:C3400	SARC	Sarcoma
+synovial sarcoma, nos	connective, subcutaneous and other soft tissues of upper limb and shoulder	TCGA-SARC	1					sarcoma	NCIT:C3400	SARC	Sarcoma
+synovial sarcoma, spindle cell	connective, subcutaneous and other soft tissues of head, face, and neck	TCGA-SARC	1					sarcoma	NCIT:C4277	SARC	Sarcoma
+synovial sarcoma, spindle cell	connective, subcutaneous and other soft tissues of lower limb and hip	TCGA-SARC	3					sarcoma	NCIT:C4277	SARC	Sarcoma
+synovial sarcoma, spindle cell	connective, subcutaneous and other soft tissues of thorax	TCGA-SARC	1					sarcoma	NCIT:C4277	SARC	Sarcoma
+synovial sarcoma, spindle cell	kidney, nos	TCGA-SARC	1					sarcoma	NCIT:C4277	SARC	Sarcoma
+t lymphoblastic leukemia/lymphoma	bone marrow	TARGET-ALL-P2	265	lymphoblast		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C8694	ALL	Acute Lymphoblastic Leukemia - Phase II
+t lymphoblastic leukemia/lymphoma	bone marrow	TARGET-ALL-P3	2	lymphoblast		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C8694	ALL	Acute Lymphoblastic Leukemia - Phase III
+teratocarcinoma	testis, nos	TCGA-TGCT	2	germ cell		testis, reproductive system, endocrine gland	BTO:0001363	tumor	NCIT:C3756	TGCT	Testicular Germ Cell Tumors
+teratoma, benign	testis, nos	TCGA-TGCT	6	germ cell		testis, reproductive system, endocrine gland	BTO:0001363	tumor	NCIT:C67107	TGCT	Testicular Germ Cell Tumors
+teratoma, malignant, nos	testis, nos	TCGA-TGCT	3	germ cell		testis, reproductive system, endocrine gland	BTO:0001363	tumor	NCIT:C4287	TGCT	Testicular Germ Cell Tumors
+therapy related myeloid neoplasm	bone marrow	BEATAML1.0-COHORT	40	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C27912	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+thymic carcinoma, nos	anterior mediastinum	TCGA-THYM	2	epithelial cell		thymus, endocrine gland, hematopoietic system, immune system	BTO:0001374		NCIT:C146706	THYM	Thymoma
+thymic carcinoma, nos	thymus	TCGA-THYM	9	epithelial cell		thymus, endocrine gland, hematopoietic system, immune system	BTO:0001374		NCIT:C7569	THYM	Thymoma
+thymoma, type a, malignant	anterior mediastinum	TCGA-THYM	3	epithelial cell		thymus, endocrine gland, hematopoietic system, immune system	BTO:0001374		NCIT:C7999	THYM	Thymoma
+thymoma, type a, malignant	mediastinum, nos	TCGA-THYM	1	epithelial cell		thymus, endocrine gland, hematopoietic system, immune system	BTO:0001374		NCIT:C7999	THYM	Thymoma
+thymoma, type a, malignant	thymus	TCGA-THYM	10	epithelial cell		thymus, endocrine gland, hematopoietic system, immune system	BTO:0001374		NCIT:C7999	THYM	Thymoma
+thymoma, type a, nos	thymus	TCGA-THYM	2	epithelial cell		thymus, endocrine gland, hematopoietic system, immune system	BTO:0001374		NCIT:C6454	THYM	Thymoma
+thymoma, type ab, malignant	anterior mediastinum	TCGA-THYM	5	epithelial cell		thymus, endocrine gland, hematopoietic system, immune system	BTO:0001374		NCIT:C6886	THYM	Thymoma
+thymoma, type ab, malignant	thymus	TCGA-THYM	23	epithelial cell		thymus, endocrine gland, hematopoietic system, immune system	BTO:0001374		NCIT:C6886	THYM	Thymoma
+thymoma, type ab, nos	anterior mediastinum	TCGA-THYM	3	epithelial cell		thymus, endocrine gland, hematopoietic system, immune system	BTO:0001374		NCIT:C6885	THYM	Thymoma
+thymoma, type ab, nos	thymus	TCGA-THYM	4	epithelial cell		thymus, endocrine gland, hematopoietic system, immune system	BTO:0001374		NCIT:C6885	THYM	Thymoma
+thymoma, type b1, malignant	anterior mediastinum	TCGA-THYM	2	epithelial cell		thymus, endocrine gland, hematopoietic system, immune system	BTO:0001374		NCIT:C7996	THYM	Thymoma
+thymoma, type b1, malignant	mediastinum, nos	TCGA-THYM	2	epithelial cell		thymus, endocrine gland, hematopoietic system, immune system	BTO:0001374		NCIT:C7996	THYM	Thymoma
+thymoma, type b1, malignant	thymus	TCGA-THYM	10	epithelial cell		thymus, endocrine gland, hematopoietic system, immune system	BTO:0001374		NCIT:C7996	THYM	Thymoma
+thymoma, type b1, nos	thymus	TCGA-THYM	1	epithelial cell		thymus, endocrine gland, hematopoietic system, immune system	BTO:0001374		NCIT:C6887	THYM	Thymoma
+thymoma, type b2, malignant	anterior mediastinum	TCGA-THYM	7	epithelial cell		thymus, endocrine gland, hematopoietic system, immune system	BTO:0001374		NCIT:C6889	THYM	Thymoma
+thymoma, type b2, malignant	mediastinum, nos	TCGA-THYM	1	epithelial cell		thymus, endocrine gland, hematopoietic system, immune system	BTO:0001374		NCIT:C6889	THYM	Thymoma
+thymoma, type b2, malignant	thymus	TCGA-THYM	19	epithelial cell		thymus, endocrine gland, hematopoietic system, immune system	BTO:0001374		NCIT:C6889	THYM	Thymoma
+thymoma, type b2, nos	anterior mediastinum	TCGA-THYM	1	epithelial cell		thymus, endocrine gland, hematopoietic system, immune system	BTO:0001374		NCIT:C6888	THYM	Thymoma
+thymoma, type b2, nos	thymus	TCGA-THYM	4	epithelial cell		thymus, endocrine gland, hematopoietic system, immune system	BTO:0001374		NCIT:C6888	THYM	Thymoma
+thymoma, type b3, malignant	anterior mediastinum	TCGA-THYM	2	epithelial cell		thymus, endocrine gland, hematopoietic system, immune system	BTO:0001374		NCIT:C7997	THYM	Thymoma
+thymoma, type b3, malignant	thymus	TCGA-THYM	10	epithelial cell		thymus, endocrine gland, hematopoietic system, immune system	BTO:0001374		NCIT:C7997	THYM	Thymoma
+transitional cell carcinoma	anterior wall of bladder	TCGA-BLCA	19			bladder	BTO:0000123	carcinoma	NCIT:C2930	BLCA	Bladder Urothelial Carcinoma
+transitional cell carcinoma	bladder neck	TCGA-BLCA	1			bladder	BTO:0000123	carcinoma	NCIT:C2930	BLCA	Bladder Urothelial Carcinoma
+transitional cell carcinoma	bladder, nos	TCGA-BLCA	196			bladder	BTO:0000123	carcinoma	NCIT:C2930	BLCA	Bladder Urothelial Carcinoma
+transitional cell carcinoma	dome of bladder	TCGA-BLCA	19			bladder	BTO:0000123	carcinoma	NCIT:C2930	BLCA	Bladder Urothelial Carcinoma
+transitional cell carcinoma	lateral wall of bladder	TCGA-BLCA	54			bladder	BTO:0000123	carcinoma	NCIT:C2930	BLCA	Bladder Urothelial Carcinoma
+transitional cell carcinoma	posterior wall of bladder	TCGA-BLCA	49			bladder	BTO:0000123	carcinoma	NCIT:C2930	BLCA	Bladder Urothelial Carcinoma
+transitional cell carcinoma	trigone of bladder	TCGA-BLCA	25			bladder	BTO:0000123	carcinoma	NCIT:C2930	BLCA	Bladder Urothelial Carcinoma
+transitional cell carcinoma	ureteric orifice	TCGA-BLCA	1			bladder	BTO:0000123	carcinoma	NCIT:C2930	BLCA	Bladder Urothelial Carcinoma
+tubular adenocarcinoma	breast, nos	TCGA-BRCA	1			breast, endocrine gland, reproductive system	BTO:0000149	carcinoma	NCIT:C62210	BRCA	Breast Invasive Carcinoma
+tubular adenocarcinoma	lower third of esophagus	TCGA-ESCA	1			esophagus, alimentary canal	BTO:0000959	carcinoma	NCIT:C7036	ESCA	Esophageal Carcinoma
+tubular adenocarcinoma	rectum, nos	TCGA-READ	5			rectum, colorectum, alimentary tract	BTO:0001158	carcinoma	NCIT:C96477	READ	Rectum Adenocarcinoma
+tubular adenocarcinoma	body of stomach	TCGA-STAD	22			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C7036	STAD	Stomach Adenocarcinoma
+tubular adenocarcinoma	cardia, nos	TCGA-STAD	11			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C7036	STAD	Stomach Adenocarcinoma
+tubular adenocarcinoma	fundus of stomach	TCGA-STAD	4			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C7036	STAD	Stomach Adenocarcinoma
+tubular adenocarcinoma	gastric antrum	TCGA-STAD	32			stomach, alimentary canal	BTO:0001307	carcinoma	NCIT:C7036	STAD	Stomach Adenocarcinoma
+undifferentiated leukaemia	bone marrow	TARGET-ALL-P3	5	lymphoblast		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C9298	ALL	Acute Lymphoblastic Leukemia - Phase III
+undifferentiated sarcoma	connective, subcutaneous and other soft tissues of head, face, and neck	TCGA-SARC	1					sarcoma	NCIT:C121793	SARC	Sarcoma
+undifferentiated sarcoma	connective, subcutaneous and other soft tissues of lower limb and hip	TCGA-SARC	18					sarcoma	NCIT:C121793	SARC	Sarcoma
+undifferentiated sarcoma	connective, subcutaneous and other soft tissues of pelvis	TCGA-SARC	3					sarcoma	NCIT:C121793	SARC	Sarcoma
+undifferentiated sarcoma	connective, subcutaneous and other soft tissues of thorax	TCGA-SARC	1					sarcoma	NCIT:C121793	SARC	Sarcoma
+undifferentiated sarcoma	connective, subcutaneous and other soft tissues of trunk, nos	TCGA-SARC	3					sarcoma	NCIT:C121793	SARC	Sarcoma
+undifferentiated sarcoma	connective, subcutaneous and other soft tissues of upper limb and shoulder	TCGA-SARC	3					sarcoma	NCIT:C121793	SARC	Sarcoma
+undifferentiated sarcoma	connective, subcutaneous and other soft tissues, nos	TCGA-SARC	1					sarcoma	NCIT:C121793	SARC	Sarcoma
+undifferentiated sarcoma	retroperitoneum	TCGA-SARC	5					sarcoma	NCIT:C121793	SARC	Sarcoma
+unknown	bone marrow	BEATAML1.0-COHORT	23	myeloid		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C17998	AML	Functional Genomic Landscape of Acute Myeloid Leukemia
+unknown	pancreas, nos	ORGANOID-PANCREATIC	11			pancreas, endocrine gland	BTO:0000988	adenoma	NCIT:C17998	ORGA	Pancreas Cancer Organoid Profiling
+unknown	bone marrow		12						NCIT:C17998		
+wilms tumor	kidney, nos	TARGET-WT	136			kidney, urinary system, excretory gland	BTO:0000671	blastoma	NCIT:C3267	WT	High-Risk Wilms Tumor
+yolk sac tumor	testis, nos	TCGA-TGCT	4	germ cell		testis, reproductive system, endocrine gland	BTO:0001363	tumor	NCIT:C3011	TGCT	Testicular Germ Cell Tumors
+		TARGET-ALL-P1	1	lymphoblast		blood, hematopoietic system	BTO:0000089	leukemia	NCIT:C17998	ALL	Acute Lymphoblastic Leukemia - Phase I
