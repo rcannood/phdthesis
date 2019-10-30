@@ -1,6 +1,3 @@
-[submodule "ch2_dyngen"]
-	path = ch2_dyngen
-	url = git@github.com:rcannood/dyngen_analysis.git
 [submodule "ch5_scorpius"]
 	path = ch5_scorpius
 	url = git@github.com:rcannood/scorpius_analysis.git
