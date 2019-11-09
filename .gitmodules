@@ -2,7 +2,7 @@
 	path = ch5_scorpius
 	url = git@github.com:rcannood/scorpius_analysis.git
 [submodule "ch7_selfassessment"]
-	path = ch9_selfassessment
+	path = ch8_selfassessment
 	url = git@github.com:rcannood/selfassessment.git
 [submodule "ch3b_dyno"]
 	path = ch4_dyno
