@@ -74,9 +74,7 @@ BoldItalicFont = *-700-Italic
 
 \textbf{Overall:} The quality of writing, layout and graphical presentation is of a lower quality in the non-published parts of the thesis. Certain unpublished chapters feel rushed and unfinished. Furthermore, for some chapters it feels that they could be merged into a broader discussion chapter.
 
-\textbf{Overall:} Merge chapters 8-9-10 into one discussion.
-
-\textbf{Overall:} Merge chapter 8 into chapter 2.
+\textbf{Overall:} From three jury members: Merge chapters 8-9-10 into one discussion, or merge chapter 8 into chapter 3.
 
 \textbf{Overall:} Random Forest variable importances are often used to detect differentially expressed genes. Why RF and not more standard statistical tests?
 
@@ -93,6 +91,9 @@ BoldItalicFont = *-700-Italic
 
 \textbf{dyngen:} {It is claimed dyngen is a multi-modality simulator, yet it produces only transcriptomics data}
 
+\textbf{dyngen:} Chapter does not seem completely finished; may need a working example to demonstrate the steps a user needs to take to use the software, and to illustrate how the results look like. No references to user documentation, source code (open source?). No discussion about the performance of the framework. Since this is a PhD in
+computer science, I might also have expected a class diagram on the software, as a proof that the framework has been designed with extensibility in mind, as is claimed in the introduction of the chapter. 
+
 \textbf{dynbenchmark:} {Comparisons focus mainly on relative differences between methods. It would have been interesting to also assess the absolute performance of each method.}
 
 \textbf{dynbenchmark:} {No statistical tests were performed to assess whether methods are significantly different from one another}
@@ -101,19 +102,21 @@ BoldItalicFont = *-700-Italic
 
 \textbf{dyno:} {Does not really read as a scientific paper (yet).}
 
+\textbf{dyno:} Chapter does not seem completely finished; especially the results section (4.2) read more as an incoherent listing of features of dyno, where an overall flow of this section is missing for the readership; adding some details about the case study.
+
 \textbf{SCORPIUS:} {The methodology has changed between the bioRxiv preprint and this chapter, yet Figure 5.4 is exactly the same. Did the changes have no (measurable) effect on this analysis?}
 
 \textbf{SCORPIUS:} {Discuss the computational complexity of SCORPIUS.}
+
+\textbf{SCORPIUS:} How objective is a benchmark of a tool, if developers have designed both the tool and the benchmark?
 
 \textbf{bred:} {Better explain how bred is different from GENIE3.}
 
 \textbf{bred:} {What makes bred a true case-wise NI method? Provide a more formal definition of what a case-wise regulatory network is.}
 
-\textbf{bred:} {Compare the bred clustering against regular clustering obtained from expression profiles}
+\textbf{bred:} {Compare the bred clustering against regular clustering obtained from expression profiles. Compare against other methods, e.g. GENIE3 + r	egulon specificity score.}
 
-\textbf{bred:} {Compare against other methods, e.g. GENIE3 + regulon specificity score}
-
-\textbf{bred:} {Discussion is very short, please elaborate}
+\textbf{bred:} {Discussion is very short, please elaborate. Paper needs finalisation to make it publication-ready.
 
 \textbf{IncGraph:} {On optimising GRNs, compare a simple MST with IncGraph}
 
@@ -123,8 +126,7 @@ BoldItalicFont = *-700-Italic
 \textbf{Discussion:} {The Discussion chapter is missing a more broad context
 			description. How are other researchers using these tools to gain new biological insights? Where is the field of modelling single-cell dynamics going?}
 		
-\textbf{Discussion:} {Discuss the links between different chapters}
-
+\textbf{Discussion:} {Reads more like a summary. Discuss the links between different chapters.}
 
 \newpage
 \section{Legend}
@@ -432,6 +434,86 @@ For example, detailed explanation of what actin polymerisation is, was removed; 
 \exam{\imp{The discussion could be improved by stating how the tools are allowing new
 		biological insights.} Only a small hint is provided in the last sentence of 10.4.}
 
+
+\section{Peter Dawyndt}
+
+\exam{Not all chapters have been published and some are still in stage where some work needs to be done before they are publication-ready}
+
+\exam{Not always a logical connection between the successive chapters}
+
+% TODO: provide visual schematic of what topic this dissertation tries to tackle
+
+\exam{Drop the paper X prefix from most of the chapters}
+
+\subsection{Chapter 2}
+
+
+\exam[\tagimp \tagtime]{chapter does not seem completely finished; \imp{may need a working example to demonstrate the steps
+	a users needs to take to use the software, and to illustrate how the results look like}; for now, only
+	the inner workings of the simulator are discussed}
+
+\exam{no information about implementation language
+	(since Gillespie SSA uses a C++ library, this may hint the framework is also implemented in C++)}
+
+\exam{case
+	study may also serve as user documentation}
+
+\exam{no references to user documentation, source code
+	(open source?)}
+
+\exam{no discussion about the performance of the framework}
+
+\exam[\tagtime]{since this is a PhD in
+	computer science, I might also have expected a class diagram on the software, as a proof that the
+	framework has been designed with extensibility in mind, as is claimed in the introduction of the chapter}
+
+\exam{p24-25 how are networks specified by user (ergonomy \& standards); support for SBML?}
+
+\exam{p26: has the BBL-ontology been invented for this application or an existing ontology?}
+
+\exam{maybe this chapter should come after the next chapter}
+
+\subsection{Chapter 3}
+
+\exam{what reactions have the authors received from the developers of the tools that were reviewed in
+	this benchmark, or from users of the TI tools that have used the benchmark results to decide what
+	tools to use}
+
+\exam{could this study also yield some standard ways for data formats that tools could use to input/output
+	data (already hinted in the text); what approach would the authors choose towards a standards
+	proposal?}
+
+\subsection{Chapter 4}
+
+\exam{Some users filed an issue on GitHub reporting problems with running Docker on Windows; a
+	promise was made by the authors that this issue would be looked at, but no solution has been
+	provided so far; any progress in resolving this issue?}
+
+\exam{as with CH2, this chapter does not seem completely finished; especially the results section (4.2) read more as an incoherent listing of features of dyno, where an overall flow of this section is missing for the readership; adding some details about the case study, e.g. how to run the analysis one the command line, might benefit the readership}
+
+\subsection{Chapter 5}
+
+\exam[\tagimp]{fundamental question: \imp{how objective is a benchmark of a tool, if developers have designed both the tool and the benchmark?}}
+
+\subsection{Chapter 6}
+
+\exam{paper needs finalisation to make it publication-ready}
+
+\subsection{Chapter 7}
+
+\exam{performance measurements show that method is faster than state of the art, but no formal time complexity is derived and no formal proof is given that the method still computes the correct number of graphlets; strange behaviour in time measurements is not diagnosed in depth}
+
+\subsection{Chapter 8}
+
+\exam{I would argue against having this as a separate chapter, but would use its content to supplement the introduction and CH3}
+
+\subsection{Discussion}
+
+\exam{points of discussion, open source: upon publication or release-early-release-often?}
+
+\exam[\tagimp]{\imp{reads more like a summary} + listing some use case that made use of contributions made in the manuscript, rather than a real discussion}
+
+\exam{10.7 might better go into a preface of the manuscript}
 
 \section{Pierre Geurts}
 
