@@ -7,7 +7,7 @@ Improving the accuracy of inferred networks has been a long-standing challenge, 
 Several recent developments involve incorporating topological priors, either to guide the inference process~ \cite{lopes_featureselectiontechnique_2014} or post-process the network~ \cite{ruyssinck_netterrerankinggene_2016}.
 A common prior is that biological networks are highly modular~ \cite{rives_modularorganizationcellular_2003}, as they consist of multiple collections of functionally or physically linked molecules~ \cite{hartwell_molecularmodularcell_1999,barabasi_networkbiologyunderstanding_2004}. At the lowest level, each module is made up out of biochemical interactions arranged in small topological patterns, which act as fundamental building blocks~ \cite{milo_networkmotifssimple_2002}.
 
-Graphlets~ \cite{przulj_modelinginteractomescalefree_2004} are one of the tools which could be used to add a topological prior to a biological network,
+Graphlets~ \cite{przulj_modelinginteractomescalefree_2004} are one of the tools which could be used to add a topological prior to a biological network.
 Graphlets are small connected subnetworks which can be counted to identify which low-level topological patterns are present in a network. By comparing how topologically similar a predicted network is to what would be expected of a true biological network, a predicted network can be optimised in order to obtain a better topology. 
 
 By counting the number of occurrences of each of the different graphlets (Fig~\ref{fig_graphlets}A) touching a specific node, one can characterise the topology surrounding it. The graphlet counts of a network can be represented as a matrix with one row for each of the nodes and one column for each of the graphets (Fig~\ref{fig_graphlets}B). 
