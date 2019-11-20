@@ -38,7 +38,7 @@ By simulating a cell over time in terms of its molecular state and the reactions
 \section{Results}
 
 A cell consists of a set of molecules, the abundance of which are affected by a set of reactions: transcription, splicing, translation, and degradation (Figure \ref{fig:simplecyclic}A). 
-A gene regulatory network (GRN) define the reactions that are allowed to occur (Figure \ref{fig:simplecyclic}B), and is constructed such that a cell will develop over time (Figure \ref{fig:simplecyclic}C--D).
+A gene regulatory network (GRN) defines the reactions that are allowed to occur (Figure \ref{fig:simplecyclic}B), and is constructed such that a cell will develop over time (Figure \ref{fig:simplecyclic}C--D).
 The likelihood of a reaction occurring is a function of the abundance of key molecules involved in each reaction (Figure \ref{fig:simplecyclic}E).
 
 \begin{figure}[htb!]
@@ -174,12 +174,12 @@ The GRN is generated based on the given backbome in four main steps (Figure~\ref
 	\label{fig:gen_feature_network}
 \end{figure}
 
-\paragraph{Step 1, sampling the transcription factors (TF).} The TFs are the main drivers of the molecular changes in the simulation. The user provides a backbone and the number of TFs to generate. Each TF is assigned to a module such that each module has at least $x$ parameters (default $x=1$). A TF inherits the 'burn' and 'basal expression' from the module in belongs to.
+\paragraph{Step 1, sampling the transcription factors (TF).} The TFs are the main drivers of the molecular changes in the simulation. The user provides a backbone and the number of TFs to generate. Each TF is assigned to a module such that each module has at least $x$ parameters (default $x=1$). A TF inherits the 'burn' and 'basal expression' from the module it belongs to.
 
 \paragraph{Step 2, generating the TF interactions.} Let each TF be regulated according to the interactions in the backbone. These interactions inherit the effect, strength, and cooperativity parameters from the interactions in the backbone. A TF can only be regulated by other TFs or itself.
 
 \paragraph{Step 3, sampling the target subnetwork.} 
-A user-defined number of target genes are added to the GRN. Target genes regulated by a TF or another target gene, but is always downstream of at least one TF. To sample the interactions between target genes, one of the many FANTOM5 \cite{lizio_gatewaysfantom5promoter_2015} GRNs is sampled. The currently existing TFs are mapped to regulators in the FANTOM5 GRN. The targets are drawn from the FANTOM5 GRN, weighted by their page rank value. For each target, at most $x$ regulators are sampled from the induced FANTOM5 GRN (default $x=5$). The interactions connecting a target gene and its regulators are added the GRN.
+A user-defined number of target genes are added to the GRN. Target genes are regulated by a TF or another target gene, but is always downstream of at least one TF. To sample the interactions between target genes, one of the many FANTOM5 \cite{lizio_gatewaysfantom5promoter_2015} GRNs is sampled. The currently existing TFs are mapped to regulators in the FANTOM5 GRN. The targets are drawn from the FANTOM5 GRN, weighted by their page rank value. For each target, at most $x$ regulators are sampled from the induced FANTOM5 GRN (default $x=5$). The interactions connecting a target gene and its regulators are added the GRN.
 
 
 \paragraph{Step 4, sampling the housekeeping subnetwork.}

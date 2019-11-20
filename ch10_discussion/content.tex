@@ -6,7 +6,7 @@ In this work, we aimed to accelerate scientific progress in the field of single-
 \section{Benchmarking with \textit{in silico} single cells}
 
 We developed \texttt{dyngen}, a simulator of single cells to benchmark and stress-test computational tools for single-cell omics (Chapter~\ref{chap:dyngen}).
-The \texttt{dyngen} software supports a selection of existing experimental protocols, and can also simulate experiments that are possible with the current technologies, such as generating omics profiles from the same cell at multiple timepoints.
+The \texttt{dyngen} software supports a selection of existing experimental protocols, and can also simulate experiments that are not possible with the current technologies, such as generating omics profiles from the same cell at multiple timepoints.
 The generated data can help kick-start emerging domains with low data availability more safely by allowing software developers to test their method before numerous datasets become publicly available.
 
 \texttt{dyngen} has already been successfully used to evaluate trajectory inference \cite{saelens_comparisonsinglecelltrajectory_2019}, trajectory alignment \cite{vandenberge_trajectorybaseddifferentialexpression_2019}, and network inference \cite{pratapa_benchmarkingalgorithmsgene_2019} methods. Furthermore, we showed that it can also be used to evaluate differential network inference methods, and trajectory alignment methods.
@@ -62,7 +62,7 @@ This project was a spin-off of Netter \cite{ruyssinck_netterrerankinggene_2016},
 Predicted GRNs often are topologically dissimilar to real networks, and as such, Netter quantifies the topological properties of a network and makes incremental changes in order to arrive at a network with a 'better' topological profile.
 
 The topological 'profile' of a network was defined as the frequencies of particular topological patterns called 'graphlets'. Keeping track of the frequencies of graphlets during an iterative process proved difficult at first. 
-\texttt{incgraph} provides a solution to this problem (Chapter~\ref{chap:incgraph}) by making assuming that the incremental changes between two different networks are relatively small (less than 100 edge additions/removals)). Under this assumption, it is possible to calculate the differences in topological patterns significantly faster in comparison to recomputing the graphlet frequencies from scratch at every iteration.
+\texttt{incgraph} provides a solution to this problem (Chapter~\ref{chap:incgraph}) by  assuming that the incremental changes between two different networks are relatively small (less than 100 edge additions/removals)). Under this assumption, it is possible to calculate the differences in topological patterns significantly faster in comparison to recomputing the graphlet frequencies from scratch at every iteration.
 
 While \texttt{incgraph} solved a very specific and interesting problem, and was eventually published as a peer-reviewed article, it has not succeeded in making a direct impact on scientific research as of yet. Perhaps, at some point, a researcher will come across \texttt{incgraph} and find that it exactly solves his or her problem.
 

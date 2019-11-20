@@ -86,13 +86,13 @@ The task of inferring a static GRN (Figure~\ref{fig:simplify}A) can be reduced t
 We make the same simplification in order to build case-wise GRNs, also using Random Forests to compute the feature importance scores. A Random Forest consists of $K$ trees, each of which produces feature importance scores, and the feature importance scores of a forest is simply the mean feature importance scores of each of the trees. 
 
 Computing the case-wise feature importances of a tree consists of the following 8 steps (Figure~\ref{fig:fimp}).
-The 'randomness' of a Random Forest is due to only using a subset of the samples in the dataset in order to build a single decision tree. The samples are split into two groups, the 'in-bag' data and the 'out-of-bag' data (Figure~\ref{fig:fimp}A). A decision tree \cite{breiman_classificationregressiontrees_1984} is trained on the in-bag expression of the potential regulators in trying to predict the in-bag target gene expression (Figure~\ref{fig:fimp}B). The target expression of the out-of-bag samples is predicted using the decision tree (Figure~\ref{fig:fimp}C), and the squared error between the real and target expression is computed (Figure~\ref{fig:fimp}D). For each sample in the out-of-bag set, this vector represents how well the decision tree was able to predict the expression of the target gene.
+The 'randomness' of a Random Forest is in part due to using a subset of the samples in the dataset in order to build a single decision tree. The samples are split into two groups, the 'in-bag' data and the 'out-of-bag' data (Figure~\ref{fig:fimp}A). A decision tree \cite{breiman_classificationregressiontrees_1984} is trained on the in-bag expression of the potential regulators in trying to predict the in-bag target gene expression (Figure~\ref{fig:fimp}B). The target expression of the out-of-bag samples is predicted using the decision tree (Figure~\ref{fig:fimp}C), and the squared error between the real and target expression is computed (Figure~\ref{fig:fimp}D). For each sample in the out-of-bag set, this vector represents how well the decision tree was able to predict the expression of the target gene.
 
 The next few steps are repeated for every potential regulator $R_i$. Within the out-of-bag samples, the expression of $R_i$ is randomly shuffled. The target expression of the out-of-bag samples is again calculated (Figure~\ref{fig:fimp}F), as well as the squared error between the real target expression and the predicted expression is calculated (Figure~\ref{fig:fimp}G). The importance of regulator $R_i$ for an out-of-bag sample $S_j$ is defined as the increase in squared error between the predicted target expression and the real target expression, after perturbing the expression of $R_i$ (Figure~\ref{fig:fimp}H). 
 
 Steps F-G are repeated for every potential regulator $R_i$. By aggregating all of the feature importance scores over all the samples, regulators and targets, we obtain an $M$-by-$N$-by-$P$ tensor\footnote{This is the origin of the name of the method, "\texttt{bred}".}. 
 
-A moderately-sized dataset could contain $M=10'000$ samples, $N=2'000$ regulators, and $P=10'000$ target genes. Due to memory constrains, only interactions with an average importance value (across all samples) higher than a minimum threshold are retained.
+A moderately-sized dataset could contain $M=10'000$ samples, $N=2'000$ regulators, and $P=10'000$ target genes. Due to memory constraints, only interactions with an average importance value (across all samples) higher than a minimum threshold are retained.
 
 \begin{figure}[htb!]
 	\centering
@@ -156,7 +156,7 @@ The following cutoffs were used to determine the effect.
 To perform downstream analysis on the cases, first a $k$-nearest neighbour ($k$NN) graph of the cases is computed.
 In order for the $k$NN graph to better emphasise similarities in GRNs rather than absolute euclidean distances, we first reduce the dimensionality of the case-by-interaction matrix to case-by-20 matrix using Landmark Multi-Dimensional Scaling \cite{lee_landmarkmdsensemble_2009} with a Spearman rank distance metric.  
 
-Next, KD-trees are used to calculate the $k$NN graph efficiently. The cases in the dataset are visualised and clusted using the Fruchterman-Reingold \cite{fruchterman_graphdrawingforcedirected_1991} and Louvain clustering \cite{blondel_fastunfoldingcommunities_2008}, respectively.
+Next, KD-trees are used to calculate the $k$NN graph efficiently. The cases in the dataset are visualised and clustered using the Fruchterman-Reingold \cite{fruchterman_graphdrawingforcedirected_1991} and Louvain clustering \cite{blondel_fastunfoldingcommunities_2008}, respectively.
 
 The following R packages provided implementations for each of these algorithms: lmds, RANN, igraph \cite{csardi_igraphsoftwarepackage_2006}.
 
