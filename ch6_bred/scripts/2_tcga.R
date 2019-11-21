@@ -41,8 +41,8 @@ if (!file.exists(tcga_data_file)) {
 
   # add clinical case id
   mjs <- c(
-    jsonlite::read_json("/home/rcannood/Workspace/tcga/raw/F_metadata.cart.2019-10-08.json"),
-    jsonlite::read_json("/home/rcannood/Workspace/tcga/raw/M_metadata.cart.2019-10-08.json")
+    jsonlite::read_json(paste0(tcga_folder, "raw/F_metadata.cart.2019-10-08.json")),
+    jsonlite::read_json(paste0(tcga_folder, "raw/M_metadata.cart.2019-10-08.json"))
   )
 
   meta <- pbapply::pblapply(mjs, function(mji) {
@@ -62,8 +62,8 @@ if (!file.exists(tcga_data_file)) {
 
   # add clinical data
   cjs <- c(
-    jsonlite::read_json("/home/rcannood/Workspace/tcga/raw/F_clinical/clinical.json"),
-    jsonlite::read_json("/home/rcannood/Workspace/tcga/raw/M_clinical/clinical.json")
+    jsonlite::read_json(paste0(tcga_folder, "raw/F_clinical/clinical.json")),
+    jsonlite::read_json(paste0(tcga_folder, "raw/M_clinical/clinical.json"))
   )
 
   clinical <- pbapply::pblapply(seq_along(cjs), cl = 8, function(i) {

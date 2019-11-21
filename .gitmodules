@@ -7,3 +7,6 @@
 [submodule "ch3b_dyno"]
 	path = ch4_dyno
 	url = git@github.com:rcannood/dyno_analysis.git
+[submodule "ch2_dyngen"]
+	path = ch2_dyngen
+	url = git@github.com:rcannood/dyngen_analysis.git
