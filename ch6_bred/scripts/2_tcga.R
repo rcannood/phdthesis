@@ -270,7 +270,7 @@ write_lines(colnames(expr), paste0(data_dir, "genes.txt"))
 
 if (!file.exists(paste0(data_dir, "qsub_handle.rds"))) {
   regulators_filt <- regulators
-  targets_filt <- targets[1:5000]
+  targets_filt <- targets[1:10000]
   expr_filt <- expr[, union(targets_filt, regulators_filt)]
   samples_filt <- rownames(expr_filt)
 
