@@ -83,6 +83,29 @@ g <- ggplot(df) +
 ggsave("defence_internal/figures/overview.pdf", g, width = 6, height = 6)
 
 
+
+g <- ggplot(df) +
+  geom_segment(aes(x = x, xend = x, y = 0, yend = 1.05), titdf, colour = "lightgray", linetype = "dashed") +
+  geom_segment(aes(x = 0, xend = 3, y = 1, yend = 1), tibble(1), colour = "lightgray", linetype = "dashed") +
+  geom_text(aes(x, y, label = name, colour = col), titdf, size = 6, fontface = "bold") +
+  coord_polar() +
+  dynplot::theme_graph() +
+  theme(plot.margin=grid::unit(c(0,0,0,0), "mm")) +
+  scale_colour_identity()
+ggsave("defence_internal/figures/overview_categories.pdf", g, width = 6, height = 6)
+
+
+g <- ggplot(df) +
+  geom_segment(aes(x = x, xend = x, y = 0, yend = 1.05), titdf, colour = "lightgray", linetype = "dashed") +
+  geom_segment(aes(x = 0, xend = 3, y = 1, yend = 1), tibble(1), colour = "lightgray", linetype = "dashed") +
+  geom_text(aes(x, y, label = name, colour = col), titdf, size = 6, fontface = "bold") +
+  coord_polar() +
+  dynplot::theme_graph() +
+  theme(plot.margin=grid::unit(c(0,0,0,0), "mm")) +
+  scale_colour_identity()
+ggsave("defence_internal/figures/overview_categories_dots.pdf", g, width = 6, height = 6)
+
+
 for (i in 2:9) {
   g <- ggplot(df) +
     geom_segment(aes(x = x, xend = x, y = 0, yend = 1.05), titdf, colour = "lightgray", linetype = "dashed") +
