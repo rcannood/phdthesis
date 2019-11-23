@@ -103,6 +103,10 @@
 		\end{itemize}
 	\end{frame}
 }
+\newcommand{\topright}[1]{%
+\begin{textblock*}{.15\linewidth}(.98\linewidth,.05\linewidth)
+	\includegraphics[width=\linewidth]{figures/overview_#1.pdf}
+\end{textblock*}}
 
 \title{Modelling single-cell dynamics\\with trajectories and gene regulatory networks}
 
@@ -123,6 +127,7 @@
   \hfill
 \end{frame}
 
+%%%%%%%%%%%%%% SINGLE CELL BIOLOGY %%%%%%%%%%%%%%
 \begin{frame}
 	\frametitle{Single-cell biology \uncover<2->{is to study an organism}\\\uncover<3->{by studying the behaviour of its cells}}
 	\begin{center}
@@ -140,15 +145,31 @@
 		\flushright 		{\vspace*{-1em}\footnotesize Regev et al. 2018}
 	\end{center}
   \vspace*{-2.2em}
-  \uncover<2->{
-	  \rotatebox[origin=c]{180}{$\Lsh$} Trajectory inference \\
-	  \rotatebox[origin=c]{180}{$\Lsh$} Network inference \\
-	}
 \end{frame}
 
+\begin{frame}
+	\frametitle{Research questions}
+	\begin{center}
+		\only<2>{\includegraphics[width=\linewidth]{figures/11a_fundamental.pdf}}%
+		\only<3>{\includegraphics[width=\linewidth]{figures/11b_fundamental.pdf}}%
+		\only<4>{\includegraphics[width=\linewidth]{figures/11c_fundamental.pdf}}%
+		\only<5>{\includegraphics[width=\linewidth]{figures/11d_fundamental.pdf}}%
+	\end{center}
+\end{frame}
 
-%%%%%%%%%%%%%% SUMMARY
-\summary{lightgray}{black}{lightgray}{lightgray}{lightgray}
+\begin{frame}
+\includegraphics[width=\linewidth]{figures/overview.pdf}
+\end{frame}
+
+%%%%%%%%%%%%%% TRAJECTORY INFERENCE %%%%%%%%%%%%%%
+
+\begin{frame}
+	\vfill
+	\begin{center}
+		\LARGE Trajectory inference
+	\end{center}
+	\vfill
+\end{frame}
 
 \begin{frame}
 	\frametitle{Cells are highly dynamic entities}
@@ -156,7 +177,6 @@
 		\includegraphics[width=.6\linewidth]{figures/3_dynamiccells.pdf}
 	\end{center}
 \end{frame}
-
 
 \begin{frame}
 	\frametitle{A typical trajectory inference analysis}
@@ -169,13 +189,22 @@
 	\end{center}
 \end{frame}
 
+\begin{frame}
+	\frametitle{dyngen: Benchmarking with \textit{in silico} cells}
+	\begin{center}
+		\includegraphics[width=.6\linewidth]{figures/end_part_dyngen.pdf}
+	\end{center}
+	\topright{ch2}
+\end{frame}
+
 
 \begin{frame}
 	\frametitle{Benchmark of 45 trajectory inference methods}
-	\begin{center}
+%	\begin{center}
 		\only<1>{\includegraphics[width=.9\linewidth]{figures/5a_benchmark.pdf}}%
 		\only<2>{\includegraphics[width=.9\linewidth]{figures/5b_benchmark.pdf}}%
-	\end{center}
+%	\end{center}
+	\topright{ch3}
 \end{frame}
 
 
@@ -184,54 +213,124 @@
 	\begin{center}
 		\includegraphics[width=\linewidth]{figures/6_guidelines.pdf}
 	\end{center}
+	\topright{ch3}
 \end{frame}
 
+
+\begin{frame}
+	\frametitle{Perspective: self-assessment in trajectory inference}
+	\begin{center}
+		\includegraphics[width=.8\linewidth]{figures/end_part_selfassessment.pdf}
+	\end{center}
+  \topright{ch8}
+\end{frame}
 
 \begin{frame}
 	\frametitle{SCORPIUS: Linear trajectory inference}
 	\begin{center}
 		\includegraphics[width=.8\linewidth]{figures/end_part_scorpius.pdf}
 	\end{center}
+	\topright{ch5}
 \end{frame}
 
 \begin{frame}
-	\frametitle{dyno: A toolkit for inferring and interpreting trajectories}
+	\frametitle{dyno: A toolkit for inferring and\\interpreting trajectories}
 	\begin{center}
-		\includegraphics[width=\linewidth]{figures/end_part_dyno.pdf}
+		\includegraphics[width=.9\linewidth]{figures/end_part_dyno.pdf}
+	\end{center}
+	\topright{ch4}
+\end{frame}
+
+
+%%%%%%%%%%%%%% NETWORK INFERENCE %%%%%%%%%%%%%%
+
+\begin{frame}
+	\vfill
+	\begin{center}
+		\LARGE Network inference
+	\end{center}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Cellular dynamics is (i.a.) driven by gene regulation}
+	\begin{center}
+		\only<1>{\includegraphics[width=.8\linewidth]{figures/7a_generegulation.pdf}}%
+		\only<2>{\includegraphics[width=.8\linewidth]{figures/7b_generegulation.pdf}}%
+		\only<3>{\includegraphics[width=.8\linewidth]{figures/7c_generegulation.pdf}}%
+		\only<4>{\includegraphics[width=.8\linewidth]{figures/7d_generegulation.pdf}}%
+		\only<5>{\includegraphics[width=.8\linewidth]{figures/7e_generegulation.pdf}}%
+		\only<6>{\includegraphics[width=.8\linewidth]{figures/7f_generegulation.pdf}}%
 	\end{center}
 \end{frame}
+
 \begin{frame}
-	\frametitle{Perspective: self-assessment in trajectory inference}
+	\frametitle{Classical network inference}
 	\begin{center}
-		\includegraphics[width=.8\linewidth]{figures/end_part_selfassessment.pdf}
+		\includegraphics[width=.9\linewidth]{figures/8_networkinference.pdf}
 	\end{center}
 \end{frame}
 
 
-%%%%%%%%%%%%%% SUMMARY
-\summary{lightgray}{lightgray}{black}{lightgray}{lightgray}
-
-%%%%%%%%%%%%%% SUMMARY
-\summary{lightgray}{lightgray}{lightgray}{black}{lightgray}
-
-
 \begin{frame}
-	\frametitle{dyngen}
+	\frametitle{Case-specific network inference}
 	\begin{center}
-		\includegraphics[width=.6\linewidth]{figures/end_part_dyngen.pdf}
+		\only<1>{\includegraphics[width=\linewidth]{figures/9a_csni_example.pdf}}%
+		\only<2>{\includegraphics[width=\linewidth]{figures/9b_csni_example.pdf}}%
+		\only<3>{\includegraphics[width=\linewidth]{figures/9c_csni_example.pdf}}%
+		\only<4>{\includegraphics[width=\linewidth]{figures/9d_csni_example.pdf}}%
 	\end{center}
+	\topright{ch6}
 \end{frame}
 
 \begin{frame}
-\frametitle{Guidelines for benchmarking computational tools}
-\begin{center}
-	\includegraphics[width=\linewidth]{figures/end_part_guidelines.pdf}
-\end{center}
+	\frametitle{bred applied to TCGA}
+	\begin{center}
+		\includegraphics[width=.85\linewidth]{figures/10b_tcga.pdf}
+%		\only<1>{\includegraphics[width=.6\linewidth]{figures/10a_tcga.pdf}}%
+%		\only<2>{\includegraphics[width=.85\linewidth]{figures/10b_tcga.pdf}}%
+	\end{center}
+	\topright{ch6}
 \end{frame}
 
+\begin{frame}
+	\frametitle{incgraph: Optimising regulatory networks}
+	\begin{center}
+		\includegraphics[width=\linewidth]{figures/end_part_incgraph.pdf}
+	\end{center}
+	\topright{ch7}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%% BENCHMARKING
+\begin{frame}
+	\vfill
+	\begin{center}
+		\LARGE Benchmarking
+	\end{center}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Essential guidelines for benchmarking\\computational tools}
+	\begin{center}
+		\includegraphics[width=\linewidth]{figures/end_part_guidelines.pdf}
+	\end{center}
+	\topright{ch9}
+\end{frame}
+
+%%%%%%%%%%%%%% IMPLICATIONS %%%%%%%%%%%%%%
 
 
-%%%%%%%%%%%%%% SUMMARY
-\summary{lightgray}{lightgray}{lightgray}{lightgray}{black}
+\begin{frame}
+	\frametitle{Practical implications}
+	\begin{itemize}
+		\item<2-> Fundamental research in single-cell analyses \\
+		  \uncover<3->{\begin{center}\includegraphics[width=.7\linewidth]{figures/11d_fundamental.pdf}\end{center}}
+		\item<4-> Benchmarking
+		\item<5-> R \& tidyverse
+	\end{itemize}
+  \topright{all}
+\end{frame}
+
 
 \end{document}
