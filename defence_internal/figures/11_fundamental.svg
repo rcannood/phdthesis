@@ -10,8 +10,8 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="240.42053mm"
-   height="81.792419mm"
-   viewBox="0 0 240.42053 81.792419"
+   height="107.75538mm"
+   viewBox="0 0 240.42053 107.75538"
    version="1.1"
    id="svg8"
    inkscape:version="0.92.4 (unknown)"
@@ -120,10 +120,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="308.45488"
-     inkscape:cy="171.79964"
+     inkscape:cx="520.51148"
+     inkscape:cy="217.37013"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer3"
+     inkscape:current-layer="layer5"
      showgrid="false"
      inkscape:window-width="3840"
      inkscape:window-height="2032"
@@ -150,7 +150,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-19.43824,-36.688611)">
+     transform="translate(-19.43824,-26.23061)">
     <circle
        transform="translate(19.43824,36.68861)"
        style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
@@ -164,7 +164,7 @@
      id="layer2"
      inkscape:label="Layer 2"
      style="display:inline"
-     transform="translate(-5.1269536e-8,-1.0769043e-6)">
+     transform="translate(0,10.458)">
     <g
        style="display:inline"
        id="g3057"
@@ -208,13 +208,13 @@
        sodipodi:nodetypes="cc" />
     <text
        id="text3646"
-       y="17.565851"
+       y="-3.7897942"
        x="101.73238"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.17222214px;line-height:1.10000002;font-family:'Helvetica LT Std';-inkscape-font-specification:'Helvetica LT Std Bold';text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;display:inline;fill:#377eb8;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        xml:space="preserve"><tspan
          id="tspan3644"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.17222214px;line-height:1.10000002;font-family:'Helvetica LT Std';-inkscape-font-specification:'Helvetica LT Std Bold';text-align:start;text-anchor:start;fill:#377eb8;fill-opacity:1;stroke-width:0.26458332"
-         y="17.565851"
+         y="-3.7897942"
          x="101.73238"
          sodipodi:role="line">How do cells change over time?</tspan></text>
   </g>
@@ -223,7 +223,7 @@
      id="layer3"
      inkscape:label="Layer 3"
      style="display:inline"
-     transform="translate(-5.1269536e-8,-1.0769043e-6)">
+     transform="translate(0,10.458)">
     <g
        style="display:inline"
        transform="translate(-19.43824,-36.688608)"
@@ -246,13 +246,13 @@
     </g>
     <text
        id="text3463"
-       y="58.057186"
+       y="35.322372"
        x="101.73238"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.17222214px;line-height:1.10000002;font-family:'Helvetica LT Std';-inkscape-font-specification:'Helvetica LT Std Bold';text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;display:inline;fill:#4daf4a;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        xml:space="preserve"><tspan
          id="tspan3461"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.17222214px;line-height:1.10000002;font-family:'Helvetica LT Std';-inkscape-font-specification:'Helvetica LT Std Bold';text-align:start;text-anchor:start;fill:#4daf4a;fill-opacity:1;stroke-width:0.26458332"
-         y="58.057186"
+         y="35.322372"
          x="101.73238"
          sodipodi:role="line">What drives cells to change?</tspan></text>
   </g>
@@ -260,29 +260,122 @@
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="Layer 4"
-     transform="translate(-5.1269536e-8,-1.0769043e-6)"
+     transform="translate(0,10.458)"
      style="display:inline">
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.17222214px;line-height:1.10000002;font-family:'Helvetica LT Std';-inkscape-font-specification:'Helvetica LT Std';text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;display:inline;fill:#377eb8;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        x="101.73238"
-       y="30.265863"
+       y="8.9102182"
        id="text3451"><tspan
          sodipodi:role="line"
          x="101.73238"
-         y="30.265863"
+         y="8.9102182"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.17222214px;line-height:1.10000002;font-family:'Helvetica LT Std';-inkscape-font-specification:'Helvetica LT Std';text-align:start;text-anchor:start;fill:#377eb8;fill-opacity:1;stroke-width:0.26458332"
          id="tspan3666">→ Trajectory inference</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.17222214px;line-height:1.10000002;font-family:'Helvetica LT Std';-inkscape-font-specification:'Helvetica LT Std';text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;display:inline;fill:#4daf4a;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        x="101.73238"
-       y="70.757195"
+       y="48.022381"
        id="text3652"><tspan
          sodipodi:role="line"
          x="101.73238"
-         y="70.757195"
+         y="48.022381"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.17222214px;line-height:1.10000002;font-family:'Helvetica LT Std';-inkscape-font-specification:'Helvetica LT Std';text-align:start;text-anchor:start;fill:#4daf4a;fill-opacity:1;stroke-width:0.26458332"
          id="tspan3650">→ Network inference</tspan></text>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer5"
+     inkscape:label="Layer 5"
+     transform="translate(5.1269536e-8,10.458001)"
+     style="display:inline">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.17222214px;line-height:1.10000002;font-family:'Helvetica LT Std';-inkscape-font-specification:'Helvetica LT Std Bold';text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;display:inline;fill:#e41a1c;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="101.73238"
+       y="72.609268"
+       id="text926"><tspan
+         sodipodi:role="line"
+         x="101.73238"
+         y="72.609268"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.17222214px;line-height:1.10000002;font-family:'Helvetica LT Std';-inkscape-font-specification:'Helvetica LT Std Bold';text-align:start;text-anchor:start;fill:#e41a1c;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan955">How to quantify the accuracy</tspan><tspan
+         sodipodi:role="line"
+         x="101.73238"
+         y="82.698715"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.17222214px;line-height:1.10000002;font-family:'Helvetica LT Std';-inkscape-font-specification:'Helvetica LT Std Bold';text-align:start;text-anchor:start;fill:#e41a1c;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan959">of computational tools?</tspan></text>
+    <g
+       id="g953"
+       transform="matrix(1.5120306,0,0,1.5161364,-17.496176,-30.436069)"
+       style="stroke-width:0.66046619">
+      <rect
+         y="66.290787"
+         x="23.419493"
+         height="13.998241"
+         width="2.5390604"
+         id="rect934"
+         style="opacity:1;vector-effect:none;fill:#f4a1a2;fill-opacity:1;stroke:none;stroke-width:0.66046619;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
+      <rect
+         style="opacity:1;vector-effect:none;fill:#f4a1a2;fill-opacity:1;stroke:none;stroke-width:0.66046619;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+         id="rect936"
+         width="2.5390604"
+         height="11.525998"
+         x="27.375082"
+         y="68.763031" />
+      <rect
+         y="70.233009"
+         x="31.330669"
+         height="10.056016"
+         width="2.5390604"
+         id="rect938"
+         style="opacity:1;vector-effect:none;fill:#f4a1a2;fill-opacity:1;stroke:none;stroke-width:0.66046619;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
+      <rect
+         style="opacity:1;vector-effect:none;fill:#f4a1a2;fill-opacity:1;stroke:none;stroke-width:0.66046619;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+         id="rect940"
+         width="2.5390604"
+         height="3.5413213"
+         x="35.286259"
+         y="76.747704" />
+      <rect
+         y="77.549507"
+         x="39.241848"
+         height="2.7395124"
+         width="2.5390604"
+         id="rect942"
+         style="opacity:1;vector-effect:none;fill:#f4a1a2;fill-opacity:1;stroke:none;stroke-width:0.66046619;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
+      <rect
+         style="opacity:1;vector-effect:none;fill:#f4a1a2;fill-opacity:1;stroke:none;stroke-width:0.66046613;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+         id="rect944"
+         width="2.5390604"
+         height="1.9042953"
+         x="43.197437"
+         y="78.384735" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path932"
+         d="m 21.582014,62.014475 v 18.30796 H 47.70761"
+         style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#e41a1c;stroke-width:0.66046619;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer6"
+     inkscape:label="Layer 6"
+     transform="translate(5.1269536e-8,10.458001)"
+     style="display:inline">
+    <text
+       id="text930"
+       y="95.279488"
+       x="101.73238"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.17222214px;line-height:1.10000002;font-family:'Helvetica LT Std';-inkscape-font-specification:'Helvetica LT Std';text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;display:inline;fill:#e41a1c;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.17222214px;line-height:1.10000002;font-family:'Helvetica LT Std';-inkscape-font-specification:'Helvetica LT Std';text-align:start;text-anchor:start;fill:#e41a1c;fill-opacity:1;stroke-width:0.26458332"
+         y="95.279488"
+         x="101.73238"
+         sodipodi:role="line"
+         id="tspan961">→ Benchmarking</tspan></text>
   </g>
 </svg>

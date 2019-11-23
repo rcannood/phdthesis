@@ -19,6 +19,12 @@
 \definecolor{mygray}{rgb}{0.7,0.7,0.7}
 \definecolor{mygreen}{rgb}{0,0.8,0.1}
 
+\definecolor{set1red}{HTML}{E41A1C}
+\definecolor{set1blue}{HTML}{377EB8}
+\definecolor{set1green}{HTML}{4DAF4A}
+
+
+
 \useinnertheme{circles}
 
 \DeclareMathOperator*{\argmin}{arg\,min}
@@ -148,12 +154,14 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Research questions}
+	\frametitle{Research questions regarding single-cell biology}
 	\begin{center}
-		\only<2>{\includegraphics[width=\linewidth]{figures/11a_fundamental.pdf}}%
-		\only<3>{\includegraphics[width=\linewidth]{figures/11b_fundamental.pdf}}%
-		\only<4>{\includegraphics[width=\linewidth]{figures/11c_fundamental.pdf}}%
-		\only<5>{\includegraphics[width=\linewidth]{figures/11d_fundamental.pdf}}%
+		\only<1>{\includegraphics[width=\linewidth]{figures/11a_fundamental.pdf}}%
+		\only<2>{\includegraphics[width=\linewidth]{figures/11b_fundamental.pdf}}%
+		\only<3>{\includegraphics[width=\linewidth]{figures/11c_fundamental.pdf}}%
+		\only<4>{\includegraphics[width=\linewidth]{figures/11d_fundamental.pdf}}%
+		\only<5>{\includegraphics[width=\linewidth]{figures/11e_fundamental.pdf}}%
+		\only<6>{\includegraphics[width=\linewidth]{figures/11f_fundamental.pdf}}%
 	\end{center}
 \end{frame}
 
@@ -168,7 +176,9 @@
 \begin{frame}
 	\vfill
 	\begin{center}
-		\LARGE Trajectory inference
+		\color{set1blue}
+		{\LARGE Trajectory inference} \\
+		How do cells change over time?
 	\end{center}
 	\vfill
 \end{frame}
@@ -250,22 +260,24 @@
 \begin{frame}
 	\vfill
 	\begin{center}
-		\LARGE Network inference
+		\color{set1green}
+		{\LARGE Network inference}\\
+		What drives cells to change?
 	\end{center}
 	\vfill
 \end{frame}
 
-\begin{frame}
-	\frametitle{Cellular dynamics is (i.a.) driven by gene regulation}
-	\begin{center}
-		\only<1>{\includegraphics[width=.8\linewidth]{figures/7a_generegulation.pdf}}%
-		\only<2>{\includegraphics[width=.8\linewidth]{figures/7b_generegulation.pdf}}%
-		\only<3>{\includegraphics[width=.8\linewidth]{figures/7c_generegulation.pdf}}%
-		\only<4>{\includegraphics[width=.8\linewidth]{figures/7d_generegulation.pdf}}%
-		\only<5>{\includegraphics[width=.8\linewidth]{figures/7e_generegulation.pdf}}%
-		\only<6>{\includegraphics[width=.8\linewidth]{figures/7f_generegulation.pdf}}%
-	\end{center}
-\end{frame}
+%\begin{frame}
+%	\frametitle{Cellular dynamics is (i.a.) driven by gene regulation}
+%	\begin{center}
+%		\only<1>{\includegraphics[width=.8\linewidth]{figures/7a_generegulation.pdf}}%
+%		\only<2>{\includegraphics[width=.8\linewidth]{figures/7b_generegulation.pdf}}%
+%		\only<3>{\includegraphics[width=.8\linewidth]{figures/7c_generegulation.pdf}}%
+%		\only<4>{\includegraphics[width=.8\linewidth]{figures/7d_generegulation.pdf}}%
+%		\only<5>{\includegraphics[width=.8\linewidth]{figures/7e_generegulation.pdf}}%
+%		\only<6>{\includegraphics[width=.8\linewidth]{figures/7f_generegulation.pdf}}%
+%	\end{center}
+%\end{frame}
 
 \begin{frame}
 	\frametitle{Classical network inference}
@@ -274,9 +286,15 @@
 	\end{center}
 \end{frame}
 
+\begin{frame}
+	\frametitle{Classical vs. sample-specific network inference}
+	\begin{center}
+		\includegraphics[width=.9\linewidth]{figures/12_nitypes.pdf}
+	\end{center}
+\end{frame}
 
 \begin{frame}
-	\frametitle{Case-specific network inference}
+	\frametitle{Sample-specific network inference}
 	\begin{center}
 		\only<1>{\includegraphics[width=\linewidth]{figures/9a_csni_example.pdf}}%
 		\only<2>{\includegraphics[width=\linewidth]{figures/9b_csni_example.pdf}}%
@@ -308,9 +326,19 @@
 \begin{frame}
 	\vfill
 	\begin{center}
-		\LARGE Benchmarking
+		\color{set1blue}
+		{\LARGE Benchmarking} \\
+		How to quantify the accuracy of computational tools?
 	\end{center}
 	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{dyngen: Benchmarking with \textit{in silico} cells}
+	\begin{center}
+		\includegraphics[width=.6\linewidth]{figures/end_part_dyngen.pdf}
+	\end{center}
+	\topright{ch2}
 \end{frame}
 
 \begin{frame}
@@ -318,6 +346,10 @@
 	\begin{center}
 		\includegraphics[width=\linewidth]{figures/end_part_guidelines.pdf}
 	\end{center}
+	{\scriptsize 
+	\begin{flushright}
+		In collaboration with the labs of Mark Robinson,\\Anne-Laure Boulesteix, and Paul P. Gardner.
+	\end{flushright}}
 	\topright{ch9}
 \end{frame}
 
@@ -326,12 +358,8 @@
 
 \begin{frame}
 	\frametitle{Practical implications}
-	\begin{itemize}
-		\item<2-> Fundamental research in single-cell analyses \\
-		  \uncover<3->{\begin{center}\includegraphics[width=.7\linewidth]{figures/11d_fundamental.pdf}\end{center}}
-		\item<4-> Benchmarking
-		\item<5-> R \& tidyverse
-	\end{itemize}
+  \uncover<2->{\begin{center}\includegraphics[width=.7\linewidth]{figures/11f_fundamental.pdf}\end{center}}
+	\uncover<3->{Contributions to open-source software in the R ecosystem}
   \topright{all}
 \end{frame}
 
