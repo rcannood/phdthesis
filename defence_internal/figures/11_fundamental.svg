@@ -120,8 +120,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="520.51148"
-     inkscape:cy="217.37013"
+     inkscape:cx="275.15434"
+     inkscape:cy="215.94156"
      inkscape:document-units="mm"
      inkscape:current-layer="layer5"
      showgrid="false"
@@ -263,35 +263,7 @@
      transform="translate(0,10.458)"
      style="display:inline">
     <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.17222214px;line-height:1.10000002;font-family:'Helvetica LT Std';-inkscape-font-specification:'Helvetica LT Std';text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;display:inline;fill:#377eb8;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="101.73238"
-       y="8.9102182"
-       id="text3451"><tspan
-         sodipodi:role="line"
-         x="101.73238"
-         y="8.9102182"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.17222214px;line-height:1.10000002;font-family:'Helvetica LT Std';-inkscape-font-specification:'Helvetica LT Std';text-align:start;text-anchor:start;fill:#377eb8;fill-opacity:1;stroke-width:0.26458332"
-         id="tspan3666">→ Trajectory inference</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.17222214px;line-height:1.10000002;font-family:'Helvetica LT Std';-inkscape-font-specification:'Helvetica LT Std';text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;display:inline;fill:#4daf4a;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="101.73238"
-       y="48.022381"
-       id="text3652"><tspan
-         sodipodi:role="line"
-         x="101.73238"
-         y="48.022381"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.17222214px;line-height:1.10000002;font-family:'Helvetica LT Std';-inkscape-font-specification:'Helvetica LT Std';text-align:start;text-anchor:start;fill:#4daf4a;fill-opacity:1;stroke-width:0.26458332"
-         id="tspan3650">→ Network inference</tspan></text>
-  </g>
-  <g
-     inkscape:groupmode="layer"
-     id="layer5"
-     inkscape:label="Layer 5"
-     transform="translate(5.1269536e-8,10.458001)"
-     style="display:inline">
-    <text
+       transform="translate(5.1269535e-8,1.0020833e-6)"
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.17222214px;line-height:1.10000002;font-family:'Helvetica LT Std';-inkscape-font-specification:'Helvetica LT Std Bold';text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;display:inline;fill:#e41a1c;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        x="101.73238"
@@ -309,8 +281,8 @@
          id="tspan959">of computational tools?</tspan></text>
     <g
        id="g953"
-       transform="matrix(1.5120306,0,0,1.5161364,-17.496176,-30.436069)"
-       style="stroke-width:0.66046619">
+       transform="matrix(1.5120306,0,0,1.5161364,-17.496176,-30.436068)"
+       style="display:inline;stroke-width:0.66046619">
       <rect
          y="66.290787"
          x="23.419493"
@@ -362,10 +334,34 @@
   </g>
   <g
      inkscape:groupmode="layer"
-     id="layer6"
-     inkscape:label="Layer 6"
+     id="layer5"
+     inkscape:label="Layer 5"
      transform="translate(5.1269536e-8,10.458001)"
      style="display:inline">
+    <text
+       transform="translate(-5.1269536e-8,-1.05625e-6)"
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.17222214px;line-height:1.10000002;font-family:'Helvetica LT Std';-inkscape-font-specification:'Helvetica LT Std';text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;display:inline;fill:#377eb8;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="101.73238"
+       y="8.9102182"
+       id="text3451"><tspan
+         sodipodi:role="line"
+         x="101.73238"
+         y="8.9102182"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.17222214px;line-height:1.10000002;font-family:'Helvetica LT Std';-inkscape-font-specification:'Helvetica LT Std';text-align:start;text-anchor:start;fill:#377eb8;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan3666">→ Trajectory inference</tspan></text>
+    <text
+       transform="translate(-5.1269536e-8,-1.05625e-6)"
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.17222214px;line-height:1.10000002;font-family:'Helvetica LT Std';-inkscape-font-specification:'Helvetica LT Std';text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;display:inline;fill:#4daf4a;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="101.73238"
+       y="48.022381"
+       id="text3652"><tspan
+         sodipodi:role="line"
+         x="101.73238"
+         y="48.022381"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.17222214px;line-height:1.10000002;font-family:'Helvetica LT Std';-inkscape-font-specification:'Helvetica LT Std';text-align:start;text-anchor:start;fill:#4daf4a;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan3650">→ Network inference</tspan></text>
     <text
        id="text930"
        y="95.279488"
