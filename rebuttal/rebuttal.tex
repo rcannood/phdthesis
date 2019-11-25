@@ -29,6 +29,13 @@
 \usepackage{url}
 \usepackage{doi}
 
+% checks and boxes
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\todo}{$\square$}
+\newcommand{\done}{\makebox[0pt][l]{$\square$}\raisebox{.15ex}{\hspace{0.1em}$\checkmark$}}%
+	
 %%%%%%%%%%%%%%%%%%%%%
 %%% DEFINE STYLES %%%
 %%%%%%%%%%%%%%%%%%%%%
@@ -48,11 +55,17 @@ BoldItalicFont = *-700-Italic
   urlcolor = {blue},
 	citecolor = {med-gray}
 }
+\definecolor{myblue}{rgb}{0,0.4,0.7}
+\definecolor{myred}{rgb}{0.7,.1,.1}
+\definecolor{mygray}{rgb}{0.7,0.7,0.7}
+\definecolor{mygreen}{rgb}{0,0.8,0.1}
 
-\newcommand{\exam}[2][\  ]{\hspace{0pt}\marginpar{\color{red}#1}$\bullet$ \textit{#2}}
-\newcommand{\imp}[1]{{\color{red} #1}}
-\newcommand{\nimp}[1]{{\color{gray} #1}}
-\newcommand{\answ}[1]{{\color{blue} $\triangleright$ #1}}
+\newcommand{\exam}[2][\  ]{\hspace{0pt}\marginpar{\color{myred}#1}$\bullet$ \textit{#2}}
+%\newcommand{\imp}[1]{{\color{myred} #1}}
+\newcommand{\imp}[1]{\textbf{#1}}
+\newcommand{\nimp}[1]{{\color{mygray} #1}}
+\newcommand{\answ}[1]{{\color{myblue} $\triangleright$ #1}}
+\newcommand{\task}[2][\todo]{{\color{myblue} #1 #2}}
 
 \usepackage{tikz}
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
@@ -70,61 +83,61 @@ BoldItalicFont = *-700-Italic
 
 \begin{document}
 
-\section{Summary of most important comments}
+%\section{Summary of most important comments}
+%
+%\textbf{Overall:} From three jury members: Merge chapters 8-9-10 into one discussion, or merge chapter 8 into chapter 3.
+%
+%\textbf{Overall:} Random Forest variable importances are often used to detect differentially expressed genes. Why RF and not more standard statistical tests?
+%
+%\textbf{Introduction:} {Describe the practical implications of the
+%		technological advances (e.g. precision medicine, new treatments) and
+%		motivate the research from a non-technical view point (How is/can this PhD
+%		change the world?)
+%	
+%\textbf{dyngen:} {Table 2.2: explain default values and formulae}
+%
+%\textbf{dyngen:} {How crucial are certain parts of the GRN model, e.g. mRNA production and degradation?}
+%
+%\textbf{dyngen:} {Compare against other scRNA-seq generators}
+%
+%\textbf{dyngen:} {It is claimed dyngen is a multi-modality simulator, yet it produces only transcriptomics data}
+%
+%\textbf{dyngen:} May need a working example to demonstrate the steps a user needs to take to use the software, and to illustrate how the results look like. No references to user documentation, source code (open source?). No discussion about the performance of the framework. 
+%I might also have expected a class diagram on the software, as a proof that the framework has been designed with extensibility in mind, as is claimed in the introduction of the chapter. 
+%
+%\textbf{dynbenchmark:} {Comparisons focus mainly on relative differences between methods. It would have been interesting to also assess the absolute performance of each method.}
+%
+%\textbf{dynbenchmark:} {No statistical tests were performed to assess whether methods are significantly different from one another}
+%
+%\textbf{dynbenchmark:} Turn into UK English to be consistent with the rest of the dissertation.
+%
+%\textbf{dyno:} Does not really read as a scientific paper (yet). The results section should be improved, it currently reads more as an incoherent listing of features of dyno, where an overall flow of this section is missing for the readership; adding some details about the case study.
+%
+%\textbf{SCORPIUS:} {The methodology has changed between the bioRxiv preprint and this chapter, yet Figure 5.4 is exactly the same. Did the changes have no (measurable) effect on this analysis?}
+%
+%\textbf{SCORPIUS:} {Discuss the computational complexity of SCORPIUS.}
+%
+%\textbf{SCORPIUS:} How objective is a benchmark of a tool, if developers have designed both the tool and the benchmark?
+%
+%\textbf{bred:} {Better explain how bred is different from GENIE3.}
+%
+%\textbf{bred:} {What makes bred a true case-wise NI method? Provide a more formal definition of what a case-wise regulatory network is.}
+%
+%\textbf{bred:} {Compare the bred clustering against regular clustering obtained from expression profiles. Compare against other methods, e.g. GENIE3 + regulon specificity score.}
+%
+%\textbf{bred:} {Discussion is very short, please elaborate.}
+%
+%\textbf{IncGraph:} {On optimising GRNs, compare a simple MST with IncGraph}
+%
+%\textbf{Benchmarking guidelines:} {As the candidate is not first author on this paper, I’m not sure if this paper
+%	should be included in the PhD book verbatim.}
+%
+%\textbf{Discussion:} {The Discussion chapter is missing a more broad context
+%			description. How are other researchers using these tools to gain new biological insights? Where is the field of modelling single-cell dynamics going?}
+%		
+%\textbf{Discussion:} {Reads more like a summary. Discuss the links between different chapters.}
 
-\textbf{Overall:} From three jury members: Merge chapters 8-9-10 into one discussion, or merge chapter 8 into chapter 3.
-
-\textbf{Overall:} Random Forest variable importances are often used to detect differentially expressed genes. Why RF and not more standard statistical tests?
-
-\textbf{Introduction:} {Describe the practical implications of the
-		technological advances (e.g. precision medicine, new treatments) and
-		motivate the research from a non-technical view point (How is/can this PhD
-		change the world?)
-	
-\textbf{dyngen:} {Table 2.2: explain default values and formulae}
-
-\textbf{dyngen:} {How crucial are certain parts of the GRN model, e.g. mRNA production and degradation?}
-
-\textbf{dyngen:} {Compare against other scRNA-seq generators}
-
-\textbf{dyngen:} {It is claimed dyngen is a multi-modality simulator, yet it produces only transcriptomics data}
-
-\textbf{dyngen:} May need a working example to demonstrate the steps a user needs to take to use the software, and to illustrate how the results look like. No references to user documentation, source code (open source?). No discussion about the performance of the framework. 
-I might also have expected a class diagram on the software, as a proof that the framework has been designed with extensibility in mind, as is claimed in the introduction of the chapter. 
-
-\textbf{dynbenchmark:} {Comparisons focus mainly on relative differences between methods. It would have been interesting to also assess the absolute performance of each method.}
-
-\textbf{dynbenchmark:} {No statistical tests were performed to assess whether methods are significantly different from one another}
-
-\textbf{dynbenchmark:} Turn into UK English to be consistent with the rest of the dissertation.
-
-\textbf{dyno:} Does not really read as a scientific paper (yet). The results section should be improved, it currently reads more as an incoherent listing of features of dyno, where an overall flow of this section is missing for the readership; adding some details about the case study.
-
-\textbf{SCORPIUS:} {The methodology has changed between the bioRxiv preprint and this chapter, yet Figure 5.4 is exactly the same. Did the changes have no (measurable) effect on this analysis?}
-
-\textbf{SCORPIUS:} {Discuss the computational complexity of SCORPIUS.}
-
-\textbf{SCORPIUS:} How objective is a benchmark of a tool, if developers have designed both the tool and the benchmark?
-
-\textbf{bred:} {Better explain how bred is different from GENIE3.}
-
-\textbf{bred:} {What makes bred a true case-wise NI method? Provide a more formal definition of what a case-wise regulatory network is.}
-
-\textbf{bred:} {Compare the bred clustering against regular clustering obtained from expression profiles. Compare against other methods, e.g. GENIE3 + regulon specificity score.}
-
-\textbf{bred:} {Discussion is very short, please elaborate.}
-
-\textbf{IncGraph:} {On optimising GRNs, compare a simple MST with IncGraph}
-
-\textbf{Benchmarking guidelines:} {As the candidate is not first author on this paper, I’m not sure if this paper
-	should be included in the PhD book verbatim.}
-
-\textbf{Discussion:} {The Discussion chapter is missing a more broad context
-			description. How are other researchers using these tools to gain new biological insights? Where is the field of modelling single-cell dynamics going?}
-		
-\textbf{Discussion:} {Reads more like a summary. Discuss the links between different chapters.}
-
-\newpage
+%\newpage
 \section{Legend}
 \exam{Question or comment by jury member. \nimp{Description of dissertation.}}
 
@@ -134,6 +147,10 @@ I might also have expected a class diagram on the software, as a proof that the 
 
 \answ{Response or statement by candidate.}
 
+\task{Unfinished task.}
+
+\task[\done]{Finished task.}
+
 \section{Dries De Maeyer}
 
 \subsection{Chapter 1}
@@ -141,52 +158,51 @@ I might also have expected a class diagram on the software, as a proof that the 
 \exam{The scope of the complete thesis is to define state transitions in cell types and the
 	definition of cell type/state transition is not clear cut. I would frame the definition of a cell
 	type more based on our current understanding and technology of biology. I.e. where do you
-	draw the line of a new cell type?}
+	draw the line of a new cell type?} \\
+\task{Define cell type in introduction.}
 
 \exam{Could you make the main outline of the thesis could even be more clear by
-	providing a graphical overview of the different topics addressed in this thesis?}
+	providing a graphical overview of the different topics addressed in this thesis?} \\
+\task{Add outline to thesis}
 
 \subsection{Chapter 2}
 \exam{Would you be able to extend this method to include Citeseq data? How would
-	you see this?}
+	you see this?}\\
+\answ{Yes. dyngen already generates protein abundance information, but more work is needed to compare characteristics of distributions of genes of citeseq or cytometry data to dyngen data, to ensure that the outputted information is realistic enough. As such, this feature is not included in the list of features in the current version of dyngen.} \\
+\task{Add this to discussion in dyngen?}
 
 \exam{Can you use the generated models for validation with existing cellular
-	heterogeneity from scRNA-seq data?}
+	heterogeneity from scRNA-seq data?} \\
+\task{Ask for explanation pertaining this question.}
 
 \subsection{Chapter 3}
 
 \exam{Since an ensemble of methods is proposed as the best approach to perform TI,
 	how would this be addressed? Is there an objective means of selecting good performing
-	methods?}
+	methods?} \\
+\answ{An internal measure for quantifying how well a given trajectory fits the original data would be extremely useful but also non-trivial. One internal measure could be: to what extent is the expression of some of the genes smooth along the trajectory. Variations of this approach should be tried and compared to gold standard metrics.}
 
 \exam{Can TI methods be used for detecting and quantifying technical variation in
 	between different samples? Be used as a metric for assessing batch integration?}
+\answ{In some cases, yes. If two similar but disconnected trajectories are detected, it is possible to integrate those samples by performing trajectory alignment. Up until now, I have not encountered datasets where this approach would likely yield acceptable results, and instead would recommend performing batch correction separately from trajectory inference.}
 
 \subsection{Chapter 7}
 
 \exam{Based on the method presented here, we could “learn” the topology of biological
-	networks. What is to your insight the transposability of these topologies?}
+	networks. What is to your insight the transposability of these topologies?}\\
+\task{Ask for explanation pertaining this question.}
 
 \subsection{Chapter 8}
-\exam{\nimp{The eight chapter is a manuscript in preparation about the assessment of TI methods. The
-		main discussion topic is the lack of a quantitative measure for the scoring of new TI
-		methods. This leads to the publication and development of new methods that do not show
-		a clear performance improvement compared to other methods. The main topic touches
+\exam{\nimp{The eight chapter is a manuscript in preparation about the assessment of TI methods. The main discussion topic is the lack of a quantitative measure for the scoring of new TI methods. This leads to the publication and development of new methods that do not show a clear performance improvement compared to other methods. The main topic touches
 		upon some sore points that are inherent in bioinformatics. The main thought I have with
-		this chapter is that defining clear goals in an emerging technology is difficult and therefore is
-		sometimes ignored by fellow bioinformaticians. This because the lack of standardized
-		performance metrics, missing public datasets that are well described and an ad hoc problem
-		definition. I follow the idea of defining a clear cut approach to benchmarking (as described
-		in chapter nine) and I like the proposition that is started in this manuscript for a discussion
-		on good TI metrics.}}
-
-\exam{Would approaches like e.g. DREAM challenges be a means of tackling these issues
-	to your opinion?}
+		this chapter is that defining clear goals in an emerging technology is difficult and therefore is sometimes ignored by fellow bioinformaticians. This because the lack of standardized performance metrics, missing public datasets that are well described and an \textit{ad hoc} problem definition. I follow the idea of defining a clear cut approach to benchmarking (as described in chapter nine) and I like the proposition that is started in this manuscript for a discussion on good TI metrics.} Would approaches like e.g. DREAM challenges be a means of tackling these issues to your opinion?} \\
+\answ{Yes and no. I believe any discussions into quantifying performance in any subdomain of bioinformatics through efforts such as benchmarking studies or challenges are crucial. However, \ldots chicken and egg problem; \textit{in silico} simulators.} \\
+\task{Finish explanation.}
 
 \exam{Do you expect that all methods which are mainly developed to answer specific
-	biological questions would adhere to the same biological problem definition? Is the fact that
-	people are trying to answer different question not a prior to define more generalized
-	questions?}
+	biological questions would adhere to the same biological problem definition? Is the fact that people are trying to answer different question not a prior to define more generalized
+	questions?} \\
+\answ{Indeed, methods designed to answer specific biological questions might have (slightly) differing problem definitions. This is one of the central issues we encountered in performing our benchmark, because the differences in problem definitions resulted in very different data structures in the inputs and outputs of these methods.}
 
 \section{Joeri Ruyssinck}
 
@@ -219,12 +235,18 @@ I might also have expected a class diagram on the software, as a proof that the 
 
 
 
-\subsection{Weaknesses of the thesis}
-\exam[\tagimp \tagtime]{\imp{The quality of writing, layout and graphical presentation is of a lower quality in the non-published parts of the thesis. Certain unpublished chapters feel rushed and unfinished. Furthermore, for some chapters it feels that they could be merged into a broader discussion chapter.}}
+\subsection{Weaknesses of the thesis} \label{sec:joeriweakness}
+\exam[\tagimp \tagtime]{\imp{The quality of writing, layout and graphical presentation is of a lower quality in the non-published parts of the thesis. Certain unpublished chapters feel rushed and unfinished.}} \\
+\task{Rewrite sections of dyno and of bred.}
+
+\exam{Furthermore, for some chapters it feels that they could be merged into a broader discussion chapter.} \\
+\task{Reorder chapters in a more logical order. Rewrite abstracts to better introduce the context of each of the chapters.}
 
 \exam[\tagimp \tagtime]{\imp{The Introduction and Discussion chapter is missing a more broad context
 	description. After reading the work, I gained very little insight how other
-	researchers are using these tools to advance science.}}
+	researchers are using these tools to advance science.}} \\
+\task{Rewrite introduction in terms of the three main research questions. Discuss how answering these PhD questions can change the world. Better motivate the significance of certain technological advancements.} \\
+\task{Rewrite discussion in terms of the three topics: Trajectory inference, network inference and benchmarking. Discuss the practical implications of this work, and future perspectives in the field. }
 
 
 \exam{\nimp{The main contribution of this work is the excellent benchmarking study
@@ -232,18 +254,23 @@ I might also have expected a class diagram on the software, as a proof that the 
 	cohesiveness of the work, as information is repeated throughout the book at
 	several levels of detail. \nimp{This however a common side-effect of grouping
 	published manuscripts into a thesis and I’m aware there is no (quick) solution
-	to this.}}
+	to this.}} \\
+\answ{Indeed, this is a result of bundling multiple manuscripts into one thesis. While there is a redundancy in information presented to the reader, these redundancies are largely confined to the introduction sections of each chapter.}
 
-\exam[\tagimp]{\nimp{It is very rare to see that research groups (or individual researchers) invest this
+\exam{\nimp{It is very rare to see that research groups (or individual researchers) invest this
 	much effort and time in creating qualitative software. I agree with the ideas of
 	the candidates that these practices to adopt software to accompany research
 	ideas should be encouraged.} Yet I wonder how the current academic system
 	can support such concepts. Academics often hold different positions in
 	different research groups around the world, who should be the maintainer in
 	these cases? The original PhD students that developed the work? The original
-	research group? Will such higher standards not lead to barriers which might
+	research group?} \\
+\answ{I would argue that in order to develop software projects of this scale, adapting good software development practices (e.g. using code revision systems, unit testing, automated integration testing) 'pays for itself'. That is, making use of these practices requires some time investment at the start. However, developing and maintaining a large code base without these practices would require much greater effort, as it can lead to more frequent unexpected debugging expeditions as a result of long undetected bugs.}
+
+\exam{Will such higher standards not lead to barriers which might
 	be harder to overcome for PhD students which might be constrained by limited
-	support or funding?}
+	support or funding?} \\
+\answ{Most of the good programming practices which are advocated for throughout this dissertation (Table~3.1, Figure~8.5, Figure~9.1) are skills that are not difficult to acquire given that the PhD student in question is able to program. A two-day crash course in good software development practices is likely sufficient to obtain the basics of developing qualitative software for a given programming language. If a PhD student is aiming to develop software on which other research will depend, they should familiarise themselves with the proper 'quality control' tools of software development.}
 
 
 \subsection{Summary and chapter 1}
@@ -257,7 +284,8 @@ I might also have expected a class diagram on the software, as a proof that the 
 	if the candidate could briefly describe the practical implications of the
 	technological advances (e.g. precision medicine, new treatments) and
 	motivate the research from a non-technical view point (How is/can this PhD
-	change the world?)}}
+	change the world?)}} \\
+\answ{See section~\ref{sec:joeriweakness}.}
 
 
 
@@ -312,10 +340,10 @@ TI methods often have common building blocks. Extending this figure to >75 TI me
 		regulator assigned}
 
 
-\exam[\tagimp \tagtime]{\imp{Table 2.2. contains many default ‘magic’ numbers?} It would be nice to know
+\exam{Table 2.2. contains many default ‘magic’ numbers? It would be nice to know
 		how in practice you ended up selecting them and which problems you
-		encountered during design.}
-
+		encountered during design.} \\
+\answ{The default values (or rather, default distributions) are determined based our understanding of biology; for example transcription occurs at a much faster rate than splicing or translation, and this is reflected in the default distributions.}
 
 \exam{Since these are default values, it would suggest
 		that the user can modify them? Why would a user do that and what would be
@@ -330,12 +358,14 @@ TI methods often have common building blocks. Extending this figure to >75 TI me
 	simulation was performed.} At a certain time I was under the impression that
 	dyngen did not simulate cell evolution end-to-end but only between states.
 	Would the readability be improved if the order was changed in which the
-	concepts are explained? The backbone is only needed for the visualisation.}
+	concepts are explained? The backbone is only needed for the visualisation.} \\
+\answ{The backbone is an essential part of defining the gene regulatory network that is used for the simulation, not just for visualisation purposes.} \\
+\task{I will modify the text to clarify the purpose of the backbone better.}
 
 
 \exam{2.4.6. is a bit worrying. Could I reproduce dyngen without knowing these
-		details? Does the sampling process not deserve more explanation?}
-	
+		details? Does the sampling process not deserve more explanation?} \\
+\task{I will better describe the different sampling procedures, with the help of one or more illustrations.}	
 
 
 
@@ -344,7 +374,7 @@ TI methods often have common building blocks. Extending this figure to >75 TI me
 \exam{There are some artefacts of converting the paper into a PhD chapter: e.g.
 	references to Supplementary tables/figures should be changed to the actual
 	table number.} \\
-\answ{Certain supplementary figures and files had not been included in the dissertation, but instead the reference contained a clickable URL which directs the reader to a downloadable file. Since this information is lost to readers of the printed dissertation, explicit captions have been added in a section for supplementary figures and tables, and contain a printable URL which direct the reader towards the file.}
+\answ{Certain supplementary figures and files had not been included in the dissertation, but instead the reference contained a clickable URL which directs the reader to a downloadable file. This information is lost to readers of the printed dissertation.} \\ \task[\done]{Explicit captions have been added in a section for supplementary figures and tables, and contain a printable URL which direct the reader towards the file.}
 
 \exam{Some words are marked with an asterisk but the footnote? is
 	missing.} \\
@@ -378,14 +408,13 @@ TI methods often have common building blocks. Extending this figure to >75 TI me
 	consider support for features such as interpretation or automated error
 	detection after prediction?}
 
-
 \exam[\tagimp \tagtime]{\imp{This chapter does not really read as a scientific paper (yet).} There are few
-	comments I have since this is mainly an instruction manual + feature overview.}
-
-
+	comments I have since this is mainly an instruction manual + feature overview.} \\
+\task{I will add a methods section to this chapter, as well as rewrite the results section to make it read more like a manuscript.}
 
 \exam{Figure 4.7 is missing slingshot and paga label in part B} \\
-\answ{Figure 4.7 does contain labels for Slingshot and PAGA. A small gap between part A and part B has been added, to improve interpretability.}
+\answ{Figure 4.7 does contain labels for Slingshot and PAGA.}
+\task[\done]{ small gap between part A and part B has been added, to improve interpretability.}
 
 
 \subsection{Chapter 5}
@@ -396,30 +425,25 @@ TI methods often have common building blocks. Extending this figure to >75 TI me
 	MDS is used in the chapter and final version. There is also no mention of
 	outlier removal. The main result Figure 5.4 is however identical. \imp{Did this
 	change or other potential changes have no (measurable) effect on the initial
-	analysis? I also noticed that the biological conclusions or hypothesis have
+	analysis?}} \\
+\answ{The SCORPIUS software was originally developed and the preprint published in 2016. Since then, the source code has been modified to be more scalable (LMDS + changes to principal curves), but these changes do not have a noticeable effect on the results of the method. The outlier removal was removed from the methodology because this step has since become a standard practice in single-cell omics preprocessing pipelines.} \\
+\task{I will generate a comparison between the old and new version of SCORPIUS on the Schlitzer dataset, and quantify the differences in outcome.}
+
+\exam[\tagimp]{\imp{I also noticed that the biological conclusions or hypothesis have
 	been reduced in claim strength in the paper or have been removed.} It would
-	be interesting to know if this is due to new insights that have been found in the
-	period 2016-> 2019 or mainly because the paper’s target audience has
-	shifted.} \\
-
-\answ{As mentioned, the preprint was originally published in 2016. In order to submit this work to a peer-reviewed journal in 2019, the manuscript and the software was rewritten to reflect developments within the field.
-
-Regarding the methodology. Classical MDS has indeed been replaced with Landmark MDS, since this allows scaling beyond 10'000 cells. Principal curves has been modified to also allow scaling beyond 10'000 cells. These changes have little to no effect on any results. Outlier removal was removed because this step is now part of mainstream preprocessing pipelines such as Seurat. Initialisation of the curve (k-means clustering + shortest path) has been removed -- while this part of the algorithm showed improved performance when applied to the datasets included in the bioRxiv benchmark, this was not the case when applied to a larger set of datasets. 
-
-Regarding reducing the biological conclusions. Section 5.2.2 regarding the functional modules found by SCORPIUS was reduced in character count, yet it makes the same claims. The main differences are that gene names and explanations of the biological functions are not discussed in detail, but are instead summarised in figure 5.4. The reasoning for these changes are indeed to adapt the text to the target audience.
+be interesting to know if this is due to new insights that have been found in the
+period 2016-> 2019 or mainly because the paper’s target audience has
+shifted.} \\
+\answ{Section 5.2.2 regarding the functional modules found by SCORPIUS was reduced in character count, yet it makes the same claims. The main differences are that gene names and explanations of the biological functions are not discussed in detail, but are instead summarised in figure 5.4. The reasoning for these changes are indeed to adapt the text to the target audience.
 For example, detailed explanation of what actin polymerisation is, was removed; because immunologist readers already know this information and data scientist readers are presented with sufficient information when told that particular genes recovered by SCORPIUS are related to a biological process that is highly relevant to dendritic cell development, that is, actin polymerisation.}
-
-
 
 \exam{This chapter would offer information on how the developed algorithms
 	are being used to discover new insights, so I’m unsure if it is beneficial if this
 	chapter evolves more into a technical description of Scorpius as the former is
 	missing from the thesis.}
-\answ{???}
-
 
 \exam{It would help to list the title of the manuscript on the pre-print server} \\
-\answ{I fixed the DOI. This should be sufficient to find back the manuscript on the pre-print server.}
+\task[\done]{I fixed the DOI. This should be sufficient to find back the manuscript on the pre-print server.}
 
 
 \subsection{Chapter 6}
@@ -441,7 +465,7 @@ For example, detailed explanation of what actin polymerisation is, was removed; 
 		assume we are not working with single cell data?}
 
 \exam{I’m afraid to ask, but I don’t get the reference to the name bred.}
- 
+
 
 \exam{\imp{I don’t understand how the approach in figure 6.5 is different from GENIE3 and
 		how it results in a tensor instead of matrix/ranking of ‘shuffle’ variable
@@ -450,7 +474,9 @@ For example, detailed explanation of what actin polymerisation is, was removed; 
 		with this chapter: is the method executed for each profile or for all profiles
 		together? Do you not end up with a single GRN for each of the profiles and as
 		such why would bred be a true case-wise NI method and the Scenic approach
-		would not? It would be nice to discuss this more during the defense.}
+		would not? It would be nice to discuss this more during the defense.} \\
+\answ{bred indeed produces a single GRN for every individual sample in the dataset, and this by running more-or-less the same computations as a typical execution of GENIE3 with permutation importances. The distinction between bred and SCENIC is that SCENIC infers a single GRN for the whole dataset using GENIE3, and then uses a separate metric to predict to what extent an interaction was active in one of the samples.} \\
+\task{I will expand improve figure 6.5 to better explain the workings of bred and the differences with GENIE3.}
 
 
 \exam{The readability of Figure 6.1 could be improved by using a black font}
@@ -468,10 +494,12 @@ For example, detailed explanation of what actin polymerisation is, was removed; 
 		included or it could be merged with chapters 8-9-10 into a single discussion
 		chapter. Maybe at the very least, the candidate should state a bit more
 		explicitly why the content was included in the PhD book and what the personal
-		contribution was.}
+		contribution was.} \\
+\answ{This chapter was a collaboration between multiple labs. Each lab had independently had the idea of developing a set of guidelines on how to benchmark computational tools. Similar to other authors, I had written my own set of guidelines and reasoning behind the guidelines. The first author, Lukas M. Weber, pooled all of our inputs together and generated a first draft of the manuscript, which was subsequently reviewed and edited by all authors. I will not modify the contribution list as modifying it would make it contradict the author contributions list of the publication.} \\
+\task{I will modify the abstract to better discuss and motivate how this chapter fits in the dissertation.}
 
 \exam{Author contributions is not correct (CS)} \\
-\answ{???}
+\answ{Unless I am mistaken, I believe they are correct.}
 
 
 \subsection{Chapter 10}
@@ -481,16 +509,16 @@ For example, detailed explanation of what actin polymerisation is, was removed; 
 
 
 \exam{\imp{The discussion could be improved by stating how the tools are allowing new
-		biological insights.} Only a small hint is provided in the last sentence of 10.4.}
+		biological insights.} Only a small hint is provided in the last sentence of 10.4.} \\
+\answ{See section~\ref{sec:joeriweakness}.}
 
 
 \section{Peter Dawyndt}
 
-\exam{Not all chapters have been published and some are still in stage where some work needs to be done before they are publication-ready}
+\exam{Not all chapters have been published and some are still in stage where some work needs to be done before they are publication-ready. }
 
-\exam{Not always a logical connection between the successive chapters}
-
-% TODO: provide visual schematic of what topic this dissertation tries to tackle
+\exam{\imp{Not always a logical connection between the successive chapters}} \\
+\task{I will better discuss the connection between the chapters in the introduction. I will reorder the chapters according to the new overview figure that was featured in the presentation.}
 
 \exam{Drop the paper X prefix from most of the chapters}
 
@@ -499,7 +527,8 @@ For example, detailed explanation of what actin polymerisation is, was removed; 
 
 \exam[\tagimp \tagtime]{chapter does not seem completely finished; \imp{may need a working example to demonstrate the steps
 	a users needs to take to use the software, and to illustrate how the results look like}; for now, only
-	the inner workings of the simulator are discussed}
+	the inner workings of the simulator are discussed} \\
+\task{I am actively working on adding more detailed use cases to the results section of this chapter.}
 
 \exam{no information about implementation language
 	(since Gillespie SSA uses a C++ library, this may hint the framework is also implemented in C++)}
@@ -540,9 +569,18 @@ For example, detailed explanation of what actin polymerisation is, was removed; 
 
 \exam{as with CH2, this chapter does not seem completely finished; especially the results section (4.2) read more as an incoherent listing of features of dyno, where an overall flow of this section is missing for the readership; adding some details about the case study, e.g. how to run the analysis one the command line, might benefit the readership}
 
-\subsection{Chapter 5}
+\subsection{Chapter 5} 
 
-\exam[\tagimp]{fundamental question: \imp{how objective is a benchmark of a tool, if developers have designed both the tool and the benchmark?}}
+\exam[\tagimp]{fundamental question: \imp{how objective is a benchmark of a tool, if developers have designed both the tool and the benchmark?}} \\
+\answ{The software and original preprint of tool pre-dates the benchmark. Since then, two modifications have been made to improve the scalability without changing the methodology, and one step in the methodology was removed because it was decreasing the stability of the method without improving the accuracy significantly. As such, the benchmark did not have a (strong) impact on the methodology of the tool.} \\
+\answ{Throughout the development of the benchmark, we were acutely aware that we could be unintentionally biasing our benchmark to favour SCORPIUS. We paid attention to the following matters when designing our benchmark, hoping to have mitigated the largest sources of bias in this way.
+\begin{itemize}
+	\item Our main hypotheses and methodology were determined before implementation of any code or performing any of the experiments.
+	\item When including synthetic datasets we also included synthetic datasets generated by simulators other than dyngen. 
+	\item We performed extensive testing of our metrics to verify that each metric quantifies what we aim for it to quantify.
+	\item When wrapping SCORPIUS vs. TI methods from other authors, we could be biased in our interaction with the tool simply because we better understand our own software. To mitigate this, we contacted every author of every TI method for comments on our usage of their software and also on the quality control scores that we assigned to their software based on our question checklist. Several authors made contributions to the wrappers, and also improved their own software based on certain QC criterion that we proposed.
+\end{itemize}
+}
 
 \subsection{Chapter 6}
 
@@ -560,7 +598,8 @@ For example, detailed explanation of what actin polymerisation is, was removed; 
 
 \exam{points of discussion, open source: upon publication or release-early-release-often?}
 
-\exam[\tagimp]{\imp{reads more like a summary} + listing some use case that made use of contributions made in the manuscript, rather than a real discussion}
+\exam{\imp{reads more like a summary} + listing some use case that made use of contributions made in the manuscript, rather than a real discussion} \\
+\answ{See section~\ref{sec:joeriweakness}.}
 
 \exam{10.7 might better go into a preface of the manuscript}
 
@@ -672,17 +711,19 @@ written.}
 \exam{The methods of Chapter 2 are extensive, but the results are very brief. I’m wondering whether
 some parts that are now in the Methods section would not fit better in the Results section. Testing how
 representative the generated data are is of course a huge challenge, this could have been addressed
-perhaps in the Discussion.}
+perhaps in the Discussion.} \\
+\task{I am working on providing use-cases in the results section of this chapter.}
 
 
 \exam[\tagimp \tagtime]{\imp{It would also be interesting te evaluate the impact of the gene regulatory
 models in the simulation. How crucial is it to use such an extensive model of mRNA production and
-degradation, and how do these parameters affect the simulated single-cell data?}}
-
+degradation, and how do these parameters affect the simulated single-cell data?}} \\
+%\answ{Includin}
 
 \exam{Chapter 4 is a bit opposite
 of chapter 2 - here the results are described, but without methods. For example, how are features
-(genes) selected on the branch points, in a branch, etc (which methods are used for this).}
+(genes) selected on the branch points, in a branch, etc (which methods are used for this).} \\
+\task{I will elaborate on the methodology of this chapter.}
 
 \exam{The marker gene idenfitication is very interesting, but is not described in detail in the Methods, how
 is this RF built, and trained? Is it RF regression or classification? What is the topology, why use a RF,
@@ -691,13 +732,13 @@ has it been compared to other techniques?}
 \exam{In the benchmark of SCORPIUS compared to other
 methods, it is mentioned that many data sets are used, but there are no details on which data sets.}
 
- 
 
 \exam[\tagimp \tagtime]{\imp{In Chapter 6, it would have been interesting
-to compare the results of bred with such methods (for example GENIE3 + regulon specificity score).}}
+to compare the results of bred with such methods (for example GENIE3 + regulon specificity score).}} \\
+\task{I will attempt to finish a quantitative comparison between bred and GENIE3 + regulon specificity score. If not in the PhD dissertation, this will definitely be included in the publication of this work.}
 
-\exam[\tagimp \tagtime]{\imp{The methods could be a little bit more clear on the specific differences between bred and GENIE3.}}
-
+\exam[\tagimp \tagtime]{\imp{The methods could be a little bit more clear on the specific differences between bred and GENIE3.}} \\
+\task{I elaborate on the difference between bred and GENIE3 better.}
 
 \exam{In Chapter 7, it may have
 been interesting to discuss the relationship with the classical network motifs from Uri Alon.}
@@ -773,7 +814,8 @@ interactions...” Specify.}
 \subsection{Chapter 6}
 
 
-\exam{Is this really the first algorithm for inferring case-wise regulatory networks?}
+\exam{Is this really the first algorithm for inferring case-wise regulatory networks?} \\
+\answ{No, as mentioned in the introduction: "Thus, while several case-wise NI methods have already been proposed, their implementation consisted of post-processing a static GRN to arrive at a case-wise GRN." I thus argue that bred is the first \textit{true} method for inferring case-wise regulatory networks.}
 
 \exam[\tagimp]{p. 107 Delete in Results: We generate.}
 
@@ -785,25 +827,27 @@ interactions...” Specify.}
 	measure only an aspect of gene regulation. It is true that precision-recall for network
 	inference predictions is not high, so they can only be viewed as hypothesis generators, but
 	are nevertheless valid since they offer, relatively easy, a genome-wide view on gene
-	regulation.}
+	regulation.} \\
+\answ{I meant to use the term 'data-driven', rather than 'unbiased'.} \\
+\task{Change 'unbiased' into 'data-driven'.}
 
-\exam{There are significant differences between the methods of Kuijer and Liu, please describe
-	these methods in more detail in the introduction.}
+\exam{There are significant differences between the methods of Kuijer and Liu, please describe these methods in more detail in the introduction.} \\
+\answ{I respectfully disagree. In essence, the core concept of how a case-specific GRN is derived is exactly the same (See Kuijjer Fig 1B and Liu Fig 1C), namely by performing classical (static) NI twice, once all of the samples and once more after removing one of the samples. The differences between the two NI executions results in the desired case-specific network.} \\
+\task{Regardless, I will revisit the description of these methods and expand the explanation, if necessary.}
 
-\exam{What about case-specific random forests like in the R package ranger, csfr() ?}
- 
+\exam{What about case-specific random forests like in the R package ranger, csfr() ?} \\
+\answ{case-specific random forest is a similar sounding but entirely different concept. From the documentation of the \texttt{csrf()} function: In case-specific random forests (CSRF), random forests are built specific to the cases of interest. Instead of using equal probabilities, the cases are weighted according to their difference to the case of interest.}
 
 \exam[\tagimp]{The sentence “As such, these methods will most likely recover the interactions that are
-	prevalent in the whole population, and will miss interactions that are specific to only a sub-
-	population” is incorrect. \imp{I would suggest you read the relevant method papers again, see
-	above.}}
-
+	prevalent in the whole population, and will miss interactions that are specific to only a subpopulation” is incorrect. \imp{I would suggest you read the relevant method papers again, see
+	above.}} \\
+\answ{I respectfully disagree. I believe detecting interactions which are only prevalent in a portion of the population will make it harder for classical (static) NI methods to detect them. Similar to how it is possible to detect differential expression in a sub-population when using single-cell transcriptomics vs. bulk transcriptomics, sample-specific NI will make it easier to detect context-dependent interactions. }
+\task{An experiment would need to be performed to provide an answer to this issue. }
 
 \exam{p. 114, 6.4.3. Can you include a motivation for the specific clustering algorithms used here?}
 
-
-\exam[\tagimp \tagtime]{\imp{The discussion is very short, please elaborate on}: possible applications in the field of
-	personalized precision medicine and comparison to state of the art.}
+\exam[\tagimp \tagtime]{\imp{The discussion is very short, please elaborate on}: possible applications in the field of personalized precision medicine and comparison to state of the art.} \\
+\task{I elaborate on the implications and application of the method and refer to the current state of the art.}
 
 
 \subsection{Chapter 7}
@@ -824,6 +868,7 @@ interactions...” Specify.}
 \exam[\tagimp \tagtime]{\imp{The general discussion on the thesis is only 3 pages and consists of small, but critical, discussion
 		paragraphs on each of the different papers. The general discussion is too brief and lacks future perspectives on the field. It provides some links between the different chapters,
 		but this bridging could be increased further.
-		I miss an overarching discussion on where the field of modelling single cell dynamics is going.}}
+		I miss an overarching discussion on where the field of modelling single cell dynamics is going.}} \\
+\answ{See section~\ref{sec:joeriweakness}.}
 
 \end{document}

@@ -62,7 +62,7 @@ This project was a spin-off of Netter \cite{ruyssinck_netterrerankinggene_2016},
 Predicted GRNs often are topologically dissimilar to real networks, and as such, Netter quantifies the topological properties of a network and makes incremental changes in order to arrive at a network with a 'better' topological profile.
 
 The topological 'profile' of a network was defined as the frequencies of particular topological patterns called 'graphlets'. Keeping track of the frequencies of graphlets during an iterative process proved difficult at first. 
-\texttt{incgraph} provides a solution to this problem (Chapter~\ref{chap:incgraph}) by  assuming that the incremental changes between two different networks are relatively small (less than 100 edge additions/removals)). Under this assumption, it is possible to calculate the differences in topological patterns significantly faster in comparison to recomputing the graphlet frequencies from scratch at every iteration.
+\texttt{incgraph} provides a solution to this problem (Chapter~\ref{chap:incgraph}) by  assuming that the incremental changes between two different networks are relatively small (less than 100 edge additions/removals). Under this assumption, it is possible to calculate the differences in topological patterns significantly faster in comparison to recomputing the graphlet frequencies from scratch at every iteration.
 
 While \texttt{incgraph} solved a very specific and interesting problem, and was eventually published as a peer-reviewed article, it has not succeeded in making a direct impact on scientific research as of yet. Perhaps, at some point, a researcher will come across \texttt{incgraph} and find that it exactly solves his or her problem.
 
@@ -84,9 +84,18 @@ Software bugs can be introduced even by incredibly small, seemingly insignifican
 
 Honourable mentions go to Linux, Fedora, \LaTeX, TeXstudio, (R)Markdown, Bash, Sed, Regular expressions, Rocket Chat, for making bioinformatics software development even more fun and enjoyable.
 
+% ideas:
+%  Yet I wonder how the current academic system
+%can support such concepts. Academics often hold different positions in
+%different research groups around the world, who should be the maintainer in
+%these cases? The original PhD students that developed the work? The original
+%research group?
 
+%The eight chapter is a manuscript in preparation about the assessment of TI methods. The main discussion topic is the lack of a quantitative measure for the scoring of new TI methods. This leads to the publication and development of new methods that do not show a clear performance improvement compared to other methods. The main topic touches
+%upon some sore points that are inherent in bioinformatics. The main thought I have with
+%this chapter is that defining clear goals in an emerging technology is difficult and therefore is sometimes ignored by fellow bioinformaticians. This because the lack of standardized performance metrics, missing public datasets that are well described and an \textit{ad hoc} problem definition. I follow the idea of defining a clear cut approach to benchmarking (as described in chapter nine) and I like the proposition that is started in this manuscript for a discussion on good TI metrics.} Would approaches like e.g. DREAM challenges be a means of tackling these issues to your opinion?
 
-
+% zie peter dawyndt, chapter 5
 \clearpage
 \section{References}
 \printbibliography[heading=none]
