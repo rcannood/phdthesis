@@ -1,12 +1,25 @@
 \PassOptionsToPackage{table}{xcolor}
-\documentclass[10pt]{book}
+\documentclass[8pt]{book}
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %%% IMPORT PACKAGES %%%
 %%%%%%%%%%%%%%%%%%%%%%%
 
-% adjust margins (should be done before importing fancyhdr!)
-\usepackage[paperheight=24cm,paperwidth=16cm,margin=2.5cm,a4paper]{geometry} %lmargin=2.5cm,rmargin=4cm,tmargin=3cm,bmargin=3cm
+\usepackage[paperheight=24cm,paperwidth=17cm,margin=1.5cm]{geometry}
+
+\usepackage[
+	% set width and height to a4 width and height + 6mm
+	%width=16truecm, height=24truecm,
+	a4,
+	% use any combination of these options to add different cut markings
+	cam, axes, frame, cross,
+	% set the type of TeX renderer you use
+	pdftex,
+	% center the contents
+	center
+]{crop}
+
+% adjust margins (should be done before importing fancyhdr!) %lmargin=2.5cm,rmargin=4cm,tmargin=3cm,bmargin=3cm
 
 % text packages
 \usepackage{csquotes}
@@ -213,7 +226,7 @@
 	(\paperheight-\thumbtopmargin-\thumbbottommargin)/\value{lettersum}}
 
 \newlength{\thumbwidth}
-\setlength{\thumbwidth}{1.5cm}
+\setlength{\thumbwidth}{1cm}
 
 \definecolor{light-gray}{gray}{0.90}
 \definecolor{med-gray}{gray}{0.60}
@@ -332,19 +345,10 @@ BoldItalicFont = *-700-Italic
 % if switching for quick renders
 \newif\ifrenderall
 
-\renderalltrue
+%\renderalltrue
 
 \begin{document}
 
-% thesis obligatory content: 
-% * an abstract in Dutch
-% * a list of abbreviations
-% * one uniform (compiling) reference list
-% * a resume or Curriculum Vitae of the candidate
-% * an introductory chapter and additional linking texts between chapters (papers) if the dissertation consists of a compilation of papers
-% * acknowledgements of financing institutions
-% * apply for an ISBN number for your thesis. This takes 1-2 days.
-	
 \pagenumbering{alph}
 
 \frontmatter
@@ -368,9 +372,9 @@ BoldItalicFont = *-700-Italic
 \lettergroup{\thechapter}
 
 %{\large \textbf{Abstract}}
-\begin{quote}
+%\begin{quote}
 	%Recent developments in single-cell transcriptomics have opened new opportunities for studying dynamic processes in a high-throughput and unbiased manner. Starting from a mixture of cells in different stages of a developmental process, unsupervised trajectory inference algorithms aim to automatically reconstruct the underlying developmental path that cells are following. In this review, we break down the strategies used by this novel class of methods, and organize their components into a common framework, highlighting several practical advantages and disadvantages of the individual methods. We also give an overview of new insights these methods have already provided regarding the wiring and gene regulation of cell differentiation. As the trajectory inference field is still in its infancy, we propose several future developments which will ultimately lead to a global and data-driven way of studying immune cell differentiation.
-\end{quote}
+%\end{quote}
 
 \vfill
 \newpage
@@ -381,8 +385,8 @@ BoldItalicFont = *-700-Italic
 %%%        CH2: DYNGEN        %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage{\thispagestyle{empty}\cleardoublepage}
-\chapter{Paper 1: Benchmarking with \textit{in silico} single cells} 
-\chaptermark{Paper 1: Benchmarking with \textit{in silico} single cells.}
+\chapter{dyngen: Benchmarking with \textit{in silico} single cells} 
+\chaptermark{dyngen: Benchmarking with \textit{in silico} single cells.}
 \label{chap:dyngen}
 
 {\large \textbf{Abstract}}
@@ -392,7 +396,6 @@ BoldItalicFont = *-700-Italic
 	In \texttt{dyngen}, the biomolecular state of an \textit{in silico} cell changes over time according to a set of reactions defined by the cell's gene regulatory network. By simulating single cells in terms of its biomolecular state and reactions, the simulator is easily extendible for adding new modalities or experimental procedures. We demonstrate \texttt{dyngen}'s flexibility by simulating snapshot, time-series and perturbation experiments.\\
 	\textbf{Conclusion:} \texttt{dyngen} lays the foundations for benchmarking a wide variety of computational single-cell tools, and can be used to help kick-start the development of future types of analyses.
 \end{quote}
-
 
 \vfill
 {\large \textbf{Publication status}}
@@ -424,10 +427,9 @@ BoldItalicFont = *-700-Italic
 %%%     CH3: DYNBENCHMARK     %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage{\thispagestyle{empty}\cleardoublepage}
-\chapter{Paper 2: A comparison of single-cell trajectory inference methods} 
-\chaptermark{Paper 2: A comparison of single-cell trajectory inference methods.}
+\chapter{dynbenchmark: A comparison of single-cell trajectory inference methods} 
+\chaptermark{dynbenchmark: A comparison of single-cell trajectory inference methods.}
 \label{chap:dynbenchmark}
-
 
 {\large \textbf{Abstract}}
 \begin{quote}
@@ -462,188 +464,14 @@ BoldItalicFont = *-700-Italic
 \graphicspath{{./ch3_dynbenchmark/}}
 \include{ch3_dynbenchmark/content}
 \fi
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%         CH4: DYNO         %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage{\thispagestyle{empty}\cleardoublepage}
-\chapter{Paper 3: A toolkit for inferring and interpreting trajectories} 
-\chaptermark{Paper 3: A toolkit for inferring and interpreting trajectories.} % short title
-\label{chap:dyno}
 
-{\large \textbf{Abstract}}
-\begin{quote}
-	\textbf{Purpose:} Recent technological advances allow studying dynamic processes by computationally ordering single-cell omics profiles along a trajectory. Since 2014, at least 75 tools for trajectory inference have been developed. For end-users, however, these methods are difficult to execute and compare, mainly due to high variability in input/output data structures, software requirements, and programming interfaces. \\
-	\textbf{Results:} We developed \texttt{dyno}, a toolkit for inferring, visualising and interpreting single-cell trajectories, giving access to more than 50 TI methods. \texttt{dyno} provides downstream analyses such as visualising the trajectory with dot-plots or heatmaps, automated labelling using gene sets, automated inference of the directionality, and detecting genes that are differentially expressed along the trajectory. \\
-	\textbf{Conclusion:} By providing a uniform interface for executing and visualising trajectories of 50 methods, \texttt{dyno} allows inferring and comparing trajectories for a much broader audience than previously possible.
-\end{quote}
-
-\vfill
-{\large \textbf{Publication status}}
-\begin{quote}
-	Manuscript in preparation. \\
-	\textbf{Cannoodt R}$^*$, Saelens W$^*$, and Saeys Y.  \\
-	{\footnotesize $^*$ Equal contribution}
-\end{quote}
-
-\vfill
-{\large \textbf{Author contributions}}
-\begin{quote}
-	$\bullet$ \textbf{R.C.} and W.S. designed the project.\\
-	$\bullet$ \textbf{R.C.} and W.S. implemented software packages.\\
-	$\bullet$ \textbf{R.C.} and W.S. wrote the original manuscript.\\
-	$\bullet$ Y.S. supervised the project.
-\end{quote}
-
-\vfill
-
-\ifrenderall
-\newpage
-\graphicspath{{./ch4_dyno/}}
-\include{ch4_dyno/content}
-
-\clearpage
-\section{References}
-\printbibliography[heading=none]
-\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%       CH5: SCORPIUS       %%%
+%%%   CH4: Self-assessment    %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage{\thispagestyle{empty}\cleardoublepage}
-\chapter{Paper 4: Fast, accurate, and robust single-cell pseudotime} 
-\chaptermark{Paper 4: Fast, accurate, and robust single-cell pseudotime.} % short title
-\label{chap:scorpius}
-
-
-{\large \textbf{Abstract}}
-\begin{quote}
-	\textbf{Purpose:} 
-	Recent advances in single-cell RNA-sequencing allow modelling progression of single cells along a dynamic process of interest as a trajectory. While already more than 75 trajectory inference methods have been developed, comprehensive benchmarking demonstrated that pseudotemporal ordering cells robustly is still a challenging task.\\
-	\textbf{Results:} \texttt{SCORPIUS} is a trajectory inference method specialised in pseudotemporally ordering single-cell profiles. Applying \texttt{SCORPIUS} to a large collection of datasets shows that it consistently produces more accurate and robust trajectories in comparison to state-of-the-art trajectory inference methods. We used \texttt{SCORPIUS} to generate novel hypotheses regarding dendritic cell development, which were subsequently validated \textit{in vivo}.\\
-	\textbf{Conclusion:} By providing a robust and accurate toolkit for inferring linear trajectories, we aim to make pseudotime analysis as easy-to-use and prevalent as other types of analysis such as differential expression and gene set enrichment.
-\end{quote}
-
-\vfill
-{\large \textbf{Publication status}}
-\begin{quote}
-	Published in bioRxiv 079509. \doi{10.1101/079509}. \\
-	Revised manuscript in preparation. \\
-	\textbf{Cannoodt R}, Saelens W, Sichien D, Tavernier S, Janssens S, Guilliams M, Lambrecht B, De Preter K, and Saeys Y. 
-\end{quote}
-
-\vfill
-{\large \textbf{Author contributions}}
-\begin{quote}
-	$\bullet$ \textbf{R.C.} and Y.S. designed the study.\\
-	$\bullet$ \textbf{R.C.} and W.S. benchmarks and analysed the data.\\
-	$\bullet$ S.T. and D.S. generated experimental data.\\
-	$\bullet$ \textbf{R.C.} implemented the SCORPIUS software package.\\
-	$\bullet$ \textbf{R.C.} wrote the original manuscript.\\
-	$\bullet$ \textbf{R.C.}, S.J., M.G., B.L., K.D.P., and Y.S. reviewed and edited the manuscript. \\
-	$\bullet$ K.D.P. and Y.S. supervised the project.
-\end{quote}
-
-\vfill
-
-\ifrenderall
-\newpage
-\graphicspath{{./ch5_scorpius/}}
-\include{ch5_scorpius/content}
-\fi
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%         CH6: BRED         %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage{\thispagestyle{empty}\cleardoublepage}
-\chapter{Paper 5: Inferring single cell regulatory networks} 
-\chaptermark{Paper 5: Inferring single cell regulatory networks.} % short title
-\label{chap:bred}
-
-{\large \textbf{Abstract}}
-\begin{quote}
-	\textbf{Purpose:} Network inference methods are computational tools which use large omics datasets to predict which genes are regulated by which transcription factors.
-	Since regulatory interactions are context-dependent, attempting to model regulatory dynamics in the form of a single regulatory network may have little relevance. \\
-	\textbf{Results:} In this work, we introduce \texttt{bred}, the first algorithm for inferring case-wise regulatory networks. We generate . Analysing case-wise regulatory networks of 14'963 profiles from The Cancer Genome Atlas project demonstrated that regulatory interactions are often specific to particular cancer types, but can also be shared between several cancer types. \\
-	\textbf{Conclusion:} Ultimately, this analysis has resulted in a list of candidate oncogenic genes and interactions per cancer type, though further analysis and validation is required to confirm their oncogenicity.
-\end{quote}
-% TODO: fix abstract
-\vfill
-{\large \textbf{Publication status}}
-\begin{quote}
-	Manuscript in preparation. \\
-	\textbf{Cannoodt R}, Saeys Y$^*$, and De Preter K$^*$. \\
-	{\footnotesize $^*$ Equal contribution}
-\end{quote}
-
-\vfill
-{\large \textbf{Author contributions}}
-\begin{quote}
-	$\bullet$ \textbf{R.C.}, K.D.P., and Y.S. designed the study.\\
-	$\bullet$ \textbf{R.C.} performed the experiments and analysed the data.\\
-	$\bullet$ \textbf{R.C.} implemented the bred software package.\\
-	$\bullet$ \textbf{R.C.} wrote the original manuscript.\\
-	$\bullet$ \textbf{R.C.}, K.D.P., and Y.S. reviewed and edited the manuscript. \\
-	$\bullet$ K.D.P. and Y.S. supervised the project.
-\end{quote}
-
-\vfill
-
-\ifrenderall
-\newpage
-\graphicspath{{./ch6_bred/}}
-\include{ch6_bred/content}
-\fi 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%       CH7: INCGRAPH       %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage{\thispagestyle{empty}\cleardoublepage}
-\chapter{Paper 6: Optimising regulatory networks} 
-\chaptermark{Paper 6: Optimising regulatory networks.} % short title
-\label{chap:incgraph}
-
-
-{\large \textbf{Abstract}}
-\begin{quote}
-	\textbf{Purpose:} Graphlets are small network patterns that can be counted in order to characterise the structure of a network (topology). As part of a topology optimisation process, graphlet counts are used to iteratively modify a network in order to achieve certain topological properties.
-	Up until now, however, graphlets were not suited as a metric for performing topology optimisation; when millions of minor changes are made to the network structure it becomes computationally intractable to recalculate all the graphlet counts for each of the edge modifications. \\
-	\textbf{Results:} IncGraph calculates the differences in graphlet counts with respect to the network in its previous state.
-	IncGraph reduces the execution time by several orders of magnitude when compared to recounting the graphlet counts from scratch at every iteration.
-	We demonstrate the usefulness of this approach optimising gene regulatory networks using a graphlet-based fitness score. \\
-	\textbf{Conclusion:} IncGraph is able to quickly quantify the topological impact of small changes to a network, which opens novel research opportunities to study changes in topologies in evolving or online networks, or develop graphlet-based criteria for topology optimisation.
-\end{quote}
-
-\vfill
-{\large \textbf{Publication status}}
-\begin{quote}
-	Published in PLOS ONE 13, 4 (2018). \doi{10.1371/journal.pone.0195997}. \\
-	\textbf{Cannoodt R}, Ruyssinck J, Ramon J, De Preter K, and Saeys Y. 
-\end{quote}
-
-\vfill
-{\large \textbf{Author contributions}}
-\begin{quote}
-	$\bullet$ \textbf{R.C.}, Jo.R., Ja.R., and Y.S. designed the study.\\
-	$\bullet$ \textbf{R.C.}, Jo.R., and Ja.R. performed the experiments and analysed the data.\\
-	$\bullet$ \textbf{R.C.} implemented the incgraph software package.\\
-	$\bullet$ \textbf{R.C.} wrote the original manuscript.\\
-	$\bullet$ \textbf{R.C.}, Jo.R., Ja.R., K.D.P., and Y.S. reviewed and edited the manuscript. \\
-	$\bullet$ Jo.R., K.D.P. and Y.S. supervised the project.
-\end{quote}
-
-\vfill
-
-\ifrenderall
-\newpage
-\graphicspath{{./ch7_incgraph/}}
-\include{ch7_incgraph/content}
-\fi
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%   CH8: Self-assessment    %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage{\thispagestyle{empty}\cleardoublepage}
-\chapter{Paper 7: Self-assessment in trajectory inference} 
-\chaptermark{Paper 7: Self-assessment in trajectory inference.} % short title
+\chapter{Self-assessment in trajectory inference} 
+\chaptermark{Self-assessment in trajectory inference.} % short title
 \label{chap:selfassessment}
 
 
@@ -692,12 +520,192 @@ BoldItalicFont = *-700-Italic
 \printbibliography[heading=none]
 \fi 
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%       CH5: SCORPIUS       %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\thispagestyle{empty}\cleardoublepage}
+\chapter{SCORPIUS: Fast, accurate, and robust single-cell pseudotime} 
+\chaptermark{SCORPIUS: Fast, accurate, and robust single-cell pseudotime.} % short title
+\label{chap:scorpius}
+
+
+{\large \textbf{Abstract}}
+\begin{quote}
+	\textbf{Purpose:} 
+	Recent advances in single-cell RNA-sequencing allow modelling progression of single cells along a dynamic process of interest as a trajectory. While already more than 75 trajectory inference methods have been developed, comprehensive benchmarking demonstrated that pseudotemporal ordering cells robustly is still a challenging task.\\
+	\textbf{Results:} \texttt{SCORPIUS} is a trajectory inference method specialised in pseudotemporally ordering single-cell profiles. Applying \texttt{SCORPIUS} to a large collection of datasets shows that it consistently produces more accurate and robust trajectories in comparison to state-of-the-art trajectory inference methods. We used \texttt{SCORPIUS} to generate novel hypotheses regarding dendritic cell development, which were subsequently validated \textit{in vivo}.\\
+	\textbf{Conclusion:} By providing a robust and accurate toolkit for inferring linear trajectories, we aim to make pseudotime analysis as easy-to-use and prevalent as other types of analysis such as differential expression and gene set enrichment.
+\end{quote}
+
+\vfill
+{\large \textbf{Publication status}}
+\begin{quote}
+	Published in bioRxiv 079509. \doi{10.1101/079509}. \\
+	Revised manuscript in preparation. \\
+	\textbf{Cannoodt R}, Saelens W, Sichien D, Tavernier S, Janssens S, Guilliams M, Lambrecht B, De Preter K, and Saeys Y. 
+\end{quote}
+
+\vfill
+{\large \textbf{Author contributions}}
+\begin{quote}
+	$\bullet$ \textbf{R.C.} and Y.S. designed the study.\\
+	$\bullet$ \textbf{R.C.} and W.S. benchmarks and analysed the data.\\
+	$\bullet$ S.T. and D.S. generated experimental data.\\
+	$\bullet$ \textbf{R.C.} implemented the SCORPIUS software package.\\
+	$\bullet$ \textbf{R.C.} wrote the original manuscript.\\
+	$\bullet$ \textbf{R.C.}, S.J., M.G., B.L., K.D.P., and Y.S. reviewed and edited the manuscript. \\
+	$\bullet$ K.D.P. and Y.S. supervised the project.
+\end{quote}
+
+\vfill
+
+\ifrenderall
+\newpage
+\graphicspath{{./ch5_scorpius/}}
+\include{ch5_scorpius/content}
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%         CH6: DYNO         %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\thispagestyle{empty}\cleardoublepage}
+\chapter{dyno: A toolkit for inferring and interpreting trajectories} 
+\chaptermark{dyno: A toolkit for inferring and interpreting trajectories.} % short title
+\label{chap:dyno}
+
+{\large \textbf{Abstract}}
+\begin{quote}
+	\textbf{Purpose:} Recent technological advances allow studying dynamic processes by computationally ordering single-cell omics profiles along a trajectory. Since 2014, at least 75 tools for trajectory inference have been developed. For end-users, however, these methods are difficult to execute and compare, mainly due to high variability in input/output data structures, software requirements, and programming interfaces. \\
+	\textbf{Results:} We developed \texttt{dyno}, a toolkit for inferring, visualising and interpreting single-cell trajectories, giving access to more than 50 TI methods. \texttt{dyno} provides downstream analyses such as visualising the trajectory with dot-plots or heatmaps, automated labelling using gene sets, automated inference of the directionality, and detecting genes that are differentially expressed along the trajectory. \\
+	\textbf{Conclusion:} By providing a uniform interface for executing and visualising trajectories of 50 methods, \texttt{dyno} allows inferring and comparing trajectories for a much broader audience than previously possible.
+\end{quote}
+
+\vfill
+{\large \textbf{Publication status}}
+\begin{quote}
+	Manuscript in preparation. \\
+	\textbf{Cannoodt R}$^*$, Saelens W$^*$, and Saeys Y.  \\
+	{\footnotesize $^*$ Equal contribution}
+\end{quote}
+
+\vfill
+{\large \textbf{Author contributions}}
+\begin{quote}
+	$\bullet$ \textbf{R.C.} and W.S. designed the project.\\
+	$\bullet$ \textbf{R.C.} and W.S. implemented software packages.\\
+	$\bullet$ \textbf{R.C.} and W.S. wrote the original manuscript.\\
+	$\bullet$ Y.S. supervised the project.
+\end{quote}
+
+\vfill
+
+\ifrenderall
+\newpage
+\graphicspath{{./ch4_dyno/}}
+\include{ch4_dyno/content}
+
+\clearpage
+\section{References}
+\printbibliography[heading=none]
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%         CH7: BRED         %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\thispagestyle{empty}\cleardoublepage}
+\chapter{bred: Inferring single cell regulatory networks} 
+\chaptermark{bred: Inferring single cell regulatory networks.} % short title
+\label{chap:bred}
+
+{\large \textbf{Abstract}}
+\begin{quote}
+	\textbf{Purpose:} Network inference methods are computational tools which use large omics datasets to predict which genes are regulated by which transcription factors.
+	Since regulatory interactions are context-dependent, attempting to model regulatory dynamics in the form of a single regulatory network may have little relevance. \\
+	\textbf{Results:} In this work, we introduce \texttt{bred}, the first algorithm for inferring case-wise regulatory networks. We generate . Analysing case-wise regulatory networks of 14'963 profiles from The Cancer Genome Atlas project demonstrated that regulatory interactions are often specific to particular cancer types, but can also be shared between several cancer types. \\
+	\textbf{Conclusion:} Ultimately, this analysis has resulted in a list of candidate oncogenic genes and interactions per cancer type, though further analysis and validation is required to confirm their oncogenicity.
+\end{quote}
+% TODO: fix abstract
+\vfill
+{\large \textbf{Publication status}}
+\begin{quote}
+	Manuscript in preparation. \\
+	\textbf{Cannoodt R}, Saeys Y$^*$, and De Preter K$^*$. \\
+	{\footnotesize $^*$ Equal contribution}
+\end{quote}
+
+\vfill
+{\large \textbf{Author contributions}}
+\begin{quote}
+	$\bullet$ \textbf{R.C.}, K.D.P., and Y.S. designed the study.\\
+	$\bullet$ \textbf{R.C.} performed the experiments and analysed the data.\\
+	$\bullet$ \textbf{R.C.} implemented the bred software package.\\
+	$\bullet$ \textbf{R.C.} wrote the original manuscript.\\
+	$\bullet$ \textbf{R.C.}, K.D.P., and Y.S. reviewed and edited the manuscript. \\
+	$\bullet$ K.D.P. and Y.S. supervised the project.
+\end{quote}
+
+\vfill
+
+\ifrenderall
+\newpage
+\graphicspath{{./ch6_bred/}}
+\include{ch6_bred/content}
+\fi 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%       CH8: INCGRAPH       %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\thispagestyle{empty}\cleardoublepage}
+\chapter{incgraph: Optimising regulatory networks} 
+\chaptermark{incgraph: Optimising regulatory networks.} % short title
+\label{chap:incgraph}
+
+
+{\large \textbf{Abstract}}
+\begin{quote}
+	\textbf{Purpose:} Graphlets are small network patterns that can be counted in order to characterise the structure of a network (topology). As part of a topology optimisation process, graphlet counts are used to iteratively modify a network in order to achieve certain topological properties.
+	Up until now, however, graphlets were not suited as a metric for performing topology optimisation; when millions of minor changes are made to the network structure it becomes computationally intractable to recalculate all the graphlet counts for each of the edge modifications. \\
+	\textbf{Results:} IncGraph calculates the differences in graphlet counts with respect to the network in its previous state.
+	IncGraph reduces the execution time by several orders of magnitude when compared to recounting the graphlet counts from scratch at every iteration.
+	We demonstrate the usefulness of this approach optimising gene regulatory networks using a graphlet-based fitness score. \\
+	\textbf{Conclusion:} IncGraph is able to quickly quantify the topological impact of small changes to a network, which opens novel research opportunities to study changes in topologies in evolving or online networks, or develop graphlet-based criteria for topology optimisation.
+\end{quote}
+
+\vfill
+{\large \textbf{Publication status}}
+\begin{quote}
+	Published in PLOS ONE 13, 4 (2018). \doi{10.1371/journal.pone.0195997}. \\
+	\textbf{Cannoodt R}, Ruyssinck J, Ramon J, De Preter K, and Saeys Y. 
+\end{quote}
+
+\vfill
+{\large \textbf{Author contributions}}
+\begin{quote}
+	$\bullet$ \textbf{R.C.}, Jo.R., Ja.R., and Y.S. designed the study.\\
+	$\bullet$ \textbf{R.C.}, Jo.R., and Ja.R. performed the experiments and analysed the data.\\
+	$\bullet$ \textbf{R.C.} implemented the incgraph software package.\\
+	$\bullet$ \textbf{R.C.} wrote the original manuscript.\\
+	$\bullet$ \textbf{R.C.}, Jo.R., Ja.R., K.D.P., and Y.S. reviewed and edited the manuscript. \\
+	$\bullet$ Jo.R., K.D.P. and Y.S. supervised the project.
+\end{quote}
+
+\vfill
+
+\ifrenderall
+\newpage
+\graphicspath{{./ch7_incgraph/}}
+\include{ch7_incgraph/content}
+\fi
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%       CH9: Guidelines    %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage{\thispagestyle{empty}\cleardoublepage}
-\chapter{Paper 8: Essential guidelines for computational method benchmarking} 
-\chaptermark{Paper 8: Essential guidelines for computational method benchmarking.} % short title
+\chapter{Essential guidelines for computational method benchmarking} 
+\chaptermark{Essential guidelines for computational method benchmarking.} % short title
 \label{chap:guidelines}
 
 
