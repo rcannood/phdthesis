@@ -138,6 +138,7 @@ IncGraph enables graphlet-based metrics to characterize online networks, e.g. in
 \end{figure}
 
 \begin{figure}[htb!]
+	\small
 	\begin{algorithmic}
 		\Function{CalculateDelta}{Network $G'$, Node $n_0$, Node $n_1$}
 		\State \Comment{Assuming an edge $(n_0, n_1)$ has just been added or removed from $G'$}
@@ -197,6 +198,7 @@ IncGraph enables graphlet-based metrics to characterize online networks, e.g. in
 \end{figure}
 
 \begin{figure}[htb!]	
+	\small
 	\begin{algorithmic}
 		\Function{BarabasiAlbert}{number of nodes $n$, degree $d$, \par\hspace*{3.72cm} number of operations $o$, offset exponent $x=1$}
 		\State $D \gets \Call{Rep}{0, n}$ \Comment{All nodes start with 0 degree}
@@ -258,6 +260,7 @@ IncGraph enables graphlet-based metrics to characterize online networks, e.g. in
 
 
 \begin{figure}[htb!]
+	\small
 	\begin{algorithmic}
 		\Function{ErdosRenyi}{number of nodes $n$, number of edges $e$, number of operations $o$}
 		\State $P \gets \{(i, j) \,|\, i \in \{1 \,..\, n-1\} \wedge j \in \{0 \,..\, i-1\}\}$ \Comment{All possible interactions}
@@ -280,6 +283,7 @@ IncGraph enables graphlet-based metrics to characterize online networks, e.g. in
 \end{figure}
 
 \begin{figure}[htb!]
+	\small
 	\begin{algorithmic}
 		\Function{Geometric}{number of nodes $n$, number of edges $e$, \par\hspace*{2.77cm} number of operations $o$, number of dimensions $d=3$}
 		\State $P \gets$ Sample $n$ points from a multivariate continuous uniform distribution $U_{d}((0,1)^{d})$
