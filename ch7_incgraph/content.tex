@@ -46,7 +46,7 @@ The differences in graphlet counts $\Delta_{G, G'}$ are calculated by iterating 
 
 
 %% FIGURE 2
-\picfig{fig/figure2.pdf}{\LARGEfigure}{fig_efficient}{{\bf Several strategies are employed in order to reduce time and memory consumption.}
+\picfig{fig/figure2.pdf}{.7\linewidth}{fig_efficient}{{\bf Several strategies are employed in order to reduce time and memory consumption.}
 (A) Only the depth 3 neighbourhood of each modified edge needs to be explored in order to have visited all modified five-node graphlets. (B) A lookup table can be used to easily look up the graphlet index of a subgraph, by weighing each edge in a 5-node subgraph by a power of~2. (C) The same combination of five nodes is never repeated, as to avoid counting the same graphlet multiple times. (D) The adjacency matrix of the network is compressed in order to reduce memory usage.}
 
 
@@ -81,7 +81,7 @@ As the aim of this experiment is not to obtain the highest performing topology o
 
 
 %% FIGURE 4
-\picfig{fig/figure4.pdf}{\hugefigure}{fig_method_reranking}{{\bf Predicted gene regulatory networks of model organisms are optimised to reduce the false positive rate.}
+\picfig{fig/figure4.pdf}{.9\linewidth}{fig_method_reranking}{{\bf Predicted gene regulatory networks of model organisms are optimised to reduce the false positive rate.}
 	A)~The number of redundant edges in each graphlet are counted. B) The network is optimised in order to obtain a lower redundancy over time. Two networks are shown, one before and one after the optimisation procedure. Edges coloured in red have been removed from the network after optimisation, green edges have been added. C) Starting from an empty network, the interactions are modified by iteratively evaluating the increase in redundancy of the next $k$ interactions, and adding the first edge for which its redundancy is less than the $90^\textrm{th}$ percentile redundancy.}
 
 
@@ -123,7 +123,7 @@ To demonstrate the applicability of IncGraph, we optimised a predicted gene regu
 IncGraph enables graphlet-based metrics to characterize online networks, e.g. in order to track certain network patterns over time, as a similarity measure in a machine learning task, or as a criterion in a topology optimisation.
 
 
-\section{Supporting information}
+\section{Supplemental information}
 
 \newcommand{\pluseq}{\mathrel{+}=}
 \newcommand{\asteq}{\mathrel{*}=}

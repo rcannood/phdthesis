@@ -148,13 +148,13 @@ In this review, we have described a set of key principles for designing a high-q
 \begin{table}[ht!]
 	\caption{\textbf{Summary of our views regarding how essential each principle is for a truly excellent benchmark, along with examples of key trade-offs and potential pitfalls relating to each principle}. The higher the number of plus signs, the more central the principle is to the evaluation.} \label{tab:essential_principles}
 	\centering
-	\footnotesize
-	\begin{tabularx}{\textwidth}{|p{3.5cm}p{1cm}p{3.5cm}X|}
+	\scriptsize
+	\begin{tabularx}{\textwidth}{|p{3cm}p{1cm}p{3cm}X|}
 		\hline
 		\textbf{Principle} & \textbf{How} \mbox{\textbf{essential}}  & \textbf{Trade-offs} & \textbf{Potential pitfalls} \\ \hline \hline
 		\mycola[2]{1. Defining the purpose and score} & +++ & \mycolb[2]{How comprehensive the benchmark should be} & Scope too broad: too much work given available resources \\ 
 		& & & Scope too narrow: unrepresentative and possibly misleading results \\ \hline
-		{2. Selection of methods} & +++ & {Number of methods to include} & Excluding key methods \\
+		{2. Selection of methods} & +++ & {Number of methods to include} & Excluding key methods \\ \hline
 		\mycola{3. Selection (or design) of datasets} & +++ & \mycolb{Number and types of datasets to include} & Subjectivity in the choice of datasets: e.g. selecting datasets that are unrepresentative of real-world applications \\
 		& & & Too few datasets or simulation scenarios Overly simplistic simulations \\ \hline
 		\mycola{4. Parameter and software versions} & ++ & \mycolb{Amount of parameter tuning} & Extensive parameter tuning for some methods while using default parameters for others (e.g. competing methods) \\ \hline
