@@ -306,10 +306,11 @@
 %%% DEFINE STYLES %%%
 %%%%%%%%%%%%%%%%%%%%%
 
-% use Sonny chapter style
-\usepackage[Sonny]{fncychap} %Sonny
+\usepackage{titlesec}
+\newcommand{\hsp}{\hspace{20pt}}	
+\titleformat{\chapter}[hang]{\LARGE\bfseries}{\thechapter\hsp\textcolor{light-gray}{|}\hsp}{0pt}{\LARGE\bfseries}
 
-% set font after chapter sonny style
+% set fonts
 \usepackage{fontspec}
 \setmainfont [Path = fonts/,
 UprightFont = *-300,
@@ -326,8 +327,8 @@ BoldItalicFont = *-700-Italic
 
 \hypersetup{
 	colorlinks = true,
-%	linkcolor = {blue},
-  urlcolor = {blue},
+	linkcolor = {black},
+  urlcolor = {black},
 	citecolor = {med-gray}
 }
 
@@ -345,7 +346,7 @@ BoldItalicFont = *-700-Italic
 % if switching for quick renders
 \newif\ifrenderall
 
-%\renderalltrue
+\renderalltrue
 
 \begin{document}
 
@@ -430,7 +431,7 @@ BoldItalicFont = *-700-Italic
 \chapter{dynbenchmark: A comparison of single-cell trajectory inference methods} 
 \chaptermark{dynbenchmark: A comparison of single-cell trajectory inference methods.}
 \label{chap:dynbenchmark}
-
+\vspace*{-3em}
 {\large \textbf{Abstract}}
 \begin{quote}
 	\textbf{Purpose:} Trajectory inference approaches analyse genome-wide omics data from thousands of single cells and computationally infer the order of these cells along developmental trajectories. Although more than 75 trajectory inference tools have already been developed, it is challenging to compare their performance because the input they require and output models they produce vary substantially. \\
@@ -529,7 +530,7 @@ BoldItalicFont = *-700-Italic
 \chapter{SCORPIUS: Fast, accurate, and robust single-cell pseudotime} 
 \chaptermark{SCORPIUS: Fast, accurate, and robust single-cell pseudotime.} % short title
 \label{chap:scorpius}
-
+\vspace*{-4em}
 
 {\large \textbf{Abstract}}
 \begin{quote}
@@ -665,7 +666,7 @@ BoldItalicFont = *-700-Italic
 
 {\large \textbf{Abstract}}
 \begin{quote}
-	\textbf{Purpose:} Graphlets are small network patterns that can be counted in order to characterise the structure of a network (topology). As part of a topology optimisation process, graphlet counts are used to iteratively modify a network in order to achieve certain topological properties.
+	\textbf{Purpose:} Graphlets are small network patterns that can be counted in order to characterise the structure of a network (topology). Counting graphlet can used to iteratively optimise a network in order to achieve certain topological properties.
 	Up until now, however, graphlets were not suited as a metric for performing topology optimisation; when millions of minor changes are made to the network structure it becomes computationally intractable to recalculate all the graphlet counts for each of the edge modifications. \\
 	\textbf{Results:} IncGraph calculates the differences in graphlet counts with respect to the network in its previous state.
 	IncGraph reduces the execution time by several orders of magnitude when compared to recounting the graphlet counts from scratch at every iteration.
@@ -720,7 +721,7 @@ BoldItalicFont = *-700-Italic
 \vfill
 {\large \textbf{Publication status}}
 \begin{quote}
-  Published in Genome Biology 20, 125 (2019). \doi{10.1186/s13059-019-1738-8}. \\
+  Published in Genome Biology 20 (2019). \doi{10.1186/s13059-019-1738-8}. \\
 	Weber LM, Saelens W, \textbf{Cannoodt R}, Soneson C, Hapfelmeier A, Gardner PP, Boulesteix AL, Saeys Y, and Robinson MD 
 \end{quote}
 

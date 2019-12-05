@@ -294,11 +294,16 @@ if (!file.exists(paste0(data_dir, "importances.rds"))) {
     qsub_handle,
     wait = "just_do_it",
     post_fun = function(i, li) {
-      li$importance <- li$importance %>% filter(importance > .01)
+      li$importance <- li$importance %>% filter(importance > .05)
       li$importance_sc <- li$importance_sc %>% filter(importance_sc > .01) %>%
         inner_join(li$importance %>% select(regulator, target), by = c("regulator", "target"))
       li
     }
+  )
+
+  out <- list(
+    importance = map_df(out, "importance"),
+    importance_sc = map_df(out, "importance_sc")
   )
 
   write_rds(out, paste0(data_dir, "importances.rds"))
@@ -307,14 +312,9 @@ if (!file.exists(paste0(data_dir, "importances.rds"))) {
 list2env(read_rds(paste0(data_dir, "importances.rds")), .GlobalEnv)
 
 # fixes for old results
-assertthat::assert_that(all(sample_info$old_id %in% levels(importance_sc$cell_id)))
-importance <- importance %>% select(-i) %>% rename(interaction_id = name)
+importance <- importance %>% rename(interaction_id = name)
 importance_sc <-
   importance_sc %>%
-  rename(old_id = cell_id) %>%
-  inner_join(sample_info %>% transmute(sample_id = factor(id), old_id = factor(old_id, levels = levels(importance_sc$cell_id))), "old_id") %>%
-  filter(!is.na(sample_id)) %>%
-  select(-i) %>%
   left_join(importance %>% select(regulator, target, interaction_id), by = c("regulator", "target"))
 
 if (!file.exists(paste0(data_dir, "dimred_and_clustering.rds"))) {
