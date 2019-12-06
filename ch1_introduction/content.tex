@@ -122,7 +122,7 @@ Advances in microvolume sequencing allowed profiling the transcriptome at single
 	\centering
 	\includegraphics[width=.7\linewidth]{fig/scomics_2.pdf} 
 	\caption{
-		\textbf{A:} Convergence of single-cell and omics biology.
+		\textbf{A:} Technological improvements in microfluidics and low-volume sequencing were instrumental in the convergence of the fields of single-cell biology and omics biology.
 		\textbf{B:} Different approaches for sampling cells with decreasing levels of cellular heterogeneity within the different sub-populations: snapshot, time-series, sorted.
 		\textbf{C:} Two common single-cell RNA sequencing technologies. Microfluidics systems let cells travel through nanometer scale tubing, capturing individual cells at intersections. Droplet-based systems encapsulate individual cells in droplets.
 	}
@@ -141,17 +141,30 @@ The rapidly advancing field of single-cell omics harbours exceptional opportunit
 Whole-genome profiling at single-cell level allows new types of analyses with which to study cellular heterogeneity at a hitherto unseen throughput. 
 The new types of analyses permitted by single-cell omics present several computational challenges \cite{stegle_computationalanalyticalchallenges_2015, yuan_challengesemergingdirections_2017, chen_singlecellrnaseqtechnologies_2019}. This necessitates the development of novel computational tools, either because the problem statement of the performed analysis is completely novel, or to adapt existing methodology to new data characteristics -- dimensionality and noise. 
 
-scRNA-seq data is typically very sparse -- while the human genome has more than 20'000 genes, they only contain non-zero values of a few thousand genes (typically <4'000). This is partially due to cells being specialised in particular functions and thus they do not need proteins of every time, but also due to RNA transcription occurring in bursts rather than continuously \cite{nicolas_whatshapeseukaryotic_2017}. This contributes to the high levels of noise seen in scRNA-seq data: no two cells have the same set of non-zero genes. 
+scRNA-seq data is typically very sparse -- while the human genome has more than 20'000 genes, they only contain non-zero values of a few thousand genes (typically less than 4'000). This is partially due to cells being specialised in particular functions and thus they do not need proteins of every time, but also due to RNA transcription occurring in bursts rather than continuously \cite{nicolas_whatshapeseukaryotic_2017}. This contributes to the high levels of noise seen in scRNA-seq data: no two cells have the same set of non-zero genes. 
 
-Over the past five years, already 450 new tools have been developed to perform various analyses of single-cell omics data \cite{zappia_exploringsinglecellrnaseq_2018}, taking into account the specific noise characteristics. The most frequent types of analyses are detailed in the following subsections.
+Over the past five years, already 450 new tools have been developed to perform various analyses of single-cell omics data \cite{zappia_exploringsinglecellrnaseq_2018}. Most of these tools belong to one (or more) of the five main classes of computational methods used within single-cell omics (Figure~\ref{fig:scapplications}). The main concepts and applications of these types of analyses are discussed in the following sections.
+
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=\linewidth]{fig/singlecell_technologies_onlycore} 
+	\caption{
+		\textbf{Five main types of analyses typically performed with single-cell omics.}
+	}
+	\label{fig:scapplications}
+\end{figure}
+
 
 \subsection{Dimensionality reduction}
 Single-cell omics datasets are usually one or more high-dimensional matrices, containing between M = $10^3$ to $10^5$ cells and typically about N = $10^3$ to $10^4$ genes (Figure~\ref{fig:comp_tools_dimred}A). The dimensionality of such datasets is typically too high for humans to interpret manually and for most modelling algorithms to tackle directly. 
-Moreover, in reality, the intrinsic dimensionality of biological systems is probably much lower. For example, a differentiating hematopoietic cell could be described by just three dimensions: the first two dimensions lays out the hematopoietic lineage tree, and a third dimension allows for reprogramming between branches to occur.
+Moreover, in reality, the intrinsic dimensionality of biological systems is much lower. For example, a differentiating hematopoietic cell could be described by just three dimensions: the first two dimensions lays out the hematopoietic lineage tree, and a third dimension allows for reprogramming between branches to occur.
 
-Dimensionality reduction (DR) methods transform high-dimensional data into a meaningful low-dimensional representation. DR methods have two main target audiences; computers -- to construct a K-dimensional (with K $\ll$ N) representation of the data such that pairwise distances between different samples are retained as well as possible (Figure~\ref{fig:comp_tools_dimred}B); and humans -- to obtain a visual overview of the data (Figure~\ref{fig:comp_tools_dimred}C).
+Dimensionality reduction (DR) methods transform high-dimensional data into a meaningful low-dimensional representation. DR methods are typically one of the first methods to apply on the data as a visual quality control by asserting that cells group together in ways that are expected.
 
-Each dimension frequently corresponds to one or more modules of co-expressed genes.  The reduced space can be interpreted in way analogous to Waddington’s epigenetic landscapes \cite{waddington_strategygenesdiscussion_1957,ferrell_bistabilitybifurcationswaddington_2012,rebhahn_animatedlandscaperepresentation_2014}, where the landscape dictates the possible states a cell can reside in, and transitions between states correspond to dynamic cellular processes, such as cell differentiation. 
+DR methods have two main target audiences; computers -- to construct a K-dimensional (with K $\ll$ N) representation of the data such that pairwise distances between different samples are retained as well as possible (Figure~\ref{fig:comp_tools_dimred}B); and humans -- to obtain a visual overview of the data (Figure~\ref{fig:comp_tools_dimred}C). DR methods are also commonly used to denoise the data, which is particularly useful since single-cell omics data is inherently noisy.
+
+Each dimension frequently corresponds to one or more modules of co-expressed genes. The reduced space can be interpreted in way analogous to Waddington’s epigenetic landscapes \cite{waddington_strategygenesdiscussion_1957,ferrell_bistabilitybifurcationswaddington_2012,rebhahn_animatedlandscaperepresentation_2014}, where the landscape dictates the possible states a cell can reside in, and transitions between states correspond to dynamic cellular processes, such as cell differentiation. 
 
 \begin{figure}[htb!]
 	\centering
@@ -174,8 +187,7 @@ Manifold learning DR methods reconstruct a higher-order structure in the origina
 For scalability reasons, this work mostly makes use of Landmark MDS \cite{silva_globallocalmethods_2002,lee_landmarkmdsensemble_2009} (LMDS) with a Spearman rank correlation distance metric. LMDS is an extension of classical MDS, but rather than calculating a complete distance matrix between all pairs of cells, a set of landmark cells is sampled, only the distances between a set of landmarks and the samples are calculated. 
 
 \subsection{Clustering}
-To learn about the different cellular states within a population of cells, clustering methods divide up the cells into separate groups of highly similar cells (Figure~\ref{fig:comp_tools_cluster}A). 
-By visualising gene expression of known genes involved in the cell types of interest, the clusters can be annotated (Figure~\ref{fig:comp_tools_cluster}B). 
+Clustering methods divide up the cells into separate groups of highly similar cells in order to delineate cell populations (Figure~\ref{fig:comp_tools_cluster}A). By visualising gene expression of known genes involved in the cell types of interest, the clusters can be annotated (Figure~\ref{fig:comp_tools_cluster}B). Particular clustering methods might be developed to better deal with imbalanced data in order to better identify rare cell type populations.
 
 \begin{figure}[htb!]
 	\centering
@@ -194,9 +206,11 @@ Usually, the number of clusters is determined by the user, either as a direct pa
 Clustering methods used in this work are mostly restricted to $k$-Means for clustering low-dimensional spaces and Louvain for clustering networks, since both are highly scalable with respect to the number of cells.
 
 \subsection{Trajectory inference}
-While clustering methods divide cells into distinct groups, trajectory inference (TI) methods acknowledge that cells are dynamic entities which transition from once cellular state to another via various dynamic processes. Rather than making distinct groups, TI methods allow studying dynamic processes by reconstructing the topology of a dynamic process as a trajectory, and map the cells onto that trajectory. A trajectory is a graph where the nodes represent noteworthy cellular states, and each cell is predicted to be progressing along transitions between the different states (Figure~\ref{fig:comp_tools_ti}A).
+While clustering methods divide cells into distinct groups, trajectory inference (TI) methods acknowledge that cells are dynamic entities which transition from once cellular state to another via various dynamic processes. Rather than making distinct groups, TI methods attempt to predict how cells develop or undergo dynamic processes. The main applications of trajectory inference are to identify cellular states and branchpoints, reconstruct the topology of dynamic processes, and identify state-specific markers. 
 
-A trajectory can be visualised as a graph to better highlight the topology of the trajectory(Figure~\ref{fig:comp_tools_ti}A middle), as a heatmap to better depict the changes in gene expression along the different transitions (Figure~\ref{fig:comp_tools_ti}A right), or may be embedded in a dimensionality reduction of the cells to better demonstrate cellular heterogeneity along the trajectory (Figure~\ref{fig:comp_tools_ti}B right). Similar to clustering, by colouring the cells according to the expression of genes known to be involved in the dynamic process of interest, the milestones in the trajectory can be annotated (Figure~\ref{fig:comp_tools_cluster}B). 
+TI methods try to reconstruct the topology of a dynamic process as a trajectory and subsequently map the cells onto that trajectory. A trajectory is a graph where the nodes represent noteworthy cellular states, and each cell is predicted to be progressing along transitions between the different states (Figure~\ref{fig:comp_tools_ti}A).
+
+A trajectory can be visualised as a graph to better highlight the topology of the trajectory(Figure~\ref{fig:comp_tools_ti}A middle), as a heatmap to better depict the changes in gene expression along the different transitions (Figure~\ref{fig:comp_tools_ti}A right), or may be embedded in a dimensionality reduction of the cells to better demonstrate cellular heterogeneity along the trajectory (Figure~\ref{fig:comp_tools_ti}B right). Similar to clustering, by colouring the cells according to the expression of genes known to be involved in the dynamic process of interest, the milestones in the trajectory can be annotated (Figure~\ref{fig:comp_tools_ti}B).
 
 \begin{figure}[htb!]
 	\centering
@@ -209,7 +223,7 @@ A trajectory can be visualised as a graph to better highlight the topology of th
 	\label{fig:comp_tools_ti}
 \end{figure}
 
-A lot of TI methods use similar algorithms to be able to infer a trajectory. By breaking down each method into its set of core algorithms, we can create a map of TI methodology \cite{cannoodt_computationalmethodstrajectory_2016} (Figure~\ref{fig:ti_metro}A), which is divided into two major classes.
+Groups of TI methods use similar algorithms to infer a trajectory. By breaking down each method into its set of core algorithms, we can create a map of TI methodology \cite{cannoodt_computationalmethodstrajectory_2016} (Figure~\ref{fig:ti_metro}A), which is divided into two major classes.
 In the first step, dimensionality reduction techniques such as manifold learning, clustering, or graph-based methods are used to convert the dataset to a more simplified representation. This representation of the data then allows the trajectory itself to be more easily modelled in a second step. In this second step, the trajectory is modelled within the data using graph-based or curve-based approaches, after which the cells themselves can be ordered using a variety of methods.
 
 A common way to classify TI methods is by the types of trajectories they can infer \cite{saelens_comparisonsinglecelltrajectory_2019} (Figure~\ref{fig:ti_metro}B). About half of TI methods specialise in inferring linear or cyclic trajectories (i.e. they order the cells). Others model the trajectory as a rooted tree, allowing for one or more bifurcations to occur. Only a few methods are able to infer more generalised trajectories containing disconnected subgraphs or cycles.
@@ -227,8 +241,8 @@ A common way to classify TI methods is by the types of trajectories they can inf
 
 
 \subsection{Differential expression}
-Given that cells are split up two or more groups, differential expression (DE) methods rank genes based on whether their expression is significantly higher or lower in one group in comparison to the others. This grouping can be based on prior information or an upstream clustering method. DE methods are useful for summarising the main differences between different groups of cells more compactly (Figure~\ref{fig:comp_tools_de}A) in comparison to when groups are compared without gene prioritisation (Figure~\ref{fig:comp_tools_cluster}A). 
-
+Given that cells are split up two or more groups -- either through clustering or prior knowledge -- differential expression (DE) methods attempt to identify a group of genes that are expressed significantly higher or lower in one group in comparison to the others. Main applications of DE methods are the development of population signatures or simply the visualisation of the main difference between several groups in a compact manner (Figure~\ref{fig:comp_tools_de}A). 
+ 
 Trajectory differential expression (TDE) is an extension of DE where instead genes are prioritised according to whether their gene expression changes smoothly but significantly along a parts of a trajectory (Figure~\ref{fig:comp_tools_de}). 
 
 \begin{figure}[htb!]
@@ -244,9 +258,9 @@ Trajectory differential expression (TDE) is an extension of DE where instead gen
 
 \subsection{Network inference}
 One of the central cellular processes underlying development is transcriptional regulation. 	
-Modelling the dynamics of gene regulation is therefore essential to better understand why a cellular dynamic processes progresses through several steps, and what goes wrong in the case of disease.
+Modelling gene regulation is essential to better understand what drives cells to develop in the way that they do and to identify what goes wrong in the case of disease.
 
-Network inference (NI) methods predict which genes are regulated by which transcription factors (Figure~\ref{fig:comp_tools_ni}). The output of a network inference is thus a graph, where nodes represent genes and edges denote a regulatory interaction between a regulator and a target gene. Interactions typically have two properties: its regulatory strength (a positive real value) and its effect (promoting or repressing).
+Network inference (NI) methods predict for every gene (or a subset thereof) by which transcription factors they are regulated (Figure~\ref{fig:comp_tools_ni}). The output of a network inference is a graph in which nodes represent genes and edges denote a regulatory interaction between a regulator and a target gene. Interactions can have two properties: its regulatory strength (a positive real value) and its effect (promoting or repressing).
 
 Before single-cell omics, these methods rely on multiple experiments, amongst which perturbation and time-series experiments, to predict the effect each transcription factor has on the up- or downregulation of a gene. One of the main advantages of single-cell omics is the heterogeneity between cells caused by naturally occurring biological randomness \cite{padovan-merhar_usingvariabilitygene_2013} can be exploited to infer regulatory interactions between TFs and their target genes at much lower costs. 
 
@@ -259,6 +273,91 @@ Before single-cell omics, these methods rely on multiple experiments, amongst wh
 	\label{fig:comp_tools_ni}
 \end{figure}
 
+\section{Benchmarking in bioinformatics}
+
+Many articles introducing novel computational tools for analysing single-cell omics data
+lack a quantitative assessment of the accuracy of the method. Instead, they
+rely on anecdotal evidence to demonstrate their added value. 
+
+As a demonstration, we perform a brief review of 75 articles 
+introducing new TI methods, but the findings presented are
+generalisable to single-cell omics in general.
+Out of 75 articles, only about 37\% of articles contain a
+self-assessment (Figure \ref{fig:benchmarks_over_time}).
+Peer-reviewed articles fared even worse, self-assessing in only 35\% of
+cases (n=55), whereas articles first published as a pre-print
+self-assess in 44\% of cases (n=39).
+
+While self-assessments are universally biased in favour of the
+authors \cite{norel_selfassessmenttrapcan_2011} (intentionally or
+not), it is dangerous and unusual to publish a computational tool
+without quantitatively demonstrating its performance compared to
+state-of-the-art methods. Indeed, our comparison demonstrated that most
+methods perform worse than a few baseline methods constructed by
+combining simple off-the-shelf algorithms such as PCA, \(k\)-means and
+MST.
+
+We hypothesise that low self-assessment rates are
+primarily caused by a lack of a standardised problem definition, readily
+available benchmarking datasets, and suitable metrics. 
+
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=.75\linewidth]{fig/selfassessment/self_assessment.pdf}
+	\caption{
+		\textbf{Less than half of all TI articles perform quantitative self-assessment.}
+		\textbf{A:} Since 2016, the number of TI articles has been increasing rapidly. Note that TI methods with both a pre-print and a peer-reviewed article only count once in the overall tally.
+		\textbf{B:} Less than 50\% of articles feature a self-assessment. Peer-reviewed articles self-assess only in 34\% of cases.
+	}
+	\label{fig:benchmarks_over_time}
+\end{figure}
+
+\subsection{Problem definition} 
+
+One main reason why benchmarking TI methods is difficult is due to there being slight variations of the problem a method is attempting to solve. For example, a TI method might infer linear or cyclic trajectories, or predict the probability of a cell
+ending up in one of several end states. As a result, it becomes harder to discover similar methods to compare against, as certain TI articles might only show up with search terms such
+as ``pseudotemporal ordering'', ``lineage trees'' or ``fate bias''. For
+the discoverability of a new TI method, it is therefore essential to use
+the term ``trajectory inference'', or at least list it as one of the
+keywords.
+
+\subsection{Datasets} 
+During the infancy of the relatively domain 
+of single-cell omics, large well-annotated datasets that can be used to 
+benchmark novel computational tools are scarce and expensive to generate. 
+When adequate benchmarking datasets are lowly abundant,
+ synthetic data is often used to evaluate
+computational methods, either standalone or to complement real
+data. 
+
+Benefits of synthetic data are that they offer more control over the
+data characteristics and that they can be generated in large quantities.
+This allows evaluating the performance of a method in function of a
+changing parameter (e.g.~dataset size or noise levels), which provides
+information on how well the method will work on real datasets.
+
+A common counterargument of synthetic data is that they generate
+unrealistic datasets and thus provide no additional value in evaluating
+a method. In contrast, we argue that a good set of synthetic datasets
+should allow benchmarkers to verify that a method should
+\textit{at least} work well on the synthetic datasets, but good
+performance on synthetic datasets does not guarantee good performance on
+real datasets.
+
+\subsection{Metrics}
+
+To evaluate a computational tools, a quantitative metric is needed to compare 
+the often complex multi-layered data structures of the ground-truth dataset
+to predictions thereof, or to compare the data structures of multiple predictions.
+When adequate metrics are lacking, it is advisable to re-purpose metrics from other 
+domains and adapt them, if necessary.
+
+A second important criterion is to evaluate the robustness of predictions by comparing
+multiple executions of the same
+method. Computing the robustness does not replace the necessity of a
+relevant metric that captures whether a predicted trajectory resembles
+the ground truth.
 
 
 \section{Research context and objectives} \label{sec:research_objectives}
@@ -273,6 +372,14 @@ For one, it slows down scientific progress. Every end-user needs to make a large
 
 In this work, we aim to speed up scientific progress in single-cell omics by providing tools both for end-users and developers alike. For developers of computational approaches, we provide tools and guidelines for benchmarking their method on real and synthetic data. For end-users we develop new tools and guidelines for analysing dynamic processes by inferring trajectories and gene regulatory networks. Our specific scientific objectives are discussed in the following chapters.
 
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=.75\linewidth]{fig/overview.pdf}
+	\caption{Overview}
+	\label{fig:overview_thesis}
+\end{figure}
+
 \begin{itemize}
 	\item We \textbf{develop benchmarking strategies} for assessing the performance of computational tools constrained by low availability of novel types of real single-cell data (Chapter~\ref{chap:dyngen}). \textit{In silico} simulations of individual cells are used to help kick-start emerging domains much more safely and allow anticipation of future technological developments by already developing computational tools.
 	\item We apply this strategy to \textbf{perform a comparison of TI methods} (Chapter~\ref{chap:dynbenchmark}). Trajectory inference is one of the largest categories of all the novel single-cell omics tools, yet a comprehensive and quantitative study of the advantages and disadvantages of the numerous tools was hitherto lacking. We provide a set of guidelines for end-users wishing to infer trajectories. Our pipeline, datasets, metrics, and containerised wrappers of TI methods are made publicly available for developers to use.
@@ -280,10 +387,38 @@ In this work, we aim to speed up scientific progress in single-cell omics by pro
 	\item We introduce a TI method specialised in \textbf{inferring linear trajectories} (Chapter~\ref{chap:scorpius}). Despite linear TI being the most simple but commonly used form of trajectory inference, the benchmark demonstrated that most TI methods are not capable of producing accurate models of linear datasets.
 	\item We explore a novel algorithm for \textbf{inferring gene regulatory interactions at a single-cell level} (Chapter~\ref{chap:bred}). We demonstrate our NI methodology by inferring regulatory interactions for 14'963 profiles of cancer patients.
 	\item We provide a tool for \textbf{analysing the topological properties of large, evolving networks} and use this to iteratively optimise GRN predictions (Chapter~\ref{chap:incgraph}).
-	\item We reflect on \textbf{challenges in performing self-assessments of TI methods} (Chapter~\ref{chap:selfassessment}).
-	Reproducibility problems of TI methods are partially due to low rates of quantitative self-assessment. We look at 75 manuscripts of TI methods and identify key challenges the authors had in benchmarking their tool. For each of these challenges, we provide a summary of how we and others have successfully tackled these challenges, in order to spur developers to perform more self-assessments.
+%	\item We reflect on \textbf{challenges in performing self-assessments of TI methods} (Chapter~\ref{chap:selfassessment}).
+%	Reproducibility problems of TI methods are partially due to low rates of quantitative self-assessment. We look at 75 manuscripts of TI methods and identify key challenges the authors had in benchmarking their tool. For each of these challenges, we provide a summary of how we and others have successfully tackled these challenges, in order to spur developers to perform more self-assessments.
 	\item Finally, we \textbf{summarise our experience in benchmarking computational methods} by providing a list of essential guidelines in benchmarking computational tools (Chapter~\ref{chap:guidelines}).
 \end{itemize}
+
+
+\section{Hippocratic oath for method developers}
+Before setting out on this perilous journey, I write a Hippocratic oath 
+which I believe all developers of computational tools should swear by 
+before haphazardly creating new tools. 
+
+\begin{figure}[htb!]
+	\centering
+	\begin{tcolorbox}
+		\begin{itemize}
+			\item In developing a new computational tool, I swear to fulfil, to the best of my ability, the following items:
+			\item I will write software that works reliably but fails gracefully when it does not.
+			\item I will assert that my method produces accurate and reproducible results.
+			\item I will validate the performance of my tool with previously unseen data from third-party sources.
+			\item I will use suitable quantitative performance metrics. If possible, I use multiple metrics to avoid overfitting.
+			\item I will compare the performance to relevant methods.
+			\item I will report positive achievements of my method, but also be critical of it, and discuss areas in which it performs suboptimally.
+			\item I will write unit tests to ensure that each component in my tool works as intended. If the tool produces unexpected errors when tested on various edge cases, my tool will be perceived as dysfunctional by others.
+			\item I will follow reproducible research best practices, by making code and data publicly available.
+		\end{itemize}
+	\end{tcolorbox}
+	\caption{
+		\textbf{A hippocratic oath for computational method developers.} Inspired by Laplante\cite{laplante_firstnoharm_2004} and lists of guidelines for benchmarking\cite{norel_selfassessmenttrapcan_2011,weber_essentialguidelinescomputational_2019}
+	}
+	\label{fig:hippocratic_oath}
+\end{figure}
+
 
 
 \clearpage

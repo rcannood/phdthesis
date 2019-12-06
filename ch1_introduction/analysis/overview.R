@@ -7,12 +7,12 @@ df <- tribble(
   ~x, ~y, ~name, ~hjust, ~vjust,
   0, 0, "§2: dyngen", .5, 1,
   .4, 1, "§3: dynbenchmark", 0, .5,
-  .6, 1, "§4: self-assessment\nin trajectory inference", 0, .5,
-  .8, 1, "§5: SCORPIUS", 0, .5,
-  1, 1, "§6: dyno", 0, .5,
-  1.8, 1, "§7: bred", 1, .5,
-  2, 1, "§8: incgraph", 1, .5,
-  3, 1, "§9: guidelines\nfor benchmarking", .5, 0
+  # .6, 1, "§4: self-assessment\nin trajectory inference", 0, .5,
+  .7, 1, "§4: SCORPIUS", 0, .5,
+  1, 1, "§5: dyno", 0, .5,
+  1.8, 1, "§6: bred", 1, .5,
+  2, 1, "§7: incgraph", 1, .5,
+  3, 1, "§8: guidelines\nfor benchmarking", .5, 0
 )
 titdf <- tibble(
   x = 0:2,
@@ -44,7 +44,7 @@ df <- df %>% mix_cols()
 arrdf <- tribble(
   ~gr, ~x, ~y,
   2, .4, 1,
-  2, .76, 1,
+  2, .6, 1,
   3, 1, 1,
   3, 1.575, 1,
   4, 2, 1,
@@ -60,8 +60,8 @@ g <- ggplot(df) +
   geom_text(aes(x, y, label = name, colour = col), titdf, size = 6, fontface = "bold") +
   coord_polar() +
   dynplot::theme_graph() +
-  theme(plot.margin=grid::unit(c(0,0,0,0), "mm")) +
+  theme(plot.margin=margin(0,0,0,0)) +
   scale_colour_identity()
-ggsave("fig/overview.pdf", g, width = 6, height = 6)
+ggsave("fig/overview.pdf", g, width = 6, height = 4)
 
 
