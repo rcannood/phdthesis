@@ -12,6 +12,8 @@
 
 * Added overview diagram of which chapters fit in which of the main research areas in the thesis. Rewrote the Research objectives accordingly.
 
+* Merged segments of the self-assessment chapter and several paragraphs of the research context into one big section "Benchmarking computational tools".
+
 # Chapter 2: dyngen
 
 * Added Louise Deconinck to the list of contributors.
