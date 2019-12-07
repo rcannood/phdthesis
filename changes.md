@@ -8,7 +8,9 @@
 
 # Chapter 1: introduction
 
-* Added overview figure to section 1.2. Discuss better the applications of each of the types of computational tool.
+* Added overview figure to section 1.2 of the types of analyses and applications enabled by single-cell omics. For each of the types of analyses, the applications are discussed in more detailed in the respective sections.
+
+* Added overview diagram of which chapters fit in which of the main research areas in the thesis. Rewrote the Research objectives accordingly.
 
 # Chapter 2: dyngen
 
@@ -17,3 +19,5 @@
 * Reworked methods section on module networks and backbones.
 
 * Expanded explanation on how cells are sampled, included figure.
+
+* Added fully developed use cases for dyngen.

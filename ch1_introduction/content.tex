@@ -150,7 +150,7 @@ Over the past five years, already 450 new tools have been developed to perform v
 	\centering
 	\includegraphics[width=\linewidth]{fig/singlecell_technologies_onlycore} 
 	\caption{
-		\textbf{Five main types of analyses typically performed with single-cell omics.}
+		\textbf{Five main types of analyses typically performed with single-cell omics, and the applications thereof.}
 	}
 	\label{fig:scapplications}
 \end{figure}
@@ -273,34 +273,19 @@ Before single-cell omics, these methods rely on multiple experiments, amongst wh
 	\label{fig:comp_tools_ni}
 \end{figure}
 
-\section{Benchmarking in bioinformatics}
+\section{Benchmarking computational tools}
 
-Many articles introducing novel computational tools for analysing single-cell omics data
-lack a quantitative assessment of the accuracy of the method. Instead, they
-rely on anecdotal evidence to demonstrate their added value. 
+Recent technological advancements in profiling single cells are having significant repercussions in many fields of biology. Profiling thousands of individual cells in a genome-wide manner provides opportunities to study cell heterogeneity and dynamics, for example inferring mechanisms for cellular development or intercellular communication. 
+Hundreds of new software tools were developed \cite{zappia_exploringsinglecellrnaseq_2018} to perform these new types of analyses, or to fit existing analytical tools to deal with new data characteristics (e.g. differential expression, dimensionality reduction, normalisation). 
 
-As a demonstration, we perform a brief review of 75 articles 
-introducing new TI methods, but the findings presented are
-generalisable to single-cell omics in general.
-Out of 75 articles, only about 37\% of articles contain a
-self-assessment (Figure \ref{fig:benchmarks_over_time}).
-Peer-reviewed articles fared even worse, self-assessing in only 35\% of
-cases (n=55), whereas articles first published as a pre-print
-self-assess in 44\% of cases (n=39).
+One major shortcoming during the advent of single-cell omics was that the majority of newly developed computational tools were not quantitatively and comparatively evaluated. Rather, they relied on anecdotal evidence to demonstrate its usefulness. 
 
-While self-assessments are universally biased in favour of the
-authors \cite{norel_selfassessmenttrapcan_2011} (intentionally or
-not), it is dangerous and unusual to publish a computational tool
-without quantitatively demonstrating its performance compared to
-state-of-the-art methods. Indeed, our comparison demonstrated that most
-methods perform worse than a few baseline methods constructed by
-combining simple off-the-shelf algorithms such as PCA, \(k\)-means and
-MST.
+As a demonstration, we perform a brief review of 75 articles introducing new TI methods, but the findings presented are generalisable to single-cell omics in general. Out of 75 articles, only about 37\% of articles contain a self-assessment (Figure \ref{fig:benchmarks_over_time}). Peer-reviewed articles fared even worse, self-assessing in only 35\% of cases, whereas articles first published as a pre-print self-assess in 44\% of cases.
 
-We hypothesise that low self-assessment rates are
-primarily caused by a lack of a standardised problem definition, readily
-available benchmarking datasets, and suitable metrics. 
+While self-assessments are universally biased in favour of the authors \cite{norel_selfassessmenttrapcan_2011} (intentionally or not), it is dangerous and unusual to publish a computational tool without quantitatively demonstrating its performance compared to state-of-the-art methods. Uncontrolled development of software tools without comprehensive benchmarking poses serious problems. For one, it slows down scientific progress. Every end-user needs to make a large commitment researching the domain in order to make an informed decision of which tool to use, or risk a higher incidence of false positive discoveries (either way, valuable resources are being wasted). In addition, it also negatively impacts the credibility of the field, thus discouraging potential users or researchers from entering.
 
+This issue is likely not due to the tool developer's malevolence, but instead due to the absence of benchmarking methodology for this application, which can include standardised problem definitions, readily available benchmarking datasets, and suitable metrics.
+Each of these topics is discussed in more detail below.
 
 \begin{figure}[htb!]
 	\centering
@@ -314,64 +299,30 @@ available benchmarking datasets, and suitable metrics.
 \end{figure}
 
 \subsection{Problem definition} 
+One main reason why benchmarking TI methods is difficult is due to there being slight variations of the problem a method is attempting to solve. For example, a TI method might infer linear or cyclic trajectories, or predict the probability of a cell ending up in one of several end states.
 
-One main reason why benchmarking TI methods is difficult is due to there being slight variations of the problem a method is attempting to solve. For example, a TI method might infer linear or cyclic trajectories, or predict the probability of a cell
-ending up in one of several end states. As a result, it becomes harder to discover similar methods to compare against, as certain TI articles might only show up with search terms such
-as ``pseudotemporal ordering'', ``lineage trees'' or ``fate bias''. For
-the discoverability of a new TI method, it is therefore essential to use
-the term ``trajectory inference'', or at least list it as one of the
-keywords.
+These differences reflect themselves in the input and output interfaces of each method, making it harder to directly compare methods directly. By constructing a generalised version that encompasses the different sub-problems and wrapping each method accordingly allows to fix the interface to make methods directly comparable.
+
+Additionally, differences in problem definitions might complicate knowledge discovery to find similar methods, as certain articles might only show up with specific search terms. For the discoverability of a new TI method, it is therefore essential to use include generalised terminology, or at least list it as one of the keywords.
 
 \subsection{Datasets} 
-During the infancy of the relatively domain 
-of single-cell omics, large well-annotated datasets that can be used to 
-benchmark novel computational tools are scarce and expensive to generate. 
-When adequate benchmarking datasets are lowly abundant,
- synthetic data is often used to evaluate
-computational methods, either standalone or to complement real
-data. 
+During the infancy of the relatively domain of single-cell omics, large well-annotated datasets that can be used to benchmark novel computational tools are scarce and expensive to generate.  When adequate benchmarking datasets are lowly abundant, synthetic data is often used to evaluate computational methods, either standalone or to complement real data. 
 
-Benefits of synthetic data are that they offer more control over the
-data characteristics and that they can be generated in large quantities.
-This allows evaluating the performance of a method in function of a
-changing parameter (e.g.~dataset size or noise levels), which provides
-information on how well the method will work on real datasets.
+Benefits of synthetic data are that they offer more control over the data characteristics and that they can be generated in large quantities. This allows evaluating the performance of a method in function of a changing parameter (e.g.~dataset size or noise levels), which provides information on how well the method will work on real datasets.
 
-A common counterargument of synthetic data is that they generate
-unrealistic datasets and thus provide no additional value in evaluating
-a method. In contrast, we argue that a good set of synthetic datasets
-should allow benchmarkers to verify that a method should
-\textit{at least} work well on the synthetic datasets, but good
-performance on synthetic datasets does not guarantee good performance on
-real datasets.
+A common counterargument of synthetic data is that they generate unrealistic datasets and thus provide no additional value in evaluating a method. In contrast, we argue that a good set of synthetic datasets should allow benchmarkers to verify that a method should \textit{at least} work well on the synthetic datasets, but good performance on synthetic datasets does not guarantee good performance on real datasets.
 
 \subsection{Metrics}
+To evaluate a computational tools, a quantitative metric is needed to compare  the often complex multi-layered data structures of the ground-truth dataset to predictions thereof, or to compare the data structures of multiple predictions. When adequate metrics are lacking, it is advisable to re-purpose metrics from other domains and adapt them, if necessary.
 
-To evaluate a computational tools, a quantitative metric is needed to compare 
-the often complex multi-layered data structures of the ground-truth dataset
-to predictions thereof, or to compare the data structures of multiple predictions.
-When adequate metrics are lacking, it is advisable to re-purpose metrics from other 
-domains and adapt them, if necessary.
-
-A second important criterion is to evaluate the robustness of predictions by comparing
-multiple executions of the same
-method. Computing the robustness does not replace the necessity of a
-relevant metric that captures whether a predicted trajectory resembles
-the ground truth.
-
+A second important criterion is to evaluate the robustness of predictions by comparing multiple executions of the same method. Computing the robustness does not replace the necessity of a relevant metric that captures whether a predicted trajectory resembles the ground truth.
 
 \section{Research context and objectives} \label{sec:research_objectives}
-Recent technological advancements in profiling single cells are having significant repercussions in many fields of biology. Profiling thousands of individual cells in a genome-wide manner provides opportunities to study cell heterogeneity and dynamics, for example inferring mechanisms for cellular development or intercellular communication. 
-Hundreds of new software tools were developed \cite{zappia_exploringsinglecellrnaseq_2018} to perform these new types of analyses, or to fit existing analytical tools to deal with new data characteristics (e.g. differential expression, dimensionality reduction, normalisation). 
+Technological breakthroughs in single-cell omics profiling have resulted in a wealth of information on the biomolecular contents of individual cells. In this work, we aim to speed up scientific discovery by developing and benchmarking computational tools for generating high-quality hypotheses in a high-throughput and data-driven manner.
 
-One major shortcoming during the advent of single-cell omics was that the majority of newly developed computational tools were not quantitatively and comparatively evaluated. Rather, they relied on anecdotal evidence to demonstrate its usefulness. This issue is not the result of the tool developer's malevolence, but instead of the lack of data required to perform such comprehensive benchmarks.
-%TODO: also mention guidelines for users.
+The objectives of this work can be reduced to three main questions. How do cells change over time? What drives cells to change? How good are these predictions?
 
-Uncontrolled development of software tools without comprehensive benchmarking poses serious problems. 
-For one, it slows down scientific progress. Every end-user needs to make a large commitment researching the domain in order to make an informed decision of which tool to use, or risk a higher incidence of false positive discoveries (either way, valuable resources are being wasted). In addition, it also negatively impacts the credibility of the field, thus discouraging potential users or researchers from entering.
-
-In this work, we aim to speed up scientific progress in single-cell omics by providing tools both for end-users and developers alike. For developers of computational approaches, we provide tools and guidelines for benchmarking their method on real and synthetic data. For end-users we develop new tools and guidelines for analysing dynamic processes by inferring trajectories and gene regulatory networks. Our specific scientific objectives are discussed in the following chapters.
-
+We tackle these three questions using three respective approaches, namely trajectory inference, network inference, and benchmarking (Figure~\ref{fig:overview_thesis}). Each of the chapters in this work contributes to answering a part of one or more of these questions.
 
 \begin{figure}[htb!]
 	\centering
@@ -380,19 +331,24 @@ In this work, we aim to speed up scientific progress in single-cell omics by pro
 	\label{fig:overview_thesis}
 \end{figure}
 
-\begin{itemize}
-	\item We \textbf{develop benchmarking strategies} for assessing the performance of computational tools constrained by low availability of novel types of real single-cell data (Chapter~\ref{chap:dyngen}). \textit{In silico} simulations of individual cells are used to help kick-start emerging domains much more safely and allow anticipation of future technological developments by already developing computational tools.
-	\item We apply this strategy to \textbf{perform a comparison of TI methods} (Chapter~\ref{chap:dynbenchmark}). Trajectory inference is one of the largest categories of all the novel single-cell omics tools, yet a comprehensive and quantitative study of the advantages and disadvantages of the numerous tools was hitherto lacking. We provide a set of guidelines for end-users wishing to infer trajectories. Our pipeline, datasets, metrics, and containerised wrappers of TI methods are made publicly available for developers to use.
-	\item We develop \textbf{a toolkit to infer, visualise and interpret single-cell trajectories} using more than 50 different TI methods (Chapter~\ref{chap:dyno}). This toolkit provides downstream analysis such as: visualising a trajectory in a low-dimensional space or a heatmap, detecting genes differentially expressed at different stages of the trajectory, comparing multiple trajectories in a common dimensionality reduction, and manipulating the trajectory (e.g. adding directionality or adding annotation).
-	\item We introduce a TI method specialised in \textbf{inferring linear trajectories} (Chapter~\ref{chap:scorpius}). Despite linear TI being the most simple but commonly used form of trajectory inference, the benchmark demonstrated that most TI methods are not capable of producing accurate models of linear datasets.
-	\item We explore a novel algorithm for \textbf{inferring gene regulatory interactions at a single-cell level} (Chapter~\ref{chap:bred}). We demonstrate our NI methodology by inferring regulatory interactions for 14'963 profiles of cancer patients.
-	\item We provide a tool for \textbf{analysing the topological properties of large, evolving networks} and use this to iteratively optimise GRN predictions (Chapter~\ref{chap:incgraph}).
-%	\item We reflect on \textbf{challenges in performing self-assessments of TI methods} (Chapter~\ref{chap:selfassessment}).
-%	Reproducibility problems of TI methods are partially due to low rates of quantitative self-assessment. We look at 75 manuscripts of TI methods and identify key challenges the authors had in benchmarking their tool. For each of these challenges, we provide a summary of how we and others have successfully tackled these challenges, in order to spur developers to perform more self-assessments.
-	\item Finally, we \textbf{summarise our experience in benchmarking computational methods} by providing a list of essential guidelines in benchmarking computational tools (Chapter~\ref{chap:guidelines}).
-\end{itemize}
+\paragraph{Trajectory inference} We develop a simulator of developing single cells (Chapter~\ref{chap:dyngen}). We use synthetic data to complement real data in benchmarking TI methods in terms of accuracy, stability, scalability and usability (Chapter~\ref{chap:dynbenchmark}). Based on these results, we provide guidelines to end-users on how to perform trajectory inference analysis. We introduce a novel TI method specialised in inferring linear trajectories which outperforms state-of-the-art existing methods (Chapter~\ref{chap:scorpius}). Finally, we provide a full-stack toolkit for performing inferring, visualising and interpreting trajectories from more than 50 different TI methods (Chapter~\ref{chap:dyno}).
+
+\paragraph{Network inference} We explore a novel algorithm for inferring gene regulatory interactions at a single-cell level (Chapter~\ref{chap:bred}). We demonstrate our NI methodology by inferring regulatory interactions for 14'963 profiles of cancer patients. We provide a tool for analysing the topological properties of large, evolving networks and use this to iteratively optimise GRN predictions (Chapter~\ref{chap:incgraph}).
+
+\paragraph{Benchmarking} Using our synthetic single-cell generator, we develop benchmarking strategies for assessing the performance of novel types of single-cell omics tools which are currently in a conceptual or prototypical state (Chapter~\ref{chap:dyngen}). We summarise our experience in benchmarking computational methods by providing a list of essential guidelines in how to benchmark computational tools (Chapter~\ref{chap:guidelines}).
 
 
+%\begin{itemize}
+%	\item We \textbf{develop benchmarking strategies} for assessing the performance of computational tools constrained by low availability of novel types of real single-cell data (Chapter~\ref{chap:dyngen}). \textit{In silico} simulations of individual cells are used to help kick-start emerging domains much more safely and allow anticipation of future technological developments by already developing computational tools.
+%	\item We apply this strategy to \textbf{perform a comparison of TI methods} (Chapter~\ref{chap:dynbenchmark}). Trajectory inference is one of the largest categories of all the novel single-cell omics tools, yet a comprehensive and quantitative study of the advantages and disadvantages of the numerous tools was hitherto lacking. We provide a set of guidelines for end-users wishing to infer trajectories. Our pipeline, datasets, metrics, and containerised wrappers of TI methods are made publicly available for developers to use.
+%	\item We introduce a TI method specialised in \textbf{inferring linear trajectories} (Chapter~\ref{chap:scorpius}). Despite linear TI being the most simple but commonly used form of trajectory inference, the benchmark demonstrated that most TI methods are not capable of producing accurate models of linear datasets.
+%	\item We develop \textbf{a toolkit to infer, visualise and interpret single-cell trajectories} using more than 50 different TI methods (Chapter~\ref{chap:dyno}). This toolkit provides downstream analysis such as: visualising a trajectory in a low-dimensional space or a heatmap, detecting genes differentially expressed at different stages of the trajectory, comparing multiple trajectories in a common dimensionality reduction, and manipulating the trajectory (e.g. adding directionality or adding annotation).
+%	\item We explore a novel algorithm for \textbf{inferring gene regulatory interactions at a single-cell level} (Chapter~\ref{chap:bred}). We demonstrate our NI methodology by inferring regulatory interactions for 14'963 profiles of cancer patients.
+%	\item We provide a tool for \textbf{analysing the topological properties of large, evolving networks} and use this to iteratively optimise GRN predictions (Chapter~\ref{chap:incgraph}).
+%	\item Finally, we \textbf{summarise our experience in benchmarking computational methods} by providing a list of essential guidelines in benchmarking computational tools (Chapter~\ref{chap:guidelines}).
+%\end{itemize}
+
+\newpage 
 \section{Hippocratic oath for method developers}
 Before setting out on this perilous journey, I write a Hippocratic oath 
 which I believe all developers of computational tools should swear by 
