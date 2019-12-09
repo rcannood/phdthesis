@@ -53,25 +53,10 @@ Recently, similar methodology has been discussed in the context of single-cell o
 
 \textbf{Dynamic NI} methods exploit cell ordering information to improve the resulting regulatory network. Prior ordering information can be obtained experimentally (e.g. by performing lineage tracing or time-series experiments) or computationally (e.g. by performing trajectory inference or RNA velocity experiments). Unfortunately, most methods which are labelled as dynamic NI methods use time-series information to augment the inference of a static network. Ideally, dynamic NI methods would predict how the activity of interactions change along (pseudo-)time, as doing so would allow to detect regulatory cascades or interactions which act as the main drivers behind crucial dynamic processes.
 
-In \textbf{Casewise NI}, one regulatory network is predicted for every single-cell in the dataset. Doing so allows studying the heterogeneity (or homogeneity) between and within different cell populations. In essence, most analyses that can be run on single-cell omics (e.g. diffential expression) can also be applied on casewise regulatory networks (e.g. to predict differentially expressed interactions).
+In \textbf{casewise NI}, one regulatory network is predicted for every single-cell in the dataset. Doing so allows studying the heterogeneity (or homogeneity) between and within different cell populations. In essence, most analyses that can be run on single-cell omics (e.g. diffential expression) can also be applied on casewise regulatory networks (e.g. to predict differentially expressed interactions).
 It is the most generalised form of NI of the variants discussed above, as a casewise regulatory network can be clustered to create a differential network, or trajectory inference can be applied to derive a dynamic regulatory network. Examples of casewise NI methods include SCENIC \cite{aibar_scenicsinglecellregulatory_2017}, SSN \cite{liu_personalizedcharacterizationdiseases_2016}, and LIONESS \cite{kuijjer_estimatingsamplespecificregulatory_2019}.
 
-
-Instead of inferring gene regulatory mechanisms occurring within a cell, \textbf{intercellular NI} methods study communication between cells by predicting interactions between the ligands of one type of cells and the receptors of another group of cells. 
-
-
-% browaeys_nichenetmodelinginterce
-
-Hence, there is a need for compu-
-tational methodologies that use expression data of interacting cells
-to infer the effects of sender-cell ligands on receiver-cell expression.
-Although a few basic methods were developed for bulk data (for
-example, CCCExplorer) 15,16 , comprehensive and predictive methods
-that are generally applicable to both bulk and single-cell expression
-data are lacking.
-
-
-% When does a cluster represent a new cell type? \cite{kiselev_challengesunsupervisedclustering_2019}
+Instead of inferring gene regulatory mechanisms occurring within a cell, \textbf{intercellular NI} methods \cite{efremova_cellphonedbv2inferring_2019,browaeys_nichenetmodelingintercellular_2019} study communication between cells by predicting interactions between the ligands of one type of cells and the receptors of another group of cells. Such methods typically require much more prior data (e.g. which cells are communicating with which cells, what are the ligands and receptors), but allows studying how the cells react to their environment and investigate intercellular feedback mechanisms. 
 
 
 
@@ -88,20 +73,8 @@ Together, we published over 20'000 code contributions (commits) across 50+ softw
 
 Software bugs can be introduced even by incredibly small, seemingly insignificant changes. The R programming language seems particularly susceptible towards getting trapped by its many pitfalls. However, there are many benefits of using R in bioinformatics research context, such as its extensive community of statisticians develop packages for the R ecosystem. The \textbf{tidyverse} packages \cite{wickham_welcometidyverse_2019}, developed by the RStudio team and many online contributors, completely transformed my experiences with R from tedious struggles to efficient everyday functional programming.
 
-Honourable mentions go to Linux, Fedora, \LaTeX, TeXstudio, (R)Markdown, Bash, Sed, Regular expressions, Rocket Chat, for making bioinformatics software development even more fun and enjoyable.
+Honourable mentions are Linux, Fedora, \LaTeX, TeXstudio, (R)Markdown, Bash, Sed, Regular expressions, Rocket Chat, for making bioinformatics software development even more fun and enjoyable.
 
-% ideas:
-%  Yet I wonder how the current academic system
-%can support such concepts. Academics often hold different positions in
-%different research groups around the world, who should be the maintainer in
-%these cases? The original PhD students that developed the work? The original
-%research group?
-
-%The eight chapter is a manuscript in preparation about the assessment of TI methods. The main discussion topic is the lack of a quantitative measure for the scoring of new TI methods. This leads to the publication and development of new methods that do not show a clear performance improvement compared to other methods. The main topic touches
-%upon some sore points that are inherent in bioinformatics. The main thought I have with
-%this chapter is that defining clear goals in an emerging technology is difficult and therefore is sometimes ignored by fellow bioinformaticians. This because the lack of standardized performance metrics, missing public datasets that are well described and an \textit{ad hoc} problem definition. I follow the idea of defining a clear cut approach to benchmarking (as described in chapter nine) and I like the proposition that is started in this manuscript for a discussion on good TI metrics.} Would approaches like e.g. DREAM challenges be a means of tackling these issues to your opinion?
-
-% zie peter dawyndt, chapter 5
 \clearpage
 \section{References}
 \printbibliography[heading=none]
