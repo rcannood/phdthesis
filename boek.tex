@@ -5,19 +5,21 @@
 %%% IMPORT PACKAGES %%%
 %%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage[paperheight=24cm,paperwidth=17cm,margin=1.5cm]{geometry}
+%\usepackage[paperheight=24cm,paperwidth=17cm,margin=1.5cm,inner=2cm,outer=1.5cm]{geometry}
+%
+%\usepackage[
+%	% set width and height to a4 width and height + 6mm
+%	%width=16truecm, height=24truecm,
+%	a4,
+%	% use any combination of these options to add different cut markings
+%	cam, axes, frame, cross,
+%	% set the type of TeX renderer you use
+%	pdftex,
+%	% center the contents
+%	center
+%]{crop}
 
-\usepackage[
-	% set width and height to a4 width and height + 6mm
-	%width=16truecm, height=24truecm,
-	a4,
-	% use any combination of these options to add different cut markings
-	cam, axes, frame, cross,
-	% set the type of TeX renderer you use
-	pdftex,
-	% center the contents
-	center
-]{crop}
+\usepackage[paperheight=24cm,paperwidth=17cm,margin=1.5cm,inner=2cm,outer=1.5cm]{geometry}
 
 % adjust margins (should be done before importing fancyhdr!) %lmargin=2.5cm,rmargin=4cm,tmargin=3cm,bmargin=3cm
 
@@ -70,12 +72,6 @@
 
 % sections in allcaps
 \usepackage{titlesec}
-%\titleformat{\section} {\Large\bfseries\center}{}{0em}{\hrule height 0.4pt\vspace{2pt}}[\hrule height 0.4pt] \titlespacing*{\section} {0pt}{0pt}{10pt}
-%\titleformat{\subsection} {\large\bfseries\center}{}{0em}{\vspace{0pt}} \titlespacing*{\subsection} {0pt}{0pt}{0pt}
-%\titleformat{\subsubsection} {\normalsize\bfseries\center}{}{0em}{\vspace{0pt}} \titlespacing*{\subsubsection}  {0pt}{0pt}{0pt}
-%\titleformat{\section} [block]{\Large\bfseries\filcenter}{}{0em}{\MakeUppercase}
-%\titleformat{\subsection} [block]{\large\bfseries\filcenter}{}{0em}{\MakeUppercase}
-%\titleformat{\subsubsection} [block]{\normalsize\bfseries\filcenter}{}{0em}{\MakeUppercase}
 
 % references packages
 \usepackage[sorting=none,refsection=chapter]{biblatex}
@@ -192,6 +188,53 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 
+% magic for reading parts of a file
+\makeatletter
+\newread\pin@file
+\newcounter{pinlineno}
+\newcommand\pin@accu{}
+\newcommand\pin@ext{pintmp}
+% inputs #3, selecting only lines #1 to #2 (inclusive)
+\newcommand*\partialinput [3] {%
+	\IfFileExists{#3}{%
+		\openin\pin@file #3
+		% skip lines 1 to #1 (exclusive)
+		\setcounter{pinlineno}{1}
+		\@whilenum\value{pinlineno}<#1 \do{%
+			\read\pin@file to\pin@line
+			\stepcounter{pinlineno}%
+		}
+		% prepare reading lines #1 to #2 inclusive
+		\addtocounter{pinlineno}{-1}
+		\let\pin@accu\empty
+		\begingroup
+		\endlinechar\newlinechar
+		\@whilenum\value{pinlineno}<#2 \do{%
+			% use safe catcodes provided by e-TeX's \readline
+			\readline\pin@file to\pin@line
+			\edef\pin@accu{\pin@accu\pin@line}%
+			\stepcounter{pinlineno}%
+		}
+		\closein\pin@file
+		\expandafter\endgroup
+		\scantokens\expandafter{\pin@accu}%
+	}{%
+		\errmessage{File `#3' doesn't exist!}%
+	}%
+}
+\makeatother
+
+\newcounter{acki}
+\setcounter{acki}{1}
+\newcommand{\doack}{%
+%	{\footnotesize %
+%    %\#\theacki\ | % LINENUMBER DEBUG
+%		\partialinput{\theacki}{\theacki}{ack}
+%	}%
+	\stepcounter{acki}%
+}
+
+
 %%%%%%%%%%%%%%%%%%%%%
 %%% DEFINE HEADER %%%
 %%%%%%%%%%%%%%%%%%%%%
@@ -207,10 +250,14 @@
 		\fancyfoot[RO,LE]{\textsf{Page \thepage}}
 	} 
 }
+
 \fancypagestyle{mainmatter}{%    
 	\fancyhf{} 	
 	\fancyhead[RO,LE]{\nouppercase{\small \textsf{\leftmark}}}
-	\fancyfoot[RO,LE]{\textsf{Page \thepage}} 
+	\fancyfoot[RO,LE]{\textsf{{\footnotesize Page \thepage}}}
+	\fancyfoot[LO]{\ifodd\theacki\doack\fi}
+	\fancyfoot[RE]{\ifodd\theacki\else\doack\fi}
+
 }
 \setlength{\headheight}{15pt}
 
@@ -266,41 +313,11 @@
 		\renewcommand{\footrulewidth}{0pt}
 		\fancyhf{}
 		\chead{\oddthumb{#1}}% chapters start only on odd pages
-		\fancyfoot[RO,LE]{\textsf{Page \thepage}} %\fancyfoot[RO,LE]{\textsf{Page \thepage}}
+		\fancyfoot[RO,LE]{\textsf{Page \thepage}}
 	}
 	\thispagestyle{chapterstart}
 	\stepcounter{letternum}%
 }
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% DEFINE FIGURE HELPERS %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\newcommand{\hugefigure}{\textwidth}
-\newcommand{\LARGEfigure}{0.8\textwidth} % 1 per col
-\newcommand{\LARgefigure}{0.6\textwidth} % 1 per col
-\newcommand{\Largefigure}{0.5\textwidth} % 1 per col
-\newcommand{\largefigure}{0.37\textwidth} % 2 per col
-\newcommand{\normalfigure}{0.3\textwidth} % 3 per col
-\newcommand{\smallfigure}{0.24\textwidth} % 3 per col
-\newcommand{\Smallfigure}{0.19\textwidth} % 4 per col
-\newcommand{\SMALLfigure}{0.15\textwidth} % 5 per col
-
-\makeatletter
-\newcommand*{\centerfloat}{%
-	\parindent \z@
-	\leftskip \z@ \@plus 1fil \@minus \textwidth
-	\rightskip\leftskip
-	\parfillskip \z@skip}
-\makeatother
-
-\newcommand{\picfig}[4]{
-\begin{figure}[ht!]
-	\centering \centerfloat
-	\includegraphics[width=#2]{#1}
-	\caption{#4}
-	\label{#3}
-\end{figure}}
 
 %%%%%%%%%%%%%%%%%%%%%
 %%% DEFINE STYLES %%%
@@ -348,12 +365,11 @@ BoldItalicFont = *-700-Italic
 
 %\renderalltrue
 
+
 \begin{document}
-
 \pagenumbering{alph}
-
+\pagestyle{frontmatter}
 \frontmatter
-\pagestyle{empty}
 
 \include{ch0_frontmatter}
 
@@ -378,6 +394,7 @@ BoldItalicFont = *-700-Italic
 %\end{quote}
 
 \vfill
+
 \newpage
 \graphicspath{{./ch1_introduction/}}
 \include{ch1_introduction/content}
@@ -749,11 +766,11 @@ BoldItalicFont = *-700-Italic
 \chaptermark{Discussion.} % short title
 \label{chap:discussion}
 
-\ifrenderall
+%\ifrenderall
 \newpage
 \graphicspath{{./ch10_discussion/}}
 \include{ch10_discussion/content}
-\fi 
+%\fi 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%        BACKMATTER         %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
