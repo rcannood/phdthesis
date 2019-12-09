@@ -1,5 +1,6 @@
 % DISCUSSION CONTENT
 
+
 \section{Impact of this work}
 In this work, we made scientific contributions to the field of computational biology applied to single-cell omics. More specifically, we developed approaches for performing trajectory inference and network inference analyses for single-cell omics, as well as approaches for assessing the performance of such methods in a quantitative way.
 
@@ -11,8 +12,9 @@ This dissertation commences with a rant on low self-assessment rates of method d
 % has used dyno detomaso_functionalinterpretationsingle_2019
 
 \section{Outlook}
-The types of computational analyses presented in Section~\ref{sec:comptools} (Clustering, DE, DR, TI, NI) all become routine methodologies for analysing and interpreting single-cell omics data. Here, we discuss several promising categories of computational methods that are currently still in a exploratory stage (Figure~\ref{fig:scapplications_extended}).
+The types of computational analyses presented in Section~\ref{sec:comptools} (Clustering, DE, DR, TI, NI) have all become routine methodologies for analysing and interpreting single-cell omics data. With projects like the Human Cell Atlas\cite{humancellatlasconsortium_humancellatlas_2018} soon to be churning out millions of single-cell profiles on a regular basis, research in high-throughput computational tools to analyse these data in an unsupervised approach becomes increasingly relevant. 
 
+Here, we discuss several promising categories of computational methods (Figure~\ref{fig:scapplications_extended}) that are mostly in an exploratory stage but show promising results towards becoming another major computational workhorse in single-cell biology.
 
 \begin{figure}[htb!]
 	\centering
@@ -41,56 +43,26 @@ Dynamic Time Warping (DTW) \cite{giorgino_computingvisualizingdynamic_2009} is m
 
 Over time, as the affordability of single-cell omics technologies improves and the abundance of available datasets increases, we hypothesize that these methods will become highly relevant in comparing dynamic processes in samples from multiple donors.
 
-\subsection{Differential network inference}
-Differential NI methods aim to reconstruct one network for each of the given conditions amongst the transcriptomic profiles. The conditions can be different cellular states or changes in environment, and profiles can be grouped according to prior knowledge or derived through unsupervised clustering. From the resulting networks, one can then investigate the pathways that are differentially activated between conditions (e.g. deregulated pathways between a diseased and healthy condition), or those that are similarly activated between conditions (e.g. similarly activated pathways between two different disease conditions).
+\subsection{Variations on network inference}
+Using a collection of transcriptomic profiles, network inference (NI) methods predict which genes are the regulators of a target gene. The output of an NI method is called a gene regulatory network in which each predicted interaction can be assigned a predicted strength or effect (activating or inhibitory).
+However, cells are very molecularly heterogeneous, and only a fraction of all possible gene regulatory interactions is active at any point in time. Unfortunately, 'bulk' NI does not permit studying the diversity of regulatory activity within and between cell populations, and will thus suffer from similar drawbacks as bulk omics when compared to single-cell omics. Several adaptations of NI have been developed to address this problem, namely Differential NI, Dynamic NI, Casewise NI and Intercellular NI. 
 
-Differential NI methods have already been described for bulk -omics data \cite{Ideker2012}, where they have been used, for instance, to elucidate deregulated mechanisms in different subtypes of leukaemia \cite{Gill2014}.
+\textbf{Differential NI} methods reconstruct one network per group of cells. The grouping can either be defined by prior knowledge, for example from gene expression, clustering, or by sorting the cells \textit{a priori}. 
+The resulting networks can be investigate to detect differentially active (groups of) interactions between conditions (e.g. deregulated pathways between healthy and diseased), or (groups of) interactions that are highly active in between conditions (e.g. for investigating common pathways between different conditions). Differential NI methodology had already been developed for bulk omics \cite{ideker_differentialnetworkbiology_2012} to, for example, infer deregulated regulatory mechanisms in different subtypes of leukaemia \cite{gill_differentialnetworkanalysis_2014}.
+Recently, similar methodology has been discussed in the context of single-cell omics as well \cite{chiu_scdnetcomputationaltool_2018}.
 
-\subsection{Dynamic network inference}
-Advances in single-cell transcriptomics have fostered the development of trajectory inference methods \cite{Cannoodt2016}, which are computational tools to reconstruct dynamic processes such as cellular differentiation and cell cycle (Figure \ref{fig:ti_with_ni}). These methods usually recover the underlying structure of the data by focusing on the similarities between cells. The cells can then be ordered along a trajectory that optimally models the data structure.  
-This bears resemblance to the more traditional time-series experiments with bulk transcriptomics data, albeit at a much higher temporal resolution. Unlike time-series experiments, trajectories are ideally inferred in an unsupervised manner, as not to introduce human bias.
+\textbf{Dynamic NI} methods exploit cell ordering information to improve the resulting regulatory network. Prior ordering information can be obtained experimentally (e.g. by performing lineage tracing or time-series experiments) or computationally (e.g. by performing trajectory inference or RNA velocity experiments). Unfortunately, most methods which are labelled as dynamic NI methods use time-series information to augment the inference of a static network. Ideally, dynamic NI methods would predict how the activity of interactions change along (pseudo-)time, as doing so would allow to detect regulatory cascades or interactions which act as the main drivers behind crucial dynamic processes.
 
-As in time-series experiments, NI methods can exploit the information provided by trajectory inference methods in order to improve the resulting regulatory network. Several NI methods use this information in order to determine the directionality and the type of an interaction. This has helped to construct more accurate boolean networks (SCNS \cite{Moignard2015}), by selecting the network that most reliably describes the observed cell ordering. Several NI methods use this cell-ordering information to construct ordinary differential equations that are again improved to optimally describe the observed data \cite{Ocone2015,Wei2016}. While such methods are generally able to improve the accuracy of the produced networks by using information from the trajectory, they suffer from the same limitations as discussed at the start of the section since they produce a single regulatory network that is supposed to be a model for all of the cells in the population.
-
-Instead, dynamic NI methods produce a network of interactions with variable activation levels across the trajectory. They provide useful information on which transcription factors are expressed at the beginning of a developmental process, and which gene interactions occur at later stages for instance. Dynamic networks are more complex models in comparison to differential and static networks. 
+In \textbf{Casewise NI}, one regulatory network is predicted for every single-cell in the dataset. Doing so allows studying the heterogeneity (or homogeneity) between and within different cell populations. In essence, most analyses that can be run on single-cell omics (e.g. diffential expression) can also be applied on casewise regulatory networks (e.g. to predict differentially expressed interactions).
+It is the most generalised form of NI of the variants discussed above, as a casewise regulatory network can be clustered to create a differential network, or trajectory inference can be applied to derive a dynamic regulatory network. Examples of casewise NI methods include SCENIC \cite{aibar_scenicsinglecellregulatory_2017}, SSN \cite{liu_personalizedcharacterizationdiseases_2016}, and LIONESS \cite{kuijjer_estimatingsamplespecificregulatory_2019}.
 
 
-\subsection{Casewise network inference}
-Casewise network inference (CNI)
-methods\footnote{Other terms are commonly used when dealing with data from a particular source. For example, single-cell NI when applied to single-cell transcriptomics data; sample-specific NI when applied to bulk transcriptomics; patient-derived NI when applied to bulk profiles of patients.}
-predict not only which transcription factors regulate which target genes
-(Figure~\ref{fig:scgrn}A, top left), but also how active each
-interaction is in every case (Figure~\ref{fig:scgrn}A). In CNI, a `case'
-might be a cell, but it might also refer to a bulk sample.
+Instead of inferring gene regulatory mechanisms occurring within a cell, \textbf{intercellular NI} methods study communication between cells by predicting interactions between the ligands of one type of cells and the receptors of another group of cells. 
 
-While a few pioneering CNI approaches have already been
-developed\autocites{aibar_scenicsinglecellregulatory_2017}{kuijjer_estimatingsamplespecificregulatory_2019}{liu_personalizedcharacterizationdiseases_2016},
-a quantitative assessment of the performance is hitherto lacking. This
-is not surprising, as neither real nor in silico datasets of
-cell-specific or even cell-type-specific interactions exists that is
-large enough so that it can be used as a ground-truth for evaluating CNI
-methods.
 
-\subsection{Intercellular network inference}
-Cells are influenced by extracellular signals produced by cells
-in their microenvironment. One way of studying intercellular
-communication is to profile gene expression in interacting cells.
-Especially single-cell-omics technologies are promising because
-of their ability to analyze tissue composition in high resolution \cite{yosef_writlargegenomic_2016,tanay_scalingsinglecellgenomics_2017} .
-Furthermore, spatial and sophisticated single-cell transcriptomics
-technologies have recently been developed to assay the spatial con-
-text of a cell \cite{stahl_visualizationanalysisgene_2016,rodriques_slideseqscalabletechnology_2019,eng_transcriptomescalesuperresolvedimaging_2019,vickovic_highdefinitionspatialtranscriptomics_2019} , characterize cellular niches 7 or construct physical
-cell–cell interaction maps 8 .
-Several studies have recently demonstrated the potential of
-single-cell transcriptomics to investigate intercellular communica-
-tion 9–14 . There, computational methods, such as CellPhoneDB 14 ,
-were applied to infer links between ligands (that is, extracellular
-protein signals) expressed by sender cells and receptors expressed
-by receiver cells. Thus, these computational approaches elucidate
-by which extracellular signals cells can communicate. Nevertheless,
-a functional understanding of cell–cell communication requires
-knowledge about the influence of these ligand–receptor interac-
-tions on target gene expression. Hence, there is a need for compu-
+% browaeys_nichenetmodelinginterce
+
+Hence, there is a need for compu-
 tational methodologies that use expression data of interacting cells
 to infer the effects of sender-cell ligands on receiver-cell expression.
 Although a few basic methods were developed for bulk data (for
