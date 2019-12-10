@@ -5,26 +5,27 @@
 %%% IMPORT PACKAGES %%%
 %%%%%%%%%%%%%%%%%%%%%%%
 
-%\usepackage[paperheight=24cm,paperwidth=17cm,margin=1.5cm,inner=2cm,outer=1.5cm]{geometry}
-%\usepackage[
-%	% set width and height to a4 width and height + 6mm
-%	%width=16truecm, height=24truecm,
-%	a4,
-%	% use any combination of these options to add different cut markings
-%	cam, axes, frame, cross,
-%	% set the type of TeX renderer you use
-%	pdftex,
-%	% center the contents
-%	center
-%]{crop}
-
 \usepackage[paperheight=24cm,paperwidth=17cm,margin=1.5cm,inner=2cm,outer=1.5cm]{geometry}
+\usepackage[
+	% set width and height to a4 width and height + 6mm
+	%width=16truecm, height=24truecm,
+	a4,
+	% use any combination of these options to add different cut markings
+	cam, axes, frame, cross,
+	% set the type of TeX renderer you use
+	pdftex,
+	% center the contents
+	center
+]{crop}
+
+%\usepackage[paperheight=24cm,paperwidth=17cm,margin=1.5cm,inner=2cm,outer=1.5cm]{geometry}
 % adjust margins (should be done before importing fancyhdr!) %lmargin=2.5cm,rmargin=4cm,tmargin=3cm,bmargin=3cm
 
 % text packages
 \usepackage{csquotes}
 \usepackage[english]{babel}
 \usepackage{setspace}
+\usepackage{kotex} % hangul
 
 % style packages
 \usepackage{lmodern}
@@ -225,22 +226,23 @@
 %\#\theacki\ | % LINENUMBER DEBUG
 \newcounter{acki}
 \setcounter{acki}{1}
-%\newcommand{\doack}{{\textcolor{med-gray}{\footnotesize\partialinput{\theacki}{\theacki}{ack}}}\stepcounter{acki}}
 
-\newcommand{\doack}{%
-	\textcolor{med-gray}{\footnotesize\partialinput{\theacki}{\theacki}{ack}}%
+\usepackage{makecell}
+\newcommand{\doackl}{%
+	\textcolor{med-gray}{\footnotesize\makecell[l]{\hspace*{-1.06em}\partialinput{\theacki}{\theacki}{ack}}}%
 	\stepcounter{acki}%
 }
+\newcommand{\doackr}{%
+\textcolor{med-gray}{\footnotesize\makecell[r]{\partialinput{\theacki}{\theacki}{ack}}}%
+\stepcounter{acki}%
+}
 
-%\usepackage{makecell}
-%\newcommand{\doack}{%
-%	\makecell{%
-%		\setcounter{A}{2*\value{acki}}
-%		\textcolor{med-gray}{\footnotesize\partialinput{2*\theacki-1}{2*\theacki-1}{ack}} \\%
-%		\textcolor{med-gray}{\footnotesize\partialinput{2*\theacki}{2*\theacki}{ack}}%
-%		\stepcounter{acki}%
-%	}%
+
+%\newcommand{\doack}[1]{%
+%	\footnotesize\makecell[#1]{\partialinput{\theacki}{\theacki}{ack}}%
+%	\stepcounter{acki}%
 %}
+
 \newcommand{\newperson}{\rule{10cm}{0.4pt}}
 
 
@@ -264,9 +266,8 @@
 	\fancyhf{} 	
 	\fancyhead[RO,LE]{\nouppercase{\small \textsf{\leftmark}}}
 	\fancyfoot[RO,LE]{\textsf{{\footnotesize Page \thepage}}}
-	\fancyfoot[LO]{\ifodd\theacki\doack\fi}
-	\fancyfoot[RE]{\ifodd\theacki\else\doack\fi}
-
+	\fancyfoot[LO]{\ifodd\theacki\else\doackl\fi}
+	\fancyfoot[RE]{\ifodd\theacki\doackr\fi}
 }
 \setlength{\headheight}{15pt}
 
@@ -374,7 +375,6 @@ BoldItalicFont = *-700-Italic
 
 \renderalltrue
 
-
 \begin{document}
 \pagenumbering{alph}
 \pagestyle{frontmatter}
@@ -414,20 +414,19 @@ BoldItalicFont = *-700-Italic
 {\large \textbf{Abstract}}
 \begin{quote}
 	\textbf{Purpose:} A common problem of pioneering computational tools is that during their development, there are rarely sufficient datasets available for adequately quantitatively assessing its performance. \\
-	\textbf{Results:} We developed \texttt{dyngen}, a multi-modality simulator of single cells. 
-	In \texttt{dyngen}, the biomolecular state of an \textit{in silico} cell changes over time according to a set of reactions defined by the cell's gene regulatory network. By simulating single cells in terms of its biomolecular state and reactions, the simulator is easily extendible for adding new modalities or experimental procedures. We demonstrate \texttt{dyngen}'s flexibility by simulating snapshot, time-series and perturbation experiments.\\
-	\textbf{Conclusion:} \texttt{dyngen} lays the foundations for benchmarking a wide variety of computational single-cell tools, and can be used to help kick-start the development of future types of analyses.
+	\textbf{Results:} We developed dyngen, a multi-modality simulator of single cells. In dyngen, the biomolecular state of an \textit{in silico} cell changes over time according to a gene regulatory network. The simulator is extendible for adding new modalities or experimental procedures. We demonstrate dyngen's flexibility by applying it to benchmark RNA velocity and casewise network inference methods. \\
+	\textbf{Conclusion:} dyngen lays the foundations for benchmarking a wide variety of computational single-cell tools and can be used to help kick-start the development of future types of analyses.
 \end{quote}
-
-\vfill
+%
+%\vfill
 {\large \textbf{Publication status}}
 \begin{quote}
 	Manuscript in preparation. \\
 	\textbf{Cannoodt R}$^*$, Saelens W$^*$, Deconinck L, and Saeys Y.  \\
 	{\footnotesize $^*$ Equal contribution}
 \end{quote}
-
-\vfill
+%
+%\vfill
 {\large \textbf{Author contributions}}
 \begin{quote}
 	$\bullet$ \textbf{R.C.} and W.S. designed the study.\\
@@ -502,7 +501,7 @@ BoldItalicFont = *-700-Italic
 \begin{quote}
 	\textbf{Purpose:} 
 	Recent advances in single-cell RNA-sequencing allow modelling progression of single cells along a dynamic process of interest as a trajectory. While already more than 75 trajectory inference methods have been developed, comprehensive benchmarking demonstrated that pseudotemporal ordering cells robustly is still a challenging task.\\
-	\textbf{Results:} \texttt{SCORPIUS} is a trajectory inference method specialised in pseudotemporally ordering single-cell profiles. Applying \texttt{SCORPIUS} to a large collection of datasets shows that it consistently produces more accurate and robust trajectories in comparison to state-of-the-art trajectory inference methods. We used \texttt{SCORPIUS} to generate novel hypotheses regarding dendritic cell development, which were subsequently validated \textit{in vivo}.\\
+	\textbf{Results:} {SCORPIUS} is a trajectory inference method specialised in pseudotemporally ordering single-cell profiles. Applying {SCORPIUS} to a large collection of datasets shows that it consistently produces more accurate and robust trajectories in comparison to state-of-the-art trajectory inference methods. We used {SCORPIUS} to generate novel hypotheses regarding dendritic cell development, which were subsequently validated \textit{in vivo}.\\
 	\textbf{Conclusion:} By providing a robust and accurate toolkit for inferring linear trajectories, we aim to make pseudotime analysis as easy-to-use and prevalent as other types of analysis such as differential expression and gene set enrichment.
 \end{quote}
 
@@ -546,8 +545,8 @@ BoldItalicFont = *-700-Italic
 {\large \textbf{Abstract}}
 \begin{quote}
 	\textbf{Purpose:} Recent technological advances allow studying dynamic processes by computationally ordering single-cell omics profiles along a trajectory. Since 2014, at least 75 tools for trajectory inference have been developed. For end-users, however, these methods are difficult to execute and compare, mainly due to high variability in input/output data structures, software requirements, and programming interfaces. \\
-	\textbf{Results:} We developed \texttt{dyno}, a toolkit for inferring, visualising and interpreting single-cell trajectories, giving access to more than 50 TI methods. \texttt{dyno} provides downstream analyses such as visualising the trajectory with dot-plots or heatmaps, automated labelling using gene sets, automated inference of the directionality, and detecting genes that are differentially expressed along the trajectory. \\
-	\textbf{Conclusion:} By providing a uniform interface for executing and visualising trajectories of 50 methods, \texttt{dyno} allows inferring and comparing trajectories for a much broader audience than previously possible.
+	\textbf{Results:} We developed {dyno}, a toolkit for inferring, visualising and interpreting single-cell trajectories, giving access to more than 50 TI methods. {dyno} provides downstream analyses such as visualising the trajectory with dot-plots or heatmaps, automated labelling using gene sets, automated inference of the directionality, and detecting genes that are differentially expressed along the trajectory. \\
+	\textbf{Conclusion:} By providing a uniform interface for executing and visualising trajectories of 50 methods, {dyno} allows inferring and comparing trajectories for a much broader audience than previously possible.
 \end{quote}
 
 \vfill
@@ -591,7 +590,7 @@ BoldItalicFont = *-700-Italic
 \begin{quote}
 	\textbf{Purpose:} Network inference methods are computational tools which use large omics datasets to predict which genes are regulated by which transcription factors.
 	Since regulatory interactions are context-dependent, attempting to model regulatory dynamics in the form of a single regulatory network may have little relevance. \\
-	\textbf{Results:} In this work, we introduce \texttt{bred}, the first algorithm for inferring case-wise regulatory networks. We generate . Analysing case-wise regulatory networks of 14'963 profiles from The Cancer Genome Atlas project demonstrated that regulatory interactions are often specific to particular cancer types, but can also be shared between several cancer types. \\
+	\textbf{Results:} In this work, we introduce {bred}, the first algorithm for inferring case-wise regulatory networks. We generate . Analysing case-wise regulatory networks of 14'963 profiles from The Cancer Genome Atlas project demonstrated that regulatory interactions are often specific to particular cancer types, but can also be shared between several cancer types. \\
 	\textbf{Conclusion:} Ultimately, this analysis has resulted in a list of candidate oncogenic genes and interactions per cancer type, though further analysis and validation is required to confirm their oncogenicity.
 \end{quote}
 % TODO: fix abstract
@@ -625,19 +624,17 @@ BoldItalicFont = *-700-Italic
 %%%       CH8: INCGRAPH       %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage{\thispagestyle{empty}\cleardoublepage}
-\chapter{incgraph: Optimising regulatory networks} 
+\chapter{incgraph: Optimising regulatory\\networks} 
 \chaptermark{incgraph: Optimising regulatory networks.} % short title
 \label{chap:incgraph}
 
-
 {\large \textbf{Abstract}}
 \begin{quote}
-	\textbf{Purpose:} Graphlets are small network patterns that can be counted in order to characterise the structure of a network (topology). Counting graphlet can used to iteratively optimise a network in order to achieve certain topological properties.
-	Up until now, however, graphlets were not suited as a metric for performing topology optimisation; when millions of minor changes are made to the network structure it becomes computationally intractable to recalculate all the graphlet counts for each of the edge modifications. \\
-	\textbf{Results:} IncGraph calculates the differences in graphlet counts with respect to the network in its previous state.
-	IncGraph reduces the execution time by several orders of magnitude when compared to recounting the graphlet counts from scratch at every iteration.
+	\textbf{Purpose:} Graphlets are small network patterns that can be counted in order to characterise the topology of a network. Counting graphlet can used to iteratively optimise a network in order to achieve certain topological properties.
+	Hitherto graphlets were not suited as a metric for performing topology optimisation due to the computational complexity of recalculating all the graphlet counts for each of the edge modifications. \\
+	\textbf{Results:} IncGraph calculates the differences in graphlet counts with respect to the network in its previous state, thereby reducing execution time by several orders of magnitude when compared to classic approaches.
 	We demonstrate the usefulness of this approach optimising gene regulatory networks using a graphlet-based fitness score. \\
-	\textbf{Conclusion:} IncGraph is able to quickly quantify the topological impact of small changes to a network, which opens novel research opportunities to study changes in topologies in evolving or online networks, or develop graphlet-based criteria for topology optimisation.
+	\textbf{Conclusion:} IncGraph is able to quickly quantify the topological impact of small changes to a network, which opens novel research opportunities to study changes in topologies in evolving networks, or develop graphlet-based criteria for topology optimisation.
 \end{quote}
 
 \vfill
@@ -675,12 +672,10 @@ BoldItalicFont = *-700-Italic
 \chaptermark{Essential guidelines for computational method benchmarking.} % short title
 \label{chap:guidelines}
 
-
-
 {\large \textbf{Abstract}}
 \begin{quote}
-	\textbf{Purpose:} In computational biology and other sciences, researchers are frequently faced with a choice between several computational methods for performing data analyses. Benchmarking studies aim to rigorously compare the performance of different methods using well-characterized benchmark datasets, to determine the strengths of each method or to provide recommendations regarding suitable choices of methods for an analysis. However, benchmarking studies must be carefully designed and implemented to provide accurate, unbiased, and informative results. \\
-	\textbf{Results:}  Here, we summarise key practical guidelines and recommendations for performing high-quality benchmarking analyses, based on our experiences in computational biology. Our review spans the full pipeline of benchmarking, from defining the scope to best practices for reproducibility. This includes crucial questions regarding design and evaluation principles. \\
+	\textbf{Purpose:} In computational biology and other sciences, researchers are frequently faced with a choice between several computational methods for performing data analyses. Benchmarking studies aim to rigorously compare the performance of different methods using well-characterized datasets, to determine the strengths of each method or to provide recommendations regarding suitable choices of methods for an analysis. However, benchmarking studies must be carefully designed and implemented to provide accurate, unbiased, and informative results. \\
+	\textbf{Results:}  Here, we summarise key guidelines and recommendations for performing high-quality benchmarking analyses. Our review spans the full pipeline of benchmarking, from defining the scope to best practices for reproducibility. This includes crucial questions regarding design and evaluation principles. \\
 	\textbf{Conclusion:} With this review, we aim to guide computational researchers in avoiding common pitfalls in designing, performing, and interpreting benchmarks.
 \end{quote}
 
