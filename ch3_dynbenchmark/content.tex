@@ -69,7 +69,6 @@ The largest difference between TI methods is whether a method fixes the topology
 We evaluated each method on four core aspects: (1) accuracy of a prediction, given a gold or silver standard on 110 real and 229 synthetic datasets; (2) scalability with respect to the number of cells and features (for example, genes); (3) stability of the predictions after subsampling the datasets; and (4) the usability of the tool in terms of software, documentation and the manuscript. Overall, we found a large diversity across the four evaluation criteria, with only a few methods, such as PAGA, Slingshot and SCORPIUS, performing well across the board (Figure \ref{fig:figure_2}b). We will discuss each evaluation criterion in more detail (Figure \ref{fig:figure_3} and Supplementary Figure~\hyperref[fig:suppfig_2]{3.1}), after which we conclude with guidelines for method users and future perspectives for method developers.
 
 
-\newpage
 \subsection{Accuracy}
 
 We defined several metrics to compare a prediction to a reference trajectory (Section~\ref{sec:dynb_supn1}). Based on an analysis of their robustness and conformity to a set of rules (Section~\ref{sec:dynb_supn1}), we chose four metrics each assessing a different aspect of a trajectory (Figure \ref{fig:figure_1}d): the topology (Hamming–Ipsen–Mikhailov, HIM), the quality of the assignment of cells to branches (F1branches), the cell positions (cordist) and the accuracy of the differentially expressed features along the trajectory (wcorfeatures). The data compendium consisted of both synthetic datasets, which offer the most exact reference trajectory, and real datasets, which provide the highest biological relevance. These real datasets come from a variety of single-cell technologies, organisms and dynamic processes, and contain several types of trajectory topologies (Supplementary Table~\hyperref[tab:supptable_2]{3.2}). Real datasets were classified as ‘gold standard’ if the reference trajectory was not extracted from the expression data itself, such as via cellular sorting or cell mixing \cite{tian_scrnaseqmixologybetter_2018}. All other real datasets were classified as ‘silver standard’. For synthetic datasets we used several data simulators, including a simulator of gene regulatory networks using a thermodynamic model of gene regulation \cite{schaffter_genenetweaversilicobenchmark_2011}. For each simulation, we used a real dataset as a reference, to match its dimensions, number of differentially expressed genes, drop-out rates and other statistical properties \cite{zappia_splattersimulationsinglecell_2017}.
@@ -154,11 +153,11 @@ We found that most methods fulfilled the basic criteria, such as the availabilit
 \end{figure}
 
 \begin{table}[tbh!]
-	\caption{\textbf{Scoring sheet for assessing usability of trajectory inference methods.} Each quality aspect was given a weight based on how many times it was mentioned in a set of articles discussing best practices for tool development.} \label{tab:scoresheet}
+	\caption{\textbf{Scoring sheet for assessing usability of trajectory inference methods.} Each quality aspect was given a weight based on how many times it was mentioned in a set of articles discussing best practices for tool development. Part 1.} \label{tab:scoresheet}
 	
 	\centering\begingroup\fontsize{7}{9}\selectfont
 	
-	\begin{tabular}{p{3.5cm}p{9cm}p{2.5cm}}
+	\begin{tabular}{p{2.5cm}p{8cm}p{1.5cm}}
 		\toprule
 		Aspect & Items & References \\ \midrule
 		
@@ -202,7 +201,21 @@ We found that most methods fulfilled the basic criteria, such as the availabilit
 		
 		Code coverage & (1) The code coverage of the repository is assessed. (2) What is the percentage of code coverage & \\
 		
-		\midrule
+		\bottomrule
+	\end{tabular}
+	\endgroup{}
+\end{table}
+
+
+\begin{table}[tbh!]
+	\caption{\textbf{Scoring sheet for assessing usability of trajectory inference methods.} Part 2.} \label{tab:scoresheet2}
+	
+	\centering\begingroup\fontsize{7}{9}\selectfont
+	
+	\begin{tabular}{p{2.5cm}p{8cm}p{1.5cm}}
+		\toprule
+		Aspect & Items & References \\ \midrule
+		
 		\multicolumn{3}{l}{\textbf{Documentation}} \\*
 		
 		Support & (1) There is a support ticket system, for example on Github (2) The authors respond to tickets and issues are resolved within a reasonable time frame & \cite{wilson_bestpracticesscientific_2014,wickham_packagesorganizetest_2015,artaza_top10metrics_2016,silva_generalguidelinesbiomedical_2017,jimenez_foursimplerecommendations_2017}\\*
@@ -244,6 +257,7 @@ We found that most methods fulfilled the basic criteria, such as the availabilit
 	\endgroup{}
 \end{table}
 
+
 \section{Discussion}
 
 In this study, we presented a large-scale evaluation of the performance of 45 TI methods. By using a common trajectory representation and four metrics to compare the methods’ outputs, we were able to assess the accuracy of the methods on more than 200 datasets. We also assessed several other important quality measures, such as the quality of the method’s implementation, the scalability to hundreds of thousands of cells and the stability of the output on small variations of the datasets.
@@ -261,7 +275,7 @@ Based on the results of our benchmark, we propose a set of practical guidelines 
 
 When inferring a trajectory on a dataset of interest, it is important to take two further points into account. First, it is critical that a trajectory, and the downstream results and/or hypotheses originating from it, are confirmed by multiple TI methods. This is to make sure that the prediction is not biased due to the given parameter setting or the particular algorithm underlying a TI method. The value of using different methods is further supported by our analysis indicating substantial complementarity between the different methods. Second, even if the expected topology is known, it can be beneficial to also try out methods that make less assumptions about the trajectory topology. When the expected topology is confirmed using such a method, it provides additional evidence to the user. When a more complex topology is produced, this could indicate that the underlying biology is much more complex than anticipated by the user.
 
-Critical to the broad applicability of TI methods is the standardization of the input and output interfaces of TI methods, so that users can effortlessly execute TI methods on their dataset of interest, compare different predicted trajectories and apply downstream analyses, such as finding genes important for the trajectory, network inference \cite{aibar_scenicsinglecellregulatory_2017} or finding modules of genes \cite{saelens_comprehensiveevaluationmodule_2018}. Our framework is an initial attempt at tackling this problem, and we illustrate its usefulness here by comparing the predicted trajectories of several top-performing methods on datasets containing a linear, tree, cyclic and disconnected graph topology (Figure \ref{fig:figure_6}). Using our framework, this figure can be recreated using only a couple of lines of R code (\url{https://methods.dynverse.org}). In the future, this framework could be extended to allow additional input data, such as spatial and RNA velocity information \cite{manno_rnavelocitysingle_2018}, and easier downstream analyses. In addition, further discussion within the field is required to arrive at a consensus concerning a common interface for trajectory models, which can include additional features such as uncertainty and gene importance.
+Critical to the broad applicability of TI methods is the standardization of the input and output interfaces of TI methods, so that users can effortlessly execute TI methods on their dataset of interest, compare different predicted trajectories and apply downstream analyses, such as finding genes important for the trajectory, network inference \cite{aibar_scenicsinglecellregulatory_2017} or finding modules of genes \cite{saelens_comprehensiveevaluationmodule_2018}. Our framework is an initial attempt at tackling this problem, and we illustrate its usefulness here by comparing the predicted trajectories of several top-performing methods on datasets containing a linear, tree, cyclic and disconnected graph topology (Figure \ref{fig:figure_6}). Using our framework, this figure can be recreated using only a couple of lines of R code (\url{https://methods.dynverse.org}). In the future, this framework could be extended to allow additional input data, such as spatial and RNA velocity information \cite{lamanno_rnavelocitysingle_2018}, and easier downstream analyses. In addition, further discussion within the field is required to arrive at a consensus concerning a common interface for trajectory models, which can include additional features such as uncertainty and gene importance.
 
 \begin{figure}[tbh!]
 	\centering\includegraphics[width=\linewidth]{fig/figure_6.pdf}
@@ -390,110 +404,7 @@ For every simulator, we took great care to make the datasets as realistic as pos
 
 \subsubsection{dyngen}
 
-The dyngen (\href{https://github.com/dynverse/dyngen}{https://github.com/dynverse/dyngen}) workflow to generate synthetic data is based on the well established workflow used in the evaluation of network inference methods \cite{schaffter_genenetweaversilicobenchmark_2011,marbach_wisdomcrowdsrobust_2012} and consists of four main steps: network generation, simulation, gold standard extraction and simulation of the scRNA-seq experiment. At every step, we tried to mirror real regulatory networks, while keeping the model simple and easily extendable. We simulated a total of 110 datasets, with 11 different topologies.
-
-\hfill\break
-\textit{Network generation}
-\hfill\break
-
-One of the main processes involved in cellular dynamic processes is gene regulation, where regulatory cascades and feedback loops lead to progressive changes in expression and decision making. The exact way a cell chooses a certain path during its differentiation is still an active research field, although certain models have already emerged and been tested in vivo. One driver of bifurcation seems to be mutual antagonism, where genes \cite{xu_regulationbifurcatingcell_2015} strongly repress each other, forcing one of the two to become inactive \cite{graf_forcingcellschange_2009}. Such mutual antagonism can be modelled and simulated \cite{wang_quantifyingwaddingtonlandscape_2011,ferrell_bistabilitybifurcationswaddington_2012}. Although such a two-gene model is simple and elegant, the reality is frequently more complex, with multiple genes (grouped into modules) repressing each other \cite{yosef_dynamicregulatorynetwork_2013}.
-
-To simulate certain trajectory topologies, we therefore designed module networks in which the cells follow a particular trajectory topology given certain parameters. Two module networks generated linear trajectories (linear and linear long), one generated a bifurcation, one generated a convergence, one generated a multifurcation (trifurcating), two generated a tree (consecutive bifurcating and binary tree), one generated an acyclic graph (bifurcating and converging), one generated a complex fork (trifurcating), one generated a rooted tree (consecutive bifurcating) and two generated simple graph structures (bifurcating loop and bifurcating cycle). The structure of these module networks is available at \href{https://github.com/dynverse/dyngen/tree/master/inst/ext\_data/modulenetworks}{https://github.com/dynverse/dyngen/tree/master/inst/ext\_data/modulenetworks}.
-
-From these module networks we generated gene regulatory networks in two steps: the main regulatory network was first generated, and extra target genes from real regulatory networks  were added. For each dataset, we used the same number of genes as were differentially expressed in the real datasets. 5$\%$ of the genes were assigned to be part of the main regulatory network, and were randomly distributed among all modules (with at least one gene per module). We sampled edges between these individual genes (according to the module network) using a uniform distribution between 1 and the number of possible targets in each module. To add additional target genes to the network, we assigned every regulator from the network to a real regulator in a real network (from regulatory circuits \cite{marbach_tissuespecificregulatorycircuits_2016}), and extracted for every regulator a local network around it using personalized pagerank (with damping factor set to 0.1), as implemented in the page\_rank function of the \textit{igraph} package. 
-
-\hfill\break
-\textit{Simulation of gene regulatory systems using thermodynamic models}
-\hfill\break
-
-To simulate the gene regulatory network, we used a system of differential equations similar to those used in evaluations of gene regulatory network inference methods \cite{marbach_wisdomcrowdsrobust_2012}. In this model, the changes in gene expression ($x_i$) and protein expression ($y_i$) are modeled using ordinary differential equations \cite{schaffter_genenetweaversilicobenchmark_2011} (ODEs):
-
-
-
-$$
-\begin{aligned}
-\label{eq:mrna_ode}
-\frac{dx_i}{dt} &= \underbrace{m \times f(y_1, y_2, ...)}_\text{production} - \underbrace{\lambda \times x_i}_\text{degradation}
-\end{aligned}
-$$
-$$
-\begin{aligned}
-\label{eq:prot_ode}
-\frac{dy_i}{dt} &= \underbrace{r \times x_i}_\text{production} - \underbrace{\Lambda \times y_i}_\text{degradation}
-\end{aligned}
-$$
-
-where $m$, $\lambda$, $r$ and $\Lambda$ represent production and degradation rates, the ratio of which determines the maximal gene and protein expression. The two types of equations are coupled because the production of protein $y_i$ depends on the amount of gene expression $x_i$, which in turn depends on the amount of other proteins through the activation function $f(y_1, y_2, ...)$.
-
-The activation function is inspired by a thermodynamic model of gene regulation, in which the promoter of a gene can be bound or unbound by a set of transcription factors, each representing a certain state of the promoter. Each state is linked with a relative activation $\alpha_j$, a number between 0 and 1 representing the activity of the promoter at this particular state. The production rate of the gene is calculated by combining the probabilities of the promoter being in each state with the relative activation:
-
-$$
-\begin{aligned}
-\label{eq:input_function_probabilities}
-f(y_1, y_2, ..., y_n) = \sum_{j \in \{0, 1, ..., n^2\}} \alpha_j \times P_j
-\end{aligned}
-$$
-
-The probability of being in a state is based on the thermodynamics of transcription factor binding. When only one transcription factor is bound in a state:
-$$
-\begin{aligned}
-P_j \propto \nu = \left(\frac{y}{k}\right)^{n}
-\end{aligned}
-$$
-
-where the hill coefficient $n$ represents the cooperativity of binding and $k$ the transcription factor concentration at half-maximal binding. When multiple regulators are bound:
-$$
-\begin{aligned}
-P_j \propto \nu =  \rho \times \prod_j \left(\frac{y_j}{k_j}\right)^{n_j}
-\end{aligned}
-$$
-
-where $\rho$ represents the cooperativity of binding between the different transcription factors. 
-
-$P_i$ is only proportional to $\nu$ because $\nu$ is normalized such that $\sum_{i} P_i = 1$.
-
-To each differential equation, we added an additional stochastic term: 
-$$
-\begin{aligned}
-\frac{dx_i}{dt} & = m \times f(y_1, y_2, ...) - \lambda \times x_i + \eta \times \sqrt{x_i} \times \Delta W_t \\
-\frac{dy_i}{dt} & = r \times x_i - \Lambda \times y_i + \eta \times \sqrt{y_i} \times \Delta W_t
-\end{aligned}
-$$
-
-with $\Delta W_t \sim \mathcal{N}(0, h)$. 
-
-Similar to GeneNetWeaver \cite{schaffter_genenetweaversilicobenchmark_2011}, we sample the different parameters from random distributions, defined as follows. $e$ defines whether a transcription factor activates (1) or represses (-1), as defined within the regulatory network network.
-
-$$
-\begin{aligned}
-r & = \mathcal{U}(10, 200) \\
-d & = \mathcal{U}(2, 8) \\
-p & = \mathcal{U}(2, 8) \\
-q & = \mathcal{U}(1, 5) \\
-a_0 & = \begin{cases}1 & \text{if } |e| = 0 \\ 1 & \text{if } \forall x \in e \text{, } x = -1 \\ 0 & \text{if } \forall x \in e \text{, } x = 1 \\ 0.5 & \text{otherwise}\end{cases} \\
-a_i & = \begin{cases}0 & \text{if } \exists x \in e_i \text{, } x = -1 \\ 1 & \text{otherwise}\end{cases} \\
-s & = \mathcal{U}(1, 20) \\
-k & = y_{max} / (2 * s) \text{,} \\
-\ & \quad \text{where } y_{max} = r / d \times p / q \\
-c & = \mathcal{U}(1, 4)
-\end{aligned}
-$$
-
-We converted each ODE to an SDE by adding a chemical Langevin equation, as described in \cite{schaffter_genenetweaversilicobenchmark_2011}. These SDEs were simulated using the Euler–Maruyama approximation, with time-step $h = 0.01$ and noise strength $\eta = 8$. The total simulation time varied between 5 for linear and bifurcating datasets, 10 for consecutive bifurcating, trifurcating and converging datasets, 15 for bifurcating converging datasets and 30 for linear long, cycle and bifurcating loop datasets. The burn-in period was for each simulation 2. Each network was simulated 32 times.
-
-\hfill\break
-\textit{Simulation of the single-cell RNA-seq experiment}
-\hfill\break
-
-For each dataset we sampled the same number of cells as were present in the reference real dataset, limited to the simulation steps after burn-in. These cells were sampled uniformly across the different steps of the 32 simulations.  Next, we used the Splatter package \cite{zappia_splattersimulationsinglecell_2017} to estimate the different characteristics of a real dataset, such as the distributions of average gene expression, library sizes and dropout probabilities. We used Splatter to simulate the expression levels $\lambda_{i,j}$ of housekeeping genes $i$ (to match the number of genes in the reference dataset) in every cell $j$. These were combined with the expression levels of the genes simulated within a trajectory. Next, true counts were simulated using $Y'_{i,j} \sim \text{Poisson}(\lambda_{i,j})$. Finally, we simulated dropouts by setting true counts to zero by sampling from a Bernoulli distribution using a dropout probability $\pi^D_{i,j} =\frac{1}{1+e^{-k(\text{ln}(\lambda_{i,j})-x_0)}}$. Both $x_0$ (the midpoint for the dropout logistic function) and $k$ (the shape of the dropout logistic function) were estimated by Splatter.
-
-This count matrix was then filtered and normalised using the pipeline described below.
-
-\hfill\break
-\textit{Gold standard extraction}
-\hfill\break
-
-Because each cellular simulation follows the trajectory at its own speed, knowing the exact position of a cell within the trajectory topology is not straightforward. Furthermore, the speed at  which simulated cells make a decision between two or more alternative paths is highly variable. We therefore first constructed a backbone expression profile for each branch within the trajectory. To do this, we first defined in which order the expression of the modules is expected to change, and then generated a backbone expression profile in which the expression of these modules increases and decreases smoothly between 0 and 1.  We also smoothed the expression in each simulation using a rolling mean with a window of 50 time steps, and then calculated the average module expression along the simulation.  We used dynamic time warping, implemented in the dtw R package \cite{giorgino_computingvisualizingdynamic_2009,tormene_matchingincompletetime_2009}, with an open end to align a simulation to all possible module progressions, and then picked the alignment which minimised the normalised distance between the simulation and the backbone. In case of cyclical trajectory topologies, the number of possible milestones a backbone could progress through was limited to 20.
+The dyngen (Chapter~\ref{chap:dyngen}) workflow to generate synthetic data is based on the well established workflow used in the evaluation of network inference methods \cite{schaffter_genenetweaversilicobenchmark_2011,marbach_wisdomcrowdsrobust_2012} and consists of four main steps: network generation, simulation, gold standard extraction and simulation of the scRNA-seq experiment. At every step, we tried to mirror real regulatory networks, while keeping the model simple and easily extendable. We simulated a total of 110 datasets, with 11 different topologies. 
 
 \subsubsection{dyntoy}
 
@@ -972,7 +883,6 @@ Undoubtedly, a single optimal overall metric does not exist for trajectories, as
 	\item A user may be primarily interested in defining the correct topology, and only use the cellular ordering when the topology is correct
 	\item A user may be less interested in how the cells are ordered within a branch, but primarily in which cells are in which branches
 	\item A user may already know the topology, and may be primarily interested in finding good features related to a particular branching point
-	\item ...
 \end{itemize}
 
 Each of these scenarios would require a combinations of \textit{specific} and \textit{application} metrics with different weights. To provide an "overall" ranking of the metrics, which is impartial for the scenarios described above, we therefore chose a metric which weighs every aspect of the trajectory equally:

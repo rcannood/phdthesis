@@ -1,12 +1,11 @@
 \PassOptionsToPackage{table}{xcolor}
-\documentclass[8pt]{book}
+\documentclass[10pt]{book}
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %%% IMPORT PACKAGES %%%
 %%%%%%%%%%%%%%%%%%%%%%%
 
 %\usepackage[paperheight=24cm,paperwidth=17cm,margin=1.5cm,inner=2cm,outer=1.5cm]{geometry}
-%
 %\usepackage[
 %	% set width and height to a4 width and height + 6mm
 %	%width=16truecm, height=24truecm,
@@ -20,7 +19,6 @@
 %]{crop}
 
 \usepackage[paperheight=24cm,paperwidth=17cm,margin=1.5cm,inner=2cm,outer=1.5cm]{geometry}
-
 % adjust margins (should be done before importing fancyhdr!) %lmargin=2.5cm,rmargin=4cm,tmargin=3cm,bmargin=3cm
 
 % text packages
@@ -363,7 +361,7 @@ BoldItalicFont = *-700-Italic
 % if switching for quick renders
 \newif\ifrenderall
 
-%\renderalltrue
+\renderalltrue
 
 
 \begin{document}
@@ -387,11 +385,6 @@ BoldItalicFont = *-700-Italic
 \label{chap:introduction}
 
 \lettergroup{\thechapter}
-
-%{\large \textbf{Abstract}}
-%\begin{quote}
-	%Recent developments in single-cell transcriptomics have opened new opportunities for studying dynamic processes in a high-throughput and unbiased manner. Starting from a mixture of cells in different stages of a developmental process, unsupervised trajectory inference algorithms aim to automatically reconstruct the underlying developmental path that cells are following. In this review, we break down the strategies used by this novel class of methods, and organize their components into a common framework, highlighting several practical advantages and disadvantages of the individual methods. We also give an overview of new insights these methods have already provided regarding the wiring and gene regulation of cell differentiation. As the trajectory inference field is still in its infancy, we propose several future developments which will ultimately lead to a global and data-driven way of studying immune cell differentiation.
-%\end{quote}
 
 \vfill
 
@@ -429,7 +422,7 @@ BoldItalicFont = *-700-Italic
 	$\bullet$ \textbf{R.C.} and W.S. designed the study.\\
 	$\bullet$ \textbf{R.C.}, W.S., and L.D. performed the experiments and analysed the data.\\
 	$\bullet$ \textbf{R.C.} and W.S. implemented software packages.\\
-	$\bullet$ \textbf{R.C.} wrote the original manuscript.\\
+	$\bullet$ \textbf{R.C.} and W.S. wrote the original manuscript.\\
 	$\bullet$ \textbf{R.C.}, W.S., L.D., and Y.S. reviewed and edited the manuscript. \\
 	$\bullet$ Y.S. supervised the project.
 \end{quote}
@@ -482,61 +475,6 @@ BoldItalicFont = *-700-Italic
 \graphicspath{{./ch3_dynbenchmark/}}
 \include{ch3_dynbenchmark/content}
 \fi
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%   CH4: Self-assessment    %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\newpage{\thispagestyle{empty}\cleardoublepage}
-%\chapter{Self-assessment in trajectory inference} 
-%\chaptermark{Self-assessment in trajectory inference.} % short title
-%\label{chap:selfassessment}
-%
-%
-%{\large \textbf{Abstract}}
-%\begin{quote}
-%	\textbf{Purpose:} A brief of 75 articles of trajectory tools reveals 
-%	that only 37\% of works contain a quantitative self-assessment. 
-%	While self-assessments are universally biased in favour of the
-%	authors, it is dangerous to publish a computational tool
-%	without quantitatively demonstrating its performance compared to
-%	state-of-the-art methods. \\
-%	\textbf{Results:} We hypothesise that low self-assessment rates are
-%	primarily caused by a lack of a standardised problem definition, readily
-%	available benchmarking datasets, and suitable metrics. We elaborate on
-%	these causal reasons and provide viable solutions for 
-%	performing benchmarks more easily.\\
-%	\textbf{Conclusion:} With this perspective, we hope to address the
-%	elephant in the room, and provide 
-%	developers of trajectory inference methods with the necessary 
-%	tools for performing benchmarking software quantitatively. 
-%\end{quote}
-%
-%\vfill
-%{\large \textbf{Publication status}}
-%\begin{quote}
-%	Manuscript in preparation. \\
-%	\textbf{Cannoodt R.}
-%\end{quote}
-%
-%\vfill
-%{\large \textbf{Author contributions}}
-%\begin{quote}
-%	$\bullet$ \textbf{R.C.} designed the study.\\
-%	$\bullet$ \textbf{R.C.} surveyed 75 manuscripts from literature and analysed the data.\\
-%	$\bullet$ \textbf{R.C.} wrote the original manuscript.
-%\end{quote}
-%
-%\vfill
-%
-%\ifrenderall
-%\newpage
-%\graphicspath{{./ch8_selfassessment/}}
-%\include{ch8_selfassessment/content}
-%\clearpage
-%\section{References}
-%\printbibliography[heading=none]
-%\fi 
 
 
 
@@ -766,11 +704,11 @@ BoldItalicFont = *-700-Italic
 \chaptermark{Discussion.} % short title
 \label{chap:discussion}
 
-%\ifrenderall
+\ifrenderall
 \newpage
 \graphicspath{{./ch10_discussion/}}
 \include{ch10_discussion/content}
-%\fi 
+\fi 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%        BACKMATTER         %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -18,10 +18,12 @@
 
 * Added Louise Deconinck to the list of contributors.
 
-* 
-
 * Reworked methods section on module networks and backbones.
 
-* Expanded explanation on how cells are sampled, included figure.
+* Expanded explanation on how cells are sampled, included an explanatory figure.
 
-* Added fully developed use cases for dyngen.
+* Added use cases for dyngen. Wouter Saelens developed the use case for RNA velocity.
+
+# Chapter 9: discussion
+
+* In essence, I removed the previous discussion chapter wrote a new one on the impact of this work and the outlook of computational tooks in single-cell biology.
