@@ -24,6 +24,10 @@
 
 * Added use cases for dyngen. Wouter Saelens developed the use case for RNA velocity.
 
+# Chapter 3: dynbenchmark
+
+* Removed duplicate section on dyngen's methdology.
+
 # Chapter 9: discussion
 
 * In essence, I removed the previous discussion chapter wrote a new one on the impact of this work and the outlook of computational tooks in single-cell biology.

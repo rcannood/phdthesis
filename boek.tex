@@ -222,15 +222,10 @@
 }
 \makeatother
 
+%\#\theacki\ | % LINENUMBER DEBUG
 \newcounter{acki}
 \setcounter{acki}{1}
-\newcommand{\doack}{%
-%	{\footnotesize %
-%    %\#\theacki\ | % LINENUMBER DEBUG
-%		\partialinput{\theacki}{\theacki}{ack}
-%	}%
-	\stepcounter{acki}%
-}
+\newcommand{\doack}{{\textcolor{med-gray}{\footnotesize\partialinput{\theacki}{\theacki}{ack}}}\stepcounter{acki}}
 
 
 %%%%%%%%%%%%%%%%%%%%%
