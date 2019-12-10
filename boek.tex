@@ -225,7 +225,23 @@
 %\#\theacki\ | % LINENUMBER DEBUG
 \newcounter{acki}
 \setcounter{acki}{1}
-\newcommand{\doack}{{\textcolor{med-gray}{\footnotesize\partialinput{\theacki}{\theacki}{ack}}}\stepcounter{acki}}
+%\newcommand{\doack}{{\textcolor{med-gray}{\footnotesize\partialinput{\theacki}{\theacki}{ack}}}\stepcounter{acki}}
+
+\newcommand{\doack}{%
+	\textcolor{med-gray}{\footnotesize\partialinput{\theacki}{\theacki}{ack}}%
+	\stepcounter{acki}%
+}
+
+%\usepackage{makecell}
+%\newcommand{\doack}{%
+%	\makecell{%
+%		\setcounter{A}{2*\value{acki}}
+%		\textcolor{med-gray}{\footnotesize\partialinput{2*\theacki-1}{2*\theacki-1}{ack}} \\%
+%		\textcolor{med-gray}{\footnotesize\partialinput{2*\theacki}{2*\theacki}{ack}}%
+%		\stepcounter{acki}%
+%	}%
+%}
+\newcommand{\newperson}{\rule{10cm}{0.4pt}}
 
 
 %%%%%%%%%%%%%%%%%%%%%
