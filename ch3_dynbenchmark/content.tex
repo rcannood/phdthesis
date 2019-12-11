@@ -5,7 +5,7 @@ A plethora of TI methods has been developed over the past few years and even mor
 
 Given the diversity in TI methods, it is important to quantitatively assess their performance, scalability, robustness and usability. Many attempts at tackling this issue have already been made \cite{haghverdi_diffusionpseudotimerobustly_2016,ji_tscanpseudotimereconstruction_2016,welch_slicerinferringbranched_2016,matsumoto_scoupprobabilisticmodel_2016,duverle_celltreebioconductorpackage_2016,cannoodt_computationalmethodstrajectory_2016,lonnberg_singlecellrnaseqcomputational_2017,campbell_probabilisticmodelingbifurcations_2017,wolf_graphabstractionreconciles_2017}, but a comprehensive comparison of TI methods across a large number of different datasets is still lacking. This is problematic, as new users to the field are confronted with an overwhelming choice of TI methods, without a clear idea of which would optimally solve their problem. Moreover, the strengths and weaknesses of existing methods need to be assessed, so that new developments in the field can focus on improving the current state-of-the-art.
 
-In this study, we evaluated the accuracy, scalability, stability and usability of 45 TI methods (Figure \ref{fig:figure_1}a). We found substantial complementarity between current methods, with different sets of methods performing most optimally depending on the characteristics of the data. For method users, we created an interactive set of guidelines (available at \href{http://guidelines.dynverse.org}{guidelines.dynverse.org}), which gives context-specific recommendations for method usage. Our evaluation also highlights some challenges for current methods, and our evaluation strategy can be useful to spearhead the development of new tools that accurately infer trajectories on ever more complex use cases.
+In this study, we evaluated the accuracy, scalability, stability and usability of 45 TI methods (Figure \ref{fig:figure_1}a). We found substantial complementarity between current methods, with different sets of methods performing most optimally depending on the characteristics of the data. For method users, we created an interactive set of guidelines (available at \url{http://guidelines.dynverse.org}), which gives context-specific recommendations for method usage. Our evaluation also highlights some challenges for current methods, and our evaluation strategy can be useful to spearhead the development of new tools that accurately infer trajectories on ever more complex use cases.
 
 \begin{figure}[tbh!]
 	\centering\includegraphics[width=\linewidth]{fig/figure_1.pdf}
@@ -286,7 +286,7 @@ Critical to the broad applicability of TI methods is the standardization of the 
 	\label{fig:figure_6}
 \end{figure}
 
-Our study indicates that the field of trajectory inference is maturing, primarily for linear and bifurcating trajectories (Figure \ref{fig:figure_6}a,b). However, we also highlight several ongoing challenges, which should be addressed before TI can be a reliable tool for analyzing single-cell omics datasets with complex trajectories. Foremost, new methods should focus on improving the unbiased inference of tree, cyclic graph and disconnected topologies, as we found that methods repeatedly overestimate or underestimate the complexity of the underlying topology, even if the trajectory could easily be identified using a dimensionality reduction method (Figure \ref{fig:figure_6}c,d). Furthermore, higher standards for code assurance and documentation could help in adopting these tools across the single-cell omics field. Finally, new tools should be designed to scale well with the increasing number of cells and features. We found that only a handful of current methods can handle datasets with more than 10,000 cells within a reasonable time frame. To support the development of these new tools, we provide a series of vignettes on how to wrap and evaluate a method on the different measures proposed in this study at \href{https://benchmark.dynverse.org}{https://benchmark.dynverse.org}.
+Our study indicates that the field of trajectory inference is maturing, primarily for linear and bifurcating trajectories (Figure \ref{fig:figure_6}a,b). However, we also highlight several ongoing challenges, which should be addressed before TI can be a reliable tool for analyzing single-cell omics datasets with complex trajectories. Foremost, new methods should focus on improving the unbiased inference of tree, cyclic graph and disconnected topologies, as we found that methods repeatedly overestimate or underestimate the complexity of the underlying topology, even if the trajectory could easily be identified using a dimensionality reduction method (Figure \ref{fig:figure_6}c,d). Furthermore, higher standards for code assurance and documentation could help in adopting these tools across the single-cell omics field. Finally, new tools should be designed to scale well with the increasing number of cells and features. We found that only a handful of current methods can handle datasets with more than 10,000 cells within a reasonable time frame. To support the development of these new tools, we provide a series of vignettes on how to wrap and evaluate a method on the different measures proposed in this study at \url{https://benchmark.dynverse.org}.
 
 We found that the performance of a method can be very variable between datasets, and therefore included a large set of both real and synthetic data within our evaluation, leading to a robust overall ranking of the different methods. However, ‘good-yet-not-the-best’ methods \cite{norel_selfassessmenttrapcan_2011} can still provide a very valuable contribution to the field, especially if they make use of novel algorithms, return a more scalable solution or provide a unique insight in specific use cases. This is also supported by our analysis of method complementarity. Some examples for the latter include PhenoPath, which can include additional covariates in its model, ouija, which returns a measure of uncertainty of each cell’s position within the trajectory, and StemID, which can infer the directionality of edges within the trajectory.
 
@@ -297,14 +297,14 @@ We found that the performance of a method can be very variable between datasets,
 
 We gathered a list of 71 trajectory inference tools (Supplementary Table~\hyperref[tab:supptable_1]{3.1}) by searching the literature for ‘trajectory inference’ and ‘pseudotemporal ordering’, and based on two existing lists found online: \href{https://github.com/seandavi/awesome-single-cell}{awesome-single-cell} \cite{davis_awesomesinglecell_2018} and \href{https://github.com/agitter/single-cell-pseudotime}{single-cell-pseudotime} \cite{gitter_singlecellrnaseqpseudotime_2018}. We welcome any contributions by creating an issue at \href{https://methods.dynverse.org}{https://methods.dynverse.org}.
 
-Methods were excluded from the evaluation based on several criteria: (1) not freely available; (2) no code available; (3) superseded by another method; (4) requires data types other than expression; (5) no programming interface; (6) unresolved errors during wrapping; (7) too slow (requires more than 1 h on a 100 $\times$ 100 dataset); (8) does not return an ordering; and (9) requires additional user input during the algorithm (other than prior information). The discussions on why these methods were excluded can be found at \href{https://github.com/dynverse/dynmethods/issues?q=label:unwrappable}{https://github.com/dynverse/dynmethods/issues?q=label:unwrappable}. In the end, we included 45 methods in the evaluation.
+Methods were excluded from the evaluation based on several criteria: (1) not freely available; (2) no code available; (3) superseded by another method; (4) requires data types other than expression; (5) no programming interface; (6) unresolved errors during wrapping; (7) too slow (requires more than 1 h on a 100 $\times$ 100 dataset); (8) does not return an ordering; and (9) requires additional user input during the algorithm (other than prior information). The discussions on why these methods were excluded can be found at \url{https://github.com/dynverse/dynmethods/issues?q=label:unwrappable}. In the end, we included 45 methods in the evaluation.
 
 
 \subsection{Method wrappers}
 
-To make it easy to run each method in a reproducible manner, each method was wrapped within Docker and Singularity containers (available at \href{https://methods.dynverse.org}{https://methods.dynverse.org}). These containers are automatically built and tested using Travis continuous integration (\href{https://travis-ci.org/dynverse}{https://travis-ci.org/dynverse}) and can be ran using both Docker and Singularity. For each method, we wrote a wrapper script based on example scripts or tutorials provided by the authors (as mentioned in the respective wrapper scripts). This script reads in the input data, runs the method and outputs the files required to construct a trajectory. We also created a script to generate an example dataset, which is used for automated testing.
+To make it easy to run each method in a reproducible manner, each method was wrapped within Docker and Singularity containers (available at \url{https://methods.dynverse.org}). These containers are automatically built and tested using Travis continuous integration (\url{https://travis-ci.org/dynverse}) and can be ran using both Docker and Singularity. For each method, we wrote a wrapper script based on example scripts or tutorials provided by the authors (as mentioned in the respective wrapper scripts). This script reads in the input data, runs the method and outputs the files required to construct a trajectory. We also created a script to generate an example dataset, which is used for automated testing.
 
-We used the Github issues system to contact the authors of each method, and asked for feedback on the wrappers, the metadata and the usability scores. About one-third of the authors responded and we improved the wrappers based on their feedback. These discussions can be viewed on Github: \href{https://github.com/dynverse/dynmethods/issues?q=label:method_discussion}{https://github.com/dynverse/dynmethods/issues?q=label:method\_discussion}
+We used the Github issues system to contact the authors of each method, and asked for feedback on the wrappers, the metadata and the usability scores. About one-third of the authors responded and we improved the wrappers based on their feedback. These discussions can be viewed on Github: \url{https://github.com/dynverse/dynmethods/issues?q=label:method_discussion}
 
 \subsubsection{Method input}
 
@@ -351,7 +351,7 @@ Special conversions were necessary for certain methods:
 	\item \textbf{CALISTA}: We assigned the cells to the branch at which the sum of the cluster probabilities of two connected milestones was the highest. The cluster probabilities of the two selected milestones were then used as milestone percentages. This was then processed as a type 1, direct, method.
 	\item \textbf{DPT}: We projected the cells onto the cluster network, consisting of a central milestone (this cluster contained the cells that were assigned to the ‘unknown’ branch) and three terminal milestones, each corresponding to a tip point. This was then processed as a type 1, direct, method.
 	\item \textbf{Sincell}: To constrain the number of milestones this method creates, we merged two cell clusters iteratively until the percentage of leaf nodes was below a certain cutoff, with the default cutoff set to 25$\%$. This was then processed as a type 7, cell graph, method.
-	\item \textbf{SLICE}: As discussed in the vignette of SLICE (\href{https://research.cchmc.org/pbge/slice.html}{https://research.cchmc.org/pbge/slice.html}), we ran principal curves one by one for every edge detected by SLICE. This was then processed as a type 1, direct, method.
+	\item \textbf{SLICE}: As discussed in the vignette of SLICE (\url{https://research.cchmc.org/pbge/slice.html}), we ran principal curves one by one for every edge detected by SLICE. This was then processed as a type 1, direct, method.
 	\item \textbf{MFA}: We used the branch assignment as state probabilities, which together with the global pseudotime were processed as a type 4, end state probabilities, method.
 	\item \textbf{URD}: We extracted the pseudotime of a cell within each branch using the y positions in the tree layout. This was then further processed as a type 1, direct, method.
 	
@@ -359,7 +359,7 @@ Special conversions were necessary for certain methods:
 
 
 
-More information on how each method was wrapped can be found within the comments of each wrapper script, listed at \href{https://methods.dynverse.org}{https://methods.dynverse.org}.
+More information on how each method was wrapped can be found within the comments of each wrapper script, listed at \url{https://methods.dynverse.org}.
 
 \subsubsection{Off-the-shelf methods}
 
@@ -384,7 +384,7 @@ For simplicity, we merged the bifurcation and convergence trajectory type, and t
 
 \subsection{Real datasets}
 
-We gathered real datasets by searching for ‘single-cell’ at the Gene Expression Omnibus and selecting those datasets in which the cells are sampled from different stages in a dynamic process (Supplementary Table~\hyperref[tab:supptable_2]{3.2}). The scripts to download and process these datasets are available on our repository (\href{https://benchmark.dynverse.org/tree/master/scripts/01-datasets}{https://benchmark.dynverse.org/tree/master/scripts/01-datasets}). Whenever possible, we preferred to start from the raw counts data. These raw counts were all normalized and filtered using a common pipeline, as discussed later. Some original datasets contained more than one trajectory, in which case we split the dataset into its separate connected trajectory, but also generated several combinations of connected trajectories to include some datasets with disconnected trajectories in the evaluation. In the end, we included 110 datasets for this evaluation.
+We gathered real datasets by searching for ‘single-cell’ at the Gene Expression Omnibus and selecting those datasets in which the cells are sampled from different stages in a dynamic process (Supplementary Table~\hyperref[tab:supptable_2]{3.2}). The scripts to download and process these datasets are available on our repository (\url{https://benchmark.dynverse.org/tree/master/scripts/01-datasets}). Whenever possible, we preferred to start from the raw counts data. These raw counts were all normalized and filtered using a common pipeline, as discussed later. Some original datasets contained more than one trajectory, in which case we split the dataset into its separate connected trajectory, but also generated several combinations of connected trajectories to include some datasets with disconnected trajectories in the evaluation. In the end, we included 110 datasets for this evaluation.
 
 For each dataset, we extracted a reference trajectory, consisting of two parts: the cellular grouping (milestones) and the connections between these groups (milestone network). The cellular grouping was provided by the authors of the original study, and we classified it as a gold standard when it was created independently from the expression matrix (such as from cell sorting, the origin of the sample, the time it was sampled or cellular mixing) or as a silver standard otherwise (usually by clustering the expression values). To connect these cell groups, we used the original study to determine the network that the authors validated or otherwise found to be the most likely. In the end, each group of cells was placed on a milestone, having a percentage of 1 for that particular milestone. The known connections between these groups were used to construct the milestone network. If there was biological or experimental time data available, we used this as the length of the edge; otherwise we set all the lengths equal to one.
 
@@ -530,11 +530,11 @@ Each quality aspect received a weight depending on how frequently it was found i
 
 For each set of outcomes in the guidelines figure, we selected one to four methods, by first filtering the methods on those that can detect all required trajectory types, and ordering the methods according to their average accuracy score on datasets containing these trajectory types (aggregated according to the scheme presented in the section Accuracy).
 
-We used the same approach for selecting the best set of methods in the guidelines app (\href{http://guidelines.dynverse.org}{http://guidelines.dynverse.org}), developed using the R shiny package. This app will also filter the methods, among other things, depending on the predicted running time and memory requirements, the prior information available and the preferred execution environment (using the dynmethods package or standalone).
+We used the same approach for selecting the best set of methods in the guidelines app (\url{http://guidelines.dynverse.org}), developed using the R shiny package. This app will also filter the methods, among other things, depending on the predicted running time and memory requirements, the prior information available and the preferred execution environment (using the dynmethods package or standalone).
 
 \subsection{Reporting Summary}
 
-Further information on research design is available in the Nature Research Reporting Summary, available at \href{https://www.nature.com/articles/s41587-019-0071-9\#MOESM2}{https://www.nature.com/articles/s41587-019-0071-9\#MOESM2}.
+Further information on research design is available in the Nature Research Reporting Summary, available at \url{https://www.nature.com/articles/s41587-019-0071-9\#MOESM2}.
 
 
 \section{Supplementary Figures and Tables}
@@ -607,7 +607,7 @@ The \textit{edgeflip} score was defined as the minimal number of edges which sho
 	\item If no solution is found, check all possible solutions with two extra edge additions/removals.
 \end{itemize}
 
-The \textit{HIM} metric (Hamming-Ipsen-Mikhailov distance) \cite{jurman_himglocalmetric_2015} which was adopted from the R nettools package (\href{https://github.com/filosi/nettools}{https://github.com/filosi/nettools}). It uses an adjacency matrix which was weighted according to the lengths of each edges within the milestone network. Conceptually, \textit{HIM} is a linear combination of:
+The \textit{HIM} metric (Hamming-Ipsen-Mikhailov distance) \cite{jurman_himglocalmetric_2015} which was adopted from the R nettools package (\url{https://github.com/filosi/nettools}{https://github.com/filosi/nettools}). It uses an adjacency matrix which was weighted according to the lengths of each edges within the milestone network. Conceptually, \textit{HIM} is a linear combination of:
 
 \begin{itemize}
 	\item The normalised Hamming distance \cite{dougherty_validationgeneregulatory_2011}, which calculates the distance between two graphs by matching individual edges in the adjacency matrix, but disregards overall structural similarity.
@@ -724,7 +724,7 @@ Although most metrics described above already assess some aspects directly relev
 
 Perhaps the main advantage of studying cellular dynamic processes using single-cell -omics data is that the dynamics of gene expression can be studied for the whole transcriptome. This can be used to construct other models such as dynamic regulatory networks and gene expression modules. Such analyses rely on a "good-enough" cellular ordering, so that it can be used to identify dynamical differentially expressed genes.
 
-To calculate the $\textit{cor}_{\textit{features}}$ we used Random forest regression to rank all the features according to their importance in predicting the positions of cells in the trajectory. More specifically, we first calculated the geodesic distances for each cell to all milestones in the trajectory. Next, we trained a Random Forest regression model (implemented in the R \textit{ranger} package \cite{wright_rangerfastimplementation_2017}, \href{https://github.com/imbs-hl/ranger}{https://github.com/imbs-hl/ranger}) to predict these distances for each milestone, based on the expression of genes within each cell. We then extracted feature importances using the Mean Decrease in Impurity (importance = 'impurity' parameter of the ranger function), as illustrated in Figure \ref{fig:snote1fig_8}. The overall importance of a feature (gene) was then equal to the mean importance over all milestones. Finally, we compared the two rankings by calculating the Pearson correlation, with values between -1 and 0 clipped to 0.
+To calculate the $\textit{cor}_{\textit{features}}$ we used Random forest regression to rank all the features according to their importance in predicting the positions of cells in the trajectory. More specifically, we first calculated the geodesic distances for each cell to all milestones in the trajectory. Next, we trained a Random Forest regression model (implemented in the R \textit{ranger} package \cite{wright_rangerfastimplementation_2017}, \url{https://github.com/imbs-hl/ranger}) to predict these distances for each milestone, based on the expression of genes within each cell. We then extracted feature importances using the Mean Decrease in Impurity (importance = 'impurity' parameter of the ranger function), as illustrated in Figure \ref{fig:snote1fig_8}. The overall importance of a feature (gene) was then equal to the mean importance over all milestones. Finally, we compared the two rankings by calculating the Pearson correlation, with values between -1 and 0 clipped to 0.
 
 \begin{figure}[tbh!]
 	\centering\includegraphics[width=\linewidth]{fig/snote1fig_8.pdf}
@@ -773,7 +773,7 @@ Although most metrics described in the previous section make sense intuitively, 
 
 A good metric, especially a good overall metric, should work in all these circumstances. To test this, we designed a set of rules to which a good metric should conform, and assessed empirically whether a metric conforms to these rules.
 
-We generated a panel of toy datasets (using our \href{https://github.com/dynverse/dyntoy}{\textit{dyntoy}} package, \url{https://github.com/dynverse/dyntoy}) with all possible combinations of:
+We generated a panel of toy datasets (using our \textit{dyntoy} package, \url{https://github.com/dynverse/dyntoy}) with all possible combinations of:
 
 \begin{itemize}
 	\item \# cells: 10, 20, 50, 100, 200, 500
@@ -782,7 +782,7 @@ We generated a panel of toy datasets (using our \href{https://github.com/dynvers
 	\item Whether cells are placed on the milestones (as in real data) or on the edges/regions of delayed commitment between the milestones (as in synthetic data)
 \end{itemize}
 
-We then perturbed the trajectories in these datasets in certain ways, and tested whether the scores follow an expected pattern. An overview of the conformity of every metric is first given in Table \ref{tab:conformity_overview}. The individual rules and metric behaviour are discussed in the Supplementary Material that can be found at \href{https://www.nature.com/articles/s41587-019-0071-9\#Sec34}{https://www.nature.com/articles/s41587-019-0071-9\#Sec34}.
+We then perturbed the trajectories in these datasets in certain ways, and tested whether the scores follow an expected pattern. An overview of the conformity of every metric is first given in Table \ref{tab:conformity_overview}. The individual rules and metric behaviour are discussed in the Supplementary Material that can be found at \url{https://www.nature.com/articles/s41587-019-0071-9\#Sec34}.
 
 \begin{table}
 	\caption{Overview of whether a particular metric conforms to a particular rule} \label{tab:conformity_overview}
@@ -909,7 +909,7 @@ $$\textit{Overall} = \textit{mean}_{\textit{geometric}} = \sqrt[4]{\textit{cor}_
 	\label{fig:snote1fig_14}
 \end{figure}
 
-We do however want to stress that different use cases will require a different overall score to order the methods. Such a context-dependent ranking of all methods is provided through the dynguidelines app (\href{http://guidelines.dynverse.org}{http://guidelines.dynverse.org}).
+We do however want to stress that different use cases will require a different overall score to order the methods. Such a context-dependent ranking of all methods is provided through the dynguidelines app (\url{http://guidelines.dynverse.org}).
 
 
 
