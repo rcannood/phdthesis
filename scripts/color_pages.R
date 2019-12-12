@@ -1,6 +1,6 @@
 library(tidyverse)
 
-col <- system("gs -o - -sDEVICE=inkcov 'boek_v2.0_20191211.pdf'", intern = TRUE)
+col <- system("gs -o - -sDEVICE=inkcov 'boek_v2.1_20191211.pdf'", intern = TRUE)
 
 pagix <- grep("^Page [0-9]*$", col)
 colix <- grep("CMYK OK$", col)
@@ -17,7 +17,7 @@ coldf <- data.frame(
 
 colpag <- coldf %>% filter(C > 0 | M > 0 | Y > 0)
 pages <- colpag$page
-diff(pages)
+paste(pages, collapse = ",")
 
 
 length(pages)

@@ -1,22 +1,23 @@
 # Overall
 
-* Fixed typo's and grammatical errors.
+* Removed 'Paper x' prefix for all the chapters.
 
-* Reordered chapters.
+* Merged the content on Self-assessment in TI (formerly known as Chapter 8) into the introduction: "1.3 Benchmarking computational tools".
 
-* Added conferences, oral presentations, poster presentations and master student supervisions to backmatter.
+* Fixed many typo's and grammatical errors.
 
 # Chapter 1: introduction
 
 * Added overview figure to section 1.2 of the types of analyses and applications enabled by single-cell omics. For each of the types of analyses, the applications are discussed in more detailed in the respective sections.
 
-* Added overview diagram of which chapters fit in which of the main research areas in the thesis. Rewrote the Research objectives accordingly.
+* Rewrote research questions and objectives in terms of the three main topics in the thesis: Benchmarking, Trajectory Inference, and Network inference. Added overview diagram of which chapters fit in which group.
 
-* Merged segments of the self-assessment chapter and several paragraphs of the research context into one big section "Benchmarking computational tools".
 
 # Chapter 2: dyngen
 
-* Added Louise Deconinck to the list of contributors.
+* Added more results to this chapter; added detailed use-cases on how to use dyngen to benchmark RNA velocity (written by Wouter Saelens) and Casewise NI methods (written by me). Quantitative evaluation for either of these types of methods is completely novel. A section on using dyngen to benchmark trajectory alignment tools is ongoing but not included in the thesis.
+
+* Expanded the captions of several figures.
 
 * Reworked methods section on module networks and backbones.
 
@@ -24,10 +25,24 @@
 
 * Added use cases for dyngen. Wouter Saelens developed the use case for RNA velocity.
 
+* Added several sections explaining the formulae in table 2.1.
+
+* Added section on code availability.
+
 # Chapter 3: dynbenchmark
 
 * Removed duplicate section on dyngen's methdology.
 
+* Fixed several layout issues.
+
+* Added standalone captions for supplementary files that were not included in the chapter (see section 3.5)
+
 # Chapter 9: discussion
 
-* In essence, I removed the previous discussion chapter wrote a new one on the impact of this work and the outlook of computational tooks in single-cell biology.
+* Completely rewrote this section. Instead of being a summary of the thesis, the discussion now discusses the impact of the work presented and ongoing developments in computational methods for single-cell omics.
+
+# Backmatter
+
+* Expanded curriculum vitae by listing conferences, oral presentations, poster presentations and master student supervisions.
+
+* Added acknowledgement section.

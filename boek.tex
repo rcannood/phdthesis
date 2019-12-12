@@ -5,24 +5,24 @@
 %%% IMPORT PACKAGES %%%
 %%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage[paperheight=24cm,paperwidth=17cm,margin=1.5cm,inner=2cm,outer=1.5cm]{geometry}
-\usepackage[
-	% set width and height to a4 width and height + 6mm
-	%width=16truecm, height=24truecm,
-	a4,
-	% use any combination of these options to add different cut markings
-	cam, 
-%	axes, 
-%	frame, 
-%	cross,
-	noinfo,
-	% set the type of TeX renderer you use
-	pdftex,
-	% center the contents
-	center
-]{crop}
-
 %\usepackage[paperheight=24cm,paperwidth=17cm,margin=1.5cm,inner=2cm,outer=1.5cm]{geometry}
+%\usepackage[
+%	% set width and height to a4 width and height + 6mm
+%	%width=16truecm, height=24truecm,
+%	a4,
+%	% use any combination of these options to add different cut markings
+%	cam, 
+%%	axes, 
+%%	frame, 
+%%	cross,
+%	noinfo,
+%	% set the type of TeX renderer you use
+%	pdftex,
+%	% center the contents
+%	center
+%]{crop}
+
+\usepackage[paperheight=24cm,paperwidth=17cm,margin=1.5cm,inner=2cm,outer=1.5cm]{geometry}
 % adjust margins (should be done before importing fancyhdr!) %lmargin=2.5cm,rmargin=4cm,tmargin=3cm,bmargin=3cm
 
 % text packages
@@ -233,11 +233,11 @@
 
 \usepackage{makecell}
 \newcommand{\doackl}{%
-	\textcolor{med-gray}{\footnotesize\makecell[l]{\hspace*{-1.06em}\partialinput{\theacki}{\theacki}{ack}}}%
+	\textcolor{med-gray}{\footnotesize\makecell[l]{\hspace*{-1.06em}\partialinput{\theacki}{\theacki}{chX_acknowledgements}}}%
 	\stepcounter{acki}%
 }
 \newcommand{\doackr}{%
-\textcolor{med-gray}{\footnotesize\makecell[r]{\partialinput{\theacki}{\theacki}{ack}}}%
+\textcolor{med-gray}{\footnotesize\makecell[r]{\partialinput{\theacki}{\theacki}{chX_acknowledgements}}}%
 \stepcounter{acki}%
 }
 
@@ -447,7 +447,13 @@ BoldItalicFont = *-700-Italic
 \newpage
 \graphicspath{{./ch2_dyngen/}}
 \include{ch2_dyngen/content}
+
+\clearpage
+\section{References}
+\printbibliography[heading=none]
 \fi
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%     CH3: DYNBENCHMARK     %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -628,7 +634,7 @@ BoldItalicFont = *-700-Italic
 %%%       CH8: INCGRAPH       %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage{\thispagestyle{empty}\cleardoublepage}
-\chapter{incgraph: Optimising regulatory\\networks} 
+\chapter{incgraph: Optimising regulatory networks} 
 \chaptermark{incgraph: Optimising regulatory networks.} % short title
 \label{chap:incgraph}
 
