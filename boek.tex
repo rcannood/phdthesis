@@ -56,6 +56,7 @@
 \usepackage{tcolorbox}
 \usepackage[export]{adjustbox} % for top alignment
 \usepackage{afterpage} % for figure placement
+\usepackage[final]{pdfpages}
 
 % pseudocode packages
 \usepackage{algorithm}
@@ -106,9 +107,23 @@
 \usepackage{siunitx}
 \usepackage[version=3]{mhchem}
 
+\makeatletter
+\newcommand*{\cleartoleftpage}{%
+	\clearpage
+	\if@twoside
+	\ifodd\c@page
+	\hbox{}\newpage
+	\if@twocolumn
+	\hbox{}\newpage
+	\fi
+	\fi
+	\fi
+}
+\makeatother
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%&%%%
-%%%      RMD packages      %%%
+%%%      RMD documents     %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % use upquote for straight quotes in verbatim environments
 \usepackage{upquote}
@@ -191,6 +206,11 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% ACKNOWLEDGEMENT CODE %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % magic for reading parts of a file
 \makeatletter
 \newread\pin@file
@@ -227,7 +247,6 @@
 }
 \makeatother
 
-%\#\theacki\ | % LINENUMBER DEBUG
 \newcounter{acki}
 \setcounter{acki}{1}
 
@@ -241,13 +260,6 @@
 \stepcounter{acki}%
 }
 
-
-%\newcommand{\doack}[1]{%
-%	\footnotesize\makecell[#1]{\partialinput{\theacki}{\theacki}{ack}}%
-%	\stepcounter{acki}%
-%}
-
-\newcommand{\newperson}{\rule{10cm}{0.4pt}}
 
 
 %%%%%%%%%%%%%%%%%%%%%
@@ -336,7 +348,6 @@
 %%%%%%%%%%%%%%%%%%%%%
 %%% DEFINE STYLES %%%
 %%%%%%%%%%%%%%%%%%%%%
-
 \usepackage{titlesec}
 \newcommand{\hsp}{\hspace{20pt}}	
 \titleformat{\chapter}[hang]{\LARGE\bfseries}{\thechapter\hsp\textcolor{light-gray}{|}\hsp}{0pt}{\LARGE\bfseries}
@@ -371,15 +382,23 @@ BoldItalicFont = *-700-Italic
 \renewcommand{\appendixname}{}
 \renewcommand{\baselinestretch}{1.25}
 
-% command for adding comments
-\newcommand{\mycomment}[1]{\noindent\fbox{\parbox{\textwidth}{\color{red}#1}}}
+%%%%%%%%%%%%
+% SETTINGS %
+%%%%%%%%%%%%
 
 % if switching for quick renders
 \newif\ifrenderall
-
 \renderalltrue
 
+\newif\ifrenderweb
+\renderwebtrue
+
 \begin{document}
+\ifrenderweb
+	\includepdf{cover/cover_web_front.pdf}
+	\newpage{\thispagestyle{empty}\cleardoublepage}
+\fi
+
 \pagenumbering{alph}
 \pagestyle{frontmatter}
 \frontmatter
@@ -728,5 +747,10 @@ BoldItalicFont = *-700-Italic
 %%%        BACKMATTER         %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \include{chX_backmatter}
+
+\ifrenderweb
+\newpage{\thispagestyle{empty}\cleartoleftpage}
+\includepdf{cover/cover_web_back.pdf}
+\fi
 
 \end{document}
