@@ -19,4 +19,5 @@ inspiration
 .Rhistory
 boek.synctex(busy)
 boek_v*.pdf
+boek_v*.ps
 .httr-oauth
