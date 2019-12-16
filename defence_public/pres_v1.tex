@@ -1,7 +1,6 @@
 %!TEX TS-program = lualatex
 %!TEX encoding = UTF-8 Unicode
 
-%\documentclass[handout]{beamer}
 \documentclass{beamer}
 
 \usepackage{xcolor}
@@ -12,26 +11,10 @@
 
 \useinnertheme{circles}
 
-%\usefonttheme{serif}
-%\usepackage{fontspec}
-%\setmainfont [Path = ../fonts/,
-%	UprightFont = *-300,
-%	ItalicFont = *-300-Italic,
-%	BoldFont = *-700,
-%	BoldItalicFont = *-700-Italic
-%]{MuseoSans}
+\usepackage{pdfrender} % for borders
 
 \mode<presentation>{
   \setbeamertemplate{navigation symbols}{}
-	\usepackage{lmodern}
-	\setbeamercolor{title}{fg=myblue}
-	\setbeamercolor{frametitle}{fg=black}
-}
-
-\mode<handout>{%
-	\usepackage{pgfpages}
-	\pgfpagesuselayout{2 on 1}[a4paper] 
-	\setbeameroption{show notes}
 	\usepackage{lmodern}
 	\setbeamercolor{title}{fg=myblue}
 	\setbeamercolor{frametitle}{fg=black}
@@ -45,7 +28,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 
-\usepackage[duration=40,starttime=16:10,lastminutes=5]{pdfpcnotes}
+\usepackage{pdfpcnotes}
 	
 \title{Modelling single-cell dynamics with trajectories and gene regulatory networks}
 
@@ -67,7 +50,7 @@
 }
 
 \begin{frame}
-	\frametitle{Cellen zijn dynamisch}
+%	\frametitle{Cellen zijn dynamisch}
 	\begin{center}
 		\only<1>{\includegraphics[width=.5\linewidth]{figures/1_cell/cell_1}}%
 		\only<2>{\includegraphics[width=.5\linewidth]{figures/1_cell/cell_2}}%
@@ -94,7 +77,6 @@
 	\begin{center}
 		\only<1>{\includegraphics[width=.6\linewidth]{figures/3_celtypes/celtypes.jpg}}%
 	\end{center}
-%	\uncover<1>{(placeholder figuur)}
 \end{frame}
 
 \begin{frame}
@@ -105,15 +87,22 @@
 
 \end{frame}
 
+
+\begin{frame}
+	\frametitle{Veel voorkomende vraag in celbiologie}
+	\begin{center}
+		\only<1>{\includegraphics[width=.9\linewidth]{figures/4_singlecellomics/vragen_1.pdf}}%
+		\only<2>{\includegraphics[width=.9\linewidth]{figures/4_singlecellomics/vragen_2.pdf}}%
+		\only<3>{\includegraphics[width=.9\linewidth]{figures/4_singlecellomics/vragen_3.pdf}}%
+	\end{center}
+\end{frame}
+
 \begin{frame}
 	\frametitle{Welke types cellen komen voor in een populatie?}
 	\begin{center}
 		\only<1>{\includegraphics[width=.9\linewidth]{figures/4_singlecellomics/scomics_1.pdf}}%
 		\only<2>{\includegraphics[width=.9\linewidth]{figures/4_singlecellomics/scomics_2.pdf}}%
-		\only<3>{\includegraphics[width=.9\linewidth]{figures/4_singlecellomics/scomics_3.pdf}}%
-		\only<4>{\includegraphics[width=.9\linewidth]{figures/4_singlecellomics/scomics_4.pdf}}%
 	\end{center}
-
 \end{frame}
 	
 
@@ -122,6 +111,9 @@
 	\begin{center}
 		\only<1>{\includegraphics[width=\linewidth]{figures/4_singlecellomics/scaling.pdf}}%
 	\end{center}
+	\begin{flushright}
+		{\footnotesize Treutlein et al. 2018}
+	\end{flushright}
 \end{frame}
 	
 \begin{frame}
@@ -145,10 +137,19 @@
 
 
 \begin{frame}
-	\frametitle{Overzicht van wetenschappelijke contributies in thesis}
+	\frametitle{Opbouw van de thesis}
 	\begin{center}
 		\only<1>{\includegraphics[width=.8\linewidth]{figures/overview_1.pdf}}%
 		\only<2>{\includegraphics[width=.8\linewidth]{figures/overview_2.pdf}}%
+	\end{center}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Yvan in 2015:\\\uncover<2->{"hé Robrecht, kan je deze cellen even ordenen?"}}
+	\begin{center}
+		\only<1>{\includegraphics[width=.8\linewidth]{figures/5_scorpius/vraag_1.pdf}}%
+		\only<2>{\includegraphics[width=.8\linewidth]{figures/5_scorpius/vraag_2.pdf}}%
 	\end{center}
 \end{frame}
 
@@ -167,18 +168,18 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Niet alle datasets zijn even gemakkelijk}
+	\frametitle{Niet alle datasets zijn even gemakkelijk\\\uncover<2->{$\rightarrow$ Trajectory inference methoden}}
 	\begin{center}
 		\only<1>{\includegraphics[width=\linewidth]{figures/6_multifurcation/plots_1.pdf}}%
 		\only<2-3>{\includegraphics[width=\linewidth]{figures/6_multifurcation/plots_2.pdf}}%
 		\only<4->{\includegraphics[width=\linewidth]{figures/6_multifurcation/plots_3.pdf}}%
 	\end{center}
-  \uncover<3->{Trajectory inference; >70 methoden}\\
+  \uncover<3->{Zeer pupulair: >70 methoden}\\
   \uncover<5->{Nood aan een vergelijking van methoden}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Simulatie van virtuele cellen}
+	\frametitle{dyngen: Simulatie van virtuele cellen}
 	\begin{center}
 		\movie{\includegraphics[width=.6\linewidth]{figures/7_dyngen/insilico_init.png}}{figures/7_dyngen/insilico.avi}
 	\end{center}
@@ -201,6 +202,15 @@
 		\only<5->{\includegraphics[width=.9\linewidth]{figures/8_benchmark/benchmark_5.pdf}}%
 	\end{center}
 	\uncover<6->{}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Uitdagingen}
+	\begin{itemize}
+		\item<2-> 45 verschillende tools op meerdere computers (Docker)
+		\item<3-> $\pm$ 100 echte datasets, $\pm$ 100 gesimuleerde datasets
+		\item<4-> Nog geen metrieken
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -235,24 +245,69 @@
 	\end{flushright}
 \end{frame}
 
+\begin{frame}
+	\frametitle{Relevantie van dit werk}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\includegraphics[width=\linewidth]{figures/overview_2.pdf}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\uncover<2->{
+				Evaluatie:
+				\begin{itemize}
+					\item Wordt gebruikt in onderzoek en industrie 
+					\item Vaak vermeld in artikels en presentaties
+				\end{itemize}
+			}
+			\uncover<3->{
+				Simulator: 
+				\begin{itemize}
+					\item Evaluatie van andere soorten analyses in single-cell data
+				\end{itemize}
+			}	
+			\uncover<4->{
+				SCORPIUS:
+				\begin{itemize}
+					\item Wordt gebruikt om veranderingen in cellen te onderzoeken en visualiseren
+				\end{itemize}
+			}
+		\end{column}
+	\end{columns}
+\end{frame}
 
 \begin{frame}
-	\frametitle{Wat brengt de toekomst in celbiologie?}
-	\begin{center}
-		\only<1>{\includegraphics[width=.6\linewidth]{figures/9_future/applications.pdf}}%
-	\end{center}
-	\begin{flushright}
-		{\footnotesize Regev et al. 2018}
-	\end{flushright}
+	\frametitle{Wat brengt de toekomst?}
+		\begin{columns}
+		\begin{column}{0.3\textwidth}
+			\includegraphics[width=\linewidth]{figures/9_future/hca.png}
+		\end{column}
+		\begin{column}{0.7\textwidth}
+			Human cell atlas
+			\begin{itemize}
+				\item<2-> 50 biljoen cellen in het lichaam, maar hoeveel verschillende soorten cellen?
+				\item<3-> Doelstelling: Maak een Google Maps van cel(types)
+				\item<4-> Begrijpen van ziektes en ontwikkelen van nieuwe medicijnen
+			\end{itemize}
+		\end{column}
+	\end{columns}
+
 \end{frame}
-%\begin{frame}
-%	\frametitle{Toekomstvisie}
-%	\begin{itemize}
-%		\item Werk Helena rond GNG (toon filmpje)
-%		\item Trajectory alignment
-%		\item Combinatie met spatial omics
-%		\item Human Cell Atlas (vergelijk met de human genome project)
-%	\end{itemize}
-%\end{frame}
+
+{
+	\usebackgroundtemplate{\includegraphics[width=\paperwidth]{../cover/vertical4_small.jpg}}
+	\begin{frame}
+%		\bfseries \color{white}
+%		\begin{center}
+%			\textpdfrender{
+%				TextRenderingMode=FillStrokeClip,
+%				LineWidth=.2pt,
+%				FillColor=white,
+%				StrokeColor=black,
+%				MiterLimit=1
+%			}{Bedankt voor jullie aandacht}
+%		\end{center}
+	\end{frame}
+}
+
 
 \end{document}

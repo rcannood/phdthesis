@@ -16,9 +16,29 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.92.4 (unknown)"
-   sodipodi:docname="1_singlecellbiology.svg">
+   sodipodi:docname="cell.svg">
   <defs
      id="defs4">
+    <linearGradient
+       id="linearGradient845"
+       inkscape:collect="always">
+      <stop
+         id="stop837"
+         offset="0"
+         style="stop-color:#d3d5e6;stop-opacity:1" />
+      <stop
+         style="stop-color:#cccee1;stop-opacity:0.82618511"
+         offset="0.1695863"
+         id="stop839" />
+      <stop
+         style="stop-color:#787db0;stop-opacity:0.89164788"
+         offset="0.8479315"
+         id="stop841" />
+      <stop
+         id="stop843"
+         offset="1"
+         style="stop-color:#ae5bf9;stop-opacity:0.98419863" />
+    </linearGradient>
     <linearGradient
        inkscape:collect="always"
        id="linearGradient956">
@@ -60,7 +80,7 @@
        gradientUnits="userSpaceOnUse" />
     <radialGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient956"
+       xlink:href="#linearGradient845"
        id="radialGradient987"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(1,0,0,1.2616822,-264.52424,-975.85417)"
@@ -71,7 +91,7 @@
        r="6.3331828" />
     <radialGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient956"
+       xlink:href="#linearGradient845"
        id="radialGradient991"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(1,0,0,1.2616822,-269.0414,-987.43392)"
@@ -82,7 +102,7 @@
        r="6.3331828" />
     <radialGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient956"
+       xlink:href="#linearGradient845"
        id="radialGradient995"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(1,0,0,1.2616822,-274.84109,-976.49042)"
@@ -93,7 +113,7 @@
        r="6.3331828" />
     <radialGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient956"
+       xlink:href="#linearGradient845"
        id="radialGradient991-0"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(1.0000001,0,0,1.2616823,-257.05351,-986.82727)"
@@ -104,7 +124,7 @@
        r="6.3331828" />
     <radialGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient956"
+       xlink:href="#linearGradient845"
        id="radialGradient991-8"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(1.0000001,0,0,1.2616823,-255.37572,-974.3178)"
@@ -121,9 +141,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6568543"
-     inkscape:cx="165.19358"
-     inkscape:cy="109.61646"
+     inkscape:zoom="8.0000001"
+     inkscape:cx="57.554647"
+     inkscape:cy="88.688494"
      inkscape:document-units="px"
      inkscape:current-layer="layer3"
      showgrid="false"
@@ -167,9 +187,9 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Part 2"
-     style="display:none">
+     style="display:inline">
     <path
-       style="opacity:1;vector-effect:none;fill:#787db0;fill-opacity:0;stroke:#ddc32c;stroke-width:4.6875;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.95485331;paint-order:markers stroke fill"
+       style="opacity:1;vector-effect:none;fill:none;fill-opacity:0;stroke:#302cdd;stroke-width:4.6875;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.95485331;paint-order:markers stroke fill"
        d="m 140.29776,19.001107 -9.85799,15.395591 -4.72175,-9.121615 -10.41559,16.266432"
        id="path967"
        inkscape:connector-curvature="0" />
@@ -178,7 +198,7 @@
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="Part 3"
-     style="display:none">
+     style="display:inline">
     <ellipse
        style="opacity:1;vector-effect:none;fill:url(#radialGradient987);fill-opacity:1;stroke:none;stroke-width:1.77165365;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
        id="path940"

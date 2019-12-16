@@ -13,8 +13,8 @@
    version="1.1"
    id="svg2"
    width="1361.551"
-   height="1102.0507"
-   viewBox="0 0 1361.551 1102.0508"
+   height="876.76086"
+   viewBox="0 0 1361.551 876.76098"
    sodipodi:docname="scomics.svg"
    inkscape:version="0.92.4 (unknown)">
   <metadata
@@ -25,7 +25,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -574,9 +574,9 @@
      inkscape:window-height="2032"
      id="namedview4"
      showgrid="false"
-     inkscape:zoom="1.4959434"
-     inkscape:cx="539.10282"
-     inkscape:cy="480.72116"
+     inkscape:zoom="0.7479717"
+     inkscape:cx="904.96666"
+     inkscape:cy="-10.813816"
      inkscape:window-x="0"
      inkscape:window-y="54"
      inkscape:window-maximized="1"
@@ -2204,7 +2204,7 @@
      inkscape:groupmode="layer"
      id="layer7"
      inkscape:label="Layer 7"
-     style="display:inline"
+     style="display:none"
      transform="translate(0,70.727782)">
     <text
        id="text1372-3-3-8"
@@ -2240,56 +2240,5 @@
        width="271.31992"
        id="rect1349"
        style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#f21e1e;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:5.00000013, 10.00000023;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
-  </g>
-  <g
-     inkscape:groupmode="layer"
-     id="layer2"
-     inkscape:label="Layer 2"
-     style="display:inline"
-     transform="translate(1.8310547e-6,185.76455)">
-    <text
-       id="text1372-3-3"
-       y="-157.04456"
-       x="13.23981"
-       style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Museo Sans';-inkscape-font-specification:'Museo Sans Light';text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;display:inline;fill:#000000;fill-opacity:1;stroke:none"
-       xml:space="preserve"><tspan
-         y="-157.04456"
-         x="13.23981"
-         id="tspan1370-4-6"
-         sodipodi:role="line">Wat voor een cel is dit?</tspan><tspan
-         y="-107.04456"
-         x="13.23981"
-         sodipodi:role="line"
-         id="tspan1448">Wat is zijn functie?</tspan></text>
-  </g>
-  <g
-     inkscape:groupmode="layer"
-     id="layer3"
-     inkscape:label="Layer 3"
-     transform="translate(0,70.727782)"
-     style="display:inline">
-    <text
-       transform="translate(1.8310547e-6,115.03677)"
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Museo Sans';-inkscape-font-specification:'Museo Sans Light';text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;display:inline;fill:#000000;fill-opacity:1;stroke:none"
-       x="13.23981"
-       y="757.88605"
-       id="text1454"><tspan
-         id="tspan1452"
-         sodipodi:role="line"
-         x="13.23981"
-         y="757.88605">Welk type restaurant is dit?</tspan><tspan
-         sodipodi:role="line"
-         x="13.23981"
-         y="807.88605"
-         id="tspan1460"> • Mexikaans, chinees, italiaans, ...</tspan><tspan
-         sodipodi:role="line"
-         x="13.23981"
-         y="857.88605"
-         id="tspan1462"> • À la carte, all you can eat, drivethrough</tspan><tspan
-         sodipodi:role="line"
-         x="13.23981"
-         y="907.88605"
-         id="tspan1464"> • Hoeveel sterren op yelp?</tspan></text>
   </g>
 </svg>
