@@ -395,9 +395,9 @@
   <g
      inkscape:groupmode="layer"
      id="layer2"
-     inkscape:label="Layer 2">
+     inkscape:label="Layer 2"
+     style="display:inline">
     <g
-       style=""
        id="g19677"
        transform="translate(220.34936,-21.518764)">
       <circle
@@ -432,7 +432,6 @@
          style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:#3f91c5;stroke-width:7.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
     </g>
     <g
-       style=""
        transform="rotate(-24.620106,199.75718,-164.41026)"
        id="g19697">
       <path
@@ -493,7 +492,6 @@
          id="tspan19699"
          sodipodi:role="line">Accuraatheid</tspan></text>
     <g
-       style=""
        id="g19721"
        transform="rotate(9.3910058,269.46494,893.35435)">
       <path
@@ -543,7 +541,6 @@
       </g>
     </g>
     <g
-       style=""
        id="g19741"
        transform="rotate(-146.12637,235.535,104.19575)">
       <path
@@ -593,7 +590,6 @@
       </g>
     </g>
     <g
-       style=""
        transform="rotate(-133.21351,234.39321,87.63012)"
        id="g19761">
       <path
@@ -845,7 +841,7 @@
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="Layer 4"
-     style="display:none">
+     style="display:inline">
     <g
        id="g19849"
        transform="translate(519.87963,-21.518762)">
@@ -2464,7 +2460,7 @@
      inkscape:groupmode="layer"
      id="layer5"
      inkscape:label="Layer 5"
-     style="display:none">
+     style="display:inline">
     <g
        id="g20570"
        transform="translate(10.869597,109.10957)">
