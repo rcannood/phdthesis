@@ -61,7 +61,7 @@ drdf <-
 g <-
   ggplot(drdf %>% filter(sim_time >= 0)) +
   geom_path(aes(comp_1, comp_2, group = simulation_i), function(df) df %>% select(-sim_time), colour = "darkgray") +
-  geom_point(aes(comp_1, comp_2), colour = "red") +
+  geom_point(aes(comp_1, comp_2), colour = "red", size = 4) +
   gganimate::transition_time(sim_time) +
   theme_classic() +
   labs(x = "Component 1", y = "Component 2") +
